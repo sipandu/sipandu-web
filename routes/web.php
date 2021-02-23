@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    return view('pages/Dashboard');
+    return view('pages/admin/Dashboard');
 })->name("Admin Home");
