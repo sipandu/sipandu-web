@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('pages/admin/Dashboard');
 })->name("Admin Home");
+
+Route::get('/admin/login', function () {
+    return view('pages/auth/LoginAdmin');
+})->name("Admin Login");
