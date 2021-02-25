@@ -30,19 +30,19 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         {{-- Navbar Start --}}
-            @include('layouts/admin/NavbarLayout')
+            @include('layouts/admin/navbar-layout')
         {{-- Navbar End --}}
 
         {{-- Sidebar Container Start --}}
-            @include('layouts/admin/SidebarLayout')
+            @include('layouts/admin/sidebar-layout')
         {{-- Sidebar Container End --}}
 
         {{-- Content Start --}}
-            @include('layouts/admin/ContentLayout')
+            @include('layouts/admin/content-layout')
         {{-- Content End --}}
         
         {{-- Footer Start --}}
-            @include('layouts/admin/FooterLayout')
+            @include('layouts/admin/footer-layout')
         {{-- Footer End --}}
     </div>
 

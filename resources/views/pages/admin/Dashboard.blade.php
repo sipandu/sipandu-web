@@ -1,4 +1,4 @@
-@extends('layouts/admin/AdminLayout')
+@extends('layouts/admin/admin-layout')
 
 @section('sidebar')
     <li class="nav-item">
