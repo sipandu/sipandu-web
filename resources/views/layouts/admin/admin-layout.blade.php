@@ -65,6 +65,8 @@
     <script src="{{url('admin-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
 
+    @stack('js')
+
     {{-- <!-- AdminLTE for demo purposes -->
     <script src="{{url('admin-template/dist/js/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
