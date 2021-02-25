@@ -24,3 +24,7 @@ Route::get('/admin', function () {
 Route::get('/admin/login', function () {
     return view('pages/auth/LoginAdmin');
 })->name("Admin Login");
+
+Route::get('/register', function () {
+    return view('pages/auth/register-anak');
+})->name("Register Anak");
