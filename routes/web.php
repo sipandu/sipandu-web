@@ -24,3 +24,8 @@ Route::get('/admin', function () {
 Route::get('/admin/login', function () {
     return view('pages/auth/LoginAdmin');
 })->name("Admin Login");
+
+//Informasi
+Route::get('/admin/informasi/informasi-penting/home', function(){
+    return view('pages.admin.informasi.informasi-penting');
+})->name('informasi-penting.home');

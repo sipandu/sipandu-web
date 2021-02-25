@@ -196,7 +196,7 @@
             </a>
             <ul class="nav nav-treeview ms-3">
                 <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
+                    <a href="{{ url('/admin/informasi/informasi-penting/home') }}" class="nav-link">
                         <i class="fas fa-exclamation nav-icon"></i>
                         <p>Informasi Penting</p>
                     </a>
