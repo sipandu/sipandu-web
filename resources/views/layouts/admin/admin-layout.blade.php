@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
     <title>SIPANDU | Admin | @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
