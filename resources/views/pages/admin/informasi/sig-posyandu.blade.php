@@ -413,8 +413,9 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#sig-posyandu').addClass('active');
             $('#list-informasi').addClass('menu-open');
+            $('#admin-informasi').addClass('active');
+            $('#sig-posyandu').addClass('active');
         });
     </script>
 @endpush

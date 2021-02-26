@@ -199,7 +199,7 @@
                 </li>
                 <li class="nav nav-treeview">
                     <li class="nav-item" id="list-informasi">
-                        <a href="#" class="nav-link">
+                        <a href="#" id="admin-informasi" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 Informasi
