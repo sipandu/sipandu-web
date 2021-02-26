@@ -168,7 +168,6 @@
                 <li class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            {{-- <i class="fas fa-prescription-bottle-alt"></i> --}}
                             <i class="nav-icon fas fa-prescription-bottle-alt"></i>
                             <p>
                                 Vitamin
@@ -208,7 +207,7 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route("informasi-penting.home") }}" id="informasi-penting" class="nav-link">
                                     <i class="fas fa-exclamation nav-icon"></i>
                                     <p>Informasi Penting</p>
                                 </a>
