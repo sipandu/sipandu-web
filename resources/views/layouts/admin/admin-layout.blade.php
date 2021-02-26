@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>SIPANDU | Admin</title>
+    <title>SIPANDU | Admin | @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{url('admin-template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <link rel="stylesheet" href="{{url('admin-template/plugins/daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{url('admin-template/plugins/summernote/summernote-bs4.min.css')}}">
+    @stack('css')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -40,7 +41,7 @@
         {{-- Content Start --}}
             @include('layouts/admin/content-layout')
         {{-- Content End --}}
-        
+
         {{-- Footer Start --}}
             @include('layouts/admin/footer-layout')
         {{-- Footer End --}}
