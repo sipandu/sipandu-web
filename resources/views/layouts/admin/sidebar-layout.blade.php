@@ -198,7 +198,7 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
+                    <li class="nav-item" id="list-informasi">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
@@ -226,7 +226,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route("sig-posyandu.home")}}" id="sig-posyandu" class="nav-link">
                                     <i class="fas fa-map-marked-alt nav-icon"></i>
                                     <p>Persebaran Posyandu</p>
                                 </a>

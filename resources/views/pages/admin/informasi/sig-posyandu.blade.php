@@ -1,4 +1,4 @@
-@extends('layouts/admin/AdminLayout')
+@extends('layouts/admin/admin-layout')
 @section('title', 'Informasi Persebaran Posyandu')
 @push('css')
     <style>
@@ -409,5 +409,12 @@
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
         }).addTo(mymap);
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#sig-posyandu').addClass('active');
+            $('#list-informasi').addClass('menu-open');
+        });
     </script>
 @endpush
