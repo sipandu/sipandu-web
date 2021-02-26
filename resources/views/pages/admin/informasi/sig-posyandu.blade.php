@@ -12,291 +12,6 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 @endpush
-@section('sidebar')
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user-alt"></i>
-            <p>
-                1805551041
-                <i class="fas fa-angle-left right"></i>
-            </p>
-        </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-id-badge"></i>
-                    <p>My Profile</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Add Account
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item">
-                        <a href="pages/examples/lockscreen.html" class="nav-link">
-                            <i class="fas fa-user-shield nav-icon"></i>
-                            <p>Add Admin</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                            <i class="fas fa-user-tag nav-icon"></i>
-                            <p>Add Kader</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                            <i class="fas fa-user nav-icon"></i>
-                            <p>Add User</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-sign-out-alt"></i>
-                    <p>Logout</p>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <div class="dropdown-divider"></div>
-    <li class="nav-item menu-open">
-        <a href="{{ route("Admin Home") }}" class="nav-link active">
-            <i class="nav-icon fas fa-house-user"></i>
-            <p>Dashboard</p>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-clinic-medical"></i>
-            <p>Tambah Posyandu</p>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-layer-group"></i>
-            <p>Data Posyandu</p>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Kader Posyandu</p>
-        </a>
-    </li>
-    <li class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-clipboard-list"></i>
-                <p>
-                    Kesehatan Keluarga
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview ms-3">
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-female nav-icon"></i>
-                        <p>Pemeriksaan Ibu Hamil</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-baby nav-icon"></i>
-                        <p>Pemeriksaan Bayi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-child nav-icon"></i>
-                        <p>Pemeriksaan Balita</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-wheelchair nav-icon"></i>
-                        <p>Pemeriksaan Lansia</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-file-medical-alt nav-icon"></i>
-                        <p>Data Kesehatan</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </li>
-    <li class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-syringe"></i>
-                <p>
-                    Imunisasi
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview ms-3">
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-crutch nav-icon"></i>
-                        <p>Pemberian Imunisasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        {{-- <i class="fal fa-crutches"></i> --}}
-                        <i class="fas fa-vials nav-icon"></i>
-                        <p>Jenis Imunisasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-file-medical nav-icon"></i>
-                        <p>Data Imunisasi</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </li>
-    <li class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                {{-- <i class="fas fa-prescription-bottle-alt"></i> --}}
-                <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                <p>
-                    Vitamin
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview ms-3">
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-capsules nav-icon"></i>
-                        <p>Pemberian Vitamin</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-pills nav-icon"></i>
-                        <p>Jenis Vitamin</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-file-medical nav-icon"></i>
-                        <p>Data Vitamin</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </li>
-    <li class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-info"></i>
-                <p>
-                    Informasi
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview ms-3">
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-exclamation nav-icon"></i>
-                        <p>Informasi Penting</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-bullhorn nav-icon"></i>
-                        <p>Pengumuman</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-chalkboard-teacher nav-icon"></i>
-                        <p>Penyuluhan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/informasi/persebaran-posyandu/home') }}" class="nav-link">
-                        <i class="fas fa-map-marked-alt nav-icon"></i>
-                        <p>Persebaran Posyandu</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link">
-            <i class="nav-icon fas fa-hospital-alt"></i>
-            <p>Tambah Kegiatan</p>
-        </a>
-    </li>
-    <div class="dropdown-divider"></div>
-    <li class="nav-item">
-        <a href="" class="nav-link">
-            <i class="nav-icon fas fa-history"></i>
-            <p>Riwayat Kegiatan</p>
-        </a>
-    </li>
-    {{-- <li class="nav-item">
-        <a href="" class="nav-link">
-            <i class="nav-icon fas fa-file-alt"></i>
-            <p>Report</p>
-        </a>
-    </li> --}}
-    <li class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-file-alt"></i>
-                <p>
-                    Laporan
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview ms-3">
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Laporan Kegiatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="fas fa-clipboard-check nav-icon"></i>
-                        <p>Laporan Bulanan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="fas fa-clipboard-check nav-icon"></i>
-                        <p>Laporan Tahunan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="far fa-chart-bar nav-icon"></i>
-                        <p>Grafik Kesehatan</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </li>
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-info-circle"></i>
-            <p>Tentang</p>
-        </a>
-    </li>
-@endsection
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -311,41 +26,35 @@
             </nav>
         </div>
     </div>
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="mapid"></div>
+                        </div>
                     </div>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div id="mapid"></div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </section>
 @endsection
 
 @push('js')
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>\
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script>
         var mymap = L.map('mapid').setView([-8.30926555343337, 115.09210838237348], 10);
+
         //function marker
         function marker(id, latitude, longtitude, msg){
             var id = L.marker([latitude, longtitude]).addTo(mymap);
