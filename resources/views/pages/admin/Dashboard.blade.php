@@ -214,7 +214,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                    <a href="{{ url('/admin/informasi/persebaran-posyandu/home') }}" class="nav-link">
                         <i class="fas fa-map-marked-alt nav-icon"></i>
                         <p>Persebaran Posyandu</p>
                     </a>
