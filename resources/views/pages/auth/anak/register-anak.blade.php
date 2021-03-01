@@ -44,10 +44,10 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nama ibu">
+                        <input type="text" class="form-control" placeholder="Email aktif">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="col-md mb-3">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Scan Akta Kelahiran atau SKL</label>
+                                <label class="custom-file-label" for="exampleInputFile">Akta Kelahiran atau SKL</label>
                             </div>
                         </div>
                         <div class="col-md mb-3">

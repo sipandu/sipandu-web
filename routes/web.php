@@ -34,6 +34,6 @@ Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
 })->name('sig-posyandu.home');
 
-Route::get('/register', function () {
-    return view('pages/auth/register-anak');
+Route::get('/register/bayi-balita', function () {
+    return view('pages/auth/anak/register-anak');
 })->name("Register Anak");
