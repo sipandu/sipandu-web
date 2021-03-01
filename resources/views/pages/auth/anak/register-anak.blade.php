@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>SIPANDU - Registrasi Anak</title>
+    <title>SIPANDU - Data Diri Anak</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
@@ -33,7 +33,7 @@
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
             </div>
             <div class="card-body">
-                <p class="text-center py-3">Silahkan daftarkan anak anda</p>      
+                <p class="text-center py-3">Silahkan lengkapi data diri anak anda</p>      
                 <form action="../../index.html" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nama anak">
