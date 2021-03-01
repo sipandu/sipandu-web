@@ -51,18 +51,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Akta Kelahiran atau SKL</label>
-                            </div>
-                        </div>
-                        <div class="col-md mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2">
-                                <label class="custom-file-label" for="exampleInputFile2">Kartu Keluarga</label>
-                            </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-inpupleInputFt" id="exampleInputFile2">
+                            <label class="custom-file-label" for="examile2">Scan Kartu Keluarga</label>
                         </div>
                     </div>
                     <div class="row">
