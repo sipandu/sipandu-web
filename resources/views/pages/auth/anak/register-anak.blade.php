@@ -7,11 +7,8 @@
     <title>SIPANDU - Data Diri Anak</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
-    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -33,7 +30,7 @@
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
             </div>
             <div class="card-body">
-                <p class="text-center py-3">Silahkan lengkapi data diri anak anda</p>      
+                <p class="text-center fs-5 py-3">Silahkan lengkapi data diri anak anda</p>      
                 <form action="../../index.html" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nama anak">
