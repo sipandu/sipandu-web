@@ -30,11 +30,11 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">SIPANDU</a>
-                <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
+                <a href="" class="text-decoration-none h4 fw-bold">Smart POSYANDU</a>
+                {{-- <p class="login-box-msg mb-0 pb-0 px-0 pb-2 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p> --}}
             </div>
             <div class="card-body">
-                <p class="text-center py-3">Silahkan login untuk mengelola sistem</p>
+                <p class="text-center py-2">Silahkan login untuk mengelola sistem</p>
                 <form action="../../index3.html" method="post">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email">
