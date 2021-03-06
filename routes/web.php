@@ -24,7 +24,7 @@ Route::get('/admin', function () {
 })->name("Admin Home");
 
 Route::get('/admin/login', function () {
-    return view('pages/auth/LoginAdmin');
+    return view('pages/auth/admin/login-admin');
 })->name("Admin Login");
 
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
