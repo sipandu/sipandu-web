@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
-                <li class="nav-item">
+                <li class="nav-item" id="list-admin-account">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
@@ -28,7 +28,7 @@
                                 <p>My Profile</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="list-account">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
@@ -38,7 +38,7 @@
                             </a>
                             <ul class="nav nav-treeview ms-3">
                                 <li class="nav-item">
-                                    <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
                                         <i class="fas fa-user-shield nav-icon"></i>
                                         <p>Add Admin</p>
                                     </a>

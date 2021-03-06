@@ -88,7 +88,6 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-informasi').addClass('menu-open');
-            // $('#admin-informasi').addClass('active');
             $('#informasi-penting').addClass('active');
         });
     </script>
