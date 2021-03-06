@@ -52,6 +52,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mb-3 g-4">
+                        <div class="col-sm-5 pb-0">
+                            {!! captcha_img('flat') !!}
+                        </div>
+                        <div class="col-sm-7">
+                            {{-- <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            </div> --}}
+                            <div class="input-group-append">
+                                <input type="text" class="form-control" placeholder="Captcha">
+                                <div class="input-group-text">
+                                    <span class="fas fa-spell-check"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="row mb-4">
                     <div class="col-8">
