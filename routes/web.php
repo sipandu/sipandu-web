@@ -27,6 +27,8 @@ Route::get('/admin/login', function () {
     return view('pages/auth/LoginAdmin');
 })->name("Admin Login");
 
+Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
+
 
 //Informasi
 Route::get('/admin/informasi/informasi-penting/home', function(){

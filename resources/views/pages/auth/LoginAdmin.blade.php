@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/sipandu-logo.ico') }}">
     <title>SIPANDU - Login Admin</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -52,16 +52,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3 g-4">
-                        <div class="col-sm-5 pb-0">
-                            {!! captcha_img('flat') !!}
+                    <div class="row g-4">
+                        <div class="col-5 mb-1">
+                            <div class="refreshCaptcha m-0 p-0">
+                                {!! captcha_img('flat') !!}
+                            </div>
+                            <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Refresh Captcha</a>
                         </div>
-                        <div class="col-sm-7">
-                            {{-- <div class="input-group">
-                                <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                            </div> --}}
-                            <div class="input-group-append">
+                        <div class="col-7">
+                            <div class="input-group-append g-0">
                                 <input type="text" class="form-control" placeholder="Captcha">
                                 <div class="input-group-text">
                                     <span class="fas fa-spell-check"></span>
@@ -110,6 +109,23 @@
     <!-- AdminLTE App -->
     <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
 
+    <script>
+        function refreshCaptcha(){
+            $.ajax({
+                url: "/refresh-captcha",
+                type: 'get',
+                dataType: 'html',
+                success: function(json){
+                    $('.refreshCaptcha').html(json);
+                },
+                error: function(data){
+                    alert("Coba lagi");
+                }
+            });
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
 </body>
 </html>
