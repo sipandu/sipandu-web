@@ -8,7 +8,7 @@
             <form action="">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1">Profile Images</label>
+                        <label for="exampleInputEmail1">Profile Image</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="exampleInputFile">
