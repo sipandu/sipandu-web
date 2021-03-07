@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="stepper.next()">Berikutnya</button>
+                            <a class="btn btn-primary" onclick="stepper.next()">Berikutnya</a>
                         </div>
                         <div id="data-kedua" class="content" role="tabpanel" aria-labelledby="data-kedua-trigger">
                             <div class="form-group">
@@ -215,7 +215,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="stepper.previous()">Sebelumnya</button>
+                            <a class="btn btn-primary" onclick="stepper.previous()">Sebelumnya</a>
                             <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
                         </div>
                     </div>
