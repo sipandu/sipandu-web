@@ -39,6 +39,10 @@ Route::get('/admin/account/new-user', function () {
     return view('pages/auth/admin/new-user');
 })->name("Add User");
 
+Route::get('/admin/profile', function () {
+    return view('pages/auth/admin/profile-admin');
+})->name("Profile Admin");
+
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
