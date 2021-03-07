@@ -35,6 +35,10 @@ Route::get('/admin/account/new-kader', function () {
     return view('pages/auth/admin/new-kader');
 })->name("Add Kader");
 
+Route::get('/admin/account/new-user', function () {
+    return view('pages/auth/admin/new-user');
+})->name("Add User");
+
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 

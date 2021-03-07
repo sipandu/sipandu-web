@@ -50,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                         <i class="fas fa-user nav-icon"></i>
                                         <p>Add User</p>
                                     </a>
