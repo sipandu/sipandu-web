@@ -99,10 +99,10 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
-                                            <button class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</button>
+                                            <a class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</a>
                                             @include('modal/admin/change-profile')
 
-                                            <button class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</button>
+                                            <a class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</a>
                                             @include('modal/admin/change-password')
 
                                             <button type="submit" class="btn btn-success my-1">Save Change</button>
