@@ -254,13 +254,6 @@
 
     <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
-    {{-- <script>
-        //Input file
-        $(function () {
-          bsCustomFileInput.init();
-        });
-    </script> --}}
-
     <script>
         $(function () {
             bsCustomFileInput.init();

@@ -67,6 +67,28 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Tempat Lahir</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Tempat lahir">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-map-marked-alt"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Jenis Kelamin</label>
                             <div class="input-group mb-3">
                                 <select class="form-select" id="inputGroupSelect02">
@@ -100,77 +122,6 @@
                                     <label class="custom-file-label" for="exampleInputFile">Upload scan KTP</label>
                                 </div>
                             </div>
-                            {{-- <div class="input-group-append">
-                                <input class="form-control" type="file" id="formFile">
-                                <div class="input-group-text">
-                                    <span class="fas fa-folder-open"></span>
-                                </div>
-                            </div> --}}
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Kabupaten/kota</label>
-                            <div class="input-group mb-3">
-                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari desa/kelurahan tempat tinggal">
-                                    <datalist id="datalistOptions">
-                                        <option value="Denpasar Selatan">
-                                        <option value="Mengwi">
-                                        <option value="Kuta Utara">
-                                        <option value="Kuta Selatan">
-                                        <option value="Denpasar Timur">
-                                    </datalist>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-city"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Kecamatan</label>
-                            <div class="input-group mb-3">
-                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari kecamatan/kota tempat tinggal">
-                                    <datalist id="datalistOptions">
-                                        <option value="Denpasar Selatan">
-                                        <option value="Mengwi">
-                                        <option value="Kuta Utara">
-                                        <option value="Kuta Selatan">
-                                        <option value="Denpasar Timur">
-                                    </datalist>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-city"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Desa/kelurahan</label>
-                            <div class="input-group mb-3">
-                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari desa/kelurahan tempat tinggal">
-                                    <datalist id="datalistOptions">
-                                        <option value="Denpasar Selatan">
-                                        <option value="Mengwi">
-                                        <option value="Kuta Utara">
-                                        <option value="Kuta Selatan">
-                                        <option value="Denpasar Timur">
-                                    </datalist>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-city"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Banjar</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Banjar tempat tinggal">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-city"></span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Alamat</label>
@@ -186,6 +137,61 @@
                         <button class="btn btn-primary" onclick="stepper.next()">Berikutnya</button>
                     </div>
                     <div id="data-kedua" class="content" role="tabpanel" aria-labelledby="data-kedua-trigger">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Jabatan</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" id="inputGroupSelect02">
+                                    <option selected>Pilih jabatan....</option>
+                                    <option value="1">Super Admin</option>
+                                    <option value="2">Admin</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-venus-mars"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nomor Telp</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Masukan nomor telepon aktif">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username Telegram</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Masukan Username Telegram aktif">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tempat Tugas</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari posyandu atau puskesmas lokasi tugas">
+                                <datalist id="datalistOptions">
+                                    <option value="Puskesmas A">
+                                    <option value="Puskesmas B">
+                                    <option value="Puskesmas C">
+                                    <option value="Puskesmas D">
+                                    <option value="Puskesmas E">
+                                </datalist>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Password</label>
                             <div class="input-group mb-3">
@@ -208,18 +214,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">File input</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div>
                         <button class="btn btn-primary" onclick="stepper.previous()">Sebelumnya</button>
                         <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
                     </div>
@@ -230,7 +224,14 @@
 @endsection
 
 @push('js')
+    {{-- Custom Step Page --}}
     <script src="{{url('admin-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+
+    <!-- Custom Input Date -->
+    <script src="{{url('admin-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('admin-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('admin-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -240,7 +241,22 @@
             $('#new-admin').addClass('active');
         });
 
-        // BS-Stepper Init
+        // Custom Input Date
+        $(function () {
+            bsCustomFileInput.init();
+
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            
+            $('[data-mask]').inputmask()
+        })
+
+        // Custom Step Page
         document.addEventListener('DOMContentLoaded', function () {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         });
