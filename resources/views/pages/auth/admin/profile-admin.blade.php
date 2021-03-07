@@ -51,48 +51,8 @@
                             <li class="list-group-item">
                                 <b class="fw-bold">Konsultasi</b>
                                 <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                @include('modal/admin/status-konsultasi')
                             </li>
-
-
-                            <!-- Button trigger modal -->
-                            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">
-                                Launch demo modal
-                            </button> --}}
-                            
-                            <!-- Modal -->
-                            <div class="modal fade" id="statusKonsultasi"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Status Konsultasi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked>
-                                                    <label for="customRadio2" class="custom-control-label">Available</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
-                                                    <label for="customRadio1" class="custom-control-label">Not Available</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-success">Save changes</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            
-
-
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
                                 <a class="float-right text-decoration-none link-dark">01/01/0000</a>
@@ -139,8 +99,12 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
-                                            <button type="submit" class="btn btn-primary my-1">Change Profile Image</button>
-                                            <button type="submit" class="btn btn-danger my-1">Change Password</button>
+                                            <button class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</button>
+                                            @include('modal/admin/change-profile')
+
+                                            <button class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</button>
+                                            @include('modal/admin/change-password')
+
                                             <button type="submit" class="btn btn-success my-1">Save Change</button>
                                         </div>
                                     </div>
