@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Add Admin')
+@section('title', 'Add Kader')
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -8,20 +8,20 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">New Admin</h1>
+        <h1 class="h3">New Kader</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Add Account</li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Admin</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Kader</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Tambah Admin Baru</h3>
+          <h3 class="card-title">Tambah Kader Baru</h3>
         </div>
         <div class="card-body p-0">
             <div class="bs-stepper py-3">
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Lengkap</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Nama lengkap admin">
+                                <input type="text" class="form-control" placeholder="Nama lengkap kader">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-user"></span>
@@ -142,8 +142,8 @@
                             <div class="input-group mb-3">
                                 <select class="form-select" id="inputGroupSelect02">
                                     <option selected>Pilih jabatan....</option>
-                                    <option value="1">Super Admin</option>
-                                    <option value="2">Admin</option>
+                                    <option value="1">Kader</option>
+                                    <option value="2">Tenaga Kesehatan</option>
                                 </select>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -238,7 +238,7 @@
             $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-admin-account').addClass('menu-open');
             $('#list-account').addClass('menu-open');
-            $('#new-admin').addClass('active');
+            $('#new-kader').addClass('active');
         });
 
         // Custom Input Date

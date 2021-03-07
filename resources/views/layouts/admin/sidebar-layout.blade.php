@@ -44,7 +44,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                         <i class="fas fa-user-tag nav-icon"></i>
                                         <p>Add Kader</p>
                                     </a>
