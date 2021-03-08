@@ -2,7 +2,7 @@
 
     {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
-        <img src="{{ asset('sipandu.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light fw-bold">SIPANDU</span>
     </a>
     {{-- Brand Logo End --}}
@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
-                <li class="nav-item">
+                <li class="nav-item" id="list-admin-account">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
@@ -23,12 +23,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('Profile Admin') }}" id="profile-admin" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>My Profile</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="list-account">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
@@ -38,19 +38,19 @@
                             </a>
                             <ul class="nav nav-treeview ms-3">
                                 <li class="nav-item">
-                                    <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
                                         <i class="fas fa-user-shield nav-icon"></i>
                                         <p>Add Admin</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                         <i class="fas fa-user-tag nav-icon"></i>
                                         <p>Add Kader</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                         <i class="fas fa-user nav-icon"></i>
                                         <p>Add User</p>
                                     </a>
@@ -72,10 +72,16 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-add-posyandu">
+                    <a href="{{ route("Add Posyandu") }}" class="nav-link" id="add-posyandu">
                         <i class="nav-icon fas fa-clinic-medical"></i>
                         <p>Tambah Posyandu</p>
+                    </a>
+                </li>
+                <li class="nav-item" id="list-daftar-posyandu">
+                    <a href="{{ route("List Posyandu") }}" class="nav-link" id="daftar-posyandu">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>List Posyandu</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -168,7 +174,6 @@
                 <li class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            {{-- <i class="fas fa-prescription-bottle-alt"></i> --}}
                             <i class="nav-icon fas fa-prescription-bottle-alt"></i>
                             <p>
                                 Vitamin
@@ -208,7 +213,7 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route("informasi-penting.home") }}" id="informasi-penting" class="nav-link">
                                     <i class="fas fa-exclamation nav-icon"></i>
                                     <p>Informasi Penting</p>
                                 </a>
@@ -226,7 +231,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route("sig-posyandu.home")}}" id="sig-posyandu" class="nav-link">
                                     <i class="fas fa-map-marked-alt nav-icon"></i>
                                     <p>Persebaran Posyandu</p>
                                 </a>
