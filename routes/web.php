@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KegiatanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,3 +78,26 @@ Route::get('/register/bayi-balita', function () {
 Route::get('/data-diri/bayi-balita', function () {
     return view('pages/auth/anak/data-diri-anak');
 })->name("Data Diri Anak");
+
+
+
+//Penyuluhan
+Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
+Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create');
+Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store');
+Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show');
+Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
+Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
+Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
+
+
+
+//Kegiatan
+Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
+Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create');
+Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
+Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show');
+Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
+Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
+Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
+

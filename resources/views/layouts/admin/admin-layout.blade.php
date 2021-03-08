@@ -25,6 +25,9 @@
             font-family: 'Nunito', sans-serif;
             font-weight: 300;
         }
+        .swal-footer {
+            text-align: center;
+        }
     </style>
 
 </head>
@@ -65,6 +68,26 @@
     <script src="{{url('admin-template/plugins/summernote/summernote-bs4.min.js')}}"></script>
     <script src="{{url('admin-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function alertSuccess(msg){
+          swal({
+            title: "Sukses",
+            text: msg,
+            icon: "success",
+            button: "Ok",
+          });
+        }
+
+        function alertError(msg){
+          swal({
+            title: "Eror",
+            text: msg,
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+    </script>
 
     @stack('js')
 
