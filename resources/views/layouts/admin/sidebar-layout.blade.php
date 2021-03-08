@@ -66,7 +66,7 @@
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item menu-open" id="list-admin-dashboard">
+                <li class="nav-item" id="list-admin-dashboard">
                     <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Dashboard</p>
@@ -198,8 +198,8 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="informasi">
+                        <a href="#" class="nav-link" id="informasi-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 Informasi
@@ -220,7 +220,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
                                     <i class="fas fa-chalkboard-teacher nav-icon"></i>
                                     <p>Penyuluhan</p>
                                 </a>
@@ -235,7 +235,7 @@
                     </li>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="kegiatan">
                         <i class="nav-icon fas fa-hospital-alt"></i>
                         <p>Tambah Kegiatan</p>
                     </a>
