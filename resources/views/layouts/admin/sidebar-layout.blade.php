@@ -72,8 +72,8 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-add-posyandu">
+                    <a href="{{ route("Add Posyandu") }}" class="nav-link" id="add-posyandu">
                         <i class="nav-icon fas fa-clinic-medical"></i>
                         <p>Tambah Posyandu</p>
                     </a>

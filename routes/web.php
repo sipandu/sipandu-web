@@ -46,6 +46,14 @@ Route::get('/admin/profile', function () {
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
+
+// Master Data
+Route::get('/admin/posyandu/new', function () {
+    return view('pages/admin/master-data/new-posyandu');
+})->name("Add Posyandu");
+
+
+
 //Informasi
 Route::get('/admin/informasi/informasi-penting/home', function(){
     return view('pages.admin.informasi.informasi-penting');
