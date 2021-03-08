@@ -52,6 +52,10 @@ Route::get('/admin/posyandu/new', function () {
     return view('pages/admin/master-data/new-posyandu');
 })->name("Add Posyandu");
 
+Route::get('/admin/posyandu/all', function () {
+    return view('pages/admin/master-data/list-posyandu');
+})->name("List Posyandu");
+
 
 
 //Informasi
@@ -62,6 +66,7 @@ Route::get('/admin/informasi/informasi-penting/home', function(){
 Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
 })->name('sig-posyandu.home');
+
 
 
 //Anak

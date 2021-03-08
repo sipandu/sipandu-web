@@ -78,8 +78,8 @@
                         <p>Tambah Posyandu</p>
                     </a>
                 </li>
-                <li class="nav-item" id="list-add-posyandu">
-                    <a href="{{ route("Add Posyandu") }}" class="nav-link" id="add-posyandu">
+                <li class="nav-item" id="list-daftar-posyandu">
+                    <a href="{{ route("List Posyandu") }}" class="nav-link" id="daftar-posyandu">
                         <i class="nav-icon fas fa-list"></i>
                         <p>List Posyandu</p>
                     </a>
