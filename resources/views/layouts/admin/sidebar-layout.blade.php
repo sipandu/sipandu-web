@@ -14,7 +14,7 @@
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
                 <li class="nav-item" id="list-admin-account">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="list-admin-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
                             1805551041
@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item" id="list-account">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link" id="list-account-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Add Account
