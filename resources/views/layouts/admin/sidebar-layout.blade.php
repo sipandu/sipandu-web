@@ -72,16 +72,16 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item" id="list-daftar-posyandu">
-                    <a href="{{ route("List Posyandu") }}" class="nav-link" id="daftar-posyandu">
+                <li class="nav-item" id="list-data-posyandu">
+                    <a href="{{ route("Data Posyandu") }}" class="nav-link" id="data-posyandu">
                         <i class="nav-icon fas fa-list"></i>
-                        <p>List Posyandu</p>
+                        <p>Data Posyandu</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-profile-posyandu">
+                    <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
                         <i class="nav-icon fas fa-layer-group"></i>
-                        <p>Data Posyandu</p>
+                        <p>Profile Posyandu</p>
                     </a>
                 </li>
                 <li class="nav-item">

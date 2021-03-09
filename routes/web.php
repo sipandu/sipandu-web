@@ -54,8 +54,12 @@ Route::get('/admin/posyandu/new', function () {
 })->name("Add Posyandu");
 
 Route::get('/admin/posyandu/all', function () {
-    return view('pages/admin/master-data/list-posyandu');
-})->name("List Posyandu");
+    return view('pages/admin/master-data/data-posyandu');
+})->name("Data Posyandu");
+
+Route::get('/admin/posyandu/profile', function () {
+    return view('pages/admin/master-data/profile-posyandu');
+})->name("Profile Posyandu");
 
 
 
