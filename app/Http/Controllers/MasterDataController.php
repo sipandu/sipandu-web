@@ -57,13 +57,20 @@ class MasterDataController extends Controller
             'longitude' => $request->lng
         ]);
 
+        $tgl_lahir_indo = $request->tgl_lahir;
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+        $tahun = $tgl_lahir_eng[2];
+        $bulan = $tgl_lahir_eng[1];
+        $tgl = $tgl_lahir_eng[0];
+        $tgl_lahir = $tahun.$bulan.$tgl;
+
         Pegawai::create([
-            'id' => 44,
+            'id' => 96,
             'id_posyandu' => $posyandu->id,
             'id_admin' => $admin->id,
             'nama_pegawai' => $request->nama_pegawai,
             'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tgl_lahir,
+            'tanggal_lahir' => $tgl_lahir,
             'jenis_kelamin' => $request->gender,
             'alamat' => $request->alamat_admin,
             'nomor_telepon' => $request->no_telp,
@@ -72,5 +79,7 @@ class MasterDataController extends Controller
             'nik' => $request->nik,
             'file_ktp' => "qqsda134"
         ]);
+
+        return redirect()->route("Data Posyandu");
     }
 }

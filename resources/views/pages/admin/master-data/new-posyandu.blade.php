@@ -177,7 +177,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama Lengkap</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="nama_admin" placeholder="Nama lengkap admin">
+                                                <input type="text" class="form-control" name="nama_pegawai" placeholder="Nama lengkap admin">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-user"></span>
@@ -210,7 +210,7 @@
                                         <div class="form-group">
                                             <label>Tanggal Lahir</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="tgl_lahir" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask>
+                                                <input type="text" class="form-control" name="tgl_lahir" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="far fa-calendar-alt"></i>
@@ -356,7 +356,7 @@
                 theme: 'bootstrap4'
             })
 
-            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+            $('#datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
             
             $('[data-mask]').inputmask()
         })
