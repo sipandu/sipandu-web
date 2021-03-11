@@ -41,6 +41,7 @@
                         <table id="example1" class="table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama Posyandu</th>
                                     <th>Lokasi Banjar</th>
                                     <th>Administrator</th>
@@ -49,7 +50,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($pegawai as $data)
-                                    <tr>
+                                    <tr class="text-center">
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->posyandu->nama_posyandu}}</td>
                                         <td>{{ $data->posyandu->banjar }}</td>
                                         <td>{{ $data->nama_pegawai }}</td>
@@ -64,6 +66,7 @@
                             </tbody>
                             <tfoot class="text-center">
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama Posyandu</th>
                                     <th>Lokasi Banjar</th>
                                     <th>Administrator</th>
