@@ -49,17 +49,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pegawai as $data)
+                                @foreach ($posyandu as $data)
                                     <tr class="text-center">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->posyandu->nama_posyandu}}</td>
-                                        <td>{{ $data->posyandu->banjar }}</td>
-                                        <td>{{ $data->nama_pegawai }}</td>
+                                        <td>{{ $data->nama_posyandu}}</td>
+                                        <td>{{ $data->banjar }}</td>
+                                        @foreach ($pegawai->where('id_posyandu', $data->id) as $pgw)
+                                            <td>{{ $pgw->nama_pegawai }}</td>
+                                        @endforeach
                                         <td class="text-center">
-                                            <a href="" class="btn btn-warning btn-sm">
+                                        {{-- <form action="{{route('Detail Posyandu', [$data->id])}}" method="POST">
+                                            @csrf --}}
+                                            <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                  Detail
                                             </a>
+                                        {{-- </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach

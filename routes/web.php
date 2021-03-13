@@ -58,11 +58,9 @@ Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 // })->name("Data Posyandu");
 
 Route::get('/admin/posyandu/all', 'MasterDataController@listPosyandu')->name("Data Posyandu");
-
 Route::get('/admin/posyandu/new', 'MasterDataController@addPosyandu')->name("Add Posyandu");
-
 Route::post('/admin/posyandu/add', 'MasterDataController@storePosyandu')->name("New Posyandu");
-
+Route::get('/admin/posyandu/detail/{posyandu}', 'MasterDataController@detailPosyandu')->name("Detail Posyandu");
 Route::get('/admin/posyandu/profile', function () {
     return view('pages/admin/master-data/profile-posyandu');
 })->name("Profile Posyandu");
