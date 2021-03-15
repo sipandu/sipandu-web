@@ -37,13 +37,16 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nomor KK</label>
                             <div class="input-group mb-3">
-                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari nomor KK">
+                                <input name="kk" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari nomor KK">
                                 <datalist id="datalistOptions">
-                                    <option value="1805551041">
+                                    @foreach ($kk as $p)
+                                        <option value="{{$p->no_kk}}"></option>
+                                    @endforeach
+                                    {{-- <option value="1805551041">
                                     <option value="1805551042">
                                     <option value="1805551043">
                                     <option value="1805551044">
-                                    <option value="1805551045">
+                                    <option value="1805551045"> --}}
                                 </datalist>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -52,15 +55,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Scan KK</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Scan KK</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Bumil</label>
                             <div class="input-group mb-3">
@@ -586,7 +589,7 @@
             </div>
         </div>
     </div>
-      
+
 @endsection
 
 @push('js')
@@ -618,7 +621,7 @@
             })
 
             $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-            
+
             $('[data-mask]').inputmask()
         })
 
@@ -626,5 +629,10 @@
         document.addEventListener('DOMContentLoaded', function () {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         });
+
+
+
+
+
     </script>
 @endpush

@@ -4,6 +4,12 @@
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{url('admin-template/plugins/select2/css/select2.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
 @endpush
 
 @section('content')
@@ -41,14 +47,16 @@
                         </button>
                     </div>
                 </div>
-                <form action="">
+                <form action="{{ route('submit.add.admin.kader') }}" enctype="multipart/form-data" method="post">
+                    @csrf
                     <div class="bs-stepper-content p-3">
+
                         <!-- your steps content here -->
                         <div id="data-pertama" class="content" role="tabpanel" aria-labelledby="data-pertama-trigger">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Lengkap</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Nama lengkap kader">
+                                    <input name="name" type="text" class="form-control" placeholder="Nama lengkap kader">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-user"></span>
@@ -59,7 +67,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Alamat E-Mail</label>
                                 <div class="input-group mb-3">
-                                    <input type="email" class="form-control" placeholder="Alamat email aktif">
+                                    <input name="email" type="email" class="form-control" placeholder="Alamat email aktif">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-envelope"></span>
@@ -70,7 +78,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tempat Lahir</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Tempat lahir">
+                                    <input name="tempat_lahir" type="text" class="form-control" placeholder="Tempat lahir">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-map-marked-alt"></span>
@@ -81,7 +89,7 @@
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input name="tgl_lahir" type="text" class="form-control" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -92,10 +100,10 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Jenis Kelamin</label>
                                 <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect02">
+                                    <select name="gender" class="form-select" id="inputGroupSelect02">
                                         <option selected>Pilih jenis kelamin....</option>
-                                        <option value="1">Laki-laki</option>
-                                        <option value="2">Perempuan</option>
+                                        <option value="Laki-laki">Laki-laki</option>
+                                        <option value="Perempuan">Perempuan</option>
                                     </select>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -107,7 +115,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">NIK</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Masukan nomor NIK">
+                                    <input name="nik" type="text" class="form-control" placeholder="Masukan nomor NIK">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-address-card"></span>
@@ -119,7 +127,7 @@
                                 <label for="exampleInputEmail1">Scan KTP</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input name="file" type="file" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Upload scan KTP</label>
                                     </div>
                                 </div>
@@ -127,7 +135,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Alamat</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Alamat tempat tinggal">
+                                    <input name="alamat" type="text" class="form-control" placeholder="Alamat tempat tinggal">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-road"></span>
@@ -135,16 +143,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="stepper.next()">Berikutnya</button>
+                            <a class="btn btn-primary" onclick="stepper.next()"> Berikutnya</a>
                         </div>
                         <div id="data-kedua" class="content" role="tabpanel" aria-labelledby="data-kedua-trigger">
                             <div class="form-group">
+                                @csrf
                                 <label for="exampleInputEmail1">Jabatan</label>
                                 <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect02">
+                                    <select name="jabatan" class="form-select" id="inputGroupSelect02">
                                         <option selected>Pilih jabatan....</option>
-                                        <option value="1">Kader</option>
-                                        <option value="2">Tenaga Kesehatan</option>
+                                        <option value="kader">Kader</option>
+                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                     </select>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -156,7 +165,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nomor Telp</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Masukan nomor telepon aktif">
+                                    <input name="tlpn" type="text" class="form-control" placeholder="Masukan nomor telepon aktif">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -167,7 +176,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Username Telegram</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Masukan Username Telegram aktif">
+                                    <input name="telegram" type="text" class="form-control" placeholder="Masukan Username Telegram aktif">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -176,27 +185,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Tempat Tugas</label>
+                                <label>Tempat Tugas</label>
                                 <div class="input-group mb-3">
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cari posyandu atau puskesmas lokasi tugas">
-                                    <datalist id="datalistOptions">
-                                        <option value="Puskesmas A">
-                                        <option value="Puskesmas B">
-                                        <option value="Puskesmas C">
-                                        <option value="Puskesmas D">
-                                        <option value="Puskesmas E">
-                                    </datalist>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-lock"></span>
-                                        </div>
-                                    </div>
+                                    <select name="posyandu" class="form-control select2" style="width: 100%,;" >
+                                        @foreach ($posyandu as $p)
+                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Password</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" placeholder="Masukan Password">
+                                    <input name="password" type="password" class="form-control" placeholder="Masukan Password">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -205,9 +206,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Konfirmasi Password</label>
+                                <label   for="exampleInputEmail1">Konfirmasi Password</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" placeholder="Masukan kembali Password">
+                                    <input name="c_password" type="password" class="form-control" placeholder="Masukan kembali Password">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -253,8 +254,8 @@
                 theme: 'bootstrap4'
             })
 
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-            
+            $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
+
             $('[data-mask]').inputmask()
         })
 

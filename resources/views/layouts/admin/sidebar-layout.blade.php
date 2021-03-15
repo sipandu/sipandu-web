@@ -17,13 +17,13 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            1805551041
+                            {{Auth::guard('admin')->user()->pegawai->jabatan}}
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('Profile Admin') }}" id="profile-admin" class="nav-link">
+                            <a href="{{ route('profile.admin') }}" id="profile-admin" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>My Profile</p>
                             </a>
@@ -37,12 +37,14 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview ms-3">
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == "super admin")
                                 <li class="nav-item">
                                     <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
                                         <i class="fas fa-user-shield nav-icon"></i>
                                         <p>Add Admin</p>
                                     </a>
                                 </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                         <i class="fas fa-user-tag nav-icon"></i>
@@ -58,7 +60,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('logout.admin')}}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Logout</p>
                             </a>

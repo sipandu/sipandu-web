@@ -38,15 +38,15 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="https://images.unsplash.com/photo-1526231237819-de846f3a7e16?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDQ0fHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="..." width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::guard('admin')->user()->profile_image}}" alt="..." width="150" height="150">
                             </div>
                         </div>
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
-                        <p class="text-muted text-center">Tenaga Kesehatan</p>
+                        <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
+                        <p class="text-muted text-center">{{Auth::guard('admin')->user()->pegawai->jabatan}}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b class="fw-bold">Usia</b>
-                                <a class="float-right text-decoration-none link-dark">27 Tahun</a>
+                                <b class="fw-bold">Tempat Tugas</b>
+                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->posyandu->nama_posyandu}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Konsultasi</b>
@@ -55,11 +55,11 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">01/01/0000</a>
+                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->created_at}}</a>
                             </li>
                         </ul>
                         <form action="">
-                            <button href="#" class="btn btn-danger btn-block">
+                            <button href="{{route('logout.admin')}}" class="btn btn-danger btn-block">
                                 <b>Logout</b>
                             </button>
                         </form>
@@ -78,68 +78,67 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="active tab-pane" id="account">
-                                <form action="" class="form-horizontal">
+                                <form action="{{route('edit.account')}}" class="form-horizontal">
+                                    @csrf
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail">
+                                            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
                                         <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputTele" placeholder="Username Telegram">
+                                        <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon">
+                                        <input name="notlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
                                             <a class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</a>
-                                            @include('modal/admin/change-profile')
-
                                             <a class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</a>
-                                            @include('modal/admin/change-password')
-
                                             <button type="submit" class="btn btn-success my-1">Save Change</button>
                                         </div>
                                     </div>
                                 </form>
+                                @include('modal/admin/change-password')
+                                @include('modal/admin/change-profile')
                             </div>
                             <div class="tab-pane" id="personal">
                                 <form action="" class="form-horizontal">
                                     <div class="form-group row">
                                         <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly>
+                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputNIK" class="col-sm-2 col-form-label">NIK</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly>
+                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly>
+                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly>
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tanggal_lahir}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap"></textarea>
+                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -153,19 +152,19 @@
                                 <div class="form-group row">
                                     <label for="inputName" class="col-sm-2 col-form-label">Tempat Tugas</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly>
+                                        <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly value="{{Auth::guard('admin')->user()->posyandu->nama_posyandu}}" >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail" class="col-sm-2 col-form-label">Jabatan</label>
                                     <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Jabatan" disabled readonly>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Jabatan" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->jabatan}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputName2" class="col-sm-2 col-form-label">Terdaftar Sejak</label>
                                     <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly>
+                                    <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly value="{{Auth::guard('admin')->user()->created_at}}">
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +205,7 @@
             })
 
             $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-            
+
             $('[data-mask]').inputmask()
         })
 
