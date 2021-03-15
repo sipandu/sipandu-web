@@ -129,8 +129,6 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
                                                 <div class="form-group">
                                                     <label for="inputBanjar">Banjar</label>
                                                     <div class="input-group mb-3">
@@ -146,7 +144,25 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div>                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Nomor Telp Posyandu</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control @error('telp_posyandu') is-invalid @enderror" name="telp_posyandu" value="{{ old('telp_posyandu') }}" placeholder="Masukan nomor telepon aktif" autocomplete="off">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-phone-alt"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('telp_posyandu')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>                                               
                                                 <div class="form-group">
                                                     <label for="inputAlamat">Alamat Posyandu</label>
                                                     <div class="input-group mb-3">
@@ -193,6 +209,17 @@
                                                                 {{ $message }}
                                                             </div>
                                                         @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="konfirmasiPass">Password Konfirmasi</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="password" class="form-control" name="password" id="konfirmasiPass" placeholder="Konfirmasi password anda">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-lock"></span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>                                            
@@ -319,15 +346,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Nomor Telp</label>
+                                                    <label for="exampleInputEmail1">Nomor Telp Admin</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" value="{{ old('telp') }}" placeholder="Masukan nomor telepon aktif" autocomplete="off">
+                                                        <input type="text" class="form-control @error('telp_pegawai') is-invalid @enderror" name="telp_pegawai" value="{{ old('telp_pegawai') }}" placeholder="Masukan nomor telepon aktif" autocomplete="off">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-phone-alt"></span>
                                                             </div>
                                                         </div>
-                                                        @error('telp')
+                                                        @error('telp_pegawai')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
                                                             </div>
@@ -396,19 +423,6 @@
                                                                 {{ $message }}
                                                             </div>
                                                         @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="konfirmasiPass">Password Konfirmasi</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="password" class="form-control" name="password" id="konfirmasiPass" placeholder="Konfirmasi password anda">
-                                                        <div class="input-group-append">
-                                                            <div class="input-group-text">
-                                                                <span class="fas fa-lock"></span>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

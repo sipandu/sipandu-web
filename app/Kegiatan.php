@@ -8,6 +8,11 @@ class Kegiatan extends Model
 {
     protected $table = 'tb_kegiatan';
 
+    public function posyandu()
+    {
+        return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
+    }
+
     public function sendMessage()
     {
         $posyandu = Posyandu::all();

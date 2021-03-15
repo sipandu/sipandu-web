@@ -26,4 +26,9 @@ class Posyandu extends Model
     {
         return $this->hasMany(Pegawai::class, 'id_posyandu');
     }
+
+    public function kegiatan()
+    {
+        return $this->hasMany(Kegiatan::class, 'id_posyandu');
+    }
 }

@@ -50,21 +50,22 @@
                             </thead>
                             <tbody>
                                 @foreach ($posyandu as $data)
-                                    <tr class="text-center">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nama_posyandu}}</td>
-                                        <td>{{ $data->banjar }}</td>
-                                        @foreach ($pegawai->where('id_posyandu', $data->id) as $pgw)
-                                            <td>{{ $pgw->nama_pegawai }}</td>
-                                        @endforeach
-                                        <td class="text-center">
-                                        {{-- <form action="{{route('Detail Posyandu', [$data->id])}}" method="POST">
-                                            @csrf --}}
+                                    <tr class="text-center align-middle my-auto">
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle">{{ $data->nama_posyandu}}</td>
+                                        <td class="align-middle">{{ $data->banjar }}</td>
+                                        <td class="align-middle">
+                                            @foreach ($pegawai->where('id_posyandu', $data->id) as $pgw)
+                                                <ul class="list-unstyled">
+                                                    <li> {{ $pgw->nama_pegawai }}</li>
+                                                </ul>
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center align-middle">
                                             <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                  Detail
                                             </a>
-                                        {{-- </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach

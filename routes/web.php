@@ -61,6 +61,9 @@ Route::get('/admin/posyandu/all', 'MasterDataController@listPosyandu')->name("Da
 Route::get('/admin/posyandu/new', 'MasterDataController@addPosyandu')->name("Add Posyandu");
 Route::post('/admin/posyandu/add', 'MasterDataController@storePosyandu')->name("New Posyandu");
 Route::get('/admin/posyandu/detail/{posyandu}', 'MasterDataController@detailPosyandu')->name("Detail Posyandu");
+Route::get('/admin/posyandu/edit/{posyandu}', 'MasterDataController@editPosyandu')->name("Edit Posyandu");
+Route::post('/admin/posyandu/update/{posyandu}', 'MasterDataController@updatePosyandu')->name("Update Posyandu");
+Route::post('/admin/posyandu/update-admin/{pegawai}', 'MasterDataController@updateAdminPosyandu')->name("Update Admin Posyandu");
 Route::get('/admin/posyandu/profile', function () {
     return view('pages/admin/master-data/profile-posyandu');
 })->name("Profile Posyandu");
