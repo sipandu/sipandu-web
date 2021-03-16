@@ -38,6 +38,11 @@ Route::get('/register', function () {
     return view('pages/auth/register-anak');
 })->name("Register Anak");
 
+//Informasi Penting
+Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
+Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
+Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
+
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
 Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create');

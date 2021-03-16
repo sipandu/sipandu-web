@@ -208,7 +208,7 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
                                     <i class="fas fa-exclamation nav-icon"></i>
                                     <p>Informasi Penting</p>
                                 </a>
