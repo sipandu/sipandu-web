@@ -87,7 +87,8 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-informasi').addClass('menu-open');
+            $('#informasi').addClass('menu-is-opening menu-open');
+            $('#informasi-link').addClass('active');
             $('#informasi-penting').addClass('active');
         });
     </script>

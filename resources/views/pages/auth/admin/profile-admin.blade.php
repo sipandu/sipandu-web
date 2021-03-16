@@ -190,8 +190,10 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-admin-account').addClass('menu-open');
-            $('#list-account').removeClass('menu-open');
+
+            $('#list-admin-account').addClass('menu-is-opening menu-open');
+            $('#list-admin-account-link').addClass('active');
+            
             $('#profile-admin').addClass('active');
         });
 

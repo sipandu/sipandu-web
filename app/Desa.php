@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+// <<<<<<< loginRegis
 use Illuminate\Notifications\Notifiable;
 
 class Desa extends Model
@@ -25,4 +26,10 @@ class Desa extends Model
     {
         return $this->belongsTo('App\kecamatan');
     }
+// =======
+
+// class Desa extends Model
+// {
+//     protected $table = 'tb_desa';
+// >>>>>>> main
 }

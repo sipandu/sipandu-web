@@ -25,27 +25,15 @@
             </nav>
         </div>
     </div>
-    <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="card-title">Tambah Kader Baru</h3>
-        </div>
-        <div class="card-body p-0">
-            <div class="bs-stepper py-3">
-                <div class="bs-stepper-header px-3 d-flex justify-content-center" role="tablist">
-                    <!-- your steps here -->
-                    <div class="step" data-target="#data-pertama">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="data-pertama" id="data-pertama-trigger">
-                        <span class="bs-stepper-circle">1</span>
-                        <span class="bs-stepper-label">Data Pertama</span>
-                        </button>
+
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Tambah Kader Posyandu</h3>
                     </div>
-                    <div class="line"></div>
-                    <div class="step" data-target="#data-kedua">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="data-kedua" id="data-kedua-trigger">
-                            <span class="bs-stepper-circle">2</span>
-                            <span class="bs-stepper-label">Data Kedua</span>
-                        </button>
-                    </div>
+
                 </div>
                 <form action="{{ route('submit.add.admin.kader') }}" enctype="multipart/form-data" method="post">
                     @csrf
@@ -212,18 +200,22 @@
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
+
+                    
                                         </div>
+                                        <a class="btn btn-primary" onclick="stepper.previous()">Sebelumnya</a>
+                                        <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
                                     </div>
                                 </div>
-                            </div>
-                            <button class="btn btn-primary" onclick="stepper.previous()">Sebelumnya</button>
-                            <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @push('js')
@@ -239,8 +231,12 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-admin-account').addClass('menu-open');
-            $('#list-account').addClass('menu-open');
+            
+            $('#list-admin-account').addClass('menu-is-opening menu-open');
+            $('#list-admin-account-link').addClass('active');
+
+            $('#list-account').addClass('menu-is-opening menu-open');
+            $('#list-account-link').addClass('active');
             $('#new-kader').addClass('active');
         });
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+// <<<<<<< loginRegis
 use Illuminate\Notifications\Notifiable;
 
 class Kecamatan extends Model
@@ -23,6 +24,17 @@ class Kecamatan extends Model
 
     public function kabupaten()
     {
-        return $this->belongsTo('App\Kabupaten');
+        return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
     }
+// =======
+
+// class Kecamatan extends Model
+// {
+//     protected $table = 'tb_kecamatan';
+
+//     public function kabupaten()
+//     {
+//         return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
+// >>>>>>> main
+//     }
 }

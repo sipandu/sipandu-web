@@ -14,7 +14,7 @@
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
                 <li class="nav-item" id="list-admin-account">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="list-admin-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
                             {{Auth::guard('admin')->user()->pegawai->jabatan}}
@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item" id="list-account">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link" id="list-account-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Add Account
@@ -70,22 +70,22 @@
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item menu-open" id="list-admin-dashboard">
+                <li class="nav-item" id="list-admin-dashboard">
                     <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-clinic-medical"></i>
-                        <p>Tambah Posyandu</p>
+                <li class="nav-item" id="list-data-posyandu">
+                    <a href="{{ route("Data Posyandu") }}" class="nav-link" id="data-posyandu">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>Data Posyandu</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-profile-posyandu">
+                    <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
                         <i class="nav-icon fas fa-layer-group"></i>
-                        <p>Data Posyandu</p>
+                        <p>Profile Posyandu</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -201,8 +201,8 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item" id="list-informasi">
-                        <a href="#" id="admin-informasi" class="nav-link">
+                    <li class="nav-item" id="informasi">
+                        <a href="#" class="nav-link" id="informasi-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 Informasi
@@ -223,7 +223,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
                                     <i class="fas fa-chalkboard-teacher nav-icon"></i>
                                     <p>Penyuluhan</p>
                                 </a>
@@ -238,7 +238,7 @@
                     </li>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="kegiatan">
                         <i class="nav-icon fas fa-hospital-alt"></i>
                         <p>Tambah Kegiatan</p>
                     </a>
