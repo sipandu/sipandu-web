@@ -10,7 +10,7 @@ class PenyuluhanController extends Controller
 {
     public function index()
     {
-        $penyuluhan = Penyuluhan::where('id_posyandu', 1)->orderby('tanggal', 'desc')->get();
+        $penyuluhan = Penyuluhan::where('id_posyandu', 4)->orderby('tanggal', 'desc')->get();
         return view('pages.admin.informasi.penyuluhan.home', compact('penyuluhan'));
     }
 
@@ -23,7 +23,7 @@ class PenyuluhanController extends Controller
     {
         $filename = Mover::slugFile($request->file('image'), 'app/informasi/penyuluhan/');
         $penyuluhan = new Penyuluhan();
-        $penyuluhan->id_posyandu = 1;
+        $penyuluhan->id_posyandu = 4;
         $penyuluhan->nama_penyuluhan = $request->nama_penyuluhan;
         $penyuluhan->lokasi = $request->lokasi;
         $penyuluhan->tanggal = $request->tanggal;

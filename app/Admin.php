@@ -28,17 +28,17 @@ class Admin extends Authenticatable
         'password'
     ];
 
-//     public function pegawai(){
-//         return $this->hasOne('App\Pegawai','id_admin','id');
-//     }
+    public function pegawai(){
+        return $this->hasOne('App\Pegawai','id_admin','id');
+    }
 
-//     public function posyandu(){
-//         return $this->hasOne('App\Posyandu','id_admin','id');
-//     }
+    public function posyandu(){
+        return $this->hasOne('App\Posyandu','id_admin','id');
+    }
 
 
 
-=======
+// =======
 
 
 // class Admin extends Model
@@ -53,14 +53,14 @@ class Admin extends Authenticatable
 //         'password'
 //     ];
 
-    public function posyandu()
-    {
-        return $this->hasMany(Posyandu::class, 'id_admin');
-    }
+    // public function posyandu()
+    // {
+    //     return $this->hasMany(Posyandu::class, 'id_admin');
+    // }
 
-    public function pegawai()
-    {
-        return $this->hasMany(Pegawai::class, 'id_admin');
-    }
+    // public function pegawai()
+    // {
+    //     return $this->hasMany(Pegawai::class, 'id_admin');
+    // }
 // >>>>>>> main
 }
