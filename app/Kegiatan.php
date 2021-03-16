@@ -15,7 +15,7 @@ class Kegiatan extends Model
 
     public function sendMessage()
     {
-        $posyandu = Posyandu::all();
+        // $posyandu = Posyandu::find(4);
         $msg = '[ KEGIATAN ]'.PHP_EOL.
 
         'Salam sehat, salam semangat!'.PHP_EOL.
@@ -29,15 +29,13 @@ class Kegiatan extends Model
         'Salam Sehat,'.PHP_EOL.
         'Smart Posyandu';
 
-        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $token = '1519375290:AAEt7FLKWTlaEPJgamcqKv8pVTtboTbA9iY';
         $url = 'https://api.telegram.org/bot'.$token.'/sendMessage';
 
-        foreach($posyandu as $item){
-            $response = Http::post($url, [
-                'chat_id' => $item->id_chat_grup_tele,
-                'text' => $msg,
-            ]);
-        }
+        $response = Http::post($url, [
+            'chat_id' => '-518331855',
+            'text' => $msg,
+        ]);
 
         if($response->successful()){
             return true;
@@ -46,7 +44,6 @@ class Kegiatan extends Model
 
     public function sendMessageRalat()
     {
-        $posyandu = Posyandu::all();
         $msg = '[ RALAT KEGIATAN ]'.PHP_EOL.
 
         'Salam sehat, salam semangat!'.PHP_EOL.
@@ -59,15 +56,13 @@ class Kegiatan extends Model
 
         'Salam Sehat,'.PHP_EOL.
         'Smart Posyandu';
-        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $token = '1519375290:AAEt7FLKWTlaEPJgamcqKv8pVTtboTbA9iY';
         $url = 'https://api.telegram.org/bot'.$token.'/sendMessage';
 
-        foreach($posyandu as $item){
-            $response = Http::post($url, [
-                'chat_id' => $item->id_chat_grup_tele,
-                'text' => $msg,
-            ]);
-        }
+        $response = Http::post($url, [
+            'chat_id' => '-518331855',
+            'text' => $msg,
+        ]);
 
         if($response->successful()){
             return true;
@@ -76,7 +71,7 @@ class Kegiatan extends Model
 
     public function sendMessageCancel($alasan)
     {
-        $posyandu = Posyandu::all();
+        // $posyandu = Posyandu::all();
         $msg =  '[PEMBATALAN KEGIATAN]'.PHP_EOL.PHP_EOL.
                 'Nama Kegiatan    : '.$this->nama_kegiatan.PHP_EOL.
                 'Tempat           : '.$this->tempat.PHP_EOL.
@@ -84,15 +79,13 @@ class Kegiatan extends Model
                 'Tanggal Berakhir : '.$this->end_at.PHP_EOL.
                 'Alasan        : '.PHP_EOL.PHP_EOL.
                 $alasan;
-        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $token = '1519375290:AAEt7FLKWTlaEPJgamcqKv8pVTtboTbA9iY';
         $url = 'https://api.telegram.org/bot'.$token.'/sendMessage';
 
-        foreach($posyandu as $item){
-            $response = Http::post($url, [
-                'chat_id' => $item->id_chat_grup_tele,
-                'text' => $msg,
-            ]);
-        }
+        $response = Http::post($url, [
+            'chat_id' => '-518331855',
+            'text' => $msg,
+        ]);
 
         if($response->successful()){
             return true;
