@@ -75,18 +75,15 @@ Route::get('/register/bayi-balita', function () {
     return view('pages/auth/anak/register-anak');
 })->name("Register Anak");
 
-<<<<<<< HEAD
 //Informasi Penting
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
 Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
-=======
 Route::get('/data-diri/bayi-balita', function () {
     return view('pages/auth/anak/data-diri-anak');
 })->name("Data Diri Anak");
 
 
->>>>>>> 064ef5211620d80a0345415443a807f41578983f
 
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
