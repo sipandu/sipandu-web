@@ -3,15 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+// <<<<<<< loginRegis
+use Illuminate\Notifications\Notifiable;
 
 class Posyandu extends Model
 {
+    use Notifiable;
+
     protected $table = 'tb_posyandu';
 
     protected $fillable = [
-        'id_desa', 'id_admin', 'id_chat_group_tele', 'telegram_group_invite', 'nama_posyandu', 'alamat', 'nomor_telepon', 'banjar', 'latitude', 'longitude'
+        'id_desa',
+        'id_admin',
+        'nama_posyandu',
+        'alamat',
+        'nomor_telepon',
+        'banjar',
+        'latitude',
+        'longitude',
     ];
-
+  
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'id_admin', 'id');
@@ -31,4 +42,25 @@ class Posyandu extends Model
     {
         return $this->hasMany(Kegiatan::class, 'id_posyandu');
     }
+
+    // public function desa()
+    // {
+    //     return $this->belongsTo('App\desa');
+    // }
+
+
+
+
+// =======
+
+// class Posyandu extends Model
+// {
+//     protected $table = 'tb_posyandu';
+
+//     protected $fillable = [
+//         'id_desa', 'id_admin', 'id_chat_group_tele', 'telegram_group_invite', 'nama_posyandu', 'alamat', 'nomor_telepon', 'banjar', 'latitude', 'longitude'
+//     ];
+
+
+// >>>>>>> main
 }

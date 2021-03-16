@@ -33,23 +33,34 @@
                 <a href="" class="text-decoration-none h4 fw-bold">Smart POSYANDU</a>
             </div>
             <div class="card-body">
-                <p class="text-center py-2">Silahkan login untuk mengelola sistem</p>
-                <form action="../../index3.html" method="post">
+                <p class="text-center py-2">Silahkan login untuk mengelola sistem ADMIN</p>
+                <form action="{{route('submit.login.admin')}}" method="post">
+                    @csrf
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="row g-4">
                         <div class="col-5 mb-1">
@@ -58,36 +69,43 @@
                             </div>
                             <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Refresh Captcha</a>
                         </div>
+                        @error('captcha')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <div class="col-7">
                             <div class="input-group-append g-0">
-                                <input type="text" class="form-control" placeholder="Captcha">
+                                <input name="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha" required>
+
                                 <div class="input-group-text">
                                     <span class="fas fa-spell-check"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="row mb-4">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
+                    <div class="row mb-4">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input name="remember" type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-                    </div>
-                </div>
+                </form>
+
 
                 <p class="mb-1">
-                    Lupa password? Klik 
+                    Lupa password? Klik
                     <a href="forgot-password.html" class="text-decoration-none link-primary">di sini</a>
                 </p>
                 <p class="mb-0">
-                    Belum teregistrasi? 
+                    Belum teregistrasi?
                     <a href="register.html" class="text-decoration-none link-primary">Ajukan akun sekarang</a>
                 </p>
             </div>

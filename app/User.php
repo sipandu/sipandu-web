@@ -10,30 +10,36 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
+    protected $table = 'tb_user';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'id_kk',
+        'id_chat_tele',
+        'email',
+        'password',
+        'profile_image',
+        'is_verified',
+        'otp_token',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function anak(){
+        return $this->hasOne('App\Anak','id_user','id');
+    }
+
+    public function ibu(){
+        return $this->hasOne('App\Ibu','id_user','id');
+    }
+
+    public function lansia(){
+        return $this->hasOne('App\Lansia','id_user','id');
+    }
+
+
+
 }
