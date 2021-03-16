@@ -150,12 +150,12 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 // //USER DASBOARD//
 Route::prefix('user')->namespace('User')->group(function(){
     Route::get('/', 'UserController@index')->name('user.home');
-    // Route::get('/profile', 'UserController@profile')->name('profile.user');
-    Route::prefix('edit')->group(function(){
-        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
-    });
+    // // Route::get('/profile', 'UserController@profile')->name('profile.user');
+    // Route::prefix('edit')->group(function(){
+    //     Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
+    //     Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
+    //     Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+    // });
     Route::prefix('account')->group(function(){
         Route::get('/new', 'RegisController@formAddAdmin')->name('form.add.anggota.keluarga');
         Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');

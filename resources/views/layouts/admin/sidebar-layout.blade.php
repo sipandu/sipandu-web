@@ -37,7 +37,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview ms-3">
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == "super admin")
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
                                     <li class="nav-item">
                                         <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
                                             <i class="fas fa-user-shield nav-icon"></i>
