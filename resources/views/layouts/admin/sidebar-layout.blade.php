@@ -3,7 +3,7 @@
     {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
         <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light fw-bold">SIPANDU</span>
+        <span class="brand-text font-weight-light fw-bold">Smart Posyandu</span>
     </a>
     {{-- Brand Logo End --}}
 
