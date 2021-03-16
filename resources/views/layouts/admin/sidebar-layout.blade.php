@@ -211,11 +211,7 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-<<<<<<< HEAD
                                 <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-=======
-                                <a href="{{ route("informasi-penting.home") }}" id="informasi-penting" class="nav-link">
->>>>>>> 064ef5211620d80a0345415443a807f41578983f
                                     <i class="fas fa-exclamation nav-icon"></i>
                                     <p>Informasi Penting</p>
                                 </a>
