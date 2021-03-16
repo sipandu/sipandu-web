@@ -4,14 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>SIPANDU - Registrasi Anak</title>
+    <title>SIPANDU - Data Diri Anak</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
-    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -28,12 +25,12 @@
     <div class="container d-flex justify-content-center pt-4">
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
-                <img class="rounded mx-auto d-block" src="{{ asset('sipandu.png') }}" alt="sipandu logo" width="100" height="100">
+                <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
                 <a href="" class="text-decoration-none h4 fw-bold">SIPANDU</a>
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
             </div>
             <div class="card-body">
-                <p class="text-center py-3">Silahkan daftarkan anak anda</p>      
+                <p class="text-center fs-5 py-3">Silahkan lengkapi data diri anak anda</p>      
                 <form action="../../index.html" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nama anak">
@@ -44,25 +41,17 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nama ibu">
+                        <input type="text" class="form-control" placeholder="Email aktif">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Scan Akta Kelahiran atau SKL</label>
-                            </div>
-                        </div>
-                        <div class="col-md mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2">
-                                <label class="custom-file-label" for="exampleInputFile2">Kartu Keluarga</label>
-                            </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-inpupleInputFt" id="exampleInputFile2">
+                            <label class="custom-file-label" for="examile2">Scan Kartu Keluarga</label>
                         </div>
                     </div>
                     <div class="row">

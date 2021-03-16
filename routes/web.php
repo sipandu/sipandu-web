@@ -18,13 +18,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//Admin
 Route::get('/admin', function () {
     return view('pages/admin/dashboard');
 })->name("Admin Home");
 
 Route::get('/admin/login', function () {
-    return view('pages/auth/LoginAdmin');
+    return view('pages/auth/admin/login-admin');
 })->name("Admin Login");
+
+Route::get('/admin/account/new-admin', function () {
+    return view('pages/auth/admin/new-admin');
+})->name("Add Admin");
+
+Route::get('/admin/account/new-kader', function () {
+    return view('pages/auth/admin/new-kader');
+})->name("Add Kader");
+
+Route::get('/admin/account/new-user', function () {
+    return view('pages/auth/admin/new-user');
+})->name("Add User");
+
+Route::get('/admin/profile', function () {
+    return view('pages/auth/admin/profile-admin');
+})->name("Profile Admin");
+
+Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
+
+
+
+// Master Data
+Route::get('/admin/posyandu/new', function () {
+    return view('pages/admin/master-data/new-posyandu');
+})->name("Add Posyandu");
+
+Route::get('/admin/posyandu/all', function () {
+    return view('pages/admin/master-data/list-posyandu');
+})->name("List Posyandu");
+
+
 
 //Informasi
 Route::get('/admin/informasi/informasi-penting/home', function(){
@@ -34,14 +67,26 @@ Route::get('/admin/informasi/informasi-penting/home', function(){
 Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
 })->name('sig-posyandu.home');
-Route::get('/register', function () {
-    return view('pages/auth/register-anak');
+
+
+
+//Anak
+Route::get('/register/bayi-balita', function () {
+    return view('pages/auth/anak/register-anak');
 })->name("Register Anak");
 
+<<<<<<< HEAD
 //Informasi Penting
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
 Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
+=======
+Route::get('/data-diri/bayi-balita', function () {
+    return view('pages/auth/anak/data-diri-anak');
+})->name("Data Diri Anak");
+
+
+>>>>>>> 064ef5211620d80a0345415443a807f41578983f
 
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
@@ -52,6 +97,8 @@ Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->nam
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
 
+
+
 //Kegiatan
 Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
 Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create');
@@ -60,3 +107,4 @@ Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiat
 Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
 Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
 Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
+
