@@ -23,11 +23,11 @@ class Penyuluhan extends Model
                 'Topik : '.$this->topik_penyuluhan.PHP_EOL.
                 'Deskripsi Kegiatan : '.PHP_EOL.PHP_EOL.
                 $this->deskripsi;
-        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $token = '1519375290:AAEt7FLKWTlaEPJgamcqKv8pVTtboTbA9iY';
         $url = 'https://api.telegram.org/bot'.$token.'/sendMessage';
-        $chat_id = $this->posyandu->id_chat_grup_tele;
+        // $chat_id = $this->posyandu->id_chat_grup_tele;
         $response = Http::post($url, [
-            'chat_id' => $chat_id,
+            'chat_id' => '-518331855',
             'text' => $msg,
         ]);
     }
@@ -41,11 +41,11 @@ class Penyuluhan extends Model
                 'Topik : '.$this->topik_penyuluhan.PHP_EOL.
                 'Deskripsi Kegiatan : '.PHP_EOL.PHP_EOL.
                 $this->deskripsi;
-        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $token = '1519375290:AAEt7FLKWTlaEPJgamcqKv8pVTtboTbA9iY';
         $url = 'https://api.telegram.org/bot'.$token.'/sendMessage';
-        $chat_id = $this->posyandu->id_chat_grup_tele;
+        // $chat_id = $this->posyandu->id_chat_grup_tele;
         $response = Http::post($url, [
-            'chat_id' => $chat_id,
+            'chat_id' => '-518331855',
             'text' => $msg,
         ]);
     }
