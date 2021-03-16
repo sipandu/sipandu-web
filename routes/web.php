@@ -19,9 +19,6 @@ Route::get('/', function () {
 
 
 //Admin
-Route::get('/admin', function () {
-    return view('pages/admin/dashboard');
-})->name("Admin Home");
 
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
@@ -62,12 +59,13 @@ Route::get('/', function () {
     return view('landing_page');
 });
 
+
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
 
-
+// REGISTER //
 Route::prefix('register')->namespace('User\Auth')->group(function() {
     Route::get('/landing', 'RegisController@landingRegis')->name('landing.regis');
     Route::get('/verif', 'RegisController@landingVerif')->name('landing.verif');
@@ -86,7 +84,7 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 
 });
 
-
+// LOGIN //
 Route::prefix('login')->group(function(){
     Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
         Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login');
@@ -103,7 +101,7 @@ Route::prefix('login')->group(function(){
 
 //ADMIN DASBOARD//
 Route::prefix('admin')->namespace('Admin')->group(function(){
-    Route::get('/profile', 'AdminController@profile')->name('profile.admin');
+    Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
@@ -123,26 +121,23 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 });
 
 
-// //ADMIN DASBOARD//
-// Route::prefix('user')->namespace('User')->group(function(){
-//     Route::get('/', 'AdminController@profile')->name('profile.admin');
-//     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
-//     Route::prefix('edit')->group(function(){
-//         Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-//         Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-//         Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
-//     });
-//     Route::prefix('account')->group(function(){
-//         Route::get('/new-admin', 'RegisController@formAddAdmin')->name('Add Admin');
-//         Route::get('/new-user', 'RegisController@formAddUser')->name('Add User');
-//         Route::get('/new-kader', 'RegisController@formAddKader')->name('Add Kader');
-//         Route::post('/new-admin', 'RegisController@submitAdmin')->name('submit.add.admin.kader');
-//         Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
-//         Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
-//         Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
-//     });
+// //USER DASBOARD//
+Route::prefix('user')->namespace('User')->group(function(){
+    Route::get('/', 'UserController@index')->name('user.home');
+    // Route::get('/profile', 'UserController@profile')->name('profile.user');
+    Route::prefix('edit')->group(function(){
+        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
+        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
+        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+    });
+    Route::prefix('account')->group(function(){
+        Route::get('/new', 'RegisController@formAddAdmin')->name('form.add.anggota.keluarga');
+        Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
+        Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
+        Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
+    });
 
-// });
+});
 
 
 

@@ -118,7 +118,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>Kabupaten/Kota</label>
-                                <select name="kabupaten" class="form-control select2" style="width: 100%;">
+                                <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
                                     @foreach ($kabupaten as $k)
                                         <option value="{{$k->nama_kabupaten}}">{{$k->nama_kabupaten}}</option>
                                     @endforeach
@@ -126,26 +126,18 @@
                             </div>
                             <div class="form-group">
                                 <label>Kecamatan</label>
-                                <select name="kecamatan" class="form-control select2" style="width: 100%;">
-                                @foreach ($kecamatan as $ke)
-                                    <option value="{{$ke->nama_kecamatan}}">{{$ke->nama_kecamatan}}</option>
-                                @endforeach
+                                <select id="kecamatan" name="kecamatan" class="form-control select2" style="width: 100%;">
+
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Desa/Kelurahan</label>
-                                <select name="desa" class="form-control select2" style="width: 100%;">
-                                @foreach ($desa as $desa)
-                                    <option value="{{$desa->nama_desa}}">{{$desa->nama_desa}}</option>
-                                @endforeach
+                                <select id="desa" name="desa" class="form-control select2" style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Banjar</label>
-                                <select name="banjar" class="form-control select2" style="width: 100%;">
-                                @foreach ($banjar as $br)
-                                    <option value="{{$br->id}}">{{$br->banjar}}</option>
-                                @endforeach
+                                <select  id="banjar" name="banjar" class="form-control select2" style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group">
@@ -208,6 +200,72 @@
 
             $('[data-mask]').inputmask()
         })
+    </script>
+     <script>
+        $(document).ready(function(){
+            // Kabupaten AJAX //
+            $('#kabupaten').on('change', function () {
+                let id = $(this).val();
+                $('#kecamatan').empty();
+                $('#kecamatan').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/kecamatan/' + id,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append(`<option value="0" disabled selected>Select Kecamatan</option>`);
+                        response.forEach(element => {
+                            $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
+                        });
+                    }
+                });
+            });
+
+            // Kecamatan AJAX //
+            $('#kecamatan').on('change', function () {
+                let idDesa = $(this).val();
+                $('#desa').empty();
+                $('#desa').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/desa/' + idDesa,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#desa').empty();
+                        $('#desa').append(`<option value="0" disabled selected>Select Desa/Kelurahan</option>`);
+                        response.forEach(element => {
+                            $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
+                        });
+                    }
+                });
+            });
+
+            // Banjar AJAX //
+            $('#desa').on('change', function () {
+                let id = $(this).val();
+                $('#banjar').empty();
+                $('#banjar').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/banjar/' + id,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#banjar').empty();
+                        $('#banjar').append(`<option value="0" disabled selected>Select Banjar</option>`);
+                        response.forEach(element => {
+                            $('#banjar').append(`<option value="${element['id']}">${element['banjar']}</option>`);
+                        });
+                    }
+                });
+            });
+
+
+        });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>

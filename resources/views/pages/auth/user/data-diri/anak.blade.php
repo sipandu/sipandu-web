@@ -152,25 +152,16 @@
                             <div class="form-group">
                                 <label>Kecamatan</label>
                                 <select id="kecamatan" name="kecamatan" class="form-control select2 kecamatan" style="width: 100%;">
-                                {{-- @foreach ($kecamatan as $ke)
-                                    <option value="{{$ke->nama_kecamatan}}">{{$ke->nama_kecamatan}}</option>
-                                @endforeach --}}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Desa/Kelurahan</label>
                                 <select id="desa" name="desa" class="form-control select2" style="width: 100%;">
-                                {{-- @foreach ($desa as $desa)
-                                    <option value="{{$desa->nama_desa}}">{{$desa->nama_desa}}</option>
-                                @endforeach --}}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Banjar</label>
                                 <select id="banjar" name="banjar" class="form-control select2" style="width: 100%;">
-                                {{-- @foreach ($banjar as $br)
-                                    <option value="{{$br->id}}">{{$br->banjar}}</option>
-                                @endforeach --}}
                                 </select>
                             </div>
                             <div class="form-group">

@@ -27,8 +27,7 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($credential, $request->member)){
-            // return redirect()->intended(route('user.home'));
-            return view('pages/user/dashboard');
+            return redirect()->intended(route('user.home'));
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'));

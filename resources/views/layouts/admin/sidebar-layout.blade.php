@@ -38,19 +38,21 @@
                             </a>
                             <ul class="nav nav-treeview ms-3">
                                 @if (Auth::guard('admin')->user()->pegawai->jabatan == "super admin")
-                                <li class="nav-item">
-                                    <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
-                                        <i class="fas fa-user-shield nav-icon"></i>
-                                        <p>Add Admin</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
+                                            <i class="fas fa-user-shield nav-icon"></i>
+                                            <p>Add Admin</p>
+                                        </a>
+                                    </li>
                                 @endif
-                                <li class="nav-item">
-                                    <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
-                                        <i class="fas fa-user-tag nav-icon"></i>
-                                        <p>Add Kader</p>
-                                    </a>
-                                </li>
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == "admin" || "super admin")
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
+                                            <i class="fas fa-user-tag nav-icon"></i>
+                                            <p>Add Kader</p>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                         <i class="fas fa-user nav-icon"></i>

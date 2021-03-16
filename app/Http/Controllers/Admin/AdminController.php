@@ -11,6 +11,14 @@ use App\KK;
 
 class AdminController extends Controller
 {
+
+
+    public function index(Request $request)
+    {
+        return view('pages/admin/dashboard');
+    }
+
+
     public function profile(Request $request)
     {
         return view('pages/auth/admin/profile-admin');

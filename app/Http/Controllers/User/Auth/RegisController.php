@@ -52,29 +52,19 @@ class RegisController extends Controller
     public function showRegisFormAnak(Request $request)
     {
         $kabupaten = Kabupaten::all();
-        // dd($kabupaten);
-
         return view('pages/auth/user/data-diri/anak',compact('kabupaten'));
     }
 
     public function showRegisFormIbu(Request $request)
     {
         $kabupaten = Kabupaten::all();
-        $kecamatan = Kecamatan::all();
-        $desa = Desa::all();
-        $banjar = posyandu::all();
-
-        return view('pages/auth/user/data-diri/ibu',compact('kabupaten','kecamatan','desa','banjar'));
+        return view('pages/auth/user/data-diri/ibu',compact('kabupaten'));
     }
 
     public function showRegisFormLansia(Request $request)
     {
         $kabupaten = Kabupaten::all();
-        $kecamatan = Kecamatan::all();
-        $desa = Desa::all();
-        $banjar = posyandu::all();
-
-        return view('pages/auth/user/data-diri/lansia',compact('kabupaten','kecamatan','desa','banjar'));
+        return view('pages/auth/user/data-diri/lansia',compact('kabupaten'));
     }
 
 

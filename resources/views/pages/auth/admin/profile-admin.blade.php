@@ -58,8 +58,9 @@
                                 <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->created_at}}</a>
                             </li>
                         </ul>
-                        <form action="">
-                            <button href="{{route('logout.admin')}}" class="btn btn-danger btn-block">
+                        <form action="{{route('logout.admin')}}">
+                            @csrf
+                            <button href="" class="btn btn-danger btn-block">
                                 <b>Logout</b>
                             </button>
                         </form>

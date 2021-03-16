@@ -55,15 +55,17 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Scan KK</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
-                                    </div>
+                        <div class="form-group" id="kkuser">
+                            <label for="exampleInputEmail1">Scan KK</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
                                 </div>
                             </div>
+                        </div>
+
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Bumil</label>
                             <div class="input-group mb-3">
@@ -629,10 +631,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         });
-
-
-
-
-
     </script>
+
+
+
+
 @endpush
