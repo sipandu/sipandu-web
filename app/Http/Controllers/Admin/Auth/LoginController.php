@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logoutAdmin');
+    }
+
     public function showLoginForm(Request $request)
     {
         return view('pages/auth/admin/login-admin');
