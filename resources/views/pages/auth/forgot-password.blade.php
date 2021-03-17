@@ -43,18 +43,13 @@
                             </div>
                       </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
+                        <div class="col-sm-10">
+                            <input name="email" disabled readonly type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
                         </div>
-                      <!-- /.col -->
                     </div>
                 </form>
-                <div>
-                    <p class="mt-3 mb-1">
-                        <a href="login.html">Login</a>
-                    </p>
-                </div>
                 <div class="text-center mt-4 mb-0">
                     <a href="" class="nav-link link-dark">SIPANDU &copy 2021</a>
                 </div>
