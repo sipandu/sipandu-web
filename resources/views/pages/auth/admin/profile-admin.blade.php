@@ -71,10 +71,10 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Account</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Akun</a></li>
                             <li class="nav-item"><a class="nav-link" href="#personal" data-toggle="tab">Personal</a></li>
                             <li class="nav-item"><a class="nav-link" href="#jabatan" data-toggle="tab">Jabatan</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -84,29 +84,27 @@
                                     @csrf
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
-                                        <div class="col-sm-10">
-                                            <input name="email" disabled readonly type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
+                                        <div class="col-sm-10 my-auto">
+                                            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
-                                        <div class="col-sm-10">
-                                        <input name="telegram" disabled readonly type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}">
+                                        <div class="col-sm-10 my-auto">
+                                            <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
-                                        <div class="col-sm-10">
-                                        <input name="notlpn" disabled readonly type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
+                                        <div class="col-sm-10 my-auto">
+                                            <input name="notlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
-                                            <a class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</a>
-                                            <a class="btn btn-danger my-1" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</a>
                                             <button type="submit" class="btn btn-success my-1">Save Change</button>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </form>
                                 @include('modal/admin/change-password')
 
@@ -115,37 +113,37 @@
                                 <form action="" class="form-horizontal">
                                     <div class="form-group row">
                                         <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-10 my-auto">
                                             <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputNIK" class="col-sm-2 col-form-label">NIK</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-10 my-auto">
                                             <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-10 my-auto">
                                             <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tanggal_lahir}}">
+                                        <div class="col-sm-10 my-auto">
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row my-auto">
                                         <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
                                             <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row mt-4">
                                         <div class="d-grid col-sm-12">
-                                        <button type="submit" class="btn btn-success">Save Change</button>
+                                            <button type="submit" class="btn btn-success">Save Change</button>
                                         </div>
                                     </div>
                                 </form>
@@ -153,102 +151,87 @@
                             <div class="tab-pane" id="jabatan">
                                 <div class="form-group row">
                                     <label for="inputName" class="col-sm-2 col-form-label">Tempat Tugas</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 my-auto">
                                         <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly value="{{Auth::guard('admin')->user()->posyandu->nama_posyandu}}" >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail" class="col-sm-2 col-form-label">Jabatan</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 my-auto">
                                     <input type="email" class="form-control" id="inputEmail" placeholder="Jabatan" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->jabatan}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputName2" class="col-sm-2 col-form-label">Terdaftar Sejak</label>
-                                    <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly value="{{Auth::guard('admin')->user()->created_at}}">
+                                    <div class="col-sm-10 my-auto">
+                                    <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->created_at)) }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="edit-profile">
-                                <form action="{{route('edit.account')}}" class="form-horizontal">
+                                <form action="{{route('edit.profile')}}" enctype="multipart/form-data" method="post">
                                     @csrf
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-3 col-form-label">E-Mail</label>
-                                        <div class="col-sm-9">
-                                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}},{{ old('email') }} ">
-                                        </div>
-                                        @error('email')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
+                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1">Profile Image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input name="file" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
+                                                </div>
                                             </div>
-                                        @enderror
+                                        </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputTele" class="col-sm-3 col-form-label">Telegram</label>
-                                        <div class="col-sm-9">
-                                        <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}},{{ old('telegram') }}">
+                                        <div class="col-sm-12 text-end">
+                                            <button id="test" type="submit" class="btn btn-success my-1" >Simpan Foto Profile</button>
                                         </div>
-                                        @error('telegram')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Nomor Telp</label>
-                                        <div class="col-sm-9">
-                                            <input name="notlpn" type="text" class="form-control @error('notlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}},{{ old('notlpn') }}">
-                                        </div>
-                                        @error('notlpn')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-
+                                </form>
+                                <div class="border border-bottom border-primary my-4"></div>
+                                <form action="{{route('edit.account')}}" class="form-horizontal">
+                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
+                                    @csrf
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror" value="{{ old('password_lama') }}"  id="inputTelp" placeholder="Password Lama" >
+                                            @error('nama_lansia')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('nama_lansia')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}"   id="inputTelp" placeholder="Password Baru" >
+                                            @error('password')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('password')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="cofirmation_password" autocomplete="off" class="form-control @error('cofirmation_password') is-invalid @enderror" value="{{ old('cofirmation_password') }}"   id="inputTelp" placeholder="Konfirmasi Password Baru" >
                                         </div>
+                                        @error('cofirmation_password')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('cofirmation_password')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 text-end">
+                                            <button id="test" type="submit" class="btn btn-success my-1">Simpan Password Baru</button>
                                         </div>
-                                    @enderror
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12 d-grid">
-                                        <a class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#changeProfile">Change Profile Image</a>
-                                        <button id="test" type="submit" class="btn btn-success my-1" >Save Change</button>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
                                 @include('modal/admin/change-profile')
                             </div>
                         </div>
