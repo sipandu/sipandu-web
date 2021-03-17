@@ -34,23 +34,38 @@
             </div>
             <div class="card-body">
                 <p class="text-center py-2">Silahkan login untuk mengelola sistem</p>
+                @if (session('message'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('message')}}
+                    </div>
+                @endif
                 <form action="{{route('submit.user.login')}}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input name="email" type="email" class="form-control" placeholder="Email">
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input name="password" type="password" class="form-control" placeholder="Password">
+                        <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="row g-4">
                         <div class="col-5 mb-1">
@@ -59,6 +74,11 @@
                             </div>
                             <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Refresh Captcha</a>
                         </div>
+                        @error('captcha')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <div class="col-7">
                             <div class="input-group-append g-0">
                                 <input name="captcha" type="text" class="form-control" placeholder="Captcha">

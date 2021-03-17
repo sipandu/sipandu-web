@@ -39,10 +39,11 @@ class AdminController extends Controller
         $admin = Admin::find($idAdmin);
         $admin->profile_image = $path;
         $admin->save();
-        echo("Berhasil Update");
+
+        return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
     }
 
-    public function updatePassword(Request $request)
+    public function passwordUpdate(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -50,9 +51,11 @@ class AdminController extends Controller
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
         ]);
+
+
     }
 
-    public function updateAccount(Request $request)
+    public function accountUpdate(Request $request)
     {
         $this->validate($request, [
             'email' => 'required',
@@ -70,7 +73,7 @@ class AdminController extends Controller
         $pegawai->nomor_telepon = $request->notlpn;
         $pegawai->save();
 
-        echo("Berhasil Update");
+        return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
 
     }
 
