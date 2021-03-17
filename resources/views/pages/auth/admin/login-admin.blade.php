@@ -34,10 +34,15 @@
             </div>
             <div class="card-body">
                 <p class="text-center py-2">Silahkan login untuk mengelola sistem ADMIN</p>
+                @if (session('message'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('message')}}
+                    </div>
+                @endif
                 <form action="{{route('submit.login.admin')}}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" >
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>

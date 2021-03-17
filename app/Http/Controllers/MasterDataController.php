@@ -265,7 +265,7 @@ class MasterDataController extends Controller
         } else if ($data < 1) {
             return ('Input Gagal');
         }
-        
+
         // return $request;
     }
 
@@ -309,7 +309,7 @@ class MasterDataController extends Controller
         } else if ($data < 1) {
             return ('Input Gagal');
         }
-        
+
         // return $pegawai;
     }
 }

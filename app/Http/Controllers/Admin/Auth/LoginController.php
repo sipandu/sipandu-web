@@ -29,7 +29,7 @@ class LoginController extends Controller
             return redirect()->intended(route('Admin Home'));
         }
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->with('message','Email atau password Anda Salah');
     }
 
     public function logoutAdmin(Request $request)

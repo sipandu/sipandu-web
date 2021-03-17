@@ -91,6 +91,7 @@ Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
 
+
 // REGISTER //
 Route::prefix('register')->namespace('User\Auth')->group(function() {
     Route::get('/landing', 'RegisController@landingRegis')->name('landing.regis');
@@ -131,17 +132,17 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+        Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
+        Route::post('/password', 'AdminController@passwordUpdate')->name('edit.profile');
     });
     Route::prefix('account')->namespace('Auth')->group(function(){
-        Route::get('/new-admin', 'RegisController@formAddAdmin')->name('Add Admin');
-        Route::get('/new-user', 'RegisController@formAddUser')->name('Add User');
-        Route::get('/new-kader', 'RegisController@formAddKader')->name('Add Kader');
-        Route::post('/new-admin', 'RegisController@submitAdmin')->name('submit.add.admin.kader');
-        Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
-        Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
-        Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
+        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
+        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User');
+        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader');
+        Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
+        Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
+        Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
+        Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
     });
 
 });
@@ -150,18 +151,18 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 // //USER DASBOARD//
 Route::prefix('user')->namespace('User')->group(function(){
     Route::get('/', 'UserController@index')->name('user.home');
-    // // Route::get('/profile', 'UserController@profile')->name('profile.user');
-    // Route::prefix('edit')->group(function(){
-    //     Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-    //     Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-    //     Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
-    // });
-    Route::prefix('account')->group(function(){
-        Route::get('/new', 'RegisController@formAddAdmin')->name('form.add.anggota.keluarga');
-        Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
-        Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
-        Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
-    });
+//     // // Route::get('/profile', 'UserController@profile')->name('profile.user');
+//     // Route::prefix('edit')->group(function(){
+//     //     Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
+//     //     Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
+//     //     Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+//     // });
+//     Route::prefix('account')->group(function(){
+//         Route::get('/new', 'RegisController@formAddAdmin')->name('form.add.anggota.keluarga');
+//         Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
+//         Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
+//         Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
+//     });
 
 });
 
