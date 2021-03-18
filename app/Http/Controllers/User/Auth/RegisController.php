@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 class RegisController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    // }
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
 
 
     public function landingRegis(Request $request)

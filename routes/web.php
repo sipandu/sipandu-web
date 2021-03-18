@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('landing_page');
 });
 
+Route::get('/', function () {
+    dd("test");
+});
 
 
 //Admin
@@ -119,9 +122,9 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::prefix('edit')->group(function(){
-        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
+        Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
-        Route::post('/password', 'AdminController@passwordUpdate')->name('edit.profile');
+        Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
     Route::prefix('account')->namespace('Auth')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
