@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('landing_page');
 });
 
-Route::get('/', function () {
-    dd("test");
-});
+// Route::get('/', function () {
+//     dd("test");
+// });
 
 
 //Admin

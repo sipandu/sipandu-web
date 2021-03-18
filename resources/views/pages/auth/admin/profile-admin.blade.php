@@ -84,11 +84,7 @@
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
                                         <div class="col-sm-10 my-auto">
-//<<<<<<< loginRegis
-                                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}">
-//=======
                                             <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
-//>>>>>>> main
                                         </div>
                                         @error('email')
                                             <div class="invalid-feedback text-start">
@@ -99,11 +95,7 @@
                                     <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
                                         <div class="col-sm-10 my-auto">
-//<<<<<<< loginRegis
-                                            <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputEmail" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->pegawai->username_telegram) }}">
-//=======
                                             <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}">
-//>>>>>>> main
                                         </div>
                                         @error('telegram')
                                             <div class="invalid-feedback text-start">
@@ -114,11 +106,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10 my-auto">
-//<<<<<<< loginRegis
-                                            <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputEmail" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->pegawai->nomor_telepon) }}">
-//=======
                                             <input name="notlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
-//>>>>>>> main
                                         </div>
                                         @error('no_tlpn')
                                             <div class="invalid-feedback text-start">
@@ -201,49 +189,10 @@
                                             <label for="exampleInputEmail1">Profile Image</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-//<<<<<<< loginRegis
-                                                    <input name="file" type="file" class="custom-file-input  @error('file') is-invalid @enderror" id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
-                                                </div>
-                                                @error('file')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-success my-1" >Simpan Foto Profile</button>
-//=======
                                                     <input name="file" type="file" class="custom-file-input" id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
                                                 </div>
                                             </div>
-//>>>>>>> main
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="border border-bottom border-primary my-4"></div>
-                                <form action="{{route('edit.password')}}" method="POST" class="form-horizontal">
-                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
-                                    @csrf
-                                    <div class="form-group row">
-//<<<<<<< loginRegis
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror"  id="inputTelp" placeholder="Password Lama" >
-                                            @error('password_lama')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-//=======
-                                        <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-success my-1" >Simpan Foto Profile</button>
                                         </div>
                                     </div>
                                 </form>
@@ -251,17 +200,11 @@
                                 <form action="{{route('edit.account')}}" class="form-horizontal">
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
                                     @csrf
-//>>>>>>> main
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
                                         <div class="col-sm-9">
-//<<<<<<< loginRegis
-                                            <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"  id="inputTelp" placeholder="Password Baru" >
-                                            @error('password')
-//=======
                                             <input type="text" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror" value="{{ old('password_lama') }}"  id="inputTelp" placeholder="Password Lama" >
                                             @error('nama_lansia')
-//>>>>>>> main
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
@@ -271,15 +214,6 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
-//<<<<<<< loginRegis
-                                            <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"   id="inputTelp" placeholder="Konfirmasi Password Baru" >
-                                        </div>
-                                        @error('password_confirmation')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-//=======
                                             <input type="text" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}"   id="inputTelp" placeholder="Password Baru" >
                                             @error('password')
                                                 <div class="invalid-feedback text-start">
@@ -287,26 +221,12 @@
                                                 </div>
                                             @enderror
                                         </div>
-//>>>>>>> main
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">
                                             <button id="test" type="submit" class="btn btn-success my-1">Simpan Password Baru</button>
                                         </div>
-                                        @error('cofirmation_password')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
-//<<<<<<< loginRegis
-//=======
-                                    <div class="form-group row">
-                                        <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-success my-1">Simpan Password Baru</button>
-                                        </div>
-                                    </div>
-//>>>>>>> main
                                 </form>
                                 @include('modal/admin/change-profile')
                             </div>
