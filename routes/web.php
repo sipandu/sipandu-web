@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+    dd("test");
+});
 
 //Admin
 
