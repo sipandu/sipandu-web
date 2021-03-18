@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing_page');
 });
 
 Route::get('/', function () {
     dd("test");
 });
+
 
 //Admin
 
@@ -29,14 +30,6 @@ Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
 // Master Data
-// Route::get('/admin/posyandu/new', function () {
-//     return view('pages/admin/master-data/new-posyandu');
-// })->name("Add Posyandu");
-
-// Route::get('/admin/posyandu/all', function () {
-//     return view('pages/admin/master-data/data-posyandu');
-// })->name("Data Posyandu");
-
 Route::get('/admin/posyandu/all', 'MasterDataController@listPosyandu')->name("Data Posyandu");
 Route::get('/admin/posyandu/new', 'MasterDataController@addPosyandu')->name("Add Posyandu");
 Route::post('/admin/posyandu/add', 'MasterDataController@storePosyandu')->name("New Posyandu");
@@ -83,11 +76,6 @@ Route::get('/user/account/new-user', function () {
 Route::get('/password', function () {
     return view('pages/auth/forgot-password');
 });
-
-Route::get('/', function () {
-    return view('landing_page');
-});
-
 
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
