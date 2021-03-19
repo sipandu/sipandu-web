@@ -41,7 +41,7 @@ class MasterDataController extends Controller
             'desa' => 'required|exists:tb_desa,nama_desa',
             'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
             'telp_posyandu' => "nullable|numeric|digits_between:10,15|unique:tb_posyandu,nomor_telepon",
-            'alamat_posyandu' => "required|regex:/^[a-z ,.]+$/i|min:7",
+            'alamat_posyandu' => "required|min:7",
             'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
             'lng' => "required|regex:/^[0-9.-]+$/i|min:5",
             'nama_pegawai' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
@@ -142,10 +142,10 @@ class MasterDataController extends Controller
         $posyandu = Posyandu::create([
             'id_desa' => $desa->id,
             'id_admin' => $admin->id,
-            'id_chat_group_tele' => 1234,
+            'id_chat_group_tele' => NULL,
             'nama_posyandu' => $request->nama_posyandu,
             'alamat' => $request->alamat_posyandu,
-            'nomor_telepon' => $request->telp,
+            'nomor_telepon' => $request->telp_posyandu,
             'banjar' => $request->banjar,
             'latitude' => $request->lat,
             'longitude' => $request->lng

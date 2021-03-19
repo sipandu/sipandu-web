@@ -76,22 +76,41 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item" id="list-data-posyandu">
-                    <a href="{{ route("Data Posyandu") }}" class="nav-link" id="data-posyandu">
-                        <i class="nav-icon fas fa-list"></i>
-                        <p>Data Posyandu</p>
-                    </a>
+                <li class="nav nav-treeview">
+                    <li class="nav-item" id="list-management-posyandu">
+                        <a href="#" class="nav-link" id="management-posyandu">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>
+                                Manajemen Posyandu
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
+                                    <i class="nav-icon fas fa-id-badge"></i>
+                                    <p>Data Posyandu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
+                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <p>Profile Posyandu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" id="kader-posyandu">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Kader Posyandu</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </li>
-                <li class="nav-item" id="list-profile-posyandu">
-                    <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
-                        <i class="nav-icon fas fa-layer-group"></i>
-                        <p>Profile Posyandu</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Kader Posyandu</p>
+                <li class="nav-item" id="menu">
+                    <a href="" id="konsultasi" class="nav-link">
+                        <i class="nav-icon fas fa-user-md"></i>
+                        <p>Konsultasi</p>
                     </a>
                 </li>
                 <li class="nav nav-treeview">

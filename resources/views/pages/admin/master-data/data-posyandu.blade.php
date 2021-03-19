@@ -105,7 +105,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-data-posyandu').addClass('menu-open');
+            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
+            $('#management-posyandu').addClass('active');
             $('#data-posyandu').addClass('active');
         });
         

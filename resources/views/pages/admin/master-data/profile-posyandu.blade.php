@@ -161,7 +161,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-profile-posyandu').addClass('menu-open');
+            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
+            $('#management-posyandu').addClass('active');
             $('#profile-posyandu').addClass('active');
         });
     </script>
