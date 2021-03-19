@@ -155,10 +155,7 @@
                                     @foreach ($dataPosyandu as $data)
                                         <a href="{{ route('Edit Posyandu', [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
                                     @endforeach
-                                    {{-- <a href="#" class="btn btn-sm btn-info ms-3" data-bs-toggle="modal" data-bs-target="#editAdminPosyandu">Manage Administrator</a> --}}
                                 </div>
-                                {{-- @include('modal/admin/edit-posyandu')
-                                @include('modal/admin/edit-admin-posyandu') --}}
                             </div>
                         </div>
                     </div>
@@ -173,7 +170,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-data-posyandu').addClass('menu-open');
+            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
+            $('#management-posyandu').addClass('active');
             $('#data-posyandu').addClass('active');
         });
     </script>

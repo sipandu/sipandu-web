@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\MasterData;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
@@ -10,9 +13,7 @@ use App\Kecamatan;
 use App\Desa;
 use App\Kegiatan;
 
-use Illuminate\Http\Request;
-
-class MasterDataController extends Controller
+class MasterPosyanduController extends Controller
 {
     public function listPosyandu()
     {
@@ -333,5 +334,5 @@ class MasterDataController extends Controller
         }
 
         // return $pegawai;
-    }   
+    }
 }

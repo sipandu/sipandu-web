@@ -28,18 +28,29 @@ Route::get('/', function () {
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
+Route::get('/testing', 'MasterDataController@testing');
 
 // Master Data
-Route::get('/admin/posyandu/all', 'MasterDataController@listPosyandu')->name("Data Posyandu");
-Route::get('/admin/posyandu/new', 'MasterDataController@addPosyandu')->name("Add Posyandu");
-Route::post('/admin/posyandu/add', 'MasterDataController@storePosyandu')->name("New Posyandu");
-Route::get('/admin/posyandu/detail/{posyandu}', 'MasterDataController@detailPosyandu')->name("Detail Posyandu");
-Route::get('/admin/posyandu/edit/{posyandu}', 'MasterDataController@editPosyandu')->name("Edit Posyandu");
-Route::post('/admin/posyandu/update/{posyandu}', 'MasterDataController@updatePosyandu')->name("Update Posyandu");
-Route::post('/admin/posyandu/update-admin/{pegawai}', 'MasterDataController@updateAdminPosyandu')->name("Update Admin Posyandu");
+Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu");
+Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu");
+Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu");
+Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu");
+Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu");
+Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu");
+Route::post('/admin/posyandu/update-admin/{pegawai}', 'Admin\MasterData\MasterPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu");
+
 Route::get('/admin/posyandu/profile', function () {
     return view('pages/admin/master-data/profile-posyandu');
 })->name("Profile Posyandu");
+
+Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin");
+Route::get('/admin/data-admin/detail', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin");
+
+Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader");
+Route::get('/admin/data-kader/detail', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader");
+
+Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota");
+Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController@detailAnggota')->name("Detail Anggota");
 
 
 

@@ -79,7 +79,7 @@
                 <li class="nav nav-treeview">
                     <li class="nav-item" id="list-management-posyandu">
                         <a href="#" class="nav-link" id="management-posyandu">
-                            <i class="nav-icon fas fa-tasks"></i>
+                            <i class="nav-icon fas fa-hospital-user"></i>
                             <p>
                                 Manajemen Posyandu
                                 <i class="fas fa-angle-left right"></i>
@@ -88,20 +88,32 @@
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
                                 <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
-                                    <i class="nav-icon fas fa-id-badge"></i>
+                                    <i class="nav-icon fas fa-layer-group"></i>
                                     <p>Data Posyandu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>Data Admin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
-                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <i class="nav-icon fas fa-clinic-medical"></i>
                                     <p>Profile Posyandu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" id="kader-posyandu">
+                                <a href="{{ route('Data Kader') }}" class="nav-link" id="data-kader">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Kader Posyandu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                    <i class="nav-icon fas fa-user-friends"></i>
+                                    <p>Anggota Posyandu</p>
                                 </a>
                             </li>
                         </ul>
