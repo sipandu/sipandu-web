@@ -109,7 +109,7 @@
             $('#management-posyandu').addClass('active');
             $('#data-posyandu').addClass('active');
         });
-        
+
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,

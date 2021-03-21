@@ -18,7 +18,7 @@ class KK extends Authenticatable
     ];
 
     public function user(){
-        return $this->hasOne('App\User','id_kk','id');
+        return $this->hasMany('App\User','id_kk','id');
     }
 
 }

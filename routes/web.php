@@ -83,31 +83,45 @@ Route::get('/user/account/new-user', function () {
     return view('pages/auth/user/new-anggota');
 })->name("form.add.anggota.keluarga");
 
-Route::get('/password', function () {
-    return view('pages/auth/forgot-password');
+// <<<<<<< HEAD
+// Route::get('/password', function () {
+//     return view('pages/auth/forgot-password');
+// });
+
+// =======
+Route::get('/', function () {
+    return view('landing_page');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
+
+// >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
 
 
-// REGISTER //
+// REGISTER  USER//
 Route::prefix('register')->namespace('User\Auth')->group(function() {
     Route::get('/landing', 'RegisController@landingRegis')->name('landing.regis');
-    Route::get('/verif', 'RegisController@landingVerif')->name('landing.verif');
     Route::post('/landing', 'RegisController@submitLanding')->name('landing.regis.submit');
-    Route::prefix('submit')->group(function(){
-        Route::post('/anak', 'RegisController@sumbmitRegisAnak')->name('anak.registrasi.submit');
-        Route::post('/lansia', 'RegisController@sumbmitRegisLansia')->name('lansia.registrasi.submit');
-        Route::post('/ibu', 'RegisController@sumbmitRegisIbu')->name('ibu.registrasi.submit');
-    });
+    Route::get('/verif', 'RegisController@landingVerif')->name('landing.verif');
+    Route::get('/user', 'RegisController@formRegisAwal')->name('register.pertama');
+    Route::post('user/anak', 'RegisController@storeAnak')->name('anak.registrasi.submit');
+    Route::post('user/ibu', 'RegisController@storeIbu')->name('ibu.registrasi.submit');
+    Route::post('user/lansia', 'RegisController@storeLansia')->name('lansia.registrasi.submit');
+
     Route::prefix('data-diri')->group(function(){
-        Route::get('/anak', 'RegisController@showRegisFormAnak')->name('anak.data-diri.form');
-        Route::get('/ibu', 'RegisController@showRegisFormIbu')->name('anak.data-diri.form');
-        Route::get('/lansia', 'RegisController@showRegisFormLansia')->name('anak.data-diri.form');
-        Route::post('/anak', 'RegisController@submitDatadiriAnak')->name('anak.data-diri.submit');
+        Route::get('/anak', 'RegisDataDiriController@showRegisFormAnak')->name('anak.data-diri.form');
+        Route::get('/ibu', 'RegisDataDiriController@showRegisFormIbu')->name('ibu.data-diri.form');
+        Route::get('/lansia', 'RegisDataDiriController@showRegisFormLansia')->name('lansia.data-diri.form');
+        Route::post('/anak/store', 'RegisDataDiriController@storeDataAnak')->name('anak.data-diri.submit');
+        Route::post('/ibu/store', 'RegisDataDiriController@storeDataIbu')->name('ibu.data-diri.submit');
+        Route::post('/lansia/store', 'RegisDataDiriController@storeDataLansia')->name('lansia.data-diri.submit');
     });
 
 });
@@ -118,25 +132,40 @@ Route::prefix('login')->group(function(){
         Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login');
         Route::post('/submit', 'LoginController@submitLogin')->name('submit.login.admin');
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
+        Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
+        Route::post('/reset/password', 'ForgotPasswordController@postEmail')->name('post.email');
+        Route::get('/verify/token', 'ResetPasswordController@showForm')->name('form.verify.token');
+        Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('cek.otp.token');
+        Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('password.update');
+
     });
     Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::get('/', 'LoginController@showForm')->name('form.user.login');
         Route::post('/submit', 'LoginController@submitLogin')->name('submit.user.login');
         Route::get('/logout', 'LoginController@logoutUser')->name('logout.user');
+        Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('user.form.reset-password');
+        Route::post('/reset/password', 'ForgotPasswordController@postEmail')->name('user.post.email');
+        Route::get('/verify/token', 'ResetPasswordController@showForm')->name('user.form.verify.token');
+        Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('user.cek.otp.token');
+        Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('user.password.reset');
+        Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('user.password.update');
     });
 
 });
 
+
 //ADMIN DASBOARD//
-Route::prefix('admin')->namespace('Admin')->group(function(){
+Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
+    Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
-    Route::prefix('account')->namespace('Auth')->group(function(){
+    Route::prefix('account')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
         Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader');
@@ -149,21 +178,18 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 });
 
 
-// //USER DASBOARD//
-Route::prefix('user')->namespace('User')->group(function(){
-    Route::get('/', 'UserController@index')->name('user.home');
-//     // // Route::get('/profile', 'UserController@profile')->name('profile.user');
-//     // Route::prefix('edit')->group(function(){
-//     //     Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-//     //     Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-//     //     Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
-//     // });
-//     Route::prefix('account')->group(function(){
-//         Route::get('/new', 'RegisController@formAddAdmin')->name('form.add.anggota.keluarga');
-//         Route::post('/new-user-ibu', 'RegisController@submitUserIbu')->name('submit.add.user');
-//         Route::post('/new-user-anak', 'RegisController@submitUserAnak')->name('submit.add.user');
-//         Route::post('/new-user-lansia', 'RegisController@submitUserLansia')->name('submit.add.user');
-//     });
+//USER DASBOARD//
+Route::prefix('user')->namespace('User\Auth')->group(function(){
+    Route::get('/', 'UserController@anakhome')->name('anak.home');
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home');
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home');
+
+    Route::get('/profile', 'UserController@profile')->name('profile.user');
+    Route::prefix('edit')->group(function(){
+        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
+        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
+        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+    });
 
 });
 

@@ -34,289 +34,298 @@ class RegisController extends Controller
     // Source dimana melakukan pengecekan noKK pada Database //
     public function submitLanding(Request $request)
     {
-        $noKK = $request->noKK;
-        $selectKK = KK::where('no_kk', $noKK)->first();
-        $role = $request->role;
-        if($selectKK != null){
-            $idKK = $selectKK->id;
-            return view('pages/auth/user/form-register',['idKK' => $idKK,'role' => $role,'noKK' => $request->noKK]);
-        }else{
-            $idKK = null;
-            return view('pages/auth/user/form-register',['idKK' => $idKK,'role' => $role,'noKK' => $request->noKK]);
-        }
 
-    }
+        $this->validate($request,[
+            'no_kk' =>"required|numeric|digits:16",
+            'role' => "required",
+        ],
+        [
+            'no_kk.required' => "Nomor KK wajib diisi",
+            'no_kk.numeric' => "Nomor KK harus berupa angka",
+            'no_kk.digits' => "Nomor KK harus berjumlah 16 karakter",
+            'role.required' => "Kolom Wajib diisi",
 
-
-
-    public function showRegisFormAnak(Request $request)
-    {
-        $kabupaten = Kabupaten::all();
-        return view('pages/auth/user/data-diri/anak',compact('kabupaten'));
-    }
-
-    public function showRegisFormIbu(Request $request)
-    {
-        $kabupaten = Kabupaten::all();
-        return view('pages/auth/user/data-diri/ibu',compact('kabupaten'));
-    }
-
-    public function showRegisFormLansia(Request $request)
-    {
-        $kabupaten = Kabupaten::all();
-        return view('pages/auth/user/data-diri/lansia',compact('kabupaten'));
-    }
-
-
-    public function test(Request $request)
-    {
-        return view('category',compact('categories'));
-        // $kecamatan = Kecamatan::where('id_kabupaten','2')->get();
-        // return $kecamatan->nama_kecamatan;
-
-        // $kabupaten = new Kecamatan;
-        // $kabupaten = Kabupaten::with('kecamatan')->where('id',2)->first();
-        // echo($kabupaten->kecamatan->nama_kecamatan);
-
-        // $user = new User;
-        // $select = User::with('anak')->first();
-        // $test = $user->anak()->where('id_user',6)->first();
-        // echo($select->anak->nama_anak);
-
-
-    }
-
-
-    // Fungsi dari registrasi awal user baik itu lansia,ibu dan anak //
-    public function sumbmitRegisAnak(Request $request){
-        if($request->idKK != null){
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-            ]);
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->is_verified = 0;
-            $user->save();
-
-            $anak = new Anak;
-            $anak->nama_anak = $request->name;
-            $user->anak()->save($anak);
-
-
-            echo("berhasil Input Data");
-
-        }else{
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-                'img_kk'=> 'required|image|mimes:jpeg,png,jpg',
-            ]);
-
-            $path ='/images/upload/KK/'.time().'-'.$request->img_kk->getClientOriginalName();
-            $imageName = time().'-'.$request->img_kk->getClientOriginalName();
-
-            $request->img_kk->move(public_path('images/upload/KK'),$imageName);
-
-            $kk = new KK;
-            $kk->no_kk = $request->noKK;
-            $kk->file_kk = $path;
-            $kk->save();
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->is_verified = 0;
-            $kk->user()->save($user);
-
-            $anak = new Anak;
-            $anak->nama_anak = $request->name;
-            $user->anak()->save($anak);
-
-            echo("berhasil Input Data");
-
-        }
-
-
-
-    }
-
-    public function sumbmitRegisLansia(Request $request){
-        if($request->idKK != null){
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-            ]);
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->is_verified = 0;
-            $user->save();
-
-            $lansia = new Lansia;
-            $lansia->nama_lansia = $request->name;
-            $user->lansia()->save($lansia);
-
-
-            echo("berhasil Input Data");
-
-        }else{
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-                'img_kk'=> 'required|image|mimes:jpeg,png,jpg',
-            ]);
-
-            $path ='/images/upload/KK/'.time().'-'.$request->img_kk->getClientOriginalName();
-            $imageName = time().'-'.$request->img_kk->getClientOriginalName();
-
-            $request->img_kk->move(public_path('images/upload/KK'),$imageName);
-
-            $kk = new KK;
-            $kk->no_kk = $request->noKK;
-            $kk->file_kk = $path;
-            $kk->save();
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->is_verified = 0;
-            $kk->user()->save($user);
-
-            $lansia = new Lansia;
-            $lansia->nama_lansia = $request->name;
-            $user->lansia()->save($lansia);
-
-            echo("berhasil Input Data");
-
-        }
-
-    }
-
-    public function sumbmitRegisIbu(Request $request){
-        if($request->idKK != null){
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-            ]);
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->is_verified = 0;
-            $user->save();
-
-            $ibu = new Ibu;
-            $ibu->nama_ibu_hamil = $request->name;
-            $user->ibu()->save($ibu);
-
-
-            echo("berhasil Input Data");
-
-        }else{
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-                'img_kk'=> 'required|image|mimes:jpeg,png,jpg',
-            ]);
-
-            $path ='/images/upload/KK/'.time().'-'.$request->img_kk->getClientOriginalName();
-            $imageName = time().'-'.$request->img_kk->getClientOriginalName();
-
-            $request->img_kk->move(public_path('images/upload/KK'),$imageName);
-
-            $kk = new KK;
-            $kk->no_kk = $request->noKK;
-            $kk->file_kk = $path;
-            $kk->save();
-
-            $user = new User;
-            $user->id_kk = $request->idKK;
-            $user->email = $request->email;
-            $user->id_chat_tele = 0;
-            $user->password = Hash::make($request->password);
-            $user->profile_image = "/images/upload/Profile/deafult.jpg";
-            $user->is_verified = 0;
-            $kk->user()->save($user);
-
-            $ibu = new Ibu;
-            $ibu->nama_ibu_hamil = $request->name;
-            $user->ibu()->save($ibu);
-
-            echo("berhasil Input Data");
-
-        }
-
-    }
-    // akhir dari fungsi registrasi user awal belum termasuk dari data diri //
-
-
-    // Awal dari registrasi lanjut data diri user //
-    public function submitDatadiriAnak(Request $request){
-        dd($request->all());
-        $this->validate($request, [
-            'KIA' => 'required',
-            'namaAyah' => 'required',
-            'namaIbu' => 'required',
-            'tempatLahir' => 'required',
-            'tanggalLahir' => 'required',
-            'anakKe' => 'required',
-            'notlpn' => 'required',
-            'gender' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'desa' => 'required',
-            'banjar' => 'required',
-            'alamat' => 'required',
         ]);
 
-        $alamat = $request->alamat;
-        $kabupaten = $request->kabupaten;
-        $kecamatan = $request->kecamatan;
-        $desa = $request->desa;
-        $banjar = Posyandu::where('id',$request->banjar)->first();
-        $mergeAlamat = $alamat.', '.$banjar->banjar.', '.$desa.', '.$kecamatan.', '.$kabupaten;
-
-        $anak = new Anak;
-        $anak->id_posyandu = $request->banjar;
-        $anak->nama_ayah = $request->namaAyah;
-        $anak->nama_ibu = $request->namaIbu;
-        $anak->tempat_lahir = $request->tempatLahir;
-        $anak->tanggal_lahir = $request->tanggalLahir;
-        $anak->jenis_kelamin = $request->gender;
-        $anak->anak_ke = $request->anakKe;
-        $anak->alamat = $mergeAlamat;
-        $anak->nomor_telepon = $request->notlpn;
-        $anak->NIK = $request->KIA;
-        $anak->save();
-
+        $noKK = $request->no_kk;
+        $selectKK = KK::where('no_kk', $noKK)->first();
+        $role = $request->role;
+        $kabupaten = Kabupaten::all();
+        if($selectKK != null){
+            $idKK = $selectKK->id;
+            return redirect()->route('register.pertama',['idKK' => $idKK,'role' => $role,'noKK' => $request->no_kk]);
+            // return view('pages/auth/user/form-register',['idKK' => $idKK,'role' => $role,'noKK' => $request->noKK], compact('kabupaten'));
+        }else{
+            $idKK = null;
+            return redirect()->route('register.pertama',['idKK' => $idKK,'role' => $role,'noKK' => $request->no_kk]);
+        }
 
     }
 
+    public function formRegisAwal(Request $request)
+    {
+        $kabupaten = Kabupaten::all();
+        return view('pages/auth/user/form-register',['idKK' => $request->idKK,'role' => $request->role,'noKK' => $request->noKK], compact('kabupaten'));
+    }
+
+
+    public function storeAnak(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request,[
+            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'email' => "required|email|unique:tb_user,email",
+            'password' => 'required|min:8|max:50|confirmed',
+            'kabupaten' => "required",
+            'kecamatan' => "required",
+            'desa' => "required",
+            'banjar' => "required",
+
+        ],
+        [
+            'nama.required' => "Nama Lengkap wajib diisi",
+            'nama.regex' => "Format Nama Lengkap tidak sesuai",
+            'nama.min' => "Nama Lengkap minimal 2 karakter",
+            'nama.max' => "Nama Lengkap maksimal 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan email yang valid",
+            'email.unique' => "Email sudah pernah digunakan",
+            'password.required' => "Password wajib diisi",
+            'password.min' => "Password minimal 8 karakter",
+            'password.max' => "Password maksimal 50 karakter",
+            'password.confirmed' => "Konfirmasi password tidak sesuai",
+            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+            'desa.required' => "Kolom desa Wajib diisi",
+            'banjar.required' => "Kolom Banjar Wajib diisi",
+
+        ]);
+
+        if($request->idKK != null){
+            $user = User::create([
+                'id_kk' => $request->idKK,
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->anak()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_anak' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+
+        }else{
+            $this->validate($request,[
+                'file'=> 'required|image|mimes:jpeg,png,jpg',
+                'file.required' => "Kolom Upload File Wajib Diisi ",
+                'file.image' => "File yang di upload harus berupa foto",
+                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ]);
+
+            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            $imageName = time().'-'.$request->file->getClientOriginalName();
+
+            $request->file->move(public_path('images/upload/KK'),$imageName);
+
+            $kk = KK::create([
+                'no_kk' =>  $request->noKK,
+                'file_kk' => $path,
+            ]);
+
+            $user = new User;
+            $user = $kk->user()->create([
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->anak()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_anak' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+
+        }
+    }
+
+    public function storeIbu(Request $request)
+    {
+
+        $this->validate($request,[
+            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'email' => "required|email|unique:tb_user,email",
+            'password' => 'required|min:8|max:50|confirmed',
+            'kabupaten' => "required",
+            'kecamatan' => "required",
+            'desa' => "required",
+            'banjar' => "required",
+
+        ],
+        [
+            'nama.required' => "Nama Lengkap wajib diisi",
+            'nama.regex' => "Format Nama Lengkap tidak sesuai",
+            'nama.min' => "Nama Lengkap minimal 2 karakter",
+            'nama.max' => "Nama Lengkap maksimal 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan email yang valid",
+            'email.unique' => "Email sudah pernah digunakan",
+            'password.required' => "Password wajib diisi",
+            'password.min' => "Password minimal 8 karakter",
+            'password.max' => "Password maksimal 50 karakter",
+            'password.confirmed' => "Konfirmasi password tidak sesuai",
+            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+            'desa.required' => "Kolom desa Wajib diisi",
+            'banjar.required' => "Kolom Banjar Wajib diisi",
+
+        ]);
+
+        if($request->idKK != null){
+            $user = User::create([
+                'id_kk' => $request->idKK,
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->ibu()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_ibu_hamil' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+
+        }else{
+            $this->validate($request,[
+                'file'=> 'required|image|mimes:jpeg,png,jpg',
+                'file.required' => "Kolom Upload File Wajib Diisi ",
+                'file.image' => "File yang di upload harus berupa foto",
+                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ]);
+
+            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            $imageName = time().'-'.$request->file->getClientOriginalName();
+
+            $request->file->move(public_path('images/upload/KK'),$imageName);
+
+            $kk = KK::create([
+                'no_kk' =>  $request->noKK,
+                'file_kk' => $path,
+            ]);
+
+            $user = new User;
+            $user = $kk->user()->create([
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->ibu()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_ibu_hamil' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+
+        }
+    }
+
+    public function storeLansia(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request,[
+            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'email' => "required|email|unique:tb_user,email",
+            'password' => 'required|min:8|max:50|confirmed',
+            'kabupaten' => "required",
+            'kecamatan' => "required",
+            'desa' => "required",
+            'banjar' => "required",
+
+        ],
+        [
+            'nama.required' => "Nama Lengkap wajib diisi",
+            'nama.regex' => "Format Nama Lengkap tidak sesuai",
+            'nama.min' => "Nama Lengkap minimal 2 karakter",
+            'nama.max' => "Nama Lengkap maksimal 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan email yang valid",
+            'email.unique' => "Email sudah pernah digunakan",
+            'password.required' => "Password wajib diisi",
+            'password.min' => "Password minimal 8 karakter",
+            'password.max' => "Password maksimal 50 karakter",
+            'password.confirmed' => "Konfirmasi password tidak sesuai",
+            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+            'desa.required' => "Kolom desa Wajib diisi",
+            'banjar.required' => "Kolom Banjar Wajib diisi",
+
+        ]);
+
+        if($request->idKK != null){
+            $user = User::create([
+                'id_kk' => $request->idKK,
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->anak()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_lansia' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+
+        }else{
+            $this->validate($request,[
+                'file'=> 'required|image|mimes:jpeg,png,jpg',
+                'file.required' => "Kolom Upload File Wajib Diisi ",
+                'file.image' => "File yang di upload harus berupa foto",
+                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ]);
+
+            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            $imageName = time().'-'.$request->file->getClientOriginalName();
+
+            $request->file->move(public_path('images/upload/KK'),$imageName);
+
+            $kk = KK::create([
+                'no_kk' =>  $request->noKK,
+                'file_kk' => $path,
+            ]);
+
+            $user = new User;
+            $user = $kk->user()->create([
+                'id_chat_tele' => null,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'is_verified' => 0,
+            ]);
+
+            $anak = $user->anak()->create([
+                'id_posyandu' => $request->banjar,
+                'nama_lansia' => $request->nama,
+            ]);
+
+            return redirect()->route('landing.verif');
+        }
+    }
+    // akhir dari fungsi registrasi user awal belum termasuk dari data diri //
 
 
 

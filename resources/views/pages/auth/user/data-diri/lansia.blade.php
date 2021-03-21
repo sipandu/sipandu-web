@@ -48,17 +48,22 @@
             </div>
             <div class="card-body" style="padding: 30px">
                 <p class="text-center fs-5 pt-2 pb-1">Silahkan isi data diri anda <br> Lansia</p>
-                <form action="{{ route('anak.data-diri.submit') }}" method="post">
+                <form action="{{ route('lansia.data-diri.submit') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>NIK</label>
                         <div class="input-group mb-3">
-                            <input name="KIA" type="text" class="form-control" placeholder="Masukan Nomor Indentitas Anak">
+                            <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" id="inputNoKK" value="{{ old('nik') }}" placeholder="Masukan Nomor Indentitas Anak">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
                                 </div>
                             </div>
+                            @error('nik')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -66,85 +71,90 @@
                             <div class="form-group">
                                 <label>Tempat Lahir</label>
                                 <div class="input-group mb-3">
-                                    <input name="tempatLahir" type="text" class="form-control" placeholder="Tempat lahir anak">
+                                    <input type="text" name="tempat_Lahir" autocomplete="off" class="form-control @error('tempat_Lahir') is-invalid @enderror" id="inputNoKK" value="{{ old('tempat_Lahir') }}" placeholder="Tempat lahir anak">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-building"></span>
                                         </div>
                                     </div>
+                                    @error('tempat_Lahir')
+                                        <div class="invalid-feedback text-start">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
                                 <div class="input-group">
-                                    <input name="tanggalLahir" type="text" class="form-control" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" id="inputNoKK" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <div class="input-group mb-3">
-                                    <input name="tempatLahir" type="text" class="form-control" placeholder="Tempat lahir anak">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-building"></span>
+                                    @error('tgl_lahir')
+                                        <div class="invalid-feedback text-start">
+                                            {{ $message }}
                                         </div>
-                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Nomor Telepon</label>
                                 <div class="input-group mb-3">
-                                    <input name="notlpn" type="text" class="form-control" placeholder="Nomor telepon hanya dalam angka">
+                                    <input type="text" name="no_tlpn" autocomplete="off" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputNoKK" value="{{ old('no_tlpn') }}" placeholder="Nomor telepon hanya dalam angka">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-phone-alt"></span>
                                         </div>
                                     </div>
+                                    @error('no_tlpn')
+                                        <div class="invalid-feedback text-start">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Jenis Kelamin</label>
-                                <select name="gender" class="form-control select2" style="width: 100%;">
-                                    <option value="laki-laki">Laki-Laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label>Kabupaten/Kota</label>
-                                <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
-                                    @foreach ($kabupaten as $k)
-                                        <option value="{{$k->nama_kabupaten}}">{{$k->nama_kabupaten}}</option>
-                                    @endforeach
+                                <label>Jenis Kelamin</label>
+                                <select name="gender" class="form-control select2 @error('gender') is-invalid @enderror" style="width: 100%;">
+                                    <option disabled selected>Pilih Jenis Kelamin Anda.....</option>
+                                    <option value="laki-laki">Laki-Laki</option>
+                                    <option value="perempuan">Perempuan</option>
                                 </select>
+                                @error('gender')
+                                    <div class="invalid-feedback text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label>Kecamatan</label>
-                                <select id="kecamatan" name="kecamatan" class="form-control select2" style="width: 100%;">
-
+                                <label>Status</label>
+                                <select name="status" class="form-control select2 error('status') is-invalid @enderror" style="width: 100%;">
+                                    <option disabled selected>Pilih Status Anda.....</option>
+                                    <option value="Pra Lansia">Pra Lansia</option>
+                                    <option value="Lansia">Lansia</option>
+                                    <option value="Lansia Beresiko">Lansia Beresiko</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Desa/Kelurahan</label>
-                                <select id="desa" name="desa" class="form-control select2" style="width: 100%;">
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Banjar</label>
-                                <select  id="banjar" name="banjar" class="form-control select2" style="width: 100%;">
-                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Alamat</label>
                                 <div  class="input-group mb-3">
-                                    <input name="alamat" type="text" class="form-control" placeholder="Jalan lokasi tempat tinggal">
+                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" id="inputNoKK" value="{{ old('alamat') }}" placeholder="Jalan lokasi tempat tinggal">
                                 </div>
+                                @error('alamat')
+                                    <div class="invalid-feedback text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -201,72 +211,7 @@
             $('[data-mask]').inputmask()
         })
     </script>
-     <script>
-        $(document).ready(function(){
-            // Kabupaten AJAX //
-            $('#kabupaten').on('change', function () {
-                let id = $(this).val();
-                $('#kecamatan').empty();
-                $('#kecamatan').append(`<option value="0" disabled selected>Processing...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '/kecamatan/' + id,
-                    success: function (response) {
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#kecamatan').empty();
-                        $('#kecamatan').append(`<option value="0" disabled selected>Select Kecamatan</option>`);
-                        response.forEach(element => {
-                            $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
-                        });
-                    }
-                });
-            });
 
-            // Kecamatan AJAX //
-            $('#kecamatan').on('change', function () {
-                let idDesa = $(this).val();
-                $('#desa').empty();
-                $('#desa').append(`<option value="0" disabled selected>Processing...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '/desa/' + idDesa,
-                    success: function (response) {
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#desa').empty();
-                        $('#desa').append(`<option value="0" disabled selected>Select Desa/Kelurahan</option>`);
-                        response.forEach(element => {
-                            $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
-                        });
-                    }
-                });
-            });
-
-            // Banjar AJAX //
-            $('#desa').on('change', function () {
-                let id = $(this).val();
-                $('#banjar').empty();
-                $('#banjar').append(`<option value="0" disabled selected>Processing...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '/banjar/' + id,
-                    success: function (response) {
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#banjar').empty();
-                        $('#banjar').append(`<option value="0" disabled selected>Select Banjar</option>`);
-                        response.forEach(element => {
-                            $('#banjar').append(`<option value="${element['id']}">${element['banjar']}</option>`);
-                        });
-                    }
-                });
-            });
-
-
-        });
-
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
