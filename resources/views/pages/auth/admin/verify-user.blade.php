@@ -74,7 +74,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Nama Ibu Hamil</th>
-                                                    <th>Medaftar Sebagai</th>
+                                                    <th>Lokasi Posyandu</th>
                                                     <th>Mendaftar Pada</th>
                                                     <th>Tindakan</th>
                                                 </tr>
@@ -83,7 +83,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -95,7 +95,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -107,7 +107,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -129,7 +129,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Nama Anak</th>
-                                                    <th>Medaftar Sebagai</th>
+                                                    <th>Lokasi Posyandu</th>
                                                     <th>Mendaftar Pada</th>
                                                     <th>Tindakan</th>
                                                 </tr>
@@ -138,7 +138,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -150,7 +150,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -162,7 +162,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -184,7 +184,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Nama Lanjut Usia</th>
-                                                    <th>Medaftar Sebagai</th>
+                                                    <th>Lokasi Posyandu</th>
                                                     <th>Mendaftar Pada</th>
                                                     <th>Tindakan</th>
                                                 </tr>
@@ -193,7 +193,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -205,7 +205,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
@@ -217,7 +217,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">#</td>
                                                     <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Lanjut Usia</td>
+                                                    <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
                                                         <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
