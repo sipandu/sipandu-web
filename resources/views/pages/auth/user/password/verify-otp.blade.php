@@ -27,26 +27,41 @@
 <body class="hold-transition login-page">
 
     <div class="login-box">
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-primary" style=" width: 502px; height: 504px;">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
                 <a href="" class="text-decoration-none h4 fw-bold">Smart POSYANDU</a>
             </div>
             <div class="card-body">
-                <p class="text-center py-2">Silahkan masukan emailmu untuk reset password</p>
-                <form action="recover-password.html" method="post">
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                <p class="text-center py-2">Silahkan masukan kode OTP</p>
+                @if (session('message'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <form  action="{{route('user.cek.otp.token')}}" method="post">
+                    @csrf
+                    <div class="input-group mb-4">
+                        <input name="otp" type="text" class="form-control  @error('otp') is-invalid @enderror" placeholder="Masukan Code OTP">
                         <div class="input-group-append">
                             <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
                             </div>
-                      </div>
+                        </div>
+                        @error('otp')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                    <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
-                        <div class="col-sm-10">
-                            <input name="email" disabled readonly type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </div>
                     </div>
                 </form>

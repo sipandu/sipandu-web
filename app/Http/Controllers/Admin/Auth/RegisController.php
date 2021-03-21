@@ -95,8 +95,6 @@ class RegisController extends Controller
             'password.confirmed' => "Konfirmasi password tidak sesuai",
             'lokasi_posyandu.required' => "Lokasi Posyandu wajib diisi",
 
-
-
         ]);
 
         // Ubah format tanggal //

@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
+use App\User;
+use App\Anak;
+use App\Ibu;
+use App\Lansia;
 use App\KK;
 
 class AdminController extends Controller
@@ -27,6 +31,22 @@ class AdminController extends Controller
     public function profile(Request $request)
     {
         return view('pages/auth/admin/profile-admin');
+    }
+
+
+    public function showVerifyUser(Request $request)
+    {
+
+        $idPosyandu = Auth::guard('admin')->user()->posyandu->id;
+        // $user1 = User::where('is_verified')->get();
+        // $user = User::with('kk','anak','lansia','ibu')->where('is_verified',0)->where('id',204)->get();
+        $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->get();
+        $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->get();
+        $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->get();
+        $user = User::with('anak','lansia','kk','ibu')->get();
+        // dd($anak->nama_anak);
+
+        return view('pages/auth/admin/verify-user',compact('anak','user','ibu','lansia'));
     }
 
     public function profileUpdate(Request $request)
@@ -99,21 +119,25 @@ class AdminController extends Controller
             'password.max' => "Password maksimal 50 karakter",
             'password.confirmed' => "Konfirmasi password tidak sesuai",
         ]);
-        
+
         if (!(Hash::check($request->password_lama,Auth::guard('admin')->user()->password))) {
             return redirect()->back()->with(['error' => 'Password Lama tidak sesuai']);
         }
         if(strcmp($request->password_lama, $request->password) == 0){
             return redirect()->back()->with(['error' => 'Password yang anda masukan sama dengan yang lama']);
         }
-        
+
         $idAdmin = Auth::guard('admin')->user()->id;
         $admin = Admin::find($idAdmin);
         $admin->password = Hash::make($request->password);
         $admin->save();
         return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
-             
-        
+
+
     }
+
+
+
+
 
 }

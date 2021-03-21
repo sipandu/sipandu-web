@@ -23,7 +23,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('profile.user')}}" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>My Profile</p>
                             </a>
@@ -104,56 +104,59 @@
                         </ul>
                     </li>
                 </li>
-                <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-syringe"></i>
-                            <p>
-                                Imunisasi
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Daftar Imunisasi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-crutch nav-icon"></i>
-                                    <p>Jadwal Imunisasi</p>
-                                </a>
-                            </li>
-                        </ul>
+                {{-- @if (Auth::user()->anak->id_user != null) --}}
+                    <li class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-syringe"></i>
+                                <p>
+                                    Imunisasi
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ms-3">
+                                <li class="nav-item">
+                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                        <i class="fas fa-file-medical nav-icon"></i>
+                                        <p>Daftar Imunisasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/examples/lockscreen.html" class="nav-link">
+                                        <i class="fas fa-crutch nav-icon"></i>
+                                        <p>Jadwal Imunisasi</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </li>
-                </li>
-                <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                            <p>
-                                Vitamin
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Daftar Vitamin</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-capsules nav-icon"></i>
-                                    <p>Jadwal Vitamin</p>
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                                <p>
+                                    Vitamin
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ms-3">
+                                <li class="nav-item">
+                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                        <i class="fas fa-file-medical nav-icon"></i>
+                                        <p>Daftar Vitamin</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/examples/lockscreen.html" class="nav-link">
+                                        <i class="fas fa-capsules nav-icon"></i>
+                                        <p>Jadwal Vitamin</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </li>
-                </li>
+                {{-- @endif --}}
+
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-info"></i>

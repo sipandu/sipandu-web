@@ -61,6 +61,12 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item" id="list-data-user-verify">
+                            <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
+                                <i class="nav-icon fas fa-user-check"></i>
+                                <p>Verification User</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('logout.admin')}}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>

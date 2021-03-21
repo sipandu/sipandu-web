@@ -38,15 +38,26 @@
                     @csrf
                     <div class="form-group">
                         <label>Nomor KK</label>
-                        <input type="number" class="form-control" name="noKK" placeholder="NO KK">
+                        <input type="number" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }} placeholder="NO KK">
+                        @error('no_kk')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Daftar Sebagai</label>
-                        <select class="form-control select2bs4" name="role" style="width: 100%;">
-                          <option value="anak">Balita</option>
-                          <option value="ibu">Ibu Hamil</option>
-                          <option value="lansia">Lansia</option>
+                        <select class="form-control select2bs4 @error('role') is-invalid @enderror" name="role" style="width: 100%;">
+                            <option disabled selected>Pilihlah Registrasi Sebagai......</option>
+                            <option value="anak">Anak / Balita</option>
+                            <option value="ibu">Ibu Hamil</option>
+                            <option value="lansia">Lansia</option>
                         </select>
+                        @error('role')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @enderror
                       </div>
                     <div class="row d-flex justify-content-end mt-4">
                         <div class="col-8">

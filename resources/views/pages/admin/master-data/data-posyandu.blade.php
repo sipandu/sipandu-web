@@ -108,7 +108,7 @@
             $('#list-data-posyandu').addClass('menu-open');
             $('#data-posyandu').addClass('active');
         });
-        
+
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,

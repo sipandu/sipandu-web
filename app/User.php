@@ -29,15 +29,19 @@ class User extends Authenticatable
     ];
 
     public function anak(){
-        return $this->hasOne('App\Anak','id_user','id');
+        return $this->hasMany('App\Anak','id_user','id');
     }
 
     public function ibu(){
-        return $this->hasOne('App\Ibu','id_user','id');
+        return $this->hasMany('App\Ibu','id_user','id');
     }
 
     public function lansia(){
-        return $this->hasOne('App\Lansia','id_user','id');
+        return $this->hasMany('App\Lansia','id_user','id');
+    }
+
+    public function kk(){
+        return $this->belongsTo('App\KK','id_kk');
     }
 
 

@@ -17,4 +17,12 @@ class UserController extends Controller
     {
         return view('pages/user/dashboard');
     }
+
+
+    public function profile(Request $request)
+    {
+        return view('pages/auth/user/profile-user');
+    }
+
+
 }
