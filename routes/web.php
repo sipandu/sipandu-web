@@ -143,7 +143,7 @@ Route::prefix('login')->group(function(){
 
 
 //ADMIN DASBOARD//
-Route::prefix('admin')->namespace('Admin')->group(function(){
+Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
@@ -152,7 +152,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
-    Route::prefix('account')->namespace('Auth')->group(function(){
+    Route::prefix('account')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
         Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader');
@@ -166,8 +166,11 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 
 //USER DASBOARD//
-Route::prefix('user')->namespace('User')->group(function(){
-    Route::get('/', 'UserController@index')->name('user.home');
+Route::prefix('user')->namespace('User\Auth')->group(function(){
+    Route::get('/', 'UserController@anakhome')->name('anak.home');
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home');
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home');
+
     Route::get('/profile', 'UserController@profile')->name('profile.user');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');

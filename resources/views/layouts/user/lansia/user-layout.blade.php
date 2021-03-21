@@ -31,19 +31,19 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         {{-- Navbar Start --}}
-            @include('layouts/user/navbar-layout')
+            @include('layouts/user/lansia/navbar-layout')
         {{-- Navbar End --}}
 
         {{-- Sidebar Container Start --}}
-            @include('layouts/user/sidebar-layout')
+            @include('layouts/user/lansia/sidebar-layout')
         {{-- Sidebar Container End --}}
 
         {{-- Content Start --}}
-            @include('layouts/user/content-layout')
+            @include('layouts/user/lansia/content-layout')
         {{-- Content End --}}
 
         {{-- Footer Start --}}
-            @include('layouts/user/footer-layout')
+            @include('layouts/user/lansia/footer-layout')
         {{-- Footer End --}}
     </div>
 

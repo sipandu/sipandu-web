@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Events\Auth\ForgotActivationEmailUser;
+use App\Events\Auth\ForgotActivationEmailAdmin  ;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Admin;

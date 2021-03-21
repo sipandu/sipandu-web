@@ -17,7 +17,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            {{Auth::user()->email}}
+                            {{Auth::user()->anak->nama_anak}}
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -104,7 +104,7 @@
                         </ul>
                     </li>
                 </li>
-                {{-- @if (Auth::user()->anak->id_user != null) --}}
+                {{-- @if (Auth::user()->anak->id_user) --}}
                     <li class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
