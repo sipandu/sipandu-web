@@ -18,17 +18,12 @@ Route::get('/', function () {
     return view('landing_page');
 });
 
-// Route::get('/', function () {
-//     dd("test");
-// });
 
 
 //Admin
-
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
-Route::get('/testing', 'MasterDataController@testing');
 
 // Master Data
 Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu");
@@ -64,15 +59,6 @@ Route::get('/admin/informasi/persebaran-posyandu/home', function(){
 
 
 
-//Anak
-// Route::get('/register', function () {
-//     return view('pages/auth/user/form-register');
-// })->name("Register Anak");
-
-// Route::get('/data-diri/bayi-balita', function () {
-//     return view('pages/auth/user/data-diri/anak');
-// })->name("Data Diri Anak");
-
 Route::get('/user', function () {
     return view('pages/user/dashboard');
 });
@@ -98,11 +84,15 @@ Route::get('/test', function () {
 });
 
 
+
+
 // >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
+
+
 
 
 // REGISTER  USER//
@@ -125,6 +115,8 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
     });
 
 });
+
+
 
 // LOGIN //
 Route::prefix('login')->group(function(){
@@ -151,7 +143,6 @@ Route::prefix('login')->group(function(){
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('user.password.reset');
         Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('user.password.update');
     });
-
 });
 
 
@@ -174,8 +165,8 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
         Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
     });
-
 });
+
 
 
 //USER DASBOARD//
@@ -192,10 +183,6 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     });
 
 });
-
-
-
-
 
 
 

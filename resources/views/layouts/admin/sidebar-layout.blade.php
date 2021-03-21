@@ -44,8 +44,6 @@
                                             <p>Add Admin</p>
                                         </a>
                                     </li>
-                                @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == "admin" || "super admin")
                                     <li class="nav-item">
                                         <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                             <i class="fas fa-user-tag nav-icon"></i>
@@ -53,12 +51,62 @@
                                         </a>
                                     </li>
                                 @endif
-                                <li class="nav-item">
-                                    <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
-                                        <i class="fas fa-user nav-icon"></i>
-                                        <p>Add User</p>
-                                    </a>
-                                </li>
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
+                                            <i class="fas fa-user-shield nav-icon"></i>
+                                            <p>Tambah Admin</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
+                                            <i class="fas fa-user-tag nav-icon"></i>
+                                            <p>Tambah Kader</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
+                                            <i class="fas fa-user nav-icon"></i>
+                                            <p>Tambah Anggota</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == "admin")
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
+                                            <i class="fas fa-user-tag nav-icon"></i>
+                                            <p>Add Kader</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
+                                            <i class="fas fa-user nav-icon"></i>
+                                            <p>Add User</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "kader")
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
+                                            <i class="fas fa-user-tag nav-icon"></i>
+                                            <p>Add Kader</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
+                                            <i class="fas fa-user nav-icon"></i>
+                                            <p>Add User</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                    <li class="nav-item">
+                                        <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
+                                            <i class="fas fa-user nav-icon"></i>
+                                            <p>Add User</p>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                         <li class="nav-item" id="list-data-user-verify">

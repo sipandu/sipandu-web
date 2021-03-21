@@ -99,11 +99,11 @@ class RegisController extends Controller
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("/", $tgl_lahir_indo);
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
         $tahun = $tgl_lahir_eng[2];
         $bulan = $tgl_lahir_eng[1];
         $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.'-'.$bulan.'-'.$tgl;
+        $tgl_lahir = $tahun.$bulan.$tgl;
 
         $path ='/images/upload/KTP/'.time().'-'.$request->file->getClientOriginalName();
         $imageName = time().'-'.$request->file->getClientOriginalName();
