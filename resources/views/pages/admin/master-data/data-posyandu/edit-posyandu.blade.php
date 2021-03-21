@@ -1,20 +1,19 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Detail Posyandu')
+@section('title', 'Ubah Data Posyandu')
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 @endpush
 
 @section('content')
-<section class="content">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Detail Posyandu</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Ubah Data Posyandu</h1>
+        <div class="col-auto ml-auto text-right my-auto mt-n1">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail Posyandu</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Posyandu') }}">Data Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ubah Data Posyandu</li>
                 </ol>
             </nav>
         </div>
@@ -31,8 +30,8 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-posyandu" role="tabpanel" aria-labelledby="nav-posyandu-tab">
                         <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Ubah Data Posyandu</h3>
+                            <div class="card-header my-auto">
+                                <h3 class="card-title my-auto">Ubah Data Posyandu</h3>
                             </div>
                             @foreach ($dataPosyandu as $posyandu)
                                 <form action="{{route('Update Posyandu', [$posyandu->id])}}" method="POST">
@@ -143,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
+                                        <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                     </div>
                                 </form>
@@ -200,7 +199,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
+                                        <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
                                     </div>
                                 </form>
@@ -211,7 +210,6 @@
             </div>
         </div>
     </div>
-</section>
 @endsection
 
 @push('js')

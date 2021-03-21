@@ -1,20 +1,19 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Detail Anggota')
+@section('title', 'Data Profile Anggota')
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 @endpush
 
 @section('content')
-<section class="content">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Detail Anggota</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Anggota</h1>
+        <div class="col-auto ml-auto text-right my-auto mt-n1">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">Data Anggota</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail Anggota</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Anggota') }}">Data Anggota Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Profile Anggota</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +25,6 @@
             </div>
         </div>
     </div>
-</section>
 @endsection
 
 @push('js')

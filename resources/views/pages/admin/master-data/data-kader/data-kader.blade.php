@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'List Kader')
+@section('title', 'Data Kader')
 
 @push('css')
     <!-- DataTables -->
@@ -10,12 +10,12 @@
 @endpush
 
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Management Kader Posyandu</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kader</h1>
+        <div class="col-auto ml-auto text-right my-auto mt-n1">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">smart posyandu</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Data Kader</li>
                 </ol>
             </nav>
@@ -27,11 +27,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <h3 class="card-title">Data Daftar Seluruh Kader Posyandu</h3>
+                            <div class="col-6 col-sm-6 my-auto">
+                                <h3 class="card-title my-auto">Data Kader Posyandu</h3>
                             </div>
-                            <div class="col-sm-6 text-end">
-                                <a href="{{ route("Add Posyandu") }}" class="btn btn-success">
+                            <div class="col-6 col-sm-6 text-end">
+                                <a href="{{ route("Add Kader") }}" class="btn btn-success">
                                     <i class="fa fa-plus"></i> Tambah
                                 </a>
                             </div>
@@ -42,10 +42,10 @@
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Admnistrator</th>
+                                    <th>Nama Kader</th>
                                     <th>Jabatan</th>
                                     <th>Tempat Tugas</th>
-                                    <th>Action</th>
+                                    <th>Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,10 +69,10 @@
                             <tfoot class="text-center">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Admnistrator</th>
+                                    <th>Nama Kader</th>
                                     <th>Jabatan</th>
                                     <th>Tempat Tugas</th>
-                                    <th>Action</th>
+                                    <th>Tindakan</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -109,17 +109,24 @@
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "oLanguage": {
+                    "sSearch": "Cari:",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "sSearchPlaceholder": "Cari data....",
+                },
+                "language": {
+                    "buttons": {
+                        "colvis": 'Tampilkan kolom',
+                        // "excel": 'Unduh',
+                    },
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                },
+                "buttons": ["colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
         });
     </script>
 @endpush

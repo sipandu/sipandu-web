@@ -177,28 +177,6 @@ class MasterPosyanduController extends Controller
         return redirect()->route("Data Posyandu");
     }
 
-    // public function testing()
-    // {
-    //     Carbon::setLocale('id');
-    //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
-        
-    //     //untuk di db
-    //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
-
-    //     //disable created dan update di db
-    //     // public $timestamps = false;
-
-    //     $now = Carbon::parse($today);
-
-    //     $compare = Carbon::parse('2021-03-19 21:19:15');
-        
-    //     $duration = $compare->diff($now);
-
-    //     $minutes = ($duration->i);
-
-    //     return($minutes);
-    // }
-
     public function detailPosyandu(Posyandu $posyandu)
     {
         Carbon::setLocale('id');
@@ -335,4 +313,37 @@ class MasterPosyanduController extends Controller
 
         // return $pegawai;
     }
+
+    public function profilePosyandu()
+    {
+        return view("pages/admin/master-data/profile-posyandu");
+    }
+
+    public function editProfilePosyandu()
+    {
+        return view("pages/admin/master-data/edit-profile-posyandu");
+    }
 }
+
+
+    // public function testing()
+    // {
+    //     Carbon::setLocale('id');
+    //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        
+    //     //untuk di db
+    //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
+
+    //     //disable created dan update di db
+    //     // public $timestamps = false;
+
+    //     $now = Carbon::parse($today);
+
+    //     $compare = Carbon::parse('2021-03-19 21:19:15');
+        
+    //     $duration = $compare->diff($now);
+
+    //     $minutes = ($duration->i);
+
+    //     return($minutes);
+    // }

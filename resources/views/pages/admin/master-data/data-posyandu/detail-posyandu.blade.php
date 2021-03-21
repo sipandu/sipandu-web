@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Detail Posyandu')
+@section('title', 'Rincian Posyandu')
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -8,13 +8,13 @@
 
 @section('content')
 <section class="content">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Detail Posyandu</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Rincian Posyandu</h1>
+        <div class="col-auto ml-auto text-right my-auto mt-n1">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail Posyandu</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">Data Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Rincian Posyandu</li>
                 </ol>
             </nav>
         </div>
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <p class="card-title h4 my-auto">Detail Posyandu</p>
+                        <p class="card-title h4 my-auto">Rincian Data Posyandu</p>
                     </div>
                     <div class="card-body">
                         <div class="row">

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
-    <title>Smart Posyandu | Admin - @yield('title')</title>
+    <title>Smart Posyandu | @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
@@ -31,7 +31,7 @@
     </style>
     @livewireStyles
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
         {{-- Navbar Start --}}
             @include('layouts/admin/navbar-layout')
