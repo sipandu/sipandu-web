@@ -16,23 +16,14 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
-                        @if (Auth::user()->id == 1)
-                            <p>
-                                {{Auth::user()->anak->nama_anak}}
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        @endif
-                        @if (Auth::user()->id == 104)
-                            <p>
-                                {{Auth::user()->lansia->nama_lansia}}
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        @endif
-
+                        <p>
+                            {{Auth::user()->lansia->nama_lansia}}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('profile.user')}}" class="nav-link">
+                            <a href="{{route('lansia.profile')}}" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>My Profile</p>
                             </a>
@@ -113,6 +104,7 @@
                         </ul>
                     </li>
                 </li>
+
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-info"></i>

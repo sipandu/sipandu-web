@@ -12,6 +12,12 @@ use Carbon\Carbon;
 class ResetPasswordController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     public function showForm(Request $request)
     {
         return view('pages.auth.user.password.verify-otp');

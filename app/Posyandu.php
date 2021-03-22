@@ -48,6 +48,14 @@ class Posyandu extends Model
         return $this->hasMany('App\Anak','id_posyandu','id');
     }
 
+    public function ibu(){
+        return $this->hasMany('App\Ibu','id_posyandu','id');
+    }
+
+    public function lansia(){
+        return $this->hasMany('App\Lansia','id_posyandu','id');
+    }
+
     // public function desa()
     // {
     //     return $this->belongsTo('App\desa');
