@@ -21,6 +21,7 @@ class User extends Authenticatable
         'profile_image',
         'is_verified',
         'otp_token',
+        'keterangan',
     ];
 
 
