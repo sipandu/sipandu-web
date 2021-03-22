@@ -6,9 +6,7 @@
             </strong>
         </div>
         <div class="col-md-6 col-sm-12">
-            {{-- <div class="float-right d-none d-sm-inline-block"> --}}
-                <b class="float-right d-none d-md-inline-block">All rights reserved</b>
-            {{-- </div> --}}
+            <b class="float-right d-none d-md-inline-block">All rights reserved</b>
         </div>
     </div>
 </footer>

@@ -77,7 +77,7 @@ Route::get('/user/account/new-user', function () {
 // =======
 Route::get('/', function () {
     return view('pages/landing-page');
-});
+})->name('Landing Page');
 
 Route::get('/test', function () {
     return view('test');
@@ -184,6 +184,16 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     });
 
 });
+
+
+
+//Blog
+Route::get('/blog', function () {
+    return view('pages/user/blog/news');
+})->name("berita");
+Route::get('/penyuluhan', function () {
+    return view('user/blog/penyuluhan');
+})->name('Penyuluhan');
 
 
 
