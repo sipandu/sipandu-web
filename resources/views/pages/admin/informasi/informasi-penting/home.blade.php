@@ -53,7 +53,7 @@
                                 <th>{{ $item->judul_informasi }}</th>
                                 <th>{{ date('d F Y', strtotime($item->tanggal)) }}</th>
                                 <th>
-                                    <a href="{{ route('penyuluhan.show', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
                                     <button class="btn btn-danger btn-sm" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
                                 </th>
                             </tr>

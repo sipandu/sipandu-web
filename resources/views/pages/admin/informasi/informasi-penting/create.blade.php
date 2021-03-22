@@ -1,7 +1,7 @@
 @extends('layouts/admin/admin-layout')
 @section('title', 'Tambah Informasi Penting')
 @push('css')
-<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+
 @endpush
 
 @section('content')
@@ -37,11 +37,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="informasi" class="form-control" id="content" placeholder="Masukkan Konten" cols="30" rows="10"></textarea>
+                                    <textarea name="informasi" class="ckeditor" id="content" placeholder="Masukkan Konten" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="{{ route('penyuluhan.home') }}" class="btn btn-danger">Kembali</a>
+                                        <a href="{{ route('informasi_penting.home') }}" class="btn btn-danger">Kembali</a>
                                     </div>
                                     <div class="col-6">
                                         <button class="btn btn-primary float-right" type="submit">Submit</button>
@@ -75,11 +75,22 @@
 @endsection
 
 @push('js')
+<script src="{{ asset('admin-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
-            $('#penyuluhan').addClass('active');
+            $('#informasi-penting').addClass('active');
+        });
+        $(function () {
+          $('.ckeditor').each(function(e){
+              CKEDITOR.replace(this.id ,{
+                  height : 800,
+                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+              });
+          });
         });
         $('#input-file').on('change', function(){
             var filedata = this.files[0];

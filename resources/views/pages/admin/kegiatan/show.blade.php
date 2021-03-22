@@ -69,7 +69,7 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="form-control" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ $kegiatan->deskripsi }}</textarea>
+                                    <textarea name="deskripsi" class="ckeditor" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{!! $kegiatan->deskripsi !!}</textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -91,9 +91,20 @@
 @endsection
 
 @push('js')
+<script src="{{ asset('admin-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#kegiatan').addClass('active');
+        });
+        $(function () {
+          $('.ckeditor').each(function(e){
+              CKEDITOR.replace(this.id ,{
+                  height : 800,
+                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+              });
+          });
         });
         $('#input-file').on('change', function(){
             var filedata = this.files[0];
