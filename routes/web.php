@@ -48,6 +48,11 @@ Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController
 
 
 
+//Konsultasi
+Route::get('admin/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi");
+
+
+
 //Informasi
 Route::get('/admin/informasi/informasi-penting/home', function(){
     return view('pages.admin.informasi.informasi-penting');
