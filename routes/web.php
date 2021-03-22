@@ -151,6 +151,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
+    Route::get('/verify/detail', 'AdminController@detailVerifyUser')->name('detail.verify');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');

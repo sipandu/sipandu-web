@@ -86,7 +86,7 @@
                                                     <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -98,7 +98,7 @@
                                                     <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -110,7 +110,7 @@
                                                     <td class="align-middle">Posyandu AA</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -141,7 +141,7 @@
                                                     <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -153,7 +153,7 @@
                                                     <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -165,7 +165,7 @@
                                                     <td class="align-middle">Posyandu BB</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -196,7 +196,7 @@
                                                     <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">10-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -208,7 +208,7 @@
                                                     <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">11-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>
@@ -220,7 +220,7 @@
                                                     <td class="align-middle">Posyandu CC</td>
                                                     <td class="align-middle">12-Mar-2020</td>
                                                     <td class="text-center align-middle">
-                                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                             Lihat
                                                         </a>

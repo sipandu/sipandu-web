@@ -39,6 +39,15 @@ class AdminController extends Controller
         return view('pages/auth/admin/verify-user');
     }
 
+    public function detailVerifyUser(Request $request)
+    {
+        return view('pages/auth/admin/verifikasi/detail-verify-lansia');
+
+        // return view('pages/auth/admin/verify/detail-verify-anak');
+
+        // return view('pages/auth/admin/verify/detail-verify-bumil');
+    }
+
     public function profileUpdate(Request $request)
     {
         $this->validate($request, [
