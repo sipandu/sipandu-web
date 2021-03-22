@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Add Kader')
+@section('title', 'Tambar Kader')
 
 @push('css')
     <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -13,14 +13,13 @@
 @endpush
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3">New Kader</h1>
-    <div class="col-auto ml-auto text-right mt-n1">
-        <nav aria-label="breadcrumb">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Kader</h1>
+    <div class="col-auto ml-auto text-right my-auto mt-n1">
+        <nav aria-label="breadcrumb text-center">
             <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Add Account</li>
-                <li class="breadcrumb-item active" aria-current="page">Add Kader</li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah Kader</li>
             </ol>
         </nav>
     </div>
@@ -29,13 +28,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">Tambah Kader Baru</h3>
+                <div class="card-header my-auto">
+                    <h3 class="card-title my-auto">Tambah Kader Baru</h3>
                 </div>
                 <div class="card-body p-0">
                     <div class="bs-stepper py-3">
                         <div class="bs-stepper-header px-3 d-flex justify-content-center" role="tablist">
-                            <!-- your steps here -->
                             <div class="step" data-target="#data-pertama">
                                 <button type="button" class="step-trigger" role="tab" aria-controls="data-pertama" id="data-pertama-trigger">
                                 <span class="bs-stepper-circle">1</span>
@@ -204,7 +202,6 @@
                                                 <div class="input-group mb-3">
                                                     <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
                                                         <option selected disabled>Pilih jabatan....</option>
-                                                        <option value="kader">Kader</option>
                                                         <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                     </select>
                                                     <div class="input-group-append">

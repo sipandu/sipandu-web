@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\MasterData;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
@@ -10,9 +13,7 @@ use App\Kecamatan;
 use App\Desa;
 use App\Kegiatan;
 
-use Illuminate\Http\Request;
-
-class MasterDataController extends Controller
+class MasterPosyanduController extends Controller
 {
     public function listPosyandu()
     {
@@ -176,28 +177,6 @@ class MasterDataController extends Controller
         return redirect()->route("Data Posyandu");
     }
 
-    // public function testing()
-    // {
-    //     Carbon::setLocale('id');
-    //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
-        
-    //     //untuk di db
-    //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
-
-    //     //disable created dan update di db
-    //     // public $timestamps = false;
-
-    //     $now = Carbon::parse($today);
-
-    //     $compare = Carbon::parse('2021-03-19 21:19:15');
-        
-    //     $duration = $compare->diff($now);
-
-    //     $minutes = ($duration->i);
-
-    //     return($minutes);
-    // }
-
     public function detailPosyandu(Posyandu $posyandu)
     {
         Carbon::setLocale('id');
@@ -333,5 +312,38 @@ class MasterDataController extends Controller
         }
 
         // return $pegawai;
-    }   
+    }
+
+    public function profilePosyandu()
+    {
+        return view("pages/admin/master-data/profile-posyandu");
+    }
+
+    public function editProfilePosyandu()
+    {
+        return view("pages/admin/master-data/edit-profile-posyandu");
+    }
 }
+
+
+    // public function testing()
+    // {
+    //     Carbon::setLocale('id');
+    //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        
+    //     //untuk di db
+    //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
+
+    //     //disable created dan update di db
+    //     // public $timestamps = false;
+
+    //     $now = Carbon::parse($today);
+
+    //     $compare = Carbon::parse('2021-03-19 21:19:15');
+        
+    //     $duration = $compare->diff($now);
+
+    //     $minutes = ($duration->i);
+
+    //     return($minutes);
+    // }

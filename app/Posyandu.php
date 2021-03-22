@@ -16,6 +16,7 @@ class Posyandu extends Model
         'id_desa',
         'id_admin',
         'nama_posyandu',
+        'id_chat_group_tele',
         'alamat',
         'nomor_telepon',
         'banjar',

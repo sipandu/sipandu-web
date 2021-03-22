@@ -15,35 +15,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing_page');
 });
 
 
-//Admin
 
+//Admin
 Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
 
 // Master Data
-// Route::get('/admin/posyandu/new', function () {
-//     return view('pages/admin/master-data/new-posyandu');
-// })->name("Add Posyandu");
+Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu");
+Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu");
+Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu");
+Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu");
+Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu");
+Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu");
+Route::post('/admin/posyandu/update-admin/{pegawai}', 'Admin\MasterData\MasterPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu");
 
-// Route::get('/admin/posyandu/all', function () {
-//     return view('pages/admin/master-data/data-posyandu');
-// })->name("Data Posyandu");
+Route::get('/admin/posyandu/profile', 'Admin\MasterData\MasterPosyanduController@profilePosyandu')->name("Profile Posyandu");
+Route::get('/admin/posyandu/edit', 'Admin\MasterData\MasterPosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu");
 
-Route::get('/admin/posyandu/all', 'MasterDataController@listPosyandu')->name("Data Posyandu");
-Route::get('/admin/posyandu/new', 'MasterDataController@addPosyandu')->name("Add Posyandu");
-Route::post('/admin/posyandu/add', 'MasterDataController@storePosyandu')->name("New Posyandu");
-Route::get('/admin/posyandu/detail/{posyandu}', 'MasterDataController@detailPosyandu')->name("Detail Posyandu");
-Route::get('/admin/posyandu/edit/{posyandu}', 'MasterDataController@editPosyandu')->name("Edit Posyandu");
-Route::post('/admin/posyandu/update/{posyandu}', 'MasterDataController@updatePosyandu')->name("Update Posyandu");
-Route::post('/admin/posyandu/update-admin/{pegawai}', 'MasterDataController@updateAdminPosyandu')->name("Update Admin Posyandu");
-Route::get('/admin/posyandu/profile', function () {
-    return view('pages/admin/master-data/profile-posyandu');
-})->name("Profile Posyandu");
+Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin");
+Route::get('/admin/data-admin/detail', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin");
+
+Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader");
+Route::get('/admin/data-kader/detail', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader");
+
+Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota");
+Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController@detailAnggota')->name("Detail Anggota");
 
 
 
@@ -58,15 +59,6 @@ Route::get('/admin/informasi/persebaran-posyandu/home', function(){
 
 
 
-//Anak
-// Route::get('/register', function () {
-//     return view('pages/auth/user/form-register');
-// })->name("Register Anak");
-
-// Route::get('/data-diri/bayi-balita', function () {
-//     return view('pages/auth/user/data-diri/anak');
-// })->name("Data Diri Anak");
-
 Route::get('/user', function () {
     return view('pages/user/dashboard');
 });
@@ -77,6 +69,12 @@ Route::get('/user/account/new-user', function () {
     return view('pages/auth/user/new-anggota');
 })->name("form.add.anggota.keluarga");
 
+// <<<<<<< HEAD
+// Route::get('/password', function () {
+//     return view('pages/auth/forgot-password');
+// });
+
+// =======
 Route::get('/', function () {
     return view('landing_page');
 });
@@ -86,10 +84,15 @@ Route::get('/test', function () {
 });
 
 
+
+
+// >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
+
+
 
 
 // REGISTER  USER//
@@ -112,6 +115,8 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
     });
 
 });
+
+
 
 // LOGIN //
 Route::prefix('login')->group(function(){
@@ -138,7 +143,6 @@ Route::prefix('login')->group(function(){
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('user.password.reset');
         Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('user.password.update');
     });
-
 });
 
 
@@ -147,6 +151,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
+    Route::get('/verify/detail', 'AdminController@detailVerifyUser')->name('detail.verify');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
@@ -161,8 +166,8 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
         Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
     });
-
 });
+
 
 
 //USER DASBOARD//
@@ -179,10 +184,6 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     });
 
 });
-
-
-
-
 
 
 

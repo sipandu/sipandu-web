@@ -36,17 +36,16 @@ class AdminController extends Controller
 
     public function showVerifyUser(Request $request)
     {
+        return view('pages/auth/admin/verify-user');
+    }
 
-        $idPosyandu = Auth::guard('admin')->user()->posyandu->id;
-        // $user1 = User::where('is_verified')->get();
-        // $user = User::with('kk','anak','lansia','ibu')->where('is_verified',0)->where('id',204)->get();
-        $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->get();
-        $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->get();
-        $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->get();
-        $user = User::with('anak','lansia','kk','ibu')->get();
-        // dd($anak->nama_anak);
+    public function detailVerifyUser(Request $request)
+    {
+        return view('pages/auth/admin/verifikasi/detail-verify-lansia');
 
-        return view('pages/auth/admin/verify-user',compact('anak','user','ibu','lansia'));
+        // return view('pages/auth/admin/verify/detail-verify-anak');
+
+        // return view('pages/auth/admin/verify/detail-verify-bumil');
     }
 
     public function profileUpdate(Request $request)
