@@ -36,17 +36,46 @@ class AdminController extends Controller
 
     public function showVerifyUser(Request $request)
     {
-        return view('pages/auth/admin/verify-user');
+
+        $idPosyandu = Auth::guard('admin')->user()->posyandu->id;
+        $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->get();
+        $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->get();
+        $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->get();
+        // $user = User::with('anak','lansia','kk','ibu')->get();
+        return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
 
-    public function detailVerifyUser(Request $request)
+    public function detailVerifyAnak(Request $request, $id)
     {
-        return view('pages/auth/admin/verifikasi/detail-verify-lansia');
+        // return view('pages/auth/admin/verifikasi/detail-verify-lansia');
+        $anak = User::find($id);
+
+        return view('pages/auth/admin/verifikasi/detail-verify-anak',compact('anak'));
+
+        // return view('pages/auth/admin/verify/detail-verify-bumil');
+    }
+
+    public function detailVerifyLansia(Request $request, $id)
+    {
+
+        $lansia = User::find($id);
+
+        return view('pages/auth/admin/verifikasi/detail-verify-lansia',compact('lansia'));
 
         // return view('pages/auth/admin/verify/detail-verify-anak');
 
         // return view('pages/auth/admin/verify/detail-verify-bumil');
     }
+
+    public function detailVerifyIbu(Request $request, $id)
+    {
+        // return view('pages/auth/admin/verifikasi/detail-verify-lansia');
+        $ibu = User::find($id);
+        return view('pages/auth/admin/verifikasi/detail-verify-bumil', compact('ibu'));
+
+        // return view('pages/auth/admin/verify/detail-verify-bumil');
+    }
+
 
     public function profileUpdate(Request $request)
     {
@@ -74,6 +103,7 @@ class AdminController extends Controller
 
     public function accountUpdate(Request $request)
     {
+
         $this->validate($request, [
             'email' => "required|email",
             'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
@@ -135,6 +165,33 @@ class AdminController extends Controller
 
     }
 
+    public function terimaUser(Request $request)
+    {
+        $user = User::find($request->iduser);
+        $user->is_verified = 1;
+        $user->save();
+        return redirect()->route('show.verify');
+
+    }
+
+    public function tolakUser(Request $request)
+    {
+        $this->validate($request, [
+            'keterangan' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+        ]
+        ,[
+            'keterangan.required' => "Telegram wajib diisi",
+            'keterangan.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'keterangan.max' => "Masukan Username Telegram maksimal 30 huruf",
+
+        ]);
+
+        $user = User::find($request->iduser);
+        $user->is_verified = 0;
+        $user->keterangan = $request->keterangan;
+        $user->save();
+        return redirect()->route('show.verify');
+    }
 
 
 

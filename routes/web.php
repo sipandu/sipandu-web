@@ -151,16 +151,20 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
-    Route::get('/verify/detail', 'AdminController@detailVerifyUser')->name('detail.verify');
+    Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak');
+    Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia');
+    Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu');
+    Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user');
+    Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
     Route::prefix('account')->group(function(){
-        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
-        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User');
-        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader');
+        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:super admin,head admin');;
+        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:admin,head admin');
+        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin,admin,head admin');
         Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');

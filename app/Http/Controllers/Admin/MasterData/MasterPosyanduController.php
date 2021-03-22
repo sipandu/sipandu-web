@@ -330,7 +330,7 @@ class MasterPosyanduController extends Controller
     // {
     //     Carbon::setLocale('id');
     //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
-        
+
     //     //untuk di db
     //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
 
@@ -340,7 +340,7 @@ class MasterPosyanduController extends Controller
     //     $now = Carbon::parse($today);
 
     //     $compare = Carbon::parse('2021-03-19 21:19:15');
-        
+
     //     $duration = $compare->diff($now);
 
     //     $minutes = ($duration->i);
