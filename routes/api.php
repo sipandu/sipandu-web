@@ -24,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/test', function (Request $request){
 });
 
 Route::post('/Login', 'User\Auth\Api\ApiLoginController@login');
+Route::get('/Logout', 'User\Auth\Api\ApiLoginController@logout')->middleware('auth:sanctum');

@@ -39,6 +39,8 @@ class ApiLoginController extends Controller
             'status_code' => 200,
             'access_token' => $tokenResult,
             'token_type' => 'Bearer',
+            'message' => 'sucess',
+            'user' => $user,
             ]);
 
         } catch (Exception $error) {
@@ -48,5 +50,24 @@ class ApiLoginController extends Controller
             'error' => $error,
             ]);
         }
+    }
+
+    public function logout(Request $request){
+        try{
+            $user = $request->user();
+            // $user = User::where('id', $id)->get();
+            $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Logout Successfull',
+        ]);
+        } catch (Exception $error){
+            return response()->json([
+                'status_code' => 500,
+                'message' => 'Error in Logout',
+                'error' => $error,
+                ]);
+        }
+        
     }
 }
