@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logoutAdmin');
+    }
+
     public function showLoginForm(Request $request)
     {
         return view('pages/auth/admin/login-admin');
@@ -29,7 +35,7 @@ class LoginController extends Controller
             return redirect()->intended(route('Admin Home'));
         }
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->with('message','Email atau password Anda Salah');
     }
 
     public function logoutAdmin(Request $request)

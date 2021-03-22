@@ -8,11 +8,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -38,15 +38,26 @@
                     @csrf
                     <div class="form-group">
                         <label>Nomor KK</label>
-                        <input type="number" class="form-control" name="noKK" placeholder="NO KK">
+                        <input type="number" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }} placeholder="NO KK">
+                        @error('no_kk')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Daftar Sebagai</label>
-                        <select class="form-control select2bs4" name="role" style="width: 100%;">
-                          <option value="anak">Balita</option>
-                          <option value="ibu">Ibu Hamil</option>
-                          <option value="lansia">Lansia</option>
+                        <select class="form-control select2bs4 @error('role') is-invalid @enderror" name="role" style="width: 100%;">
+                            <option disabled selected>Pilihlah Registrasi Sebagai......</option>
+                            <option value="anak">Anak / Balita</option>
+                            <option value="ibu">Ibu Hamil</option>
+                            <option value="lansia">Lansia</option>
                         </select>
+                        @error('role')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @enderror
                       </div>
                     <div class="row d-flex justify-content-end mt-4">
                         <div class="col-8">
@@ -69,13 +80,13 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{url('admin-template/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{url('admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
+    <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
 
-    <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(function () {

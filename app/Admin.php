@@ -15,6 +15,8 @@ class Admin extends Authenticatable
 
     protected $table = 'tb_admin';
 
+    protected $guard = 'admin';
+
     protected $fillable = [
         'email',
         'password',
@@ -23,7 +25,7 @@ class Admin extends Authenticatable
         'otp_token',
         'created_at'
     ];
-  
+
     protected $hidden = [
         'password'
     ];

@@ -16,13 +16,14 @@ class Posyandu extends Model
         'id_desa',
         'id_admin',
         'nama_posyandu',
+        'id_chat_group_tele',
         'alamat',
         'nomor_telepon',
         'banjar',
         'latitude',
         'longitude',
     ];
-  
+
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'id_admin', 'id');
@@ -32,7 +33,7 @@ class Posyandu extends Model
     {
         return $this->hasMany(Penyuluhan::class, 'id_posyandu');
     }
-    
+
     public function pegawai()
     {
         return $this->hasMany(Pegawai::class, 'id_posyandu');
@@ -41,6 +42,10 @@ class Posyandu extends Model
     public function kegiatan()
     {
         return $this->hasMany(Kegiatan::class, 'id_posyandu');
+    }
+
+    public function anak(){
+        return $this->hasMany('App\Anak','id_posyandu','id');
     }
 
     // public function desa()

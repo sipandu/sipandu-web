@@ -8,11 +8,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -34,10 +34,15 @@
             </div>
             <div class="card-body">
                 <p class="text-center py-2">Silahkan login untuk mengelola sistem ADMIN</p>
+                @if (session('message'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('message')}}
+                    </div>
+                @endif
                 <form action="{{route('submit.login.admin')}}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" >
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -102,7 +107,7 @@
 
                 <p class="mb-1">
                     Lupa password? Klik
-                    <a href="forgot-password.html" class="text-decoration-none link-primary">di sini</a>
+                    <a href="{{route('form.reset-password')}}" class="text-decoration-none link-primary">di sini</a>
                 </p>
                 <p class="mb-0">
                     Belum teregistrasi?
@@ -120,11 +125,11 @@
     <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="{{url('admin-template/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{url('admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
+    <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
 
     <script>
         function refreshCaptcha(){
@@ -141,6 +146,13 @@
             });
         }
     </script>
+    @if($message = Session::get('success'))
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
+    @endif
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 

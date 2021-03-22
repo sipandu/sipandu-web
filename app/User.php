@@ -40,6 +40,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Lansia','id_user','id');
     }
 
+    public function kk(){
+        return $this->belongsTo('App\KK','id_kk');
+    }
+
 
 
 }
