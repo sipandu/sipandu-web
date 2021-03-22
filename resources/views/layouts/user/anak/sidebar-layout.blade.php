@@ -23,7 +23,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('profile.user')}}" class="nav-link">
+                            <a href="{{route('anak.profile')}}" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>My Profile</p>
                             </a>

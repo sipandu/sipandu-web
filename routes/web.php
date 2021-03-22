@@ -175,12 +175,18 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     Route::get('/', 'UserController@anakhome')->name('anak.home');
     Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home');
     Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home');
-
-    Route::get('/profile', 'UserController@profile')->name('profile.user');
+    Route::prefix('profile')->group(function(){
+        Route::get('/anak', 'EditProfileController@anak')->name('anak.profile');
+        Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
+        Route::get('/lansia', 'EditProfileController@lansia')->name('lansia.profile');
+    });
+    // Route::get('/profile', 'UserController@profile')->name('profile.user');
     Route::prefix('edit')->group(function(){
-        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+        Route::post('/profile', 'EditProfileController@updateProfile')->name('edit.profile.user');
+        Route::post('/password', 'EditProfileController@updatePassword')->name('edit.password.user');
+        Route::post('/personal/user', 'EditProfileController@updatePersonalAnak')->name('edit.account.anak');
+        Route::post('/personal/ibu', 'EditProfileController@updatePersonalIbu')->name('edit.account.ibu');
+        Route::post('/personal/lansia', 'EditProfileController@updatePersonalLansia')->name('edit.account.lansia');
     });
 
 });

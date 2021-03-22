@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class RegisDataDiriController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     // awal dari fungsi menampilkan user dari data diri //
     public function showRegisFormAnak(Request $request)
     {
