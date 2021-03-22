@@ -76,7 +76,7 @@ Route::get('/user/account/new-user', function () {
 
 // =======
 Route::get('/', function () {
-    return view('landing_page');
+    return view('pages/landing-page');
 });
 
 Route::get('/test', function () {
