@@ -126,7 +126,7 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 // LOGIN //
 Route::prefix('login')->group(function(){
     Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
-        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login');
+        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login')->middleware('guest');
         Route::post('/submit', 'LoginController@submitLogin')->name('submit.login.admin');
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
