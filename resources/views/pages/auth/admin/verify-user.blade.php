@@ -80,42 +80,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu AA</td>
-                                                    <td class="align-middle">10-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu AA</td>
-                                                    <td class="align-middle">11-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu AA</td>
-                                                    <td class="align-middle">12-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                @php $noi = 1; @endphp
+                                                @foreach ($ibu as $data)
+                                                    <tr class="text-center align-middle my-auto">
+                                                        @if ($data->user->is_verified == 0  && $data->user->keterangan == null)
+                                                            <td class="align-middle">{{ $noi++ }}</td>
+                                                            <td class="align-middle">{{ $data->nama_ibu_hamil}}</td>
+                                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
+                                                            <td class="align-middle">{{ date('d-M-yy', strtotime($data->created_at)) }}</td>
+                                                            <td class="text-center align-middle">
+                                                                <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    Lihat
+                                                                </a>
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -135,42 +116,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu BB</td>
-                                                    <td class="align-middle">10-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu BB</td>
-                                                    <td class="align-middle">11-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu BB</td>
-                                                    <td class="align-middle">12-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                @php $no = 1; @endphp
+                                                @foreach ($anak as $data)
+                                                    <tr class="text-center align-middle my-auto">
+                                                        @if ($data->user->is_verified == 0 && $data->user->keterangan == null )
+                                                            <td class="align-middle">{{ $no++ }}</td>
+                                                            <td class="align-middle">{{ $data->nama_anak}}</td>
+                                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
+                                                            <td class="align-middle">{{ date('d-M-yy', strtotime($data->created_at)) }}</td>
+                                                            <td class="text-center align-middle">
+                                                                <a href="{{ route('detail.verify.anak', [$data->user->id])}}" class="btn btn-warning btn-sm">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    Lihat
+                                                                </a>
+                                                            </td>
+
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -190,42 +153,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu CC</td>
-                                                    <td class="align-middle">10-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu CC</td>
-                                                    <td class="align-middle">11-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center align-middle my-auto">
-                                                    <td class="align-middle">#</td>
-                                                    <td class="align-middle">Nama Anggota</td>
-                                                    <td class="align-middle">Posyandu CC</td>
-                                                    <td class="align-middle">12-Mar-2020</td>
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{ route('detail.verify') }}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Lihat
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                @php $nol = 1; @endphp
+                                                @foreach ($lansia as $data)
+                                                    <tr class="text-center align-middle my-auto">
+                                                        @if ($data->user->is_verified == 0 && $data->user->keterangan == null)
+                                                            <td class="align-middle">{{ $nol++ }}</td>
+                                                            <td class="align-middle">{{ $data->nama_lansia}}</td>
+                                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
+                                                            <td class="align-middle">{{ date('d-M-yy', strtotime($data->created_at)) }}</td>
+                                                            <td class="text-center align-middle">
+                                                                <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    Lihat
+                                                                </a>
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                                @if ($lansia->count() < 0)
+                                                    <div class="post">
+                                                        <p class="card-title text-decoration-none lh-1 fw-bold">Tidak Terdapat Data Lansia</p>
+                                                    </div>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

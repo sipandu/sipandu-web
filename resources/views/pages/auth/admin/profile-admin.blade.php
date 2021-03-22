@@ -106,7 +106,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="notlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
+                                            <input name="no_tlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
                                         </div>
                                         @error('no_tlpn')
                                             <div class="invalid-feedback text-start">
@@ -194,6 +194,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 text-end">
+                                                <button id="test" type="submit" class="btn btn-success my-1">Simpan Foto Profile</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                                 <div class="border border-bottom border-primary my-4"></div>
@@ -201,10 +206,21 @@
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror" value="{{ old('password_lama') }}"  id="inputTelp" placeholder="Password Lama" >
-                                            @error('nama_lansia')
+                                            @error('password_lama')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}"   id="inputTelp" placeholder="Password Baru" >
+                                            @error('password')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
@@ -214,8 +230,8 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}"   id="inputTelp" placeholder="Password Baru" >
-                                            @error('password')
+                                            <input type="text" name="password" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}"   id="inputTelp" placeholder="Konfirmasi Password" >
+                                            @error('password_confirmation')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>

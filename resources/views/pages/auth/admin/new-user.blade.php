@@ -120,7 +120,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir Bumil</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}"  placeholder="Tanggal lahir bumil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}"  placeholder="Tanggal lahir bumil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="far fa-calendar-alt"></i>
@@ -364,7 +364,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir </label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="far fa-calendar-alt"></i>
@@ -610,7 +610,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="far fa-calendar-alt"></i>
@@ -827,7 +827,7 @@
                 theme: 'bootstrap4'
             })
 
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
 
             $('[data-mask]').inputmask()
         })

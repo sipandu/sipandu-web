@@ -26,21 +26,27 @@
             <div class="col-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        Verifikasi Lansia
+                        Verifikasi Ibu Hamil
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="...">
+                                {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
+                                <img src="{{$ibu->kk->file_kk}}" style="height: 600px; width = 600px;" class="card-img-bottom" alt="...">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="namaLansia" value="Nama Lansianya" disabled>
-                                            <label for="namaLansia">Nama Lansia</label>
+                                            <input type="text" class="form-control" id="namaLansia" value="{{$ibu->kk->no_kk}}" disabled>
+                                            <label for="namaLansia">No KK</label>
                                         </div>
                                         <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="namaLansia" value="{{$ibu->ibu->nama_ibu_hamil}}" disabled>
+                                            <label for="namaLansia">Nama Ibu Hamil</label>
+                                        </div>
+                                        {{-- <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="genderLansia" value="Laki-laki" disabled>
                                             <label for="genderLansia">Jenis Kelamin</label>
                                         </div>
@@ -51,43 +57,57 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="tglLahir" value="20-Mar-1800" disabled>
                                             <label for="tglLahir">Tanggal Lahir</label>
-                                        </div>
-                                        
+                                        </div> --}}
+
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="nikLansia" value="1805551041" disabled>
-                                            <label for="nikLansia">NIK</label>
+                                            <input type="text" class="form-control" id="nikLansia" value="{{$ibu->ibu->posyandu->nama_posyandu}}" disabled>
+                                            <label for="nikLansia">Lokasi Posyandu</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="noTelp" value="0897688923" disabled>
-                                            <label for="noTelp">Nomor Telepon</label>
+                                            <input type="text" class="form-control" id="noTelp" value="{{$ibu->ibu->posyandu->banjar}}" disabled>
+                                            <label for="noTelp">Banjar</label>
                                         </div>
-                                        <div class="form-floating mb-3">
+                                        {{-- <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="kategoriLansia" value="Pra Lansia" disabled>
                                             <label for="kategoriLansia">Kategori Lansia</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="alamatLansia" value="Jl. Raya Sading" disabled>
                                             <label for="alamatLansia">Alamat</label>
+                                        </div> --}}
+
+                                    </div>
+                                    <form method="POST" action="{{route('tolak.user')}}">
+                                        @csrf
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
+                                                <label for="keterangan">Keterangan Tambahan</label>
+                                            </div>
+                                            @error('keterangan  ')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$ibu->id}}">
                                         </div>
-                                        
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukan keterangan tambahan">
-                                            <label for="keterangan">Keterangan Tambahan</label>
+                                        <div class="col-12 text-start">
+                                            <a href="{{route('show.verify')}}" class="btn btn-primary">Kembali</a>
+                                            <button class="float-right btn btn-danger btn-sm">Tolak</button>
                                         </div>
-                                    </div>
-                                    <div class="col-6 text-start">
-                                        <a href="#" class="btn btn-primary">Kembali</a>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <button class="btn btn-danger btn-sm">Setujui</button>
-                                        <button class="btn btn-success btn-sm">Tolak</button>
+                                    </form>
+                                    <div>
+                                        <form method="POST" action="{{route('terima.user')}}" class="col-12">
+                                            @csrf
+                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$ibu->id}}">
+                                            <div style="padding-left: 0px;" class="col-1 text-end float-lg-right">
+                                                <button class="btn btn-success btn-sm"> Setujui</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
