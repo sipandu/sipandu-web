@@ -8,28 +8,28 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/select2/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{url('admin-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     <!-- dropzonejs -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/dropzone/min/dropzone.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/dropzone/min/dropzone.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
     <!-- embedd library jquery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
@@ -209,20 +209,20 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{url('admin-template/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{url('admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Select2 -->
-    <script src="{{url('admin-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <!-- InputMask -->
-    <script src="{{url('admin-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
     <!-- AdminLTE App -->
-    <script src="{{url('admin-template/dist/js/adminlte.js')}}"></script>
+    <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
 
-    <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(function () {

@@ -1,0 +1,1 @@
+@extends('layouts/index/index-layout')

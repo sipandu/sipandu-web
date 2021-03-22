@@ -3,7 +3,7 @@
 @section('title', 'Add Posyandu')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 @endpush
 
 @section('content')
@@ -451,13 +451,13 @@
 
 @push('js')
     {{-- Custom Step Page --}}
-    <script src="{{url('admin-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
 
     <!-- Custom Input Date -->
-    <script src="{{url('admin-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){

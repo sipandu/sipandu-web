@@ -3,7 +3,7 @@
 @section('title', 'Profile Posyandu')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
 @endpush
 
 @section('content')
