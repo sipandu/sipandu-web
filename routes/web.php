@@ -168,7 +168,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     });
     Route::prefix('account')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:super admin,head admin');;
-        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:admin,head admin');
+        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:admin', 'cek:head admin');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin,admin,head admin');
         Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
