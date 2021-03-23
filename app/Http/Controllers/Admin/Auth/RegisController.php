@@ -41,7 +41,7 @@ class RegisController extends Controller
 
     public function storeAdmin(Request $request)
     {
-
+        // dd($request->all());
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_admin,email",
@@ -130,6 +130,10 @@ class RegisController extends Controller
             'nik' => $request->nik,
             'file_ktp' => $path,
         ]);
+
+        // $posyandu = $admin->posyandu()->create([
+
+        // ])
 
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
 

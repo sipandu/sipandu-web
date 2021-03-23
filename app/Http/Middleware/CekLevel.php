@@ -23,7 +23,7 @@ class CekLevel
             return $next($request);
         }elseif($request->user()->pegawai->jabatan == $level3){
             return $next($request);
-        }elseif($request->user()->pegawai->jabatan == $level3){
+        }elseif($request->user()->pegawai->jabatan == $level4){
             return $next($request);
         }else{
             return redirect()->route('Admin Home');

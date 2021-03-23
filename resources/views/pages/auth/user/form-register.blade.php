@@ -55,7 +55,7 @@
                     @csrf
 
                     <input type="hidden" name="idKK" value="{{$idKK}}">
-                    <input type="hidden" name="noKK" value="{{$noKK}}">
+                    <input type="hidden" name="noKK" value="{{$scr}}">
                     <input type="hidden" name="role" value="{{$role}}">
 
                     @if ($idKK == null)

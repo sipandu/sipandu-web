@@ -50,14 +50,14 @@ class RegisController extends Controller
         $noKK = $request->no_kk;
         $selectKK = KK::where('no_kk', $noKK)->first();
         $role = $request->role;
-        $kabupaten = Kabupaten::all();
+
         if($selectKK != null){
             $idKK = $selectKK->id;
-            return redirect()->route('register.pertama',['idKK' => $idKK,'role' => $role,'noKK' => $request->no_kk]);
+            return redirect()->route('register.pertama',['scr' => $noKK,'idKK' => $idKK,'role' => $role,]);
             // return view('pages/auth/user/form-register',['idKK' => $idKK,'role' => $role,'noKK' => $request->noKK], compact('kabupaten'));
         }else{
             $idKK = null;
-            return redirect()->route('register.pertama',['idKK' => $idKK,'role' => $role,'noKK' => $request->no_kk]);
+            return redirect()->route('register.pertama',['scr' => $noKK,'idKK' => $idKK,'role' => $role]);
         }
 
     }
@@ -65,7 +65,7 @@ class RegisController extends Controller
     public function formRegisAwal(Request $request)
     {
         $kabupaten = Kabupaten::all();
-        return view('pages/auth/user/form-register',['idKK' => $request->idKK,'role' => $request->role,'noKK' => $request->noKK], compact('kabupaten'));
+        return view('pages/auth/user/form-register',['scr' => $request->scr,'idKK' => $request->idKK,'role' => $request->role], compact('kabupaten'));
     }
 
 

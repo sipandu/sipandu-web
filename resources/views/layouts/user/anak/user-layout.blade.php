@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
-    <title>SIPANDU | USER | @yield('title')</title>
+    <title>Smart Posyandu | USER | @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
@@ -25,8 +25,11 @@
             font-family: 'Nunito', sans-serif;
             font-weight: 300;
         }
+        .swal-footer {
+            text-align: center;
+        }
     </style>
-
+    @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -66,7 +69,25 @@
     <script src="{{url('base-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function alertSuccess(msg){
+          swal({
+            title: "Sukses",
+            text: msg,
+            icon: "success",
+            button: "Ok",
+          });
+        }
 
+        function alertError(msg){
+          swal({
+            title: "Eror",
+            text: msg,
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+    </script>
     @stack('js')
 
     {{-- <!-- AdminLTE for demo purposes -->

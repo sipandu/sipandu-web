@@ -164,7 +164,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::prefix('account')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test ,parameter');
         Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan ');
-        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:kader,admin,head admin, parameter');
+        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin');
         Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
@@ -176,9 +176,9 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 
 //USER DASBOARD//
 Route::prefix('user')->namespace('User\Auth')->group(function(){
-    Route::get('/', 'UserController@anakhome')->name('anak.home');
-    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home');
-    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home');
+    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware('user:anak');
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('user:ibu');
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('user:lansia');
     Route::prefix('profile')->group(function(){
         Route::get('/anak', 'EditProfileController@anak')->name('anak.profile');
         Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
