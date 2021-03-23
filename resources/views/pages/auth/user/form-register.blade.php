@@ -178,7 +178,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Banjar</label>
-                                <input id="banjar" name="banjar" class="form-control @error('banjar') is-invalid @enderror" style="width: 100%;">
+                                <select id="banjar" name="banjar" class="form-control select2 @error('banjar') is-invalid @enderror" style="width: 100%;">
+                                </select>
                                 @error('banjar')
                                     <div class="invalid-feedback text-start">
                                         {{ $message }}

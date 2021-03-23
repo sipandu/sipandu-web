@@ -234,11 +234,11 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
-//<<<<<<< loginRegis
-//                                            <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"  id="inputTelp" placeholder="Konfirmasi Password" >
-//=======
+{{-- <<<<<<< loginRegis --}}
+                                           {{-- <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"  id="inputTelp" placeholder="Konfirmasi Password" > --}}
+{{-- ======= --}}
                                             <input type="text" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}"   id="inputTelp" placeholder="Konfirmasi Password" >
-//>>>>>>> main
+{{-- >>>>>> main --}}
                                             @error('password_confirmation')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
