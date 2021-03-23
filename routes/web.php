@@ -48,6 +48,11 @@ Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController
 
 
 
+//Konsultasi
+Route::get('admin/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi");
+
+
+
 //Informasi
 Route::get('/admin/informasi/informasi-penting/home', function(){
     return view('pages.admin.informasi.informasi-penting');
@@ -77,7 +82,7 @@ Route::get('/user/account/new-user', function () {
 // =======
 Route::get('/', function () {
     return view('pages/landing-page');
-});
+})->name('Landing Page');
 
 Route::get('/test', function () {
     return view('test');
@@ -121,7 +126,7 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 // LOGIN //
 Route::prefix('login')->group(function(){
     Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
-        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login');
+        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login')->middleware('guest');
         Route::post('/submit', 'LoginController@submitLogin')->name('submit.login.admin');
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
@@ -194,6 +199,16 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     });
 
 });
+
+
+
+//Blog
+Route::get('/blog', function () {
+    return view('pages/user/blog/news');
+})->name("berita");
+Route::get('/penyuluhan', function () {
+    return view('user/blog/penyuluhan');
+})->name('Penyuluhan');
 
 
 
