@@ -132,7 +132,6 @@ class AdminController extends Controller
         $pegawai->save();
 
         return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
-
     }
 
     public function passwordUpdate(Request $request)
@@ -149,20 +148,15 @@ class AdminController extends Controller
             'password.confirmed' => "Konfirmasi password tidak sesuai",
         ]);
 
-        if (!(Hash::check($request->password_lama,Auth::guard('admin')->user()->password))) {
+        if (Hash::check($request->password_lama, Auth::guard('admin')->user()->password)) {
+            $idAdmin = Auth::guard('admin')->user()->id;
+            $admin = Admin::find($idAdmin);
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
+        } else {
             return redirect()->back()->with(['error' => 'Password Lama tidak sesuai']);
         }
-        if(strcmp($request->password_lama, $request->password) == 0){
-            return redirect()->back()->with(['error' => 'Password yang anda masukan sama dengan yang lama']);
-        }
-
-        $idAdmin = Auth::guard('admin')->user()->id;
-        $admin = Admin::find($idAdmin);
-        $admin->password = Hash::make($request->password);
-        $admin->save();
-        return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
-
-
     }
 
     public function terimaUser(Request $request)
