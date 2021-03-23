@@ -179,7 +179,6 @@
                             <div class="form-group">
                                 <label>Banjar</label>
                                 <input id="banjar" name="banjar" class="form-control @error('banjar') is-invalid @enderror" style="width: 100%;">
-                                </input>
                                 @error('banjar')
                                     <div class="invalid-feedback text-start">
                                         {{ $message }}
