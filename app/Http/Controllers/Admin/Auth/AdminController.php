@@ -136,6 +136,7 @@ class AdminController extends Controller
 
     public function passwordUpdate(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'password_lama' => 'required',
             'password' => 'required|min:8|max:50|confirmed',

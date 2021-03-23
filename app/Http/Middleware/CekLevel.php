@@ -14,15 +14,21 @@ class CekLevel
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $level)
+    public function handle($request, Closure $next, $level1, $level2, $level3, $level4)
     {
-        // $id = $request->user()->id;
-        // $admin = Pegawai::where('id_admin',$id)->first();
-        // dd($request->user()->pegawai->jabatan);
 
-        if($request->user()->pegawai->jabatan == $level){
+        if($request->user()->pegawai->jabatan == $level1){
             return $next($request);
+        }elseif($request->user()->pegawai->jabatan == $level2){
+            return $next($request);
+        }elseif($request->user()->pegawai->jabatan == $level3){
+            return $next($request);
+        }elseif($request->user()->pegawai->jabatan == $level3){
+            return $next($request);
+        }else{
+            return redirect()->route('Admin Home');
         }
+
         return redirect()->route('Admin Home');
     }
 }
