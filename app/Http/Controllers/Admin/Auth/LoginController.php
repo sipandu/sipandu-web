@@ -24,6 +24,10 @@ class LoginController extends Controller
             'email' => 'required',
             'password' => 'required',
             'captcha' => 'required|captcha'
+        ],
+        [
+            'captcha.required' => "Captha harus diisi",
+            'captcha.captcha' => "Captha yang dimasukan salah",
         ]);
 
         $credential = [

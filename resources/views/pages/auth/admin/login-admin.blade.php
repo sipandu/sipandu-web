@@ -73,19 +73,20 @@
                                 {!! captcha_img('flat') !!}
                             </div>
                             <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Refresh Captcha</a>
-                        </div>
-                        @error('captcha')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        </div>                        
                         <div class="col-7">
-                            <div class="input-group-append g-0">
-                                <input name="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha" required>
-
-                                <div class="input-group-text">
-                                    <span class="fas fa-spell-check"></span>
+                            <div class="input-group g-0">
+                                <input name="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-spell-check"></span>
+                                    </div>
                                 </div>
+                                @error('captcha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
