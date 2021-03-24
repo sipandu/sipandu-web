@@ -34,11 +34,6 @@ class Admin extends Authenticatable
         return $this->hasOne('App\Pegawai','id_admin','id');
     }
 
-    public function posyandu(){
-        return $this->hasOne('App\Posyandu','id_admin','id');
-    }
-
-
 
 // =======
 

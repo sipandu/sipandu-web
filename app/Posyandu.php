@@ -24,11 +24,6 @@ class Posyandu extends Model
         'longitude',
     ];
 
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'id_admin', 'id');
-    }
-
     public function penyuluhan()
     {
         return $this->hasMany(Penyuluhan::class, 'id_posyandu');

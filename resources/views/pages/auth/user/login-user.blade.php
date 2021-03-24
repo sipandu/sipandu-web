@@ -109,7 +109,7 @@
                 </p>
                 <p class="mb-0">
                     Belum teregistrasi?
-                    <a href="register.html" class="text-decoration-none link-primary">Ajukan akun sekarang</a>
+                    <a href="{{route('landing.regis')}}" class="text-decoration-none link-primary">Ajukan akun sekarang</a>
                 </p>
             </div>
 

@@ -17,6 +17,7 @@ class User extends Authenticatable
     protected $fillable = [
         'id_kk',
         'id_chat_tele',
+        'username_tele',
         'email',
         'password',
         'profile_image',

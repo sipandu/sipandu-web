@@ -50,24 +50,25 @@
                 <p class="text-center fs-5 pt-2 pb-1">Silahkan isi data diri anda<br>"Ibu Hamil"</p>
                 <form action="{{ route('ibu.data-diri.submit') }}" method="post">
                     @csrf
-                    <div class="row">
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label >NIK</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" id="inputNoKK" value="{{ old('nik') }}" placeholder="Masukan Nomor Indentitas Anak">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-user"></span>
-                                        </div>
-                                    </div>
-                                    @error('nik')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                    <div class="form-group">
+                        <label >NIK</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" id="inputNoKK" value="{{ old('nik') }}" placeholder="Masukan Nomor Indentitas Anak">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
                                 </div>
                             </div>
+                            @error('nik')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+
                             <div class="form-group">
                                 <label>Nama Suami</label>
                                 <div class="input-group mb-3">
@@ -100,13 +101,10 @@
                                     @enderror
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="col">
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
                                 <div class="input-group">
-                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" id="inputNoKK" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" id="inputNoKK" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -119,6 +117,9 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <div class="col">
+
                             <div class="form-group">
                                 <label>Nomor Telepon</label>
                                 <div class="input-group mb-3">
@@ -134,6 +135,17 @@
                                         </div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Username Telegram</label>
+                                <div  class="input-group mb-3">
+                                    <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" id="inputNoKK" value="{{ old('telegram') }}" placeholder="Username Telegram">
+                                </div>
+                                @error('telegram')
+                                    <div class="invalid-feedback text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Alamat</label>

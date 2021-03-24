@@ -45,7 +45,7 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Tempat Tugas</b>
-                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->posyandu->nama_posyandu}}</a>
+                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Konsultasi</b>

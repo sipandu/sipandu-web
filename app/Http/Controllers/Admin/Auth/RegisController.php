@@ -38,6 +38,10 @@ class RegisController extends Controller
 
     public function storeAdmin(Request $request)
     {
+// <<<<<<< loginRegis
+//         // dd($request->all());
+// =======
+// >>>>>>> main
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_admin,email",
@@ -121,7 +125,16 @@ class RegisController extends Controller
             'file_ktp' => $path,
         ]);
 
+// <<<<<<< loginRegis
+        // $posyandu = $admin->posyandu()->create([
+
+        // ])
+
+//         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
+
+// =======
         return redirect()->back()->with(['success' => 'Admin baru berhasil ditambahkan']);
+// >>>>>>> main
     }
 
     public function storeUserIbu(Request $request)

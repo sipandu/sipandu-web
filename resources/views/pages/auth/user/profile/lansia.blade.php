@@ -93,17 +93,17 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group row">
+                                    <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputEmail" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->pegawai->username_telegram) }}">
+                                            <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputEmail" placeholder="Username Telegram" value="{{ old('telegram', Auth::user()->username_tele) }}">
                                         </div>
                                         @error('telegram')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                    </div> --}}
+                                    </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10 my-auto">
@@ -231,7 +231,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
                                         <div class="col-sm-9">
-                                            <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"  id="inputTelp" placeholder="Password Baru" >
+                                            <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"   id="inputTelp" placeholder="Password Baru" >
                                             @error('password')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
@@ -242,13 +242,13 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
-                                            <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"   id="inputTelp" placeholder="Konfirmasi Password Baru" >
+                                            <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"  id="inputTelp" placeholder="Konfirmasi Password" >
+                                            @error('password_confirmation')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('password_confirmation')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">

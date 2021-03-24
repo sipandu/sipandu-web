@@ -38,7 +38,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Nomor KK</label>
-                        <input type="number" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }} placeholder="NO KK">
+                        <input type="number" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="NO KK">
                         @error('no_kk')
                             <div class="invalid-feedback text-start">
                                 {{ $message }}

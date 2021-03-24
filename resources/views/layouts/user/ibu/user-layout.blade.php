@@ -24,8 +24,11 @@
         html, body {
             font-family: 'Nunito', sans-serif;
             font-weight: 300;
+        }.swal-footer {
+            text-align: center;
         }
     </style>
+    @livewireStyles
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -66,7 +69,25 @@
     <script src="{{url('base-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function alertSuccess(msg){
+          swal({
+            title: "Sukses",
+            text: msg,
+            icon: "success",
+            button: "Ok",
+          });
+        }
 
+        function alertError(msg){
+          swal({
+            title: "Eror",
+            text: msg,
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+    </script>
     @stack('js')
 
     {{-- <!-- AdminLTE for demo purposes -->

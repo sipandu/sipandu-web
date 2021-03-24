@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Anak;
 use App\Ibu;
@@ -56,7 +57,7 @@ class EditProfileController extends Controller
         return redirect()->back()->with(['success' => 'Perubahan berhasil di simpan']);
     }
 
-    public function passwordUpdate(Request $request)
+    public function updatePassword(Request $request)
     {
         $this->validate($request, [
             'password_lama' => 'required',
@@ -91,15 +92,15 @@ class EditProfileController extends Controller
     {
         $this->validate($request, [
             'email' => "required|email",
-            // 'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'no_tlpn' => "required|numeric|digits_between:11,15",
         ]
         ,[
             'email.required' => "Email wajib diisi",
             'email.email' => "Masukan email yang valid",
-            // 'telegram.required' => "Telegram wajib diisi",
-            // 'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
-            // 'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'no_tlpn.required' => "Nomor telepon wajib diisi",
             'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 12 sampai 15 karakter",
@@ -109,10 +110,10 @@ class EditProfileController extends Controller
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $user->email = $request->email;
+        $user->username_tele = $request->telegram;
         $user->save();
 
         $anak = Anak::where('id_user',$idUser)->first();
-        // $anak->username_telegram = $request->telegram;
         $anak->nomor_telepon = $request->no_tlpn;
         $anak->save();
 
@@ -124,15 +125,15 @@ class EditProfileController extends Controller
     {
         $this->validate($request, [
             'email' => "required|email",
-            // 'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'no_tlpn' => "required|numeric|digits_between:11,15",
         ]
         ,[
             'email.required' => "Email wajib diisi",
             'email.email' => "Masukan email yang valid",
-            // 'telegram.required' => "Telegram wajib diisi",
-            // 'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
-            // 'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'no_tlpn.required' => "Nomor telepon wajib diisi",
             'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 12 sampai 15 karakter",
@@ -142,10 +143,10 @@ class EditProfileController extends Controller
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $user->email = $request->email;
+        $user->username_tele = $request->telegram;
         $user->save();
 
         $ibu = Ibu::where('id_user',$idUser)->first();
-        // $anak->username_telegram = $request->telegram;
         $ibu->nomor_telepon = $request->no_tlpn;
         $ibu->save();
 
@@ -157,15 +158,15 @@ class EditProfileController extends Controller
     {
         $this->validate($request, [
             'email' => "required|email",
-            // 'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'no_tlpn' => "required|numeric|digits_between:11,15",
         ]
         ,[
             'email.required' => "Email wajib diisi",
             'email.email' => "Masukan email yang valid",
-            // 'telegram.required' => "Telegram wajib diisi",
-            // 'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
-            // 'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'no_tlpn.required' => "Nomor telepon wajib diisi",
             'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 12 sampai 15 karakter",
@@ -175,10 +176,10 @@ class EditProfileController extends Controller
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $user->email = $request->email;
+        $user->username_tele = $request->telegram;
         $user->save();
 
         $lansia = Lansia::where('id_user',$idUser)->first();
-        // $anak->username_telegram = $request->telegram;
         $lansia->nomor_telepon = $request->no_tlpn;
         $lansia->save();
 
