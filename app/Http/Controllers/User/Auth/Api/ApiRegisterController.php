@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Api;
+namespace App\Http\Controllers\User\Auth\Api;
 
 use App\KK;
 use App\User;
@@ -19,7 +19,6 @@ class ApiRegisterController extends Controller
     {
         $noKK = $request->no_kk;
         $selectKK = KK::where('no_kk', $noKK)->first();
-        $role = $request->role;
         if($selectKK != null){
             $idKK = $selectKK->id;
             return response()->json([
@@ -38,34 +37,34 @@ class ApiRegisterController extends Controller
 
     public function storeAnak(Request $request)
     {
-        $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
-            'email' => "required|email|unique:tb_user,email",
-            'password' => 'required|min:8|max:50|confirmed',
-            'kabupaten' => "required",
-            'kecamatan' => "required",
-            'desa' => "required",
-            'banjar' => "required",
+        // $this->validate($request,[
+        //     'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+        //     'email' => "required|email|unique:tb_user,email",
+        //     'password' => 'required|min:8|max:50|confirmed',
+        //     'kabupaten' => "required",
+        //     'kecamatan' => "required",
+        //     'desa' => "required",
+        //     'banjar' => "required",
 
-        ],
-        [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
-            'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
+        // ],
+        // [
+        //     'nama.required' => "Nama Lengkap wajib diisi",
+        //     'nama.regex' => "Format Nama Lengkap tidak sesuai",
+        //     'nama.min' => "Nama Lengkap minimal 2 karakter",
+        //     'nama.max' => "Nama Lengkap maksimal 50 karakter",
+        //     'email.required' => "Email wajib diisi",
+        //     'email.email' => "Masukan email yang valid",
+        //     'email.unique' => "Email sudah pernah digunakan",
+        //     'password.required' => "Password wajib diisi",
+        //     'password.min' => "Password minimal 8 karakter",
+        //     'password.max' => "Password maksimal 50 karakter",
+        //     'password.confirmed' => "Konfirmasi password tidak sesuai",
+        //     'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+        //     'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+        //     'desa.required' => "Kolom desa Wajib diisi",
+        //     'banjar.required' => "Kolom Banjar Wajib diisi",
 
-        ]);
+        // ]);
 
         if($request->idKK != null){
             $user = User::create([
@@ -82,15 +81,17 @@ class ApiRegisterController extends Controller
                 'nama_anak' => $request->nama,
             ]);
 
-            return redirect()->route('landing.verif');
+            return response()->json([
+                'status_code' => 200
+            ]);
 
         }else{
-            $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            ]);
+            // $this->validate($request,[
+            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+            //     'file.required' => "Kolom Upload File Wajib Diisi ",
+            //     'file.image' => "File yang di upload harus berupa foto",
+            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            // ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
             $imageName = time().'-'.$request->file->getClientOriginalName();
@@ -116,42 +117,43 @@ class ApiRegisterController extends Controller
                 'nama_anak' => $request->nama,
             ]);
 
-            return redirect()->route('landing.verif');
-
+            return response()->json([
+                'status_code' => 200
+            ]);
         }
     }
 
     public function storeIbu(Request $request)
     {
 
-        $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
-            'email' => "required|email|unique:tb_user,email",
-            'password' => 'required|min:8|max:50|confirmed',
-            'kabupaten' => "required",
-            'kecamatan' => "required",
-            'desa' => "required",
-            'banjar' => "required",
+        // $this->validate($request,[
+        //     'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+        //     'email' => "required|email|unique:tb_user,email",
+        //     'password' => 'required|min:8|max:50|confirmed',
+        //     'kabupaten' => "required",
+        //     'kecamatan' => "required",
+        //     'desa' => "required",
+        //     'banjar' => "required",
 
-        ],
-        [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
-            'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
+        // ],
+        // [
+        //     'nama.required' => "Nama Lengkap wajib diisi",
+        //     'nama.regex' => "Format Nama Lengkap tidak sesuai",
+        //     'nama.min' => "Nama Lengkap minimal 2 karakter",
+        //     'nama.max' => "Nama Lengkap maksimal 50 karakter",
+        //     'email.required' => "Email wajib diisi",
+        //     'email.email' => "Masukan email yang valid",
+        //     'email.unique' => "Email sudah pernah digunakan",
+        //     'password.required' => "Password wajib diisi",
+        //     'password.min' => "Password minimal 8 karakter",
+        //     'password.max' => "Password maksimal 50 karakter",
+        //     'password.confirmed' => "Konfirmasi password tidak sesuai",
+        //     'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+        //     'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+        //     'desa.required' => "Kolom desa Wajib diisi",
+        //     'banjar.required' => "Kolom Banjar Wajib diisi",
 
-        ]);
+        // ]);
 
         if($request->idKK != null){
             $user = User::create([
@@ -168,15 +170,17 @@ class ApiRegisterController extends Controller
                 'nama_ibu_hamil' => $request->nama,
             ]);
 
-            return redirect()->route('landing.verif');
+            return response()->json([
+                'status_code' => 200
+            ]);
 
         }else{
-            $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            ]);
+            // $this->validate($request,[
+            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+            //     'file.required' => "Kolom Upload File Wajib Diisi ",
+            //     'file.image' => "File yang di upload harus berupa foto",
+            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            // ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
             $imageName = time().'-'.$request->file->getClientOriginalName();
@@ -202,7 +206,9 @@ class ApiRegisterController extends Controller
                 'nama_ibu_hamil' => $request->nama,
             ]);
 
-            return redirect()->route('landing.verif');
+            return response()->json([
+                'status_code' => 200
+            ]);
 
         }
     }
@@ -210,34 +216,34 @@ class ApiRegisterController extends Controller
     public function storeLansia(Request $request)
     {
         // dd($request->all());
-        $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
-            'email' => "required|email|unique:tb_user,email",
-            'password' => 'required|min:8|max:50|confirmed',
-            'kabupaten' => "required",
-            'kecamatan' => "required",
-            'desa' => "required",
-            'banjar' => "required",
+        // $this->validate($request,[
+        //     'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+        //     'email' => "required|email|unique:tb_user,email",
+        //     'password' => 'required|min:8|max:50|confirmed',
+        //     'kabupaten' => "required",
+        //     'kecamatan' => "required",
+        //     'desa' => "required",
+        //     'banjar' => "required",
 
-        ],
-        [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
-            'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
+        // ],
+        // [
+        //     'nama.required' => "Nama Lengkap wajib diisi",
+        //     'nama.regex' => "Format Nama Lengkap tidak sesuai",
+        //     'nama.min' => "Nama Lengkap minimal 2 karakter",
+        //     'nama.max' => "Nama Lengkap maksimal 50 karakter",
+        //     'email.required' => "Email wajib diisi",
+        //     'email.email' => "Masukan email yang valid",
+        //     'email.unique' => "Email sudah pernah digunakan",
+        //     'password.required' => "Password wajib diisi",
+        //     'password.min' => "Password minimal 8 karakter",
+        //     'password.max' => "Password maksimal 50 karakter",
+        //     'password.confirmed' => "Konfirmasi password tidak sesuai",
+        //     'kabupaten.required' => "Kolom kabupaten Wajib diisi",
+        //     'kecamatan.required' => "Kolom kecamatan Wajib diisi",
+        //     'desa.required' => "Kolom desa Wajib diisi",
+        //     'banjar.required' => "Kolom Banjar Wajib diisi",
 
-        ]);
+        // ]);
 
         if($request->idKK != null){
             $user = User::create([
@@ -257,12 +263,12 @@ class ApiRegisterController extends Controller
             return redirect()->route('landing.verif');
 
         }else{
-            $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            ]);
+            // $this->validate($request,[
+            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+            //     'file.required' => "Kolom Upload File Wajib Diisi ",
+            //     'file.image' => "File yang di upload harus berupa foto",
+            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            // ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
             $imageName = time().'-'.$request->file->getClientOriginalName();
@@ -288,7 +294,9 @@ class ApiRegisterController extends Controller
                 'nama_lansia' => $request->nama,
             ]);
 
-            return redirect()->route('landing.verif');
+            return response()->json([
+                'status_code' => 200
+            ]);
         }
     }
 }
