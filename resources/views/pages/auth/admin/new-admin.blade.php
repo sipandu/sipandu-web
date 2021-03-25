@@ -59,7 +59,7 @@
                                                         <input  type="text" name="name" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"  placeholder="Nama lengkap admin">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fas fa-user"></span>
+                                                                <span class="fas fa-user-shield"></span>
                                                             </div>
                                                         </div>
                                                         @error('name')
@@ -91,7 +91,7 @@
                                                         <input  type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}"  placeholder="Tempat lahir">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fas fa-map-marked-alt"></span>
+                                                                <span class="fas fa-map-marker-alt"></span>
                                                             </div>
                                                         </div>
                                                         @error('tempat_lahir')
@@ -196,7 +196,6 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-sm-12">
                                                 <div class="form-group">
-                                                    @csrf
                                                     <label for="exampleInputEmail1">Jabatan</label>
                                                     <div class="input-group mb-3">
                                                         <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
@@ -213,7 +212,7 @@
                                                         </select>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fas fa-venus-mars"></span>
+                                                                <span class="fas fa-user-cog"></span>
                                                             </div>
                                                         </div>
                                                         @error('jabatan')
@@ -229,7 +228,7 @@
                                                         <input type="text" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fas fa-lock"></span>
+                                                                <span class="fas fa-phone"></span>
                                                             </div>
                                                         </div>
                                                         @error('tlpn')
@@ -245,7 +244,7 @@
                                                         <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}"  placeholder="Masukan Username Telegram aktif">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fas fa-lock"></span>
+                                                                <span class="fab fa-telegram-plane"></span>
                                                             </div>
                                                         </div>
                                                         @error('telegram')
@@ -260,7 +259,7 @@
                                                 <div class="form-group">
                                                     <label>Tempat Tugas</label>
                                                     <div class="input-group mb-3">
-                                                        <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%,;" >
+                                                        <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
                                                             <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                             @foreach ($posyandu as $p)
                                                                 <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>

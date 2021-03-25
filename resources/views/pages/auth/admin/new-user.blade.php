@@ -51,7 +51,7 @@
                                                             <input type="text" name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" id="inputNoKK" value="{{ old('no_kk') }}" placeholder="Nomor KK">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-user"></span>
+                                                                    <span class="fas fa-id-card"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_kk')
@@ -94,7 +94,7 @@
                                                     <input type="text " name="nama_ibu" autocomplete="off" class="form-control @error('nama_ibu') is-invalid @enderror" id="inputNamaIbu" value="{{ old('nama_ibu') }}" placeholder="Nama lengkap ibu hamil">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-female"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_ibu')
@@ -110,7 +110,7 @@
                                                     <input type="text" name="nama_suami" autocomplete="off" class="form-control @error('nama_suami') is-invalid @enderror" value="{{ old('nama_suami') }}" placeholder="Nama lengkap suami">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-male"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_suami')
@@ -128,7 +128,7 @@
                                                             <input type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}"  placeholder="Tempat lahir ibu hamil">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-map-marked-alt"></span>
+                                                                    <span class="fas fa-map-marker-alt"></span>
                                                                 </div>
                                                             </div>
                                                             @error('tempat_lahir')
@@ -198,7 +198,7 @@
                                                             <input type="text" name="no_tlpn" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" autocomplete="off" placeholder="Nomor telepon">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-lock"></span>
+                                                                    <span class="fas fa-phone"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_tlpn')
@@ -214,7 +214,7 @@
                                                             <input type="text" name="telegram" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}" autocomplete="off" placeholder="Username Telegram">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-envelope"></span>
+                                                                    <span class="fab fa-telegram-plane"></span>
                                                                 </div>
                                                             </div>
                                                             @error('telegram')
@@ -303,7 +303,7 @@
                                                             <input type="text" name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" value="{{ old('no_kk') }}" placeholder="Nomor KK">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-user"></span>
+                                                                    <span class="fas fa-id-card"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_kk')
@@ -351,7 +351,7 @@
                                                     <input type="text" name="nama_anak" autocomplete="off" class="form-control @error('nama_anak') is-invalid @enderror" value="{{ old('nama_anak') }}" placeholder="Nama lengkap anak">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-child"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_anak')
@@ -367,7 +367,7 @@
                                                     <input type="text" name="nama_ayah" autocomplete="off" class="form-control @error('nama_ayah') is-invalid @enderror" value="{{ old('nama_ayah') }}" placeholder="Nama lengkap ayah">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-male"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_ayah')
@@ -383,7 +383,7 @@
                                                     <input type="text" name="nama_ibu" autocomplete="off" class="form-control @error('nama_ibu') is-invalid @enderror" value="{{ old('nama_ibu') }}" placeholder="Nama lengkap ibu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-female"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_ibu')
@@ -401,7 +401,7 @@
                                                             <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}" placeholder="Tempat lahir anak">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-map-marked-alt"></span>
+                                                                    <span class="fas fa-map-marker-alt"></span>
                                                                 </div>
                                                             </div>
                                                             @error('tempat_lahir')
@@ -457,7 +457,7 @@
                                                             <input type="text" name="status_anak" autocomplete="off" class="form-control @error('status_anak') is-invalid @enderror" value="{{ old('status_anak') }}" placeholder="Anak ke...">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-address-card"></span>
+                                                                    <span class="fas fa-user-friends"></span>
                                                                 </div>
                                                             </div>
                                                             @error('status_anak')
@@ -511,7 +511,7 @@
                                                             <input type="text" name="no_tlpn" autocomplete="off" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" placeholder="Nomor telepon">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-lock"></span>
+                                                                    <span class="fas fa-phone"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_tlpn')
@@ -527,7 +527,7 @@
                                                             <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}" placeholder="Username telegram">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-lock"></span>
+                                                                    <span class="fab fa-telegram-plane"></span>
                                                                 </div>
                                                             </div>
                                                             @error('telegram')
@@ -617,7 +617,7 @@
                                                             <input type="text"  name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" value="{{ old('no_kk') }}" placeholder="Nomor KK">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-user"></span>
+                                                                    <span class="fas fa-id-card"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_kk')
@@ -665,7 +665,7 @@
                                                     <input type="text" name="nama_lansia" autocomplete="off" class="form-control @error('nama_lansia') is-invalid @enderror" value="{{ old('nama_lansia') }}" placeholder="Nama lengkap lansia">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-wheelchair"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_lansia')
@@ -683,7 +683,7 @@
                                                             <input type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}" placeholder="Tempat lahir lansia">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-map-marked-alt"></span>
+                                                                    <span class="fas fa-map-marker-alt"></span>
                                                                 </div>
                                                             </div>
                                                             @error('tempat_lahir')
@@ -744,7 +744,7 @@
                                                             </select>
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-venus-mars"></span>
+                                                                    <span class="fas fa-user-friends"></span>
                                                                 </div>
                                                             </div>
                                                             @error('status_lansia')
@@ -798,7 +798,7 @@
                                                             <input type="text" name="no_tlpn" autocomplete="off" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" placeholder="Nomor telepon">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-lock"></span>
+                                                                    <span class="fas fa-phone"></span>
                                                                 </div>
                                                             </div>
                                                             @error('no_tlpn')
@@ -814,7 +814,7 @@
                                                             <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}" placeholder="Username Telegram">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-lock"></span>
+                                                                    <span class="fab fa-telegram-plane"></span>
                                                                 </div>
                                                             </div>
                                                             @error('telegram')
