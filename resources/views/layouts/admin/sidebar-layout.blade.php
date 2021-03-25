@@ -130,10 +130,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('logout.admin')}}" class="nav-link">
+                            <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
+                                @csrf
+                                <button class="nav-link text-danger">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>Logout</p>
+                                </button>
+                            </form>
+                            {{-- <a href="{{route('logout.admin')}}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Logout</p>
-                            </a>
+                            </a> --}}
                         </li>
                     </ul>
                 </li>

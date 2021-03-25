@@ -19,8 +19,13 @@ class Desa extends Model
 
     public function posyandu()
     {
-        return $this->hasMany('App\Posyandu','id_desa','id');
+        return $this->hasMany(Posyandu::class,'id_desa');
     }
+
+    // public function kegiatan()
+    // {
+    //     return $this->hasMany(Kegiatan::class, 'id_posyandu');
+    // }
 
     public function kecamatan()
     {

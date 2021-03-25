@@ -3,7 +3,6 @@
 @section('title', 'My Profile')
 
 @push('css')
-    {{-- <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}"> --}}
     <style>
         .image {
             width: 150px;
@@ -19,13 +18,13 @@
 @endpush
 
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Profile</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Profile</li>
                 </ol>
             </nav>
         </div>
@@ -41,17 +40,31 @@
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
-                        <p class="text-muted text-center">{{Auth::guard('admin')->user()->pegawai->jabatan}}</p>
+                        <p class="text-muted text-center">{{Auth::guard('admin')->user()->email}}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Tempat Tugas</b>
-                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
+                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->jabatan}}</a>
                             </li>
                             <li class="list-group-item">
-                                <b class="fw-bold">Konsultasi</b>
-                                <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                <b class="fw-bold">Tempat Tugas</b>
+                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
                                 @include('modal/admin/status-konsultasi')
                             </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Konsultasi</b>
+                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                    @include('modal/admin/status-konsultasi')
+                                </li>
+                            @endif
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Konsultasi</b>
+                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                    @include('modal/admin/status-konsultasi')
+                                </li>
+                            @endif
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
                                 <a class="float-right text-decoration-none link-dark">{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->created_at)) }}</a>
@@ -59,7 +72,7 @@
                         </ul>
                         <form action="{{route('logout.admin')}}">
                             @csrf
-                            <button href="" class="btn btn-danger btn-block">
+                            <button href="" class="btn btn-outline-danger btn-block">
                                 <b>Logout</b>
                             </button>
                         </form>
@@ -72,7 +85,7 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Akun</a></li>
                             <li class="nav-item"><a class="nav-link" href="#personal" data-toggle="tab">Personal</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#jabatan" data-toggle="tab">Jabatan</a></li>
+                            {{-- <li class="nav-item"><a class="nav-link" href="#jabatan" data-toggle="tab">Jabatan</a></li> --}}
                             <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit</a></li>
                         </ul>
                     </div>
@@ -84,7 +97,7 @@
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}">
+                                            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}" autocomplete="off">
                                         </div>
                                         @error('email')
                                             <div class="invalid-feedback text-start">
@@ -95,7 +108,7 @@
                                     <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}">
+                                            <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}" autocomplete="off">
                                         </div>
                                         @error('telegram')
                                             <div class="invalid-feedback text-start">
@@ -106,7 +119,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="no_tlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}">
+                                            <input name="no_tlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}" autocomplete="off">
                                         </div>
                                         @error('no_tlpn')
                                             <div class="invalid-feedback text-start">
@@ -116,55 +129,48 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
-                                            <button type="submit" class="btn btn-success my-1">Save Change</button>
+                                            <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="tab-pane" id="personal">
-                                <form action="#" class="form-horizontal">
-                                    <div class="form-group row">
-                                        <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
+                                    <div class="col-sm-10 my-auto">
+                                        <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputNIK" class="col-sm-2 col-form-label">NIK</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputNIK" class="col-sm-2 col-form-label">NIK</label>
+                                    <div class="col-sm-10 my-auto">
+                                        <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputTempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputTempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
+                                    <div class="col-sm-10 my-auto">
+                                        <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                    <div class="col-sm-10 my-auto">
+                                        <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
                                     </div>
-                                    <div class="form-group row my-auto">
-                                        <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
-                                        </div>
+                                </div>
+                                <div class="form-group row my-auto">
+                                    <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
                                     </div>
-                                    <div class="form-group row mt-4">
-                                        <div class="d-grid col-sm-12">
-                                            <button type="submit" class="btn btn-success">Save Change</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                            <div class="tab-pane" id="jabatan">
+                            {{-- <div class="tab-pane" id="jabatan">
                                 <div class="form-group row">
                                     <label for="inputName" class="col-sm-2 col-form-label">Tempat Tugas</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly value="{{Auth::guard('admin')->user()->posyandu->nama_posyandu}}" >
+                                        <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}" >
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -179,7 +185,7 @@
                                     <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->created_at)) }}">
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="tab-pane" id="edit-profile">
                                 <form action="{{route('edit.profile')}}" enctype="multipart/form-data" method="post">
                                     @csrf
@@ -196,23 +202,19 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-12 text-end">
-                                                <button id="test" type="submit" class="btn btn-success my-1">Simpan Foto Profile</button>
+                                                <button id="test" type="submit" class="btn btn-outline-success my-1">Simpan Foto Profile</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="border border-bottom border-primary my-4"></div>
-//<<<<<<< loginRegis
-//                                <form action="{{route('edit.password')}}" method="POST" class="form-horizontal">
-//=======
                                 <form action="{{route('edit.password')}}" class="form-horizontal" method="POST">
-//>>>>>>> main
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
                                     @csrf
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
                                         <div class="col-sm-9">
-                                            <input type="password" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror"  id="inputTelp" placeholder="Password Lama" >
+                                            <input type="password" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror"  id="inputTelp" placeholder="Password Lama" autocomplete="off">
                                             @error('password_lama')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
@@ -223,7 +225,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
                                         <div class="col-sm-9">
-                                            <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"   id="inputTelp" placeholder="Password Baru" >
+                                            <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"   id="inputTelp" placeholder="Password Baru" autocomplete="off">
                                             @error('password')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
@@ -234,11 +236,7 @@
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
                                         <div class="col-sm-9">
-{{-- <<<<<<< loginRegis --}}
-                                           {{-- <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"  id="inputTelp" placeholder="Konfirmasi Password" > --}}
-{{-- ======= --}}
-                                            <input type="text" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}"   id="inputTelp" placeholder="Konfirmasi Password" >
-{{-- >>>>>> main --}}
+                                            <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}" id="inputTelp" placeholder="Konfirmasi Password" autocomplete="off">
                                             @error('password_confirmation')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
@@ -248,7 +246,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-success my-1">Simpan Password Baru</button>
+                                            <button id="test" type="submit" class="btn btn-outline-success my-1">Simpan Password Baru</button>
                                         </div>
                                     </div>
                                 </form>
@@ -294,6 +292,7 @@
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         });
     </script>
+
     @if($message = Session::get('success'))
         <script>
             $(document).ready(function(){
@@ -305,7 +304,7 @@
     @if($message = Session::get('error'))
         <script>
             $(document).ready(function(){
-                alertError('{{$message}}');
+                alertDanger('{{$message}}');
             });
         </script>
     @endif

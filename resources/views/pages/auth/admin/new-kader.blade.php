@@ -143,7 +143,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">NIK</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
+                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan NIK">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-address-card"></span>
@@ -161,7 +161,7 @@
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KTP</label>
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
                                                     </div>
                                                     @error('file')
                                                         <div class="invalid-feedback text-start">
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal">
+                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal kader">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
@@ -197,13 +197,20 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                @csrf
                                                 <label for="exampleInputEmail1">Jabatan</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih jabatan....</option>
-                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                    </select>
+                                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @else
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Kader</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @endif
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-venus-mars"></span>
