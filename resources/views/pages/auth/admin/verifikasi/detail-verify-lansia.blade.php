@@ -15,7 +15,7 @@
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Lansia</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Anggota Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Rincian Verifikasi</li>
                 </ol>
             </nav>
@@ -31,8 +31,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <img src="{{$lansia->kk->file_kk}}" style="height: 600px; width = 600px;" class="card-img-bottom" alt="...">
                                 {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
+                                <img src="{{$lansia->kk->file_kk}}" class="card-img-bottom" alt="...">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">
@@ -41,41 +41,24 @@
                                             <input type="text" class="form-control" id="namaLansia" value="{{$lansia->lansia->nama_lansia}}" disabled>
                                             <label for="namaLansia">Nama Lansia</label>
                                         </div>
-                                        {{-- <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="emailLansia" value="Email Lansia jika ada" disabled>
-                                            <label for="emailLansia">Alamat E-Mail</label>
-                                        </div> --}}
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="noKK" value="{{$lansia->kk->no_kk}}" disabled>
                                             <label for="noKK">Nomor KK</label>
                                         </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="lokasiPosyandu" value="{{$lansia->lansia->posyandu->nama_posyandu}}" disabled>
+                                        <label for="lokasiPosyandu">Lokasi Posyandu</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="banjar" value="{{$lansia->lansia->posyandu->banjar}}" disabled>
+                                        <label for="banjar">Banjar</label>
+                                    </div>
+                                </div>
 
-                                    </div>
-                                    {{-- <div class="col-md-6 col-sm-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="kabupaten" value="Badung" disabled>
-                                            <label for="kabupaten">Kabupaten/Kota</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="kecamatan" value="Mengwi" disabled>
-                                            <label for="kecamatan">Kecamatan</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="desa" value="Sempidi" disabled>
-                                            <label for="desa">Desa/Kelurahan</label>
-                                        </div> --}}
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lokasiPosyandu" value="{{$lansia->lansia->posyandu->nama_posyandu}}" disabled>
-                                            <label for="lokasiPosyandu">Lokasi Posyandu</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="banjar" value="{{$lansia->lansia->posyandu->banjar}}" disabled>
-                                            <label for="banjar">Banjar</label>
-                                        </div>
-                                    </div>
                                     <form method="POST" action="{{route('tolak.user')}}">
                                         @csrf
-                                        <div class="col-12">
+                                        <div class="col-12 p-0 m-0">
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
                                                 <label for="keterangan">Keterangan Tambahan</label>
@@ -87,26 +70,30 @@
                                                 @enderror
                                             <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
                                         </div>
-                                        <div class="col-12 text-start">
-                                            <a href="{{route('show.verify')}}" class="btn btn-primary">Kembali</a>
-                                            <button class="float-right btn btn-danger btn-sm">Tolak</button>
+                                        <div class="col-12 text-start p-0 m-0">
+                                            <button class="float-right btn btn-danger btn-sm">Tolak dengan alasan</button>
                                         </div>
                                     </form>
-                                    <div>
-                                        <form method="POST" action="{{route('terima.user')}}" class="col-12">
-                                            @csrf
-                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
-                                            <div style="padding-left: 0px;" class="col-1 text-end float-lg-right">
-                                                <button class="btn btn-success btn-sm"> Setujui</button>
-                                            </div>
-                                        </form>
+                                    <div class="row p-0 m-0">
+                                        <div class="col-sm-12 col-md-6 text-start float-lg-left">
+                                            <a href="{{route('show.verify')}}" class="btn btn-primary text-end">Kembali</a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 my-auto">
+                                            <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
+                                                @csrf
+                                                <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
+                                                <div class="text-end float-lg-right my-auto">
+                                                    <button class="btn btn-success btn-sm">Setujui</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        12-Mar-2021
+                        {{ date('d-M-yy', strtotime($lansia->created_at)) }}
                     </div>
                 </div>
             </div>

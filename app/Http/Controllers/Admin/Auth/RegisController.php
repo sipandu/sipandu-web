@@ -5,6 +5,9 @@ use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
 use App\User;
+use App\Anak;
+use App\Ibu;
+use App\Lansia;
 use App\KK;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -134,7 +137,7 @@ class RegisController extends Controller
             'nik' => "required|numeric|unique:tb_ibu_hamil,nik|digits:16",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'email' => "required|email|unique:tb_user,email",
-            'telegram' => "max:25|unique:tb_ibu,username_telegram",
+            'telegram' => "max:25|unique:tb_user,username_tele",
             'no_tlpn' => "required|numeric|unique:tb_ibu_hamil,nomor_telepon",
             'lokasi_posyandu' => "required",
             'password' => 'required|min:8|max:50|confirmed',
@@ -181,11 +184,11 @@ class RegisController extends Controller
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("/", $tgl_lahir_indo);
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
         $tahun = $tgl_lahir_eng[2];
         $bulan = $tgl_lahir_eng[1];
         $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.'-'.$bulan.'-'.$tgl;
+        $tgl_lahir = $tahun.$bulan.$tgl;
 
         $selectIdKK = KK::where('no_kk',$request->no_kk)->first();
 
@@ -200,8 +203,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $ibuHamil = $user->ibu()->create([
+            Ibu::create([
                 'id_posyandu' => $request->lokasi_posyandu,
+                'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_ibu,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir,
@@ -212,7 +216,6 @@ class RegisController extends Controller
             ]);
 
             return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
-
         }else{
 
             $this->validate($request,[
@@ -231,16 +234,18 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = $kk->user()->create([
+            $user = User::create([
                 'id_chat_tele' => null,
+                'id_kk' => $kk->id,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
-            $ibuHamil = $user->ibu()->create([
+            Ibu::create([
                 'id_posyandu' => $request->lokasi_posyandu,
+                'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_ibu,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir,
@@ -257,7 +262,6 @@ class RegisController extends Controller
 
     public function storeUserAnak(Request $request)
     {
-
         $this->validate($request,[
             'no_kk' =>"required|numeric|digits:16",
             'nama_anak' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
@@ -269,8 +273,8 @@ class RegisController extends Controller
             'nik' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'email' => "required|email|unique:tb_user,email",
-            'telegram' => "max:25|unique:tb_anak,username_telegram",
-            'no_tlpn' => "required|numeric|unique:tb_lansia,nomor_telepon",
+            'telegram' => "max:25|unique:tb_user,username_tele",
+            'no_tlpn' => "required|numeric|unique:tb_anak,nomor_telepon",
             'status_anak' => "required|numeric",
             'lokasi_posyandu' => "required",
             'password' => 'required|min:8|max:50|confirmed',
@@ -324,11 +328,11 @@ class RegisController extends Controller
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("/", $tgl_lahir_indo);
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
         $tahun = $tgl_lahir_eng[2];
         $bulan = $tgl_lahir_eng[1];
         $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.'-'.$bulan.'-'.$tgl;
+        $tgl_lahir = $tahun.$bulan.$tgl;
 
         $selectIdKK = KK::where('no_kk',$request->no_kk)->first();
 
@@ -337,21 +341,22 @@ class RegisController extends Controller
                 'id_chat_tele' => null,
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email,
+                'username_tele' => $request->telegram,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
-            $lansia = $user->anak()->create([
+            Anak::create([
                 'id_posyandu' => $request->lokasi_posyandu,
-                'nama_anak' => $request->nama_lansia,
+                'id_user' => $user->id,
+                'nama_anak' => $request->nama_anak,
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat,
                 'nomor_telepon' => $request->no_tlpn,
-                'username_telegram' => $request->telegram,
                 'NIK' => $request->nik,
                 'anak_ke' => $request->status_anak,
                 'jenis_kelamin' => $request->gender,
@@ -374,22 +379,23 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = $kk->user()->create([
-                'id_chat_tele' => null,
+            $user = User::create([
+                'id_kk' => $kk->id,
+                'id_chat_tele' => NULL,
                 'email' => $request->email,
+                'username_tele' => $request->telegram,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
-            $lansia = $user->anak()->create([
+            $anak = $user->anak()->create([
                 'id_posyandu' => $request->lokasi_posyandu,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat,
                 'nomor_telepon' => $request->no_tlpn,
-                'username_telegram' => $request->telegram,
                 'NIK' => $request->nik,
                 'anak_ke' => $request->status_anak,
                 'jenis_kelamin' => $request->gender,
@@ -410,7 +416,7 @@ class RegisController extends Controller
             'nik' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'email' => "required|email|unique:tb_user,email",
-            'telegram' => "max:25|unique:tb_lansia,username_telegram",
+            'telegram' => "max:25|unique:tb_user,username_tele",
             'no_tlpn' => "required|numeric|unique:tb_lansia,nomor_telepon",
             'status_lansia' => "required",
             'lokasi_posyandu' => "required",
@@ -456,17 +462,17 @@ class RegisController extends Controller
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("/", $tgl_lahir_indo);
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
         $tahun = $tgl_lahir_eng[2];
         $bulan = $tgl_lahir_eng[1];
         $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.'-'.$bulan.'-'.$tgl;
+        $tgl_lahir = $tahun.$bulan.$tgl;
 
         $selectIdKK = KK::where('no_kk',$request->no_kk)->first();
 
-        if($selectIdKK != null){
+        if($selectIdKK != NULL){
             $user = User::create([
-                'id_chat_tele' => null,
+                'id_chat_tele' => NULL,
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -474,8 +480,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $lansia = $user->lansia()->create([
+            Lansia::create([
                 'id_posyandu' => $request->lokasi_posyandu,
+                'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tgl_lahir,
@@ -488,7 +495,6 @@ class RegisController extends Controller
             ]);
 
             return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
-
         }else{
             $this->validate($request,[
                 'file'=> 'required|image|mimes:jpeg,png,jpg',
@@ -504,16 +510,18 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = $kk->user()->create([
-                'id_chat_tele' => null,
+            $user = User::create([
+                'id_chat_tele' => NULL,
+                'id_kk' => $kk->id,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
-            $lansia = $user->lansia()->create([
+            Lansia::create([
                 'id_posyandu' => $request->lokasi_posyandu,
+                'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tgl_lahir,

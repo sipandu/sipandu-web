@@ -15,7 +15,7 @@
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Anggota</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Anggota Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Rincian Verifikasi</li>
                 </ol>
             </nav>
@@ -32,12 +32,12 @@
                         <div class="row">
                             <div class="col-12">
                                 {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
-                                <img src="{{$ibu->kk->file_kk}}" style="height: 600px; width = 600px;" class="card-img-bottom" alt="...">
+                                {{-- <img src="{{$ibu->kk->file_kk}}" style="height: 600px; width = 600px;" class="card-img-bottom" alt="..."> --}}
+                                <img src="{{$ibu->kk->file_kk}}" class="card-img-bottom" alt="File KK Ibu">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="namaLansia" value="{{$ibu->kk->no_kk}}" disabled>
                                             <label for="namaLansia">No KK</label>
@@ -46,19 +46,6 @@
                                             <input type="text" class="form-control" id="namaLansia" value="{{$ibu->ibu->nama_ibu_hamil}}" disabled>
                                             <label for="namaLansia">Nama Ibu Hamil</label>
                                         </div>
-                                        {{-- <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="genderLansia" value="Laki-laki" disabled>
-                                            <label for="genderLansia">Jenis Kelamin</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="tempatLahir" value="Denpasar" disabled>
-                                            <label for="tempatLahir">Tempat Lahir</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="tglLahir" value="20-Mar-1800" disabled>
-                                            <label for="tglLahir">Tanggal Lahir</label>
-                                        </div> --}}
-
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-floating mb-3">
@@ -69,19 +56,10 @@
                                             <input type="text" class="form-control" id="noTelp" value="{{$ibu->ibu->posyandu->banjar}}" disabled>
                                             <label for="noTelp">Banjar</label>
                                         </div>
-                                        {{-- <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="kategoriLansia" value="Pra Lansia" disabled>
-                                            <label for="kategoriLansia">Kategori Lansia</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="alamatLansia" value="Jl. Raya Sading" disabled>
-                                            <label for="alamatLansia">Alamat</label>
-                                        </div> --}}
-
                                     </div>
                                     <form method="POST" action="{{route('tolak.user')}}">
                                         @csrf
-                                        <div class="col-12">
+                                        <div class="col-12 p-0 m-0">
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
                                                 <label for="keterangan">Keterangan Tambahan</label>
@@ -93,26 +71,30 @@
                                                 @enderror
                                             <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$ibu->id}}">
                                         </div>
-                                        <div class="col-12 text-start">
-                                            <a href="{{route('show.verify')}}" class="btn btn-primary">Kembali</a>
-                                            <button class="float-right btn btn-danger btn-sm">Tolak</button>
+                                        <div class="col-12 text-start p-0 m-0">
+                                            <button class="float-right btn btn-danger btn-sm">Tolak dengan alasan</button>
                                         </div>
                                     </form>
-                                    <div>
-                                        <form method="POST" action="{{route('terima.user')}}" class="col-12">
-                                            @csrf
-                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$ibu->id}}">
-                                            <div style="padding-left: 0px;" class="col-1 text-end float-lg-right">
-                                                <button class="btn btn-success btn-sm"> Setujui</button>
-                                            </div>
-                                        </form>
+                                    <div class="row p-0 m-0">
+                                        <div class="col-sm-12 col-md-6 text-start float-lg-left">
+                                            <a href="{{route('show.verify')}}" class="btn btn-primary text-end">Kembali</a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 my-auto">
+                                            <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
+                                                @csrf
+                                                <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$ibu->id}}">
+                                                <div class="text-end float-lg-right my-auto">
+                                                    <button class="btn btn-success btn-sm">Setujui</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        12-Mar-2021
+                        {{ date('d-M-yy', strtotime($ibu->created_at)) }}
                     </div>
                 </div>
             </div>
