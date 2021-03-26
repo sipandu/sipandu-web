@@ -155,12 +155,12 @@ class AdminController extends Controller
     public function tolakUser(Request $request)
     {
         $this->validate($request, [
-            'keterangan' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
-        ]
-        ,[
-            'keterangan.required' => "Telegram wajib diisi",
-            'keterangan.regex' => "Format penamaan Username Telegram tidak sesuai",
-            'keterangan.max' => "Masukan Username Telegram maksimal 30 huruf",
+            'keterangan' => "required|regex:/^[a-z .,0-9]+$/i|min:5",
+        ],
+        [
+            'keterangan.required' => "Silahkan berikan keterangan",
+            'keterangan.regex' => "Format pemberian keterangan tidak sesuai",
+            'keterangan.min' => "Keterangan yang diberikan minimal berjumlah 5 karakter",
 
         ]);
 
