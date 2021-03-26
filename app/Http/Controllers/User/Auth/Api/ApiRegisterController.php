@@ -299,4 +299,19 @@ class ApiRegisterController extends Controller
             ]);
         }
     }
+
+    public function getAllPosyandu(Request $request) {
+        $data = Kabupaten::query()
+            ->with(['kecamatan' => function($qkecamatan) {
+                $qkecamatan->with(['desa' => function($qdesa) {
+                    $qdesa->with(['posyandu']);
+                }]);
+            },
+        ])->get()->first();
+
+        return response()->json([
+            'status_code' => 200,
+            'data' => $data
+        ]);
+    }
 }
