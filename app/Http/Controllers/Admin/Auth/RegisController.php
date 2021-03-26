@@ -39,52 +39,53 @@ class RegisController extends Controller
         return view('pages/auth/admin/new-kader',compact('posyandu'));
     }
 
-    public function storeAdmin(Request $request)
+    public function storeAdminKader(Request $request)
     {
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "email|unique:tb_admin,email",
-            'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3",
+            'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3|max:50",
             'tgl_lahir' => "required|date",
             'gender' => "required",
-            'nik' => "required|numeric|unique:tb_lansia,nik|digits:16",
+            'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
             'file'=> 'image|mimes:jpeg,png,jpg',
-            'alamat' => "required|regex:/^[a-z .,0-9]+$/i",
+            'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'jabatan' => "required",
-            'tlpn' => "required|numeric|unique:tb_lansia,nomor_telepon|digits_between:12,15",
+            'tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
             'lokasi_posyandu' => "required",
             'telegram' => "max:25|unique:tb_pegawai,username_telegram",
             'password' => 'required|min:8|confirmed',
         ],
         [
-            'name.required' => "Nama lengkap admin wajib diisi",
+            'name.required' => "Nama lengkap wajib diisi",
             'name.regex' => "Format nama tidak sesuai",
-            'name.min' => "Nama lengkap admin minimal 2 karakter",
-            'name.max' => "Nama lengkap admin maksimal 50 karakter",
-            'email.required' => "Email admin wajib diisi",
-            'email.email' => "Masukan Email yang valid",
-            'email.unique' => "Email sudah pernah digunakan",
-            'tempat_lahir.required' => "Tampat lahir admin wajib diisi",
+            'name.min' => "Nama lengkap minimal berjumlah 2 karakter",
+            'name.max' => "Nama lengkap maksimal berjumlah 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan format email yang sesuai",
+            'email.unique' => "Email sudah digunakan",
+            'tempat_lahir.required' => "Tampat lahir wajib diisi",
             'tempat_lahir.regex' => "Format tempat lahir tidak sesuai",
             'tempat_lahir.min' => "Tempat lahir minimal berjumlah 3 karakter",
+            'tempat_lahir.min' => "Tempat lahir maksimal berjumlah 50 karakter",
             'tgl_lahir.required' => "Tanggal lahir wajib diisi",
-            'tgl_lahir.date' => "Tanggal lahir harus berupa tanggal",
-            'gender.required' => "Jenis Kelamin Wajib diisi",
+            'tgl_lahir.date' => "Tanggal lahir harus berformat tanggal",
+            'gender.required' => "Jenis kelamin wajib diisi",
             'nik.required' => "NIK wajib diisi",
             'nik.numeric' => "NIK harus berupa angka",
-            'nik.unique' => "NIK sudah pernah digunakan",
+            'nik.unique' => "NIK sudah digunakan",
             'nik.digits' => "NIK harus berjumlah 16 karakter",
             'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
-            'alamat.required' => "Alamat admin wajib diisi",
+            'alamat.required' => "Alamat wajib diisi",
             'alamat.regex' => "Format alamat tidak sesuai",
-            'jabatan.required' => "Jabatan admin wajib diiisi",
+            'jabatan.required' => "Jabatan wajib diiisi",
             'tlpn.required' => "Nomor telepon wajib diisi",
             'tlpn.numeric' => "Nomor telepon harus berupa angka",
-            'tlpn.digits_between' => "Nomor telepon harus berjumlah 12 sampai 15 karakter",
+            'tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
             'tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            'lokasi_posyandu.required' => "Lokasi Posyandu wajib diisi",
-            'telegram.max' => "Masukan Username Telegram maksimal 25 karakter",
-            'telegram.unique' => "Username Telegram sudah pernah digunakan",
+            'lokasi_posyandu.required' => "Posyandu tempat bertugas wajib diisi",
+            'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
+            'telegram.unique' => "Username Telegram pernah digunakan",
             'password.required' => "Password wajib diisi",
             'password.min' => "Password minimal 8 karakter",
             'password.confirmed' => "Konfirmasi password tidak sesuai",
@@ -123,7 +124,7 @@ class RegisController extends Controller
             'nik' => $request->nik,
             'file_ktp' => $path,
         ]);
-        return redirect()->back()->with(['success' => 'Akun admin baru berhasil ditambahkan']);
+        return redirect()->back()->with(['success' => 'Akun baru berhasil ditambahkan']);
     }
 
     public function storeUserIbu(Request $request)
