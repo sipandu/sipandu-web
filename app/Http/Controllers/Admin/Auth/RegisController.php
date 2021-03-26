@@ -408,129 +408,131 @@ class RegisController extends Controller
     public function storeUserLansia(Request $request)
     {
         $this->validate($request,[
-            'no_kk' =>"required|numeric|digits:16",
-            'nama_lansia' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
-            'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3",
-            'tgl_lahir' => "required|date",
-            'gender' => "required",
-            'nik' => "required|numeric|unique:tb_lansia,nik|digits:16",
-            'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
-            'email' => "required|email|unique:tb_user,email",
-            'telegram' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn' => "required|numeric|unique:tb_lansia,nomor_telepon",
+            'no_kk_lansia' =>"required|numeric|digits:16",
+            'nama_lansia' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+            'tempat_lahir_lansia' => "required|regex:/^[a-z ]+$/i|min:3",
+            'tgl_lahir_lansia' => "required|date",
+            'gender_lansia' => "required",
+            'nik_lansia' => "required|numeric|unique:tb_lansia,nik|digits:16",
+            'alamat_lansia' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
+            'email_lansia' => "required|email|unique:tb_user,email",
+            'telegram_lansia' => "max:25|unique:tb_user,username_tele",
+            'no_tlpn_lansia' => "required|numeric|unique:tb_lansia,nomor_telepon",
             'status_lansia' => "required",
-            'lokasi_posyandu' => "required",
-            'password' => 'required|min:8|max:50|confirmed',
+            'lokasi_posyandu_lansia' => "required",
+            'passwordLansia' => 'required|min:8|max:50|confirmed',
         ],
         [
-            'no_kk.required' => "Nomor KK wajib diisi",
-            'no_kk.numeric' => "Nomor KK harus berupa angka",
-            'no_kk.digits' => "Nomor KK harus berjumlah 16 karakter",
+            'no_kk_lansia.required' => "Nomor KK Lansia wajib diisi",
+            'no_kk_lansia.numeric' => "Nomor KK harus berupa angka",
+            'no_kk_lansia.digits' => "Nomor KK harus berjumlah 16 karakter",
             'nama_lansia.required' => "Nama Lansia wajib diisi",
-            'nama_lansia.regex' => "Format Nama Lansia tidak sesuai",
+            'nama_lansia.regex' => "Format nama lansia tidak sesuai",
             'nama_lansia.min' => "Nama Lansia minimal 2 karakter",
             'nama_lansia.max' => "Nama Lansia maksimal 50 karakter",
-            'tempat_lahir.regex' => "Format tempat lahir tidak sesuai",
-            'tempat_lahir.min' => "Tempat lahir minimal 3 karakter",
-            'tgl_lahir.required' => "Tanggal lahir wajib diisi",
-            'tgl_lahir.date' => "Tanggal lahir harus berupa tanggal",
-            'gender.required' => "Jenis Kelamin Wajib diisi",
-            'nik.required' => "NIK wajib diisi",
-            'nik.unique' => "NIK sudah pernah digunakan",
-            'nik.numeric' => "NIK harus berupa angka",
-            'nik.digits' => "NIK harus berjumlah 16 karakter",
-            'alamat.required' => "Alamat wajib diisi",
-            'alamat.regex' => "Format penamaan alamat tidak sesuai",
-            'alamat.max' => "Masukan alamat maksimal 30 huruf",
-            'email.required' => "Email pegawai wajib diisi",
-            'email.email' => "Masukan email yang valid",
-            'email.unique' => "Email sudah pernah digunakan",
-            'telegram.max' => "Masukan Username Telegram maksimal 25 karakter",
-            'telegram.unique' => "Username Telegram sudah pernah digunakan",
-            'no_tlpn.required' => "Nomor telepon wajib diisi",
-            'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-            'no_tlpn.between' => "Nomor telepon harus berjumlah 12 sampai 15 karakter",
-            'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            'lokasi_posyandu.required' => "Lokasi Posyandu wajib diisi",
-            'status_lansia.required' => "Status Lansia Wajib diisi",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai"
+            'tempat_lahir_lansia.required' => "Tempat lahir lansia wajin diisi",
+            'tempat_lahir_lansia.regex' => "Format tempat lahir tidak sesuai",
+            'tempat_lahir_lansia.min' => "Tempat lahir minimal 3 karakter",
+            'tgl_lahir_lansia.required' => "Tanggal lahir lansia wajib diisi",
+            'tgl_lahir_lansia.date' => "Tanggal lahir harus berupa tanggal",
+            'gender_lansia.required' => "Jenis kelamin lansia wajib diisi",
+            'nik_lansia.required' => "NIK lansia wajib diisi",
+            'nik_lansia.unique' => "NIK sudah pernah digunakan",
+            'nik_lansia.numeric' => "NIK harus berupa angka",
+            'nik_lansia.digits' => "NIK harus berjumlah 16 karakter",
+            'alamat_lansia.required' => "Alamat tempat tinggal lansia wajib diisi",
+            'alamat_lansia.regex' => "Format penulisan alamat tidak sesuai",
+            'email_lansia.required' => "Email lansia wajib diisi",
+            'email_lansia.email' => "Masukan format email yang sesuai",
+            'email_lansia.unique' => "Email sudah pernah digunakan",
+            'telegram_lansia.max' => "Username Telegram maksimal 25 karakter",
+            'telegram_lansia.unique' => "Username Telegram sudah pernah digunakan",
+            'no_tlpn_lansia.required' => "Nomor telepon lansia wajib diisi",
+            'no_tlpn_lansia.numeric' => "Nomor telepon harus berupa angka",
+            'no_tlpn_lansia.between' => "Nomor telepon harus berjumlah 12 sampai 15 angka",
+            'no_tlpn_lansia.unique' => "Nomor telepon sudah pernah digunakan",
+            'lokasi_posyandu_lansia.required' => "Lokasi posyandu wajib diisi",
+            'status_lansia.required' => "Status lansia wajib diisi",
+            'passwordLansia.required' => "Password akun lansia wajib diisi",
+            'passwordLansia.min' => "Password minimal 8 karakter",
+            'passwordLansia.max' => "Password maksimal 50 karakter",
+            'passwordLansia.confirmed' => "Konfirmasi password akun lansia tidak sesuai"
 
         ]);
 
         // Ubah format tanggal //
-        $tgl_lahir_indo = $request->tgl_lahir;
+        $tgl_lahir_indo = $request->tgl_lahir_lansia;
         $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
         $tahun = $tgl_lahir_eng[2];
         $bulan = $tgl_lahir_eng[1];
         $tgl = $tgl_lahir_eng[0];
         $tgl_lahir = $tahun.$bulan.$tgl;
 
-        $selectIdKK = KK::where('no_kk',$request->no_kk)->first();
+        $selectIdKK = KK::where('no_kk',$request->no_kk_lansia)->first();
 
         if($selectIdKK != NULL){
             $user = User::create([
                 'id_chat_tele' => NULL,
                 'id_kk' => $selectIdKK->id,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'email' => $request->email_lansia,
+                'password' => Hash::make($request->passwordLansia),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
             Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu,
+                'id_posyandu' => $request->lokasi_posyandu_lansia,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $tgl_lahir,
-                'alamat' => $request->alamat,
-                'nomor_telepon' => $request->no_tlpn,
-                'username_telegram' => $request->telegram,
-                'NIK' => $request->nik,
+                'tempat_lahir' => $request->tempat_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir_lansia,
+                'alamat' => $request->alamat_lansia,
+                'nomor_telepon' => $request->no_tlpn_lansia,
+                'username_telegram' => $request->telegram_lansia,
+                'NIK' => $request->nik_lansia,
                 'status' => $request->status_lansia,
-                'jenis_kelamin' => $request->gender,
+                'jenis_kelamin' => $request->gender_lansia,
             ]);
 
             return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
         }else{
             $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK "
+                'file_lansia'=> 'required|image|mimes:jpeg,png,jpg',
+            ],
+            [
+                'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+            $path ='/images/upload/KK/'.time().'-'.$request->file_lansia->getClientOriginalName();
+            $imageName = time().'-'.$request->file_lansia->getClientOriginalName();
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            $request->file_lansia->move(public_path('images/upload/KK'),$imageName);
             $kk = KK::create([
-                'no_kk' => $request->no_kk,
+                'no_kk' => $request->no_kk_lansia,
                 'file_kk' => $path,
             ]);
 
             $user = User::create([
                 'id_chat_tele' => NULL,
                 'id_kk' => $kk->id,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'email' => $request->email_lansia,
+                'password' => Hash::make($request->passwordLansia),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 1,
             ]);
 
             Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu,
+                'id_posyandu' => $request->lokasi_posyandu_lansia,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $tgl_lahir,
-                'alamat' => $request->alamat,
-                'nomor_telepon' => $request->no_tlpn,
-                'username_telegram' => $request->telegram,
-                'NIK' => $request->nik,
+                'tempat_lahir' => $request->tempat_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir_lansia,
+                'alamat' => $request->alamat_lansia,
+                'nomor_telepon' => $request->no_tlpn_lansia,
+                'username_telegram' => $request->telegram_lansia,
+                'NIK' => $request->nik_lansia,
                 'status' => $request->status_lansia,
-                'jenis_kelamin' => $request->gender,
+                'jenis_kelamin' => $request->gender_lansia,
             ]);
 
             return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
