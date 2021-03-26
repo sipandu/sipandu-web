@@ -36,14 +36,14 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::guard('admin')->user()->profile_image}}" alt="..." width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::guard('admin')->user()->profile_image}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
                         <p class="text-muted text-center">{{Auth::guard('admin')->user()->email}}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b class="fw-bold">Tempat Tugas</b>
+                                <b class="fw-bold">Jabatan</b>
                                 <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->jabatan}}</a>
                             </li>
                             <li class="list-group-item">

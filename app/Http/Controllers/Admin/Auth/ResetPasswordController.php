@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class ResetPasswordController extends Controller
 {
-
     public function showForm(Request $request)
     {
         return view('pages.auth.admin.password.verify-otp');
@@ -60,7 +59,6 @@ class ResetPasswordController extends Controller
         );
     }
 
-
     public function passwordUpdate(Request $request)
     {
         $this->validate($request,[
@@ -87,5 +85,4 @@ class ResetPasswordController extends Controller
         return redirect()->route('form.admin.login')->with('success','Anda Berhasil mengganti password silakan untuk login');
 
     }
-
 }

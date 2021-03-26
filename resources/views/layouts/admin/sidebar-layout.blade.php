@@ -2,7 +2,7 @@
 
     {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
-        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light fw-bold">Smart Posyandu</span>
     </a>
     {{-- Brand Logo End --}}
@@ -137,10 +137,6 @@
                                     <p>Logout</p>
                                 </button>
                             </form>
-                            {{-- <a href="{{route('logout.admin')}}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>Logout</p>
-                            </a> --}}
                         </li>
                     </ul>
                 </li>

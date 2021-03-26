@@ -1,13 +1,13 @@
 @extends('layouts/user/anak/user-layout')
 
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Dashboard ANAK</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Beranda Anak</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu</li>
                 </ol>
             </nav>
         </div>

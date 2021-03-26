@@ -1,9 +1,9 @@
-<aside style="width: 280px" class="main-sidebar sidebar-dark-primary elevation-2">
+<aside class="main-sidebar sidebar-dark-primary elevation-2">
 
     {{-- Brand Logo Start --}}
-    <a href="#" class="brand-link text-decoration-none">
-        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light fw-bold">SIPANDU</span>
+    <a href="{{ route("anak.home") }}" class="brand-link text-decoration-none">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light fw-bold">Smart Posyandu</span>
     </a>
     {{-- Brand Logo End --}}
 
@@ -17,7 +17,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            {{Auth::user()->anak->nama_anak}}
+                            {{Auth::user()->anak->NIK}}
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -25,27 +25,31 @@
                         <li class="nav-item">
                             <a href="{{route('anak.profile')}}" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
-                                <p>My Profile</p>
+                                <p>Profile</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('form.add.anggota.keluarga') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user-plus"></i>
-                                <p>Register Anggota Keluarga</p>
+                                <p>Tambah Keluarga</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('logout.user') }}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>Logout</p>
-                            </a>
+                            <form action="{{route('logout.user')}}" class="nav-link p-0 m-0">
+                                @csrf
+                                <button class="nav-link text-danger">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>Keluar</p>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
+                <div class="dropdown-divider"></div>
                 <li class="nav-item menu-open" id="list-admin-dashboard">
-                    <a href="#" id="admin-dashboard" class="nav-link">
+                    <a href="{{ route("anak.home") }}" id="admin-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
-                        <p>Dashboard</p>
+                        <p>Beranda</p>
                     </a>
                 </li>
                 <li class="nav nav-treeview">
@@ -61,19 +65,19 @@
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-calendar nav-icon"></i>
-                                    <p>Daftar Jadwal Posyandu</p>
+                                    <p>Jadwal Posyandu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-history nav-icon"></i>
-                                    <p>Riwayat kegiatan posyandu</p>
+                                    <p>Riwayat Kegiatan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-reply nav-icon"></i>
-                                    <p>Pengajuan Perpindahan </p>
+                                    <p>Pindah Posyandu</p>
                                 </a>
                             </li>
                         </ul>
@@ -92,71 +96,80 @@
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-file-medical-alt nav-icon"></i>
-                                    <p>Data Kesehatan</p>
+                                    <p>Kesehatan Pribadi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-users nav-icon"></i>
-                                    <p>Data Kesehatan Keluarga</p>
+                                    <p>Kesehatan Keluarga</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-user-md nav-icon"></i>
+                                    <p>Riwayat Konsultasi</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </li>
-                {{-- @if (Auth::user()->anak->id_user) --}}
-                    <li class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-syringe"></i>
-                                <p>
-                                    Imunisasi
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview ms-3">
-                                <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                        <i class="fas fa-file-medical nav-icon"></i>
-                                        <p>Daftar Imunisasi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                                        <i class="fas fa-crutch nav-icon"></i>
-                                        <p>Jadwal Imunisasi</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                <li class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-syringe"></i>
+                            <p>
+                                Imunisasi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Daftar Imunisasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-crutch nav-icon"></i>
+                                    <p>Jadwal Imunisasi</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                                <p>
-                                    Vitamin
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview ms-3">
-                                <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                        <i class="fas fa-file-medical nav-icon"></i>
-                                        <p>Daftar Vitamin</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                                        <i class="fas fa-capsules nav-icon"></i>
-                                        <p>Jadwal Vitamin</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                </li>
+                <li class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                            <p>
+                                Vitamin
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Daftar Vitamin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-capsules nav-icon"></i>
+                                    <p>Jadwal Vitamin</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                {{-- @endif --}}
-
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-credit-card"></i>
+                        <p>KMS</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-info"></i>
@@ -173,12 +186,6 @@
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-stethoscope"></i>
                         <p>Konsultasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-credit-card"></i>
-                        <p>KMS</p>
                     </a>
                 </li>
             </ul>
