@@ -307,7 +307,7 @@ class ApiRegisterController extends Controller
                     $qdesa->with(['posyandu']);
                 }]);
             },
-        ])->get()->first();
+        ])->get();
 
         return response()->json([
             'status_code' => 200,
