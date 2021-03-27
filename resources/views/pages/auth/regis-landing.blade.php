@@ -76,8 +76,8 @@
                     <div class="row mt-4">
                         <div class="col-8">
                             <p>
-                                Sudah mempunyai akun? Masuk
-                                <a href="register.html" class="text-decoration-none link-primary">di sini</a>
+                                Sudah memiliki akun? Masuk
+                                <a href="{{ route("form.user.login") }}" class="text-decoration-none link-primary">di sini</a>
                             </p>
                         </div>
                         <div class="col-4">
