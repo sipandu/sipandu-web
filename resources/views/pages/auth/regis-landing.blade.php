@@ -29,7 +29,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
+                <a href="/" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Daftar Sebagai Anggota Posyandu</p>
             </div>
             <div class="card-body">
