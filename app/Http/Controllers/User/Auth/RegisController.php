@@ -20,7 +20,6 @@ class RegisController extends Controller
         $this->middleware('guest');
     }
 
-
     public function landingRegis(Request $request)
     {
         return view('pages/auth/regis-landing');
@@ -43,7 +42,7 @@ class RegisController extends Controller
             'no_kk.required' => "Nomor KK wajib diisi",
             'no_kk.numeric' => "Nomor KK harus berupa angka",
             'no_kk.digits' => "Nomor KK harus berjumlah 16 karakter",
-            'role.required' => "Kolom Wajib diisi",
+            'role.required' => "Jenis akun harus diisi",
 
         ]);
 
@@ -68,37 +67,33 @@ class RegisController extends Controller
         return view('pages/auth/user/form-register',['scr' => $request->scr,'idKK' => $request->idKK,'role' => $request->role], compact('kabupaten'));
     }
 
-
     public function storeAnak(Request $request)
     {
-        // dd($request->all());
         $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_user,email",
             'password' => 'required|min:8|max:50|confirmed',
             'kabupaten' => "required",
             'kecamatan' => "required",
             'desa' => "required",
             'banjar' => "required",
-
         ],
         [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
+            'nama.required' => "Nama lengkap anak wajib diisi",
+            'nama.regex' => "Format nama anak tidak sesuai",
+            'nama.min' => "Nama anak minimal berjumlah 2 huruf",
+            'nama.max' => "Nama anak maksimal berjumlah 50 huruf",
+            'email.required' => "Email anak wajib diisi",
+            'email.email' => "Masukan email yang sesuai",
             'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
-
+            'password.required' => "Kata sandi wajib diisi",
+            'password.min' => "Kata sandi minimal berjumlah 8 karakter",
+            'password.max' => "Kata sandi maksimal berjumlah 50 karakter",
+            'password.confirmed' => "Konfirmasi kata sandi tidak sesuai",
+            'kabupaten.required' => "Kabupaten wajib diisi",
+            'kecamatan.required' => "Kecamatan wajib diisi",
+            'desa.required' => "Desa wajib diisi",
+            'banjar.required' => "Banjar wajib diisi",
         ]);
 
         if($request->idKK != null){
@@ -121,9 +116,11 @@ class RegisController extends Controller
         }else{
             $this->validate($request,[
                 'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ],
+            [
+                'file.required' => "Wajib menggunggah Scan atau foto KK",
+                'file.image' => "File yang diunggah harus berupa gambar",
+                'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
@@ -136,7 +133,7 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = new User;
+            // $user = new User;
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
                 'email' => $request->email,
@@ -151,40 +148,36 @@ class RegisController extends Controller
             ]);
 
             return redirect()->route('landing.verif');
-
         }
     }
 
     public function storeIbu(Request $request)
     {
-
         $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_user,email",
             'password' => 'required|min:8|max:50|confirmed',
             'kabupaten' => "required",
             'kecamatan' => "required",
             'desa' => "required",
             'banjar' => "required",
-
         ],
         [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
+            'nama.required' => "Nama lengkap ibu hamil wajib diisi",
+            'nama.regex' => "Format nama ibu hamil tidak sesuai",
+            'nama.min' => "Nama ibu hamil minimal berjumlah 2 huruf",
+            'nama.max' => "Nama ibu hamil maksimal berjumlah 50 huruf",
+            'email.required' => "Email ibu hamil wajib diisi",
+            'email.email' => "Masukan email yang sesuai",
             'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
-
+            'password.required' => "Kata sandi wajib diisi",
+            'password.min' => "Kata sandi minimal berjumlah 8 karakter",
+            'password.max' => "Kata sandi maksimal berjumlah 50 karakter",
+            'password.confirmed' => "Konfirmasi kata sandi tidak sesuai",
+            'kabupaten.required' => "Kabupaten wajib diisi",
+            'kecamatan.required' => "Kecamatan wajib diisi",
+            'desa.required' => "Desa wajib diisi",
+            'banjar.required' => "Banjar wajib diisi",
         ]);
 
         if($request->idKK != null){
@@ -203,13 +196,14 @@ class RegisController extends Controller
             ]);
 
             return redirect()->route('landing.verif');
-
         }else{
             $this->validate($request,[
                 'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ],
+            [
+                'file.required' => "Wajib menggunggah Scan atau foto KK",
+                'file.image' => "File yang diunggah harus berupa gambar",
+                'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
@@ -222,7 +216,7 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = new User;
+            // $user = new User;
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
                 'email' => $request->email,
@@ -237,40 +231,36 @@ class RegisController extends Controller
             ]);
 
             return redirect()->route('landing.verif');
-
         }
     }
 
     public function storeLansia(Request $request)
     {
-        // dd($request->all());
         $this->validate($request,[
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
+            'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_user,email",
             'password' => 'required|min:8|max:50|confirmed',
             'kabupaten' => "required",
             'kecamatan' => "required",
             'desa' => "required",
             'banjar' => "required",
-
         ],
         [
-            'nama.required' => "Nama Lengkap wajib diisi",
-            'nama.regex' => "Format Nama Lengkap tidak sesuai",
-            'nama.min' => "Nama Lengkap minimal 2 karakter",
-            'nama.max' => "Nama Lengkap maksimal 50 karakter",
-            'email.required' => "Email wajib diisi",
-            'email.email' => "Masukan email yang valid",
+            'nama.required' => "Nama lengkap lansia wajib diisi",
+            'nama.regex' => "Format nama lansia tidak sesuai",
+            'nama.min' => "Nama lansia minimal berjumlah 2 huruf",
+            'nama.max' => "Nama lansia maksimal berjumlah 50 huruf",
+            'email.required' => "Email lansia wajib diisi",
+            'email.email' => "Masukan email yang sesuai",
             'email.unique' => "Email sudah pernah digunakan",
-            'password.required' => "Password wajib diisi",
-            'password.min' => "Password minimal 8 karakter",
-            'password.max' => "Password maksimal 50 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
-            'kabupaten.required' => "Kolom kabupaten Wajib diisi",
-            'kecamatan.required' => "Kolom kecamatan Wajib diisi",
-            'desa.required' => "Kolom desa Wajib diisi",
-            'banjar.required' => "Kolom Banjar Wajib diisi",
-
+            'password.required' => "Kata sandi wajib diisi",
+            'password.min' => "Kata sandi minimal berjumlah 8 karakter",
+            'password.max' => "Kata sandi maksimal berjumlah 50 karakter",
+            'password.confirmed' => "Konfirmasi kata sandi tidak sesuai",
+            'kabupaten.required' => "Kabupaten wajib diisi",
+            'kecamatan.required' => "Kecamatan wajib diisi",
+            'desa.required' => "Desa wajib diisi",
+            'banjar.required' => "Banjar wajib diisi",
         ]);
 
         if($request->idKK != null){
@@ -283,19 +273,20 @@ class RegisController extends Controller
                 'is_verified' => 0,
             ]);
 
-            $anak = $user->anak()->create([
+            $lansia = $user->anak()->create([
                 'id_posyandu' => $request->banjar,
                 'nama_lansia' => $request->nama,
             ]);
 
             return redirect()->route('landing.verif');
-
-        }else{
+        } else {
             $this->validate($request,[
                 'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Kolom Upload File Wajib Diisi ",
-                'file.image' => "File yang di upload harus berupa foto",
-                'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+            ],
+            [
+                'file.required' => "Wajib menggunggah Scan atau foto KK",
+                'file.image' => "File yang diunggah harus berupa gambar",
+                'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
@@ -308,7 +299,7 @@ class RegisController extends Controller
                 'file_kk' => $path,
             ]);
 
-            $user = new User;
+            // $user = new User;
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
                 'email' => $request->email,
@@ -325,8 +316,4 @@ class RegisController extends Controller
             return redirect()->route('landing.verif');
         }
     }
-    // akhir dari fungsi registrasi user awal belum termasuk dari data diri //
-
-
-
 }

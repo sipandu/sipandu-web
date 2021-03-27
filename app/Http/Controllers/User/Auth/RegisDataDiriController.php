@@ -39,7 +39,6 @@ class RegisDataDiriController extends Controller
     // awal dari fungsi menampilkan user dari data diri //
     public function storeDataAnak(Request $request)
     {
-
         $this->validate($request,[
             'nik' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'nama_ayah' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
@@ -114,7 +113,6 @@ class RegisDataDiriController extends Controller
         ]);
 
         return redirect()->route('anak.home');
-
     }
 
     public function storeDataIbu(Request $request)
@@ -248,6 +246,4 @@ class RegisDataDiriController extends Controller
 
         return redirect()->route('lansia.home');
     }
-
-
 }
