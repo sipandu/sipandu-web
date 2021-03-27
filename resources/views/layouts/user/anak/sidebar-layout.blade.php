@@ -13,17 +13,17 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-anak-account">
+                    <a href="#" class="nav-link" id="list-anak-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            {{Auth::user()->anak->NIK}}
+                            Bayi dan Balita
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('anak.profile')}}" class="nav-link">
+                            <a href="{{route('anak.profile')}}" class="nav-link" id="profile-anak">
                                 <i class="nav-icon fas fa-id-badge"></i>
                                 <p>Profile</p>
                             </a>
@@ -37,7 +37,7 @@
                         <li class="nav-item">
                             <form action="{{route('logout.user')}}" class="nav-link p-0 m-0">
                                 @csrf
-                                <button class="nav-link text-danger">
+                                <button class="nav-link text-danger btn-block text-start">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>Keluar</p>
                                 </button>
@@ -46,8 +46,8 @@
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item menu-open" id="list-admin-dashboard">
-                    <a href="{{ route("anak.home") }}" id="admin-dashboard" class="nav-link">
+                <li class="nav-item menu-open">
+                    <a href="{{ route("anak.home") }}" id="anak-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Beranda</p>
                     </a>
@@ -165,11 +165,18 @@
                     </li>
                 </li>
                 <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-stethoscope"></i>
+                        <p>Konsultasi</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-credit-card"></i>
                         <p>KMS</p>
                     </a>
                 </li>
+                <div class="dropdown-divider"></div>
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-info"></i>
@@ -183,14 +190,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-stethoscope"></i>
-                        <p>Konsultasi</p>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <p>Tentang</p>
                     </a>
                 </li>
             </ul>
         </nav>
     </div>
-    {{-- Sidebar Menu End --}}
-
 </aside>

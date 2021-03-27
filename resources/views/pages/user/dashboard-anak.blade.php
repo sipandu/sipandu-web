@@ -1,5 +1,7 @@
 @extends('layouts/user/anak/user-layout')
 
+@section('title', 'Beranda Anak')
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3 col-lg-auto text-center text-md-start">Beranda Anak</h1>
@@ -17,8 +19,7 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function(){
-            // $('#list-admin-dashboard').removeClass('menu-open');
-            $('#admin-dashboard').addClass('active');
+            $('#anak-dashboard').addClass('active');
         });
     </script>
 @endpush

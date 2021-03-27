@@ -1,6 +1,6 @@
 @extends('layouts/user/anak/user-layout')
 
-@section('title', 'My Profile')
+@section('title', 'Profile Anak')
 
 @push('css')
     {{-- <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}"> --}}
@@ -40,7 +40,8 @@
                                 <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::user()->profile_image}}" alt="..." width="150" height="150">
                             </div>
                         </div>
-                        <p class="text-muted text-center">{{Auth::user()->email}}</p>
+                        <h3 class="profile-username text-center lh-1">{{Auth::user()->anak->nama_anak}}</h3>
+                        <p class="text-muted text-center lh-1">{{Auth::user()->email}}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Lokasi Posyandu</b>
@@ -72,25 +73,24 @@
                         <h3 class="card-title my-auto">Anggota Keluarga</h3>
                     </div>
                     <div class="card-body">
-                        <strong><i class="fas fa-book mr-1"></i> Ayah Kandung</strong>
-                        <p class="text-muted">{{Auth::user()->anak->nama_ayah}}</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Ibu Kandung</strong>
+                        <strong><i class="fas fa-child mr-1"></i> Anak</strong>
                         <p class="text-muted">
-                            <a href="" class="text-decoration-none">Nama Ibunya</a>
+                            <span class="tag tag-danger">Nama Anak atau Cucu</span>
                         </p>
                         <hr>
-                        <strong><i class="fas fa-pencil-alt mr-1"></i> Saudara Kandung</strong>
+                        <strong><i class="fas fa-male mr-1"></i><i class="fas fa-female mr-1"></i> Orang Dewasa</strong>
                         <p class="text-muted">
-                            <span class="tag tag-danger"><a href="" class="text-decoration-none">Nama Saudara 1</a></span>
-                            <span class="tag tag-success"><a href="" class="text-decoration-none">, Nama Saudara 2</a></span>
+                            <span class="tag tag-danger">Nama Menantu atau Orang Tua Anak</span>
                         </p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Kakek/Nenek</strong>
+                        <strong><i class="fas fa-wheelchair mr-1"></i> Lansia</strong>
                         <p class="text-muted">
-                            <span class="tag tag-danger"><a href="" class="text-decoration-none">Nama Kakeknya</a></span>
-                            <span class="tag tag-success"><a href="" class="text-decoration-none">, Nama Neneknya</a></span>
+                            <span class="tag tag-danger">Nama Kakek</span>
+                            <span class="tag tag-success">Nama Nenek</span>
                         </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-info btn-block">Lihat Riwayat Keluarga</a>
                     </div>
                 </div>
             </div>
@@ -148,9 +148,9 @@
                                         <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::user()->anak->tanggal_lahir)) }}">
                                     </div>
                                 </div>
-                                <div class="form-group row my-auto">
+                                <div class="form-group row">
                                     <label for="inputAlamat" class="col-sm-3 col-form-label">Alamat</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-9 my-auto">
                                         <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::user()->anak->alamat}}</textarea>
                                     </div>
                                 </div>
@@ -289,10 +289,9 @@
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-admin-account').addClass('menu-is-opening menu-open');
-            $('#list-admin-account-link').addClass('active');
-            $('#profile-admin').addClass('active');
+            $('#list-anak-account').addClass('menu-is-opening menu-open');
+            $('#list-anak-account-link').addClass('active');
+            $('#profile-anak').addClass('active');
         });
         // Custom Input Date
         $(function () {

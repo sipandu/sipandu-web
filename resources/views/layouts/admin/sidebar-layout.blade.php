@@ -141,7 +141,7 @@
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item" id="list-admin-dashboard">
+                <li class="nav-item">
                     <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Dashboard</p>
