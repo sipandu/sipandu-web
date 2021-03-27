@@ -189,7 +189,6 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
         Route::get('/lansia', 'EditProfileController@lansia')->name('lansia.profile');
     });
-    // Route::get('/profile', 'UserController@profile')->name('profile.user');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'EditProfileController@updateProfile')->name('edit.profile.user');
         Route::post('/password', 'EditProfileController@updatePassword')->name('edit.password.user');
@@ -197,7 +196,12 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::post('/personal/ibu', 'EditProfileController@updatePersonalIbu')->name('edit.account.ibu');
         Route::post('/personal/lansia', 'EditProfileController@updatePersonalLansia')->name('edit.account.lansia');
     });
+});
 
+Route::prefix('keluarga')->namespace('User\RiwayatKeluarga')->group(function(){
+    Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
+    Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
+    Route::get('/lansia', 'RiwayatKeluargaController@keluargLansia')->name('Keluarga Lansia');
 });
 
 

@@ -90,7 +90,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="" class="btn btn-info btn-block">Lihat Riwayat Keluarga</a>
+                        <a href="{{ route('Keluarga Anak') }}" class="btn btn-info btn-block">Lihat Riwayat Keluarga</a>
                     </div>
                 </div>
             </div>

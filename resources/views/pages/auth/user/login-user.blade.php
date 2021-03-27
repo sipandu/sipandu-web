@@ -32,8 +32,9 @@
             <div class="card-body">
                 <p class="text-center pb-2">Selamat Datang. Silakan masuk</p>
                 @if (session('message'))
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{session('message')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <form action="{{route('submit.user.login')}}" method="POST" id="form">
@@ -69,19 +70,21 @@
                             <div class="refreshCaptcha m-0 p-0">
                                 {!! captcha_img('flat') !!}
                             </div>
-                            <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Refresh Captcha</a>
+                            <a href="javascript:void(0)" class="text-decoration-none link-primary" onclick="refreshCaptcha()">Ganti Captcha</a>
                         </div>
-                        @error('captcha')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                         <div class="col-7">
-                            <div class="input-group-append g-0">
-                                <input name="captcha" type="text" class="form-control" placeholder="Captcha">
-                                <div class="input-group-text">
-                                    <span class="fas fa-spell-check"></span>
+                            <div class="input-group g-0">
+                                <input name="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha" autocomplete="off">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-spell-check"></span>
+                                    </div>
                                 </div>
+                                @error('captcha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>

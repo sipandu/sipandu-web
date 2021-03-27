@@ -18,14 +18,17 @@ class LoginController extends Controller
         return view('pages/auth/admin/login-admin');
     }
 
-    public function submitLogin(Request $request){
-
+    public function submitLogin(Request $request)
+    {
         $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
             'captcha' => 'required|captcha'
         ],
         [
+            'email.required' => "Email tidak boleh kosong",
+            'email.email' => "Masukan email yang sesuai",
+            'password.required' => "Password tidak boleh kosong",
             'captcha.required' => "Captha harus diisi",
             'captcha.captcha' => "Captha yang dimasukan salah",
         ]);
@@ -45,7 +48,6 @@ class LoginController extends Controller
     public function logoutAdmin(Request $request)
     {
        Auth::guard('admin')->logout();
-       // $request->session()->invalidate();
        return redirect(route('form.admin.login'));
     }
 

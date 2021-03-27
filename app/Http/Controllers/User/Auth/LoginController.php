@@ -26,9 +26,16 @@ class LoginController extends Controller
     public function submitLogin(Request $request){
 
         $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
             'captcha' => 'required|captcha'
+        ],
+        [
+            'email.required' => "Email tidak boleh kosong",
+            'email.email' => "Masukan email yang sesuai",
+            'password.required' => "Password tidak boleh kosong",
+            'captcha.required' => "Captha harus diisi",
+            'captcha.captcha' => "Captha yang dimasukan salah",
         ]);
 
         $credential = [
@@ -56,7 +63,6 @@ class LoginController extends Controller
             }else{
                 abort(403);
             }
-
         }
 
         return redirect()->back()->with('message','Email atau password Anda Salah');
@@ -65,9 +71,6 @@ class LoginController extends Controller
     public function logoutUser(Request $request)
     {
        Auth::guard('web')->logout();
-       // $request->session()->invalidate();
        return redirect('/');
     }
-
-
 }

@@ -32,8 +32,9 @@
             <div class="card-body">
                 <p class="text-center pb-2 fs-6">Silakan Login untuk mengelola sistem</p>
                 @if (session('message'))
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{session('message')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <form action="{{route('submit.login.admin')}}" method="post" id="form">
