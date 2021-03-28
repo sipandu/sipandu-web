@@ -16,7 +16,6 @@ class CekLevel
      */
     public function handle($request, Closure $next, $level1, $level2, $level3, $level4)
     {
-
         if(Auth::guard('admin')->user()->pegawai->jabatan == $level1){
             return $next($request);
         }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level2){
@@ -26,9 +25,9 @@ class CekLevel
         }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level4){
             return $next($request);
         }else{
-            return redirect()->route('Admin Home');
+            return redirect()->back();
         }
 
-        return redirect()->route('Admin Home');
+        return redirect()->back();
     }
 }

@@ -108,7 +108,7 @@ class RegisController extends Controller
         $admin = Admin::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'profile_image' => '/images/upload/Profile/deafult.jpg',
+            'profile_image' => '/images/upload/Profile/default.jpg',
             'is_verified' => 1,
         ]);
 
@@ -202,7 +202,7 @@ class RegisController extends Controller
                 'email' => $request->email_bumil,
                 'username_tele' => $request->telegram_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -347,7 +347,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->passwordAnak),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -389,7 +389,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->password_anak),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
