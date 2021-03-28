@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example1" class="table table-bordered table-hover table-responsive-md">
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
@@ -112,7 +112,7 @@
 
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",

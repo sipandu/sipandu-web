@@ -53,7 +53,7 @@
                                 <th>{{ $item->judul_informasi }}</th>
                                 <th>{{ date('d F Y', strtotime($item->tanggal)) }}</th>
                                 <th>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
                                     <button class="btn btn-danger btn-sm" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
                                 </th>
                             </tr>
@@ -79,7 +79,7 @@
         </div>
         <!-- /.container-fluid -->
     </section>
-    <form id="form-delete" action="{{ route('penyuluhan.delete') }}" method="POST">
+    <form id="form-delete" action="{{ route('informasi_penting.delete') }}" method="POST">
         @csrf
         <input type="hidden" name="id" id="id-delete">
     </form>

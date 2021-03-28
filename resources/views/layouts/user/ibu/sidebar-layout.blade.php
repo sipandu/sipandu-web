@@ -1,9 +1,9 @@
-<aside style="width: 280px" class="main-sidebar sidebar-dark-primary elevation-2">
+<aside class="main-sidebar sidebar-dark-primary elevation-2">
 
     {{-- Brand Logo Start --}}
-    <a href="#" class="brand-link text-decoration-none">
-        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light fw-bold">SIPANDU</span>
+    <a href="{{ route("ibu.home") }}" class="brand-link text-decoration-none">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light fw-bold">Smart Posyandu</span>
     </a>
     {{-- Brand Logo End --}}
 
@@ -13,39 +13,43 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item" id="list-ibu-account">
+                    <a href="#" class="nav-link" id="list-ibu-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            {{Auth::user()->ibu->nama_ibu_hamil}}
+                            Ibu
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('profile.user')}}" class="nav-link">
+                            <a href="{{route('ibu.profile')}}" class="nav-link" id="profile-ibu">
                                 <i class="nav-icon fas fa-id-badge"></i>
-                                <p>My Profile</p>
+                                <p>Profile</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('form.add.anggota.keluarga') }}" class="nav-link">
+                            <a href="{{ route('Tambah Keluarga Ibu') }}" class="nav-link" id="tambah-keluarga">
                                 <i class="nav-icon fas fa-user-plus"></i>
-                                <p>Register Anggota Keluarga</p>
+                                <p>Tambah Keluarga</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('logout.user') }}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>Logout</p>
-                            </a>
+                            <form action="{{route('logout.user')}}" class="nav-link p-0 m-0">
+                                @csrf
+                                <button class="nav-link text-danger btn-block text-start">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>Keluar</p>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item menu-open" id="list-admin-dashboard">
-                    <a href="#" id="admin-dashboard" class="nav-link">
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a href="{{ route("ibu.home") }}" id="ibu-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
-                        <p>Dashboard</p>
+                        <p>Beranda</p>
                     </a>
                 </li>
                 <li class="nav nav-treeview">
@@ -61,27 +65,27 @@
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-calendar nav-icon"></i>
-                                    <p>Daftar Jadwal Posyandu</p>
+                                    <p>Jadwal Posyandu</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-history nav-icon"></i>
-                                    <p>Riwayat kegiatan posyandu</p>
+                                    <p>Riwayat Kegiatan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-reply nav-icon"></i>
-                                    <p>Pengajuan Perpindahan </p>
+                                    <p>Pindah Posyandu</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-riwayat-kesehatan">
+                        <a href="#" class="nav-link" id="list-riwayat-kesehatan-link">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Riwayat Kesehatan
@@ -92,30 +96,73 @@
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-file-medical-alt nav-icon"></i>
-                                    <p>Data Kesehatan</p>
+                                    <p>Kesehatan Pribadi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('Keluarga Ibu') }}" class="nav-link" id="kesehatan-keluarga">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Kesehatan Keluarga</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-users nav-icon"></i>
-                                    <p>Data Kesehatan Keluarga</p>
+                                    <i class="fas fa-user-md nav-icon"></i>
+                                    <p>Riwayat Konsultasi</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </li>
-
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-info"></i>
-                        <p>Informasi</p>
-                    </a>
+                <li class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-syringe"></i>
+                            <p>
+                                Imunisasi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Daftar Imunisasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-crutch nav-icon"></i>
+                                    <p>Jadwal Imunisasi</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-chalkboard-teacher nav-icon"></i>
-                        <p>Penyuluhan</p>
-                    </a>
+                <li class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                            <p>
+                                Vitamin
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Daftar Vitamin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-capsules nav-icon"></i>
+                                    <p>Jadwal Vitamin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link">
@@ -129,9 +176,26 @@
                         <p>KMS</p>
                     </a>
                 </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-info"></i>
+                        <p>Informasi</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                        <p>Penyuluhan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <p>Tentang</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
-    {{-- Sidebar Menu End --}}
-
 </aside>

@@ -33,11 +33,23 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Judul</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
+                                    <input type="text" class="form-control @error('judul_informasi') is-invalid @enderror" value="{{ old('judul_informasi') }}"
+                                    placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
+                                    @error('judul_informasi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="informasi" class="ckeditor" id="content" placeholder="Masukkan Konten" cols="30" rows="10"></textarea>
+                                    <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content"
+                                    placeholder="Masukkan Konten" cols="30" rows="10">{!! old('informasi') !!}</textarea>
+                                    @error('informasi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -61,7 +73,12 @@
                                 <div class="form-group">
                                     <label for="">Gambar Penyuluhan</label>
                                     <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input type="file" id="input-file" name="image" class="form-control-file" id="">
+                                    <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
+                                    @error('image')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -75,8 +92,18 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('admin-template/plugins/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
+        $(function () {
+          $('.ckeditor').each(function(e){
+              CKEDITOR.replace(this.id ,{
+                  height : 800,
+                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+              });
+          });
+        });
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');

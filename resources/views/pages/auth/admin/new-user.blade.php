@@ -11,7 +11,6 @@
 @endpush
 
 @section('content')
-    <div class="d-flex justify-con
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Anggota Posyandu</h1>
         <div class="col-auto ml-auto text-right my-auto mt-n1">
@@ -45,40 +44,65 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor KK</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" id="inputNoKK" value="{{ old('no_kk') }}" placeholder="Nomor KK">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor KK</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_kk_bumil" autocomplete="off" class="form-control @error('no_kk_bumil') is-invalid @enderror" id="inputNoKK" value="{{ old('no_kk_bumil') }}" placeholder="Nomor KK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-id-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_kk_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_kk')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">NIK</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="nik_bumil" autocomplete="off" class="form-control @error('nik_bumil') is-invalid @enderror" value="{{ old('nik_bumil') }}" placeholder="Masukan NIK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-address-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('nik_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group" id="kkuser">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input name="file" type="file" class="custom-file-input" id="exampleInputFile">
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
+                                                        <input name="file" type="file_bumil" class="custom-file-input @error('file_bumil') is-invalid @enderror" id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah scan KK</label>
+                                                        @error('file_bumil')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nama Bumil</label>
+                                                <label for="exampleInputEmail1">Nama Ibu Hamil</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text " name="nama_ibu" autocomplete="off" class="form-control @error('nama_ibu') is-invalid @enderror" id="inputNamaIbu" value="{{ old('nama_ibu') }}" placeholder="Nama lengkap ibu ibu hamil">
+                                                    <input type="text " name="nama_bumil" autocomplete="off" class="form-control @error('nama_bumil') is-invalid @enderror" id="inputNamaIbu" value="{{ old('nama_bumil') }}" placeholder="Nama lengkap ibu hamil">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-female"></span>
                                                         </div>
                                                     </div>
-                                                    @error('nama_ibu')
+                                                    @error('nama_bumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -91,7 +115,7 @@
                                                     <input type="text" name="nama_suami" autocomplete="off" class="form-control @error('nama_suami') is-invalid @enderror" value="{{ old('nama_suami') }}" placeholder="Nama lengkap suami">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-male"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_suami')
@@ -102,47 +126,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Tempat Lahir Bumil</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}"  placeholder="Tempat lahir ibu hamil">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-map-marked-alt"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Tempat Lahir Bumil</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tempat_lahir_bumil" autocomplete="off" class="form-control @error('tempat_lahir_bumil') is-invalid @enderror" value="{{ old('tempat_lahir_bumil') }}"  placeholder="Tempat lahir ibu hamil">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-map-marker-alt"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('tempat_lahir_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('tempat_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label>Tanggal Lahir Bumil</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tgl_lahir_bumil" autocomplete="off" class="form-control @error('tgl_lahir_bumil') is-invalid @enderror" value="{{ old('tgl_lahir_bumil') }}"  placeholder="Tanggal lahir ibu hamil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="far fa-calendar-alt"></i>
+                                                                </span>
+                                                            </div>
+                                                            @error('tgl_lahir_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Tanggal Lahir Bumil</label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}"  placeholder="Tanggal lahir bumil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    @error('tgl_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">NIK</label>
+                                                <label for="exampleInputEmail1">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
+                                                    <input type="text" name="alamat_bumil" class="form-control @error('alamat_bumil') is-invalid @enderror" value="{{ old('alamat_bumil') }}" autocomplete="off" placeholder="Alamat tempat tinggal">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-address-card"></span>
+                                                            <span class="fas fa-road"></span>
                                                         </div>
                                                     </div>
-                                                    @error('nik')
+                                                    @error('alamat_bumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -152,31 +180,15 @@
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Alamat</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}" autocomplete="off" placeholder="Alamat tempat tinggal">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-road"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('alamat')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat E-Mail</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="off" placeholder="Alamat email aktif">
+                                                    <input type="email" name="email_bumil" class="form-control @error('email_bumil') is-invalid @enderror" value="{{ old('email_bumil') }}" autocomplete="off" placeholder="Alamat email aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-envelope"></span>
                                                         </div>
                                                     </div>
-                                                    @error('email')
+                                                    @error('email_bumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -184,30 +196,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor Telp</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="no_tlpn" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" autocomplete="off" placeholder="Masukan nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_bumil" class="form-control @error('no_tlpn_bumil') is-invalid @enderror" value="{{ old('no_tlpn_bumil') }}" autocomplete="off" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_bumil" class="form-control @error('telegram_bumil') is-invalid @enderror" value="{{ old('telegram_bumil') }}" autocomplete="off" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Lokasi Posyandu</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu_bumil" class="form-control select2 @error('lokasi_posyandu_bumil') is-invalid @enderror">
+                                                            <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{$p->desa->nama_desa}}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('lokasi_posyandu')
+                                                    @error('lokasi_posyandu_bumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -217,13 +250,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" autocomplete="off" placeholder="Masukan Password" autocomplete="off">
+                                                    <input type="password" name="passwordBumil" class="form-control @error('passwordBumil') is-invalid @enderror" value="{{ old('passwordBumil') }}" autocomplete="off" placeholder="Masukan Password" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password')
+                                                    @error('passwordBumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -233,13 +266,13 @@
                                             <div class="form-group mb-3">
                                                 <label for="exampleInputEmail1">Konfirmasi Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Masukan kembali Password" autocomplete="off">
+                                                    <input type="password" class="form-control @error('passwordBumil_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Masukan kembali Password" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password_confirmation')
+                                                    @error('passwordBumil_confirmation')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -268,29 +301,49 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor KK</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" value="{{ old('no_kk') }}" placeholder="Nomor KK">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor KK</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_kk_anak" autocomplete="off" class="form-control @error('no_kk_anak') is-invalid @enderror" value="{{ old('no_kk_anak') }}" placeholder="Nomor KK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-id-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_kk_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_kk')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">NIK</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="nik_anak" autocomplete="off" class="form-control @error('nik_anak') is-invalid @enderror" value="{{ old('nik_anak') }}" placeholder="Masukan NIK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-address-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('nik_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile">
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
+                                                        <input type="file" name="file_anak" class="custom-file-input @error('file_anak') is-invalid @enderror" id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     </div>
-                                                    @error('file')
+                                                    @error('file_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -300,10 +353,10 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Nama Anak</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nama_anak" autocomplete="off" class="form-control @error('nama_anak') is-invalid @enderror" value="{{ old('nama_anak') }}" placeholder="Nama lengkap bayi atau balita">
+                                                    <input type="text" name="nama_anak" autocomplete="off" class="form-control @error('nama_anak') is-invalid @enderror" value="{{ old('nama_anak') }}" placeholder="Nama lengkap anak">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-child"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_anak')
@@ -319,7 +372,7 @@
                                                     <input type="text" name="nama_ayah" autocomplete="off" class="form-control @error('nama_ayah') is-invalid @enderror" value="{{ old('nama_ayah') }}" placeholder="Nama lengkap ayah">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-male"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_ayah')
@@ -335,7 +388,7 @@
                                                     <input type="text" name="nama_ibu" autocomplete="off" class="form-control @error('nama_ibu') is-invalid @enderror" value="{{ old('nama_ibu') }}" placeholder="Nama lengkap ibu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-female"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_ibu')
@@ -346,101 +399,93 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Tempat Lahir</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}" placeholder="Tempat lahir anak">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-map-marked-alt"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Tempat Lahir</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tempat_lahir_anak" class="form-control @error('tempat_lahir_anak') is-invalid @enderror" value="{{ old('tempat_lahir_anak') }}" placeholder="Tempat lahir anak">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-map-marker-alt"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('tempat_lahir_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('tempat_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label>Tanggal Lahir</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tgl_lahir_anak" autocomplete="off" class="form-control @error('tgl_lahir_anak') is-invalid @enderror" value="{{ old('tgl_lahir_anak') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="far fa-calendar-alt"></i>
+                                                                </span>
+                                                            </div>
+                                                            @error('tgl_lahir_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Tanggal Lahir </label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    @error('tgl_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Jenis Kelamin</label>
-                                                <div class="input-group mb-3">
-                                                    <select name="gender"  class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih jenis kelamin....</option>
-                                                        <option value="1">Laki-laki</option>
-                                                        <option value="2">Perempuan</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-venus-mars"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <label for="exampleInputEmail1">Jenis Kelamin</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="gender_anak"  class="form-control @error('gender_anak') is-invalid @enderror" value="{{ old('gender_anak') }}" id="inputGroupSelect02">
+                                                                <option selected disabled>Pilih jenis kelamin....</option>
+                                                                <option value="1">Laki-laki</option>
+                                                                <option value="2">Perempuan</option>
+                                                            </select>
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-venus-mars"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('gender_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('gender')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-5">
+                                                        <label for="exampleInputEmail1">Status Anak</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" name="status_anak" autocomplete="off" class="form-control @error('status_anak') is-invalid @enderror" value="{{ old('status_anak') }}" placeholder="Anak ke...">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-user-friends"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('status_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Status Anak</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="number" name="status_anak" autocomplete="off" class="form-control @error('status_anak') is-invalid @enderror" value="{{ old('status_anak') }}" placeholder="Anak ke...">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-address-card"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('status_anak')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}" placeholder="Alamat tempat tinggal">
+                                                    <input type="text" name="alamat_anak" autocomplete="off" class="form-control @error('alamat_anak') is-invalid @enderror" value="{{ old('alamat_anak') }}" placeholder="Alamat tempat tinggal">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
                                                         </div>
                                                     </div>
-                                                    @error('alamat')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">NIK</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-address-card"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('nik')
+                                                    @error('alamat_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -450,13 +495,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat E-Mail</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Alamat email aktif">
+                                                    <input type="email" name="email_anak" autocomplete="off" class="form-control @error('email_anak') is-invalid @enderror" value="{{ old('email_anak') }}" placeholder="Alamat email aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-envelope"></span>
                                                         </div>
                                                     </div>
-                                                    @error('email')
+                                                    @error('email_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -464,30 +509,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor Telp</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="no_tlpn" autocomplete="off" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" placeholder="Masukan nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_anak" autocomplete="off" class="form-control @error('no_tlpn_anak') is-invalid @enderror" value="{{ old('no_tlpn_anak') }}" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_anak" autocomplete="off" class="form-control @error('telegram_anak') is-invalid @enderror" value="{{ old('telegram_anak') }}" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Lokasi Posyandu</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu_anak" class="form-control select2 @error('lokasi_posyandu_anak') is-invalid @enderror" style="width: 100%">
+                                                        <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{$p->desa->nama_desa}}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('lokasi_posyandu')
+                                                    @error('lokasi_posyandu_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -497,13 +563,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Masukan Password">
+                                                    <input type="password" name="passwordAnak" autocomplete="off" class="form-control @error('passwordAnak') is-invalid @enderror" value="{{ old('passwordAnak') }}" placeholder="Masukan Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password')
+                                                    @error('passwordAnak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -513,22 +579,24 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Konfirmasi Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}" placeholder="Masukan kembali Password">
+                                                    <input type="password" name="passwordAnak_confirmation" autocomplete="off" class="form-control @error('passwordAnak_confirmation') is-invalid @enderror" value="{{ old('passwordAnak_confirmation') }}" placeholder="Masukan kembali Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password_confirmation')
+                                                    @error('passwordAnak_confirmation')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 text-end">
-                                            <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
+                                            <div class="form-group pt-2">
+                                                <div class="input-group mb-3 justify-content-end">
+                                                    <button type="submit" class="btn btn-primary mt-4">Daftarkan Akun</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -546,29 +614,49 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor KK</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text"  name="no_kk" autocomplete="off" class="form-control @error('no_kk') is-invalid @enderror" value="{{ old('no_kk') }}" placeholder="Nomor KK">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor KK</label>
+                                                        <div class="input-group">
+                                                            <input type="text"  name="no_kk_lansia" autocomplete="off" class="form-control @error('no_kk_lansia') is-invalid @enderror" value="{{ old('no_kk_lansia') }}" placeholder="Nomor KK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-id-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_kk_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_kk')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">NIK</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="nik_lansia" autocomplete="off" class="form-control @error('nik_lansia') is-invalid @enderror" value="{{ old('nik_lansia') }}" placeholder="Masukan NIK">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-address-card"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('nik_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror" value="{{ old('file') }}" id="exampleInputFile">
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KK</label>
+                                                        <input type="file" name="file_lansia" class="custom-file-input @error('file_lansia') is-invalid @enderror" value="{{ old('file_lansia') }}" id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     </div>
-                                                    @error('file')
+                                                    @error('file_lansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -578,10 +666,10 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Nama Lansia</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nama_lansia" autocomplete="off" class="form-control @error('nama_lansia') is-invalid @enderror" value="{{ old('nama_lansia') }}" placeholder="Nama lengkap ibu lansia">
+                                                    <input type="text" name="nama_lansia" autocomplete="off" class="form-control @error('nama_lansia') is-invalid @enderror" value="{{ old('nama_lansia') }}" placeholder="Nama lengkap lansia">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-wheelchair"></span>
                                                         </div>
                                                     </div>
                                                     @error('nama_lansia')
@@ -592,101 +680,114 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Tempat Lahir</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}" placeholder="Tempat lahir lansia">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-map-marked-alt"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Tempat Lahir</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tempat_lahir_lansia" autocomplete="off" class="form-control @error('tempat_lahir_lansia') is-invalid @enderror" value="{{ old('tempat_lahir_lansia') }}" placeholder="Tempat lahir lansia">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-map-marker-alt"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('tempat_lahir_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('tempat_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label>Tanggal Lahir</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="tgl_lahir_lansia" autocomplete="off" class="form-control @error('tgl_lahir_lansia') is-invalid @enderror" value="{{ old('tgl_lahir_lansia') }}" placeholder="Tanggal lahir lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="far fa-calendar-alt"></i>
+                                                                </span>
+                                                            </div>
+                                                            @error('tgl_lahir_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Tanggal Lahir</label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    @error('tgl_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Jenis Kelamin</label>
-                                                <div class="input-group mb-3">
-                                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih jenis kelamin....</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-venus-mars"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Jenis Kelamin</label>
+                                                        <div class="input-group">
+                                                            <select name="gender_lansia" class="form-control @error('gender_lansia') is-invalid @enderror" value="{{ old('gender_lansia') }}" id="inputGroupSelect02">
+                                                                <option selected disabled>Pilih jenis kelamin....</option>
+                                                                <option value="Laki-laki">Laki-laki</option>
+                                                                <option value="Perempuan">Perempuan</option>
+                                                            </select>
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-venus-mars"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('gender_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('gender')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">NIK</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-address-card"></span>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Status Lansia</label>
+                                                        <div class="input-group">
+                                                            <select name="status_lansia" autocomplete="off" class="form-control @error('status_lansia') is-invalid @enderror" value="{{ old('status_lansia') }}" id="inputGroupSelect02">
+                                                                <option selected disabled>Pilih status lansia....</option>
+                                                                <option value="Pra Lansia">Pra Lansia</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                                <option value="Lansia Beresiko">Lansia Beresiko</option>
+                                                            </select>
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-user-friends"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('status_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @error('nik')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}" placeholder="Alamat tempat tinggal">
+                                                <div class="input-group">
+                                                    <input type="text" name="alamat_lansia" autocomplete="off" class="form-control @error('alamat_lansia') is-invalid @enderror" value="{{ old('alamat_lansia') }}" placeholder="Alamat tempat tinggal">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
                                                         </div>
                                                     </div>
+                                                    @error('alamat_lansia')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                                                @error('alamat')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat E-Mail</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Alamat email aktif">
+                                                    <input type="email" name="email_lansia" autocomplete="off" class="form-control @error('email_lansia') is-invalid @enderror" value="{{ old('email_lansia') }}" placeholder="Alamat email aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-envelope"></span>
                                                         </div>
                                                     </div>
-                                                    @error('email')
+                                                    @error('email_lansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -694,52 +795,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nomor Telp</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="no_tlpn" autocomplete="off" class="form-control @error('no_tlpn') is-invalid @enderror" value="{{ old('no_tlpn') }}" placeholder="Masukan nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_lansia" autocomplete="off" class="form-control @error('no_tlpn_lansia') is-invalid @enderror" value="{{ old('no_tlpn_lansia') }}" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Status Lansia</label>
-                                                <div class="input-group mb-3">
-                                                    <select name="status_lansia" autocomplete="off" class="form-control @error('status_lansia') is-invalid @enderror" value="{{ old('status_lansia') }}" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih status lansia....</option>
-                                                        <option value="Pra Lansia">Pra Lansia</option>
-                                                        <option value="Lansia">Lansia</option>
-                                                        <option value="Lansia Beresiko">Lansia Beresiko</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-venus-mars"></span>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <label for="exampleInputEmail1">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_lansia" autocomplete="off" class="form-control @error('telegram_lansia') is-invalid @enderror" value="{{ old('telegram_lansia') }}" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('status_lansia')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Lokasi Posyandu</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu_lansia" class="form-control select2 @error('lokasi_posyandu_lansia') is-invalid @enderror" style="width: 100%" >
                                                         <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{$p->desa->nama_desa}}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('lokasi_posyandu')
+                                                    @error('lokasi_posyandu_lansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -749,13 +849,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Masukan Password">
+                                                    <input type="password" name="passwordLansia" autocomplete="off" class="form-control @error('passwordLansia') is-invalid @enderror" value="{{ old('passwordLansia') }}" placeholder="Masukan Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password')
+                                                    @error('passwordLansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -765,22 +865,24 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Konfirmasi Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}" placeholder="Masukan kembali Password">
+                                                    <input type="password" name="passwordLansia_confirmation" autocomplete="off" class="form-control @error('passwordLansia_confirmation') is-invalid @enderror" placeholder="Masukan kembali Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
-                                                    @error('password_confirmation')
+                                                    @error('passwordLansia_confirmation')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 text-end">
-                                            <button type="submit" class="btn btn-primary">Daftarkan Akun</button>
+                                            <div class="form-group pt-2">
+                                                <div class="input-group mb-3 justify-content-end">
+                                                    <button type="submit" class="btn btn-primary mt-4">Daftarkan Akun</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -827,7 +929,7 @@
                 theme: 'bootstrap4'
             })
 
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
 
             $('[data-mask]').inputmask()
         })

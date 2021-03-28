@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
-    <title>SIPANDU | USER | @yield('title')</title>
+    <title>Smart Posyandu - @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
@@ -25,8 +25,10 @@
             font-family: 'Nunito', sans-serif;
             font-weight: 300;
         }
+        .swal-footer {
+            text-align: center;
+        }
     </style>
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -66,13 +68,33 @@
     <script src="{{url('base-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script>
+        function alertSuccess(msg){
+          swal({
+            title: "Sukses",
+            text: msg,
+            icon: "success",
+            button: "Ok",
+          });
+        }
+        function alertError(msg){
+          swal({
+            title: "Eror",
+            text: msg,
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+        function alertDanger(msg){
+          swal({
+            title: "Peringatan",
+            text: msg,
+            icon: "error",
+            button: "Ok",
+          });
+        }
+    </script>
     @stack('js')
-
-    {{-- <!-- AdminLTE for demo purposes -->
-    <script src="{{url('base-template/dist/js/demo.js')}}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{url('base-template/dist/js/pages/dashboard.js')}}"></script> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>

@@ -91,7 +91,7 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('admin-template/plugins/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#kegiatan').addClass('active');

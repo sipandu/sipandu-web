@@ -26,9 +26,16 @@ class LoginController extends Controller
     public function submitLogin(Request $request){
 
         $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
             'captcha' => 'required|captcha'
+        ],
+        [
+            'email.required' => "Email tidak boleh kosong",
+            'email.email' => "Masukan email yang sesuai",
+            'password.required' => "Password tidak boleh kosong",
+            'captcha.required' => "Captha harus diisi",
+            'captcha.captcha' => "Captha yang dimasukan salah",
         ]);
 
         $credential = [
@@ -37,21 +44,25 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($credential, $request->member)){
-            $idUser = Auth::user()->id;
-            $anak = Anak::where('id_user',$idUser)->first();
-            $ibu = Ibu::where('id_user',$idUser)->first();
-            $lansia = Lansia::where('id_user',$idUser)->first();
+            $anak = Anak::where('id_user', Auth::user()->id)->first();
+            $ibu = Ibu::where('id_user', Auth::user()->id)->first();
+            $lansia = Lansia::where('id_user', Auth::user()->id)->first();
 
-            if($anak != null){
-                return redirect()->intended(route('anak.home'));
-            }elseif($ibu != null){
-                 return redirect()->intended(route('ibu.home'));
-            }elseif($lansia != null){
-                return redirect()->intended(route('lansia.home'));
+            if(Auth::check() && isset($anak)){
+                if(request()->segment(1) != null){
+                    return redirect(route('anak.home'));
+                }
+            }elseif(Auth::check() && isset($ibu)){
+                if(request()->segment(1) != null){
+                    return redirect(route('ibu.home'));
+                }
+            }elseif(Auth::check() && isset($lansia)){
+                if(request()->segment(1) != null){
+                    return redirect(route('lansia.home'));
+                  }
+            }else{
+                abort(403);
             }
-            // return redirect()->intended(route('user.home'));
-
-
         }
 
         return redirect()->back()->with('message','Email atau password Anda Salah');
@@ -60,9 +71,6 @@ class LoginController extends Controller
     public function logoutUser(Request $request)
     {
        Auth::guard('web')->logout();
-       // $request->session()->invalidate();
-       return redirect(route('form.user.login'));
+       return redirect('/');
     }
-
-
 }

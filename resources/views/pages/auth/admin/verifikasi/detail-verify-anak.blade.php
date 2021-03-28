@@ -15,7 +15,7 @@
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Bumil</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('show.verify') }}">Verifikasi Anggota Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Rincian Verifikasi</li>
                 </ol>
             </nav>
@@ -26,70 +26,75 @@
             <div class="col-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        Verifikasi Ibu Hamil
+                        Verifikasi Anak
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="...">
+                                {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
+                                <img src="{{$anak->kk->file_kk}}" class="card-img-bottom" alt="File KK anak">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="namaLansia" value="Nama Lansianya" disabled>
-                                            <label for="namaLansia">Nama Ibu Hamil</label>
+                                            <input type="text" class="form-control" id="namaLansia" value="{{$anak->anak->nama_anak}}" disabled>
+                                            <label for="namaLansia">Nama Anak</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="emailLansia" value="Email Lansia jika ada" disabled>
-                                            <label for="emailLansia">Alamat E-Mail</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="noKK" value="No KK dari lansia" disabled>
+                                            <input type="text" class="form-control" id="noKK" value="{{$anak->kk->no_kk}}" disabled>
                                             <label for="noKK">Nomor KK</label>
                                         </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lokasiPosyandu" value="Dipilih berdasarkan banjar" disabled>
-                                            <label for="lokasiPosyandu">Lokasi Posyandu</label>
-                                        </div>                                        
+
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="kabupaten" value="Badung" disabled>
-                                            <label for="kabupaten">Kabupaten/Kota</label>
+                                            <input type="text" class="form-control" id="lokasiPosyandu" value="{{$anak->anak->posyandu->nama_posyandu}}" disabled>
+                                            <label for="lokasiPosyandu">Lokasi Posyandu</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="kecamatan" value="Mengwi" disabled>
-                                            <label for="kecamatan">Kecamatan</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="desa" value="Sempidi" disabled>
-                                            <label for="desa">Desa/Kelurahan</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="banjar" value="Pande" disabled>
+                                            <input type="text" class="form-control" id="banjar" value="{{$anak->anak->posyandu->banjar}}" disabled>
                                             <label for="banjar">Banjar</label>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukan keterangan tambahan">
-                                            <label for="keterangan">Keterangan Tambahan</label>
+                                    <form method="POST" action="{{route('tolak.user')}}">
+                                        @csrf
+                                        <div class="col-12 p-0 m-0">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
+                                                <label for="keterangan">Keterangan Tambahan</label>
+                                            </div>
+                                                @error('keterangan  ')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$anak->id}}">
                                         </div>
-                                    </div>
-                                    <div class="col-6 text-start">
-                                        <a href="#" class="btn btn-primary">Kembali</a>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <button class="btn btn-danger btn-sm">Setujui</button>
-                                        <button class="btn btn-success btn-sm">Tolak</button>
+                                        <div class="col-12 text-start p-0 m-0">
+                                            <button class="float-right btn btn-danger btn-sm">Tolak dengan alasan</button>
+                                        </div>
+                                    </form>
+                                    <div class="row p-0 m-0">
+                                        <div class="col-sm-12 col-md-6 text-start float-lg-left">
+                                            <a href="{{route('show.verify')}}" class="btn btn-primary text-end">Kembali</a>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 my-auto">
+                                            <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
+                                                @csrf
+                                                <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$anak->id}}">
+                                                <div class="text-end float-lg-right my-auto">
+                                                    <button class="btn btn-success btn-sm">Setujui</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        12-Mar-2021
+                        {{ date('d-M-yy', strtotime($anak->created_at)) }}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @extends('layouts/admin/admin-layout')
-@section('title', 'Manajemen Kegiatan')
+@section('title', 'Tambah Penyuluhan')
 @push('css')
 
 @endpush
@@ -12,7 +12,7 @@
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
                     <li class="breadcrumb-item">Informasi</li>
-                    <li class="breadcrumb-item active" aria-current="page">Penyuluhan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Penyuluhan</li>
                 </ol>
             </nav>
         </div>
@@ -33,15 +33,33 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Nama Penyuluhan</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
+                                    <input type="text" class="form-control @error('nama_penyuluhan') is-invalid @enderror" value="{{ old('nama_penyuluhan') }}"
+                                    placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
+                                    @error('nama_penyuluhan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Topik</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
+                                    <input type="text" class="form-control @error('topik_penyuluhan') is-invalid @enderror" value="{{ old('topik_penyuluhan') }}"
+                                    placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
+                                    @error('topik_penyuluhan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="form-control" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10"></textarea>
+                                    <textarea name="deskripsi" class="ckeditor @error('deskripsi') is-invalid @enderror" id=""
+                                    placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{!! old('deskripsi') !!}</textarea>
+                                    @error('deskripsi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -64,16 +82,32 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Lokasi Penyuluhan</label>
-                                    <input type="text" name="lokasi" class="form-control" placeholder="Masukkan Lokasi Penyuluhan" id="">
+                                    <input type="text" name="lokasi" class="form-control @error('lokasi') is-invalid @enderror" value="{{ old('lokasi') }}"
+                                    placeholder="Masukkan Lokasi Penyuluhan" id="">
+                                    @error('lokasi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tanggal Penyuluhan</label>
-                                    <input type="date" name="tanggal" class="form-control" id="">
+                                    <input type="date" name="tanggal" class="form-control  @error('lokasi') is-invalid @enderror" value="{{ old('tanggal') }}" id="">
+                                    @error('tanggal')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar Penyuluhan</label>
                                     <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input type="file" id="input-file" name="image" class="form-control-file" id="">
+                                    <input type="file" id="input-file" name="image" class="form-control-file  @error('lokasi') is-invalid @enderror" id="">
+                                    @error('image')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -87,11 +121,22 @@
 @endsection
 
 @push('js')
+    <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#penyuluhan').addClass('active');
+        });
+        $(function () {
+          $('.ckeditor').each(function(e){
+              CKEDITOR.replace(this.id ,{
+                  height : 800,
+                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+              });
+          });
         });
         $('#input-file').on('change', function(){
             var filedata = this.files[0];

@@ -86,6 +86,15 @@
             button: "Ok",
           });
         }
+
+        function alertDanger(msg){
+          swal({
+            title: "Peringatan",
+            text: msg,
+            icon: "error",
+            button: "Ok",
+          });
+        }
     </script>
 
     @stack('js')

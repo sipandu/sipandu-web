@@ -24,23 +24,30 @@ class RedirectIfAuthenticated
         switch ($guard){
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    return redirect()->route('admin.home');
+                    return redirect()->route('Admin Home');
                 }
                 break;
 
             default:
                 if (Auth::guard($guard)->check()) {
-                    $idUser = Auth::user()->id;
-                    $anak = Anak::where('id_user',$idUser)->first();
-                    $ibu = Ibu::where('id_user',$idUser)->first();
-                    $lansia = Lansia::where('id_user',$idUser)->first();
+                    $anak = Anak::where('id_user', Auth::user()->id)->first();
+                    $ibu = Ibu::where('id_user', Auth::user()->id)->first();
+                    $lansia = Lansia::where('id_user', Auth::user()->id)->first();
 
-                    if($anak != null){
-                        return redirect()->route('anak.home');
-                    }elseif($ibu != null){
-                         return redirect()->route('ibu.home');
-                    }elseif($lansia != null){
-                        return redirect()->route('lansia.home');
+                    if(Auth::check() && isset($anak)){
+                        if(request()->segment(1) != null){
+                            return redirect(route('anak.home'));
+                        }
+                    }elseif(Auth::check() && isset($ibu)){
+                        if(request()->segment(1) != null){
+                            return redirect(route('ibu.home'));
+                        }
+                    }elseif(Auth::check() && isset($lansia)){
+                        if(request()->segment(1) != null){
+                            return redirect(route('lansia.home'));
+                          }
+                    }else{
+                        abort(403);
                     }
                 }
                 break;

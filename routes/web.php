@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing_page');
-});
+// Route::get('/', function () {
+//     return view('landing_page');
+// })->name("Landing Page");
 
 
 
@@ -26,7 +26,7 @@ Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
 // Master Data
-Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu");
+Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu")->middleware('cek:super admin, param2, param3, param4');
 Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu");
 Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu");
 Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu");
@@ -45,6 +45,11 @@ Route::get('/admin/data-kader/detail', 'Admin\MasterData\DataKaderController@det
 
 Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota");
 Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController@detailAnggota')->name("Detail Anggota");
+
+
+
+//Konsultasi
+Route::get('admin/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi");
 
 
 
@@ -69,12 +74,8 @@ Route::get('/user/account/new-user', function () {
     return view('pages/auth/user/new-anggota');
 })->name("form.add.anggota.keluarga");
 
-// <<<<<<< HEAD
-// Route::get('/password', function () {
-//     return view('pages/auth/forgot-password');
-// });
 
-// =======
+
 Route::get('/', function () {
     return view('pages/landing-page');
 })->name('Landing Page');
@@ -85,8 +86,6 @@ Route::get('/test', function () {
 
 
 
-
-// >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
@@ -121,7 +120,7 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 // LOGIN //
 Route::prefix('login')->group(function(){
     Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
-        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login');
+        Route::get('/', 'LoginController@showLoginForm')->name('form.admin.login')->middleware('guest');
         Route::post('/submit', 'LoginController@submitLogin')->name('submit.login.admin');
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
@@ -152,17 +151,21 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
-    Route::get('/verify/detail', 'AdminController@detailVerifyUser')->name('detail.verify');
+    Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak');
+    Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia');
+    Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu');
+    Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user');
+    Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
     Route::prefix('account')->group(function(){
-        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin');
-        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User');
-        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader');
-        Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
+        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test ,parameter');
+        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan ');
+        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin');
+        Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
         Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
@@ -173,17 +176,42 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 
 //USER DASBOARD//
 Route::prefix('user')->namespace('User\Auth')->group(function(){
-    Route::get('/', 'UserController@anakhome')->name('anak.home');
-    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home');
-    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home');
-
-    Route::get('/profile', 'UserController@profile')->name('profile.user');
-    Route::prefix('edit')->group(function(){
-        Route::post('/profile', 'AdminController@updateProfile')->name('edit.profile');
-        Route::post('/password', 'AdminController@updatePassword')->name('edit.password');
-        Route::post('/account', 'AdminController@updateAccount')->name('edit.account');
+    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware('user:anak');
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('user:ibu');
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('user:lansia');
+    Route::prefix('profile')->group(function(){
+        Route::get('/anak', 'EditProfileController@anak')->name('anak.profile');
+        Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
+        Route::get('/lansia', 'EditProfileController@lansia')->name('lansia.profile');
     });
+    Route::prefix('edit')->group(function(){
+        Route::post('/profile', 'EditProfileController@updateProfile')->name('edit.profile.user');
+        Route::post('/password', 'EditProfileController@updatePassword')->name('edit.password.user');
+        Route::post('/personal/user', 'EditProfileController@updatePersonalAnak')->name('edit.account.anak');
+        Route::post('/personal/ibu', 'EditProfileController@updatePersonalIbu')->name('edit.account.ibu');
+        Route::post('/personal/lansia', 'EditProfileController@updatePersonalLansia')->name('edit.account.lansia');
+    });
+});
 
+
+
+//Daftarkan Anggota Keluarga Lain
+Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
+Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
+Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
+
+
+
+//Riwayat Kesehatan Anggota Keluarga User
+Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
+    Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
+    Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
+    Route::get('/lansia', 'RiwayatKeluargaController@keluargaLansia')->name('Keluarga Lansia');
+    Route::prefix('riwayat')->group(function(){
+        Route::get('/detail/anak', 'RiwayatKeluargaController@riwayatKeluargaAnak')->name('Riwayat Keluarga Anak');
+        Route::get('/detail/ibu', 'RiwayatKeluargaController@riwayatKeluargaIbu')->name('Riwayat Keluarga Ibu');
+        Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
+    });
 });
 
 
@@ -205,6 +233,10 @@ Route::get('/data-diri/bayi-balita', function () {
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
 Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
+Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show');
+Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update');
+Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
+Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete');
 
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');

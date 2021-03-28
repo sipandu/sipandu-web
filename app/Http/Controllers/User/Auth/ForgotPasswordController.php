@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Http;
 class ForgotPasswordController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+
     public function showForm(Request $request)
     {
         return view('pages.auth.user.password.forgot-password');

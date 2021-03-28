@@ -2,7 +2,7 @@
 
     {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
-        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="the praktikum Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light fw-bold">Smart Posyandu</span>
     </a>
     {{-- Brand Logo End --}}
@@ -17,7 +17,21 @@
                     <a href="#" class="nav-link" id="list-admin-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            {{Auth::guard('admin')->user()->pegawai->jabatan}}
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                Super Admin
+                            @endif
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
+                                Head Admin
+                            @endif
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
+                                Admin
+                            @endif
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                Kader
+                            @endif
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
+                                Nakes
+                            @endif
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -116,15 +130,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('logout.admin')}}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>Logout</p>
-                            </a>
+                            <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
+                                @csrf
+                                <button class="nav-link text-danger text-start btn-block">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>Logout</p>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item" id="list-admin-dashboard">
+                <li class="nav-item">
                     <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Dashboard</p>
@@ -140,12 +157,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
-                                    <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>Data Posyandu</p>
-                                </a>
-                            </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                <li class="nav-item">
+                                    <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
+                                        <i class="nav-icon fas fa-layer-group"></i>
+                                        <p>Data Posyandu</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                     <i class="nav-icon fas fa-user-cog"></i>
@@ -173,8 +192,8 @@
                         </ul>
                     </li>
                 </li>
-                <li class="nav-item" id="menu">
-                    <a href="" id="konsultasi" class="nav-link">
+                <li class="nav-item" id="menu-konsultasi">
+                    <a href="{{ route("Tambah Konsultasi") }}" id="admin-konsultasi" class="nav-link">
                         <i class="nav-icon fas fa-user-md"></i>
                         <p>Konsultasi</p>
                     </a>

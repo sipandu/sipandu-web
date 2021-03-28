@@ -24,11 +24,6 @@ class Posyandu extends Model
         'longitude',
     ];
 
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'id_admin', 'id');
-    }
-
     public function penyuluhan()
     {
         return $this->hasMany(Penyuluhan::class, 'id_posyandu');
@@ -48,9 +43,22 @@ class Posyandu extends Model
         return $this->hasMany('App\Anak','id_posyandu','id');
     }
 
-    // public function desa()
+    public function ibu(){
+        return $this->hasMany('App\Ibu','id_posyandu','id');
+    }
+
+    public function lansia(){
+        return $this->hasMany('App\Lansia','id_posyandu','id');
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
+    }
+
+    // public function posyandu()
     // {
-    //     return $this->belongsTo('App\desa');
+    //     return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
     // }
 
 

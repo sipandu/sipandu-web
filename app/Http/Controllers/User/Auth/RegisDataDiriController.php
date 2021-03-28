@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Anak;
 use App\Ibu;
@@ -11,6 +12,13 @@ use Illuminate\Http\Request;
 
 class RegisDataDiriController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // awal dari fungsi menampilkan user dari data diri //
     public function showRegisFormAnak(Request $request)
     {
@@ -41,9 +49,13 @@ class RegisDataDiriController extends Controller
             'anak_ke' => "required|numeric",
             'gender' => "required",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
 
         ],
         [
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'nik.required' => "NIK wajib diisi",
             'nik.unique' => "NIK sudah pernah digunakan",
             'nik.numeric' => "NIK harus berupa angka",
@@ -73,7 +85,19 @@ class RegisDataDiriController extends Controller
 
         ]);
         //Auth User
-        $idUser;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $user->update([
+            'username_tele' => $request->telegram,
+        ]);
+
+        $tgl_lahir_indo = $request->tgl_lahir;
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+        $tahun = $tgl_lahir_eng[2];
+        $bulan = $tgl_lahir_eng[1];
+        $tgl = $tgl_lahir_eng[0];
+        $tgl_lahir = $tahun.$bulan.$tgl;
+
 
         $anak = Anak::whereId_user($idUser)->first();
         $anak->update([
@@ -81,15 +105,14 @@ class RegisDataDiriController extends Controller
             'nama_ayah' => $request->nama_ayah,
             'nama_ibu' => $request->nama_ibu,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $request->tgl_lahir,
+            'tangal_lahir' => $tgl_lahir,
             'jenis_kelamin' => $request->gender,
             'nomor_telepon' => $request->no_tlpn,
             'anak_ke' => $request->anak_ke,
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('form.admin.login');
-
+        return redirect()->route('anak.home');
     }
 
     public function storeDataIbu(Request $request)
@@ -102,9 +125,13 @@ class RegisDataDiriController extends Controller
             'tgl_lahir' => "required|date",
             'no_tlpn' => "required|numeric|digits_between:11,15|unique:tb_anak,nomor_telepon",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
 
         ],
         [
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'nik.required' => "NIK wajib diisi",
             'nik.unique' => "NIK sudah pernah digunakan",
             'nik.numeric' => "NIK harus berupa angka",
@@ -127,20 +154,31 @@ class RegisDataDiriController extends Controller
 
         ]);
 
+        $tgl_lahir_indo = $request->tgl_lahir;
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+        $tahun = $tgl_lahir_eng[2];
+        $bulan = $tgl_lahir_eng[1];
+        $tgl = $tgl_lahir_eng[0];
+        $tgl_lahir = $tahun.$bulan.$tgl;
+
         //Auth User
-        $idUser;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $user->update([
+            'username_tele' => $request->telegram,
+        ]);
 
         $ibu = Ibu::whereId_user($idUser)->first();
         $ibu->update([
             'NIK' => $request->nik,
             'nama_suami' => $request->nama_suami,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $request->tgl_lahir,
+            'tangal_lahir' => $tgl_lahir,
             'nomor_telepon' => $request->no_tlpn,
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('form.admin.login');
+        return redirect()->route('ibu.home');
 
     }
 
@@ -154,9 +192,13 @@ class RegisDataDiriController extends Controller
             'status' => "required",
             'gender' => "required",
             'alamat' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
+            'telegram' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
 
         ],
         [
+            'telegram.required' => "Telegram wajib diisi",
+            'telegram.regex' => "Format penamaan Username Telegram tidak sesuai",
+            'telegram.max' => "Masukan Username Telegram maksimal 30 huruf",
             'nik.required' => "NIK wajib diisi",
             'nik.unique' => "NIK sudah pernah digunakan",
             'nik.numeric' => "NIK harus berupa angka",
@@ -177,21 +219,31 @@ class RegisDataDiriController extends Controller
 
         ]);
         //Auth User
-        $idUser;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $user->update([
+            'username_tele' => $request->telegram,
+        ]);;
+
+        $tgl_lahir_indo = $request->tgl_lahir;
+        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+        $tahun = $tgl_lahir_eng[2];
+        $bulan = $tgl_lahir_eng[1];
+        $tgl = $tgl_lahir_eng[0];
+        $tgl_lahir = $tahun.$bulan.$tgl;
+
 
         $lansia = Lansia::whereId_user($idUser)->first();
         $lansia->update([
             'NIK' => $request->nik,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $request->tgl_lahir,
+            'tangal_lahir' => $tgl_lahir,
             'jenis_kelamin' => $request->gender,
             'nomor_telepon' => $request->no_tlpn,
             'status' => $request->status,
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('form.admin.login');
+        return redirect()->route('lansia.home');
     }
-
-
 }

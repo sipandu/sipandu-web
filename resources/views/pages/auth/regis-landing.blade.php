@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>SIPANDU - Data Diri Anak</title>
+    <title>Smart Posyandu | Registrasi Anggota</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
@@ -29,8 +29,8 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">SIPANDU</a>
-                <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
+                <a href="/" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
+                <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Daftar Sebagai Anggota Posyandu</p>
             </div>
             <div class="card-body">
                 <p class="text-center py-3">Silahkan lengkapi data di bawah ini</p>
@@ -38,32 +38,46 @@
                     @csrf
                     <div class="form-group">
                         <label>Nomor KK</label>
-                        <input type="number" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }} placeholder="NO KK">
-                        @error('no_kk')
-                            <div class="invalid-feedback text-start">
-                                {{ $message }}
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="Nomor KK">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="far fa-address-card"></span>
+                                </div>
                             </div>
-                        @enderror
+                            @error('no_kk')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Daftar Sebagai</label>
-                        <select class="form-control select2bs4 @error('role') is-invalid @enderror" name="role" style="width: 100%;">
-                            <option disabled selected>Pilihlah Registrasi Sebagai......</option>
-                            <option value="anak">Anak / Balita</option>
-                            <option value="ibu">Ibu Hamil</option>
-                            <option value="lansia">Lansia</option>
-                        </select>
-                        @error('role')
-                            <div class="invalid-feedback text-start">
-                                {{ $message }}
+                        <div class="input-group mb-3">
+                            <select class="form-control select2bs4 @error('role') is-invalid @enderror" name="role">
+                                <option disabled selected>Daftar sebagai....</option>
+                                <option value="anak">Anak / Balita</option>
+                                <option value="ibu">Ibu Hamil</option>
+                                <option value="lansia">Lansia</option>
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-users"></span>
+                                </div>
                             </div>
-                        @enderror
-                      </div>
-                    <div class="row d-flex justify-content-end mt-4">
+                            @error('role')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mt-4">
                         <div class="col-8">
-                            <p style="width: 350px;">
-                                Sudah mempunyai akun? Masuk
-                                <a href="register.html" class="text-decoration-none link-primary">di sini</a>
+                            <p>
+                                Sudah memiliki akun? Masuk
+                                <a href="{{ route("form.user.login") }}" class="text-decoration-none link-primary">di sini</a>
                             </p>
                         </div>
                         <div class="col-4">
@@ -73,7 +87,7 @@
                 </form>
             </div>
             <div class="text-center mt-4 mb-0">
-                <a href="" class="nav-link link-dark">SIPANDU &copy 2021</a>
+                <a href="" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
             </div>
 
         </div>
