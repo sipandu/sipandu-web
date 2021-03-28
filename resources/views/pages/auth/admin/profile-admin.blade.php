@@ -165,26 +165,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="tab-pane" id="jabatan">
-                                <div class="form-group row">
-                                    <label for="inputName" class="col-sm-2 col-form-label">Tempat Tugas</label>
-                                    <div class="col-sm-10 my-auto">
-                                        <input type="email" class="form-control" id="inputName" placeholder="Tempat Tugas" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}" >
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputEmail" class="col-sm-2 col-form-label">Jabatan</label>
-                                    <div class="col-sm-10 my-auto">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Jabatan" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->jabatan}}">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputName2" class="col-sm-2 col-form-label">Terdaftar Sejak</label>
-                                    <div class="col-sm-10 my-auto">
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Terdaftar Sejak" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->created_at)) }}">
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="tab-pane" id="edit-profile">
                                 <form action="{{route('edit.profile')}}" enctype="multipart/form-data" method="post">
                                     @csrf

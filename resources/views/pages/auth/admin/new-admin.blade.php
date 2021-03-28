@@ -161,12 +161,12 @@
                                                         <div class="custom-file">
                                                             <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
                                                             <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
+                                                            @error('file')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                        @error('file')
-                                                            <div class="invalid-feedback text-start">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -186,7 +186,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 d-flex justify-content-between">
+                                            <div class="col-12 d-flex justify-content-end">
                                                 <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                             </div>
                                         </div>

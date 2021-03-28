@@ -74,7 +74,7 @@
                                 <div class="card-body p-0">
                                     <div class="table-responsive mailbox-messages p-2">
                                         @if ($ibu->count() > 0)
-                                            <table id="tbBumil" class="table table-striped table-hover mx-auto">
+                                            <table id="tbBumil" class="table table-striped table-hover mx-auto table-responsive-sm">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
@@ -86,7 +86,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($ibu as $data)
-                                                        <tr class="text-center align-middle my-auto">
+                                                        <tr class="text-center">
                                                             @if ($data->user->is_verified == 0  && $data->user->keterangan == null)
                                                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                                                 <td class="align-middle">{{ $data->nama_ibu_hamil}}</td>
@@ -113,7 +113,7 @@
                                 <div class="card-body p-0">
                                     <div class="table-responsive mailbox-messages p-2">
                                         @if ($anak->count() > 0)
-                                            <table id="tbAnak" class="table table-striped table-hover mx-auto">
+                                            <table id="tbAnak" class="table table-striped table-hover mx-auto table-responsive-sm">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
@@ -125,7 +125,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($anak as $data)
-                                                        <tr class="text-center align-middle my-auto">
+                                                        <tr class="text-center">
                                                             @if ($data->user->is_verified == 0 && $data->user->keterangan == null )
                                                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                                                 <td class="align-middle">{{ $data->nama_anak}}</td>
@@ -137,7 +137,6 @@
                                                                         Lihat
                                                                     </a>
                                                                 </td>
-
                                                             @endif
                                                         </tr>
                                                     @endforeach
@@ -153,7 +152,7 @@
                                 <div class="card-body p-0">
                                     <div class="table-responsive mailbox-messages p-2">
                                         @if ($lansia->count() > 0)
-                                            <table id="tbLansia" class="table table-striped table-hover mx-auto">
+                                            <table id="tbLansia" class="table table-striped table-hover mx-auto table-responsive-sm">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
@@ -226,7 +225,7 @@
 
         $(function () {
             $("#tbBumil").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",

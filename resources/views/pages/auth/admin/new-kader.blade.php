@@ -187,8 +187,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 d-flex justify-content-between">
-                                            <a href="{{ route('Admin Home') }}" class="btn btn-danger text-end">Batal</a>
+                                        <div class="col-12 d-flex justify-content-end">
                                             <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                         </div>
                                     </div>
@@ -260,7 +259,7 @@
                                             <div class="form-group">
                                                 <label>Tempat Tugas</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%" >
                                                         <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
                                                             <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
@@ -312,7 +311,6 @@
                                                     <a class="btn btn-warning" onclick="stepper.previous()">Sebelumnya</a>
                                                 </div>
                                                 <div class="col-6 text-end">
-                                                    <a href="{{ route('Admin Home') }}" class="btn btn-danger my-1">Batal</a>
                                                     <button type="submit" class="btn btn-primary my-1">Daftarkan Akun</button>
                                                 </div>
                                             </div>
