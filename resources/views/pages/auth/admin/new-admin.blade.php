@@ -187,7 +187,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-between">
-                                                <a href="{{ route('Admin Home') }}" class="btn btn-danger text-end">Batal</a>
                                                 <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                             </div>
                                         </div>
@@ -311,7 +310,6 @@
                                                         <a class="btn btn-warning" onclick="stepper.previous()">Sebelumnya</a>
                                                     </div>
                                                     <div class="col-6 text-end">
-                                                        <a href="{{ route('Admin Home') }}" class="btn btn-danger my-1">Batal</a>
                                                         <button type="submit" class="btn btn-primary my-1">Daftarkan Akun</button>
                                                     </div>
                                                 </div>

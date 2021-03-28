@@ -85,7 +85,6 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Akun</a></li>
                             <li class="nav-item"><a class="nav-link" href="#personal" data-toggle="tab">Personal</a></li>
-                            {{-- <li class="nav-item"><a class="nav-link" href="#jabatan" data-toggle="tab">Jabatan</a></li> --}}
                             <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit</a></li>
                         </ul>
                     </div>
@@ -97,35 +96,35 @@
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Alamat E-Mail" value="{{Auth::guard('admin')->user()->email}}" autocomplete="off">
+                                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
+                                            @error('email')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('email')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="telegram" type="text" class="form-control" id="inputTele" placeholder="Username Telegram" value="{{Auth::guard('admin')->user()->pegawai->username_telegram}}" autocomplete="off">
+                                            <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->pegawai->username_telegram) }}" autocomplete="off">
+                                            @error('telegram')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('telegram')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                         <div class="col-sm-10 my-auto">
-                                            <input name="no_tlpn" type="text" class="form-control" id="inputTelp" placeholder="Nomor Telepon" value="{{Auth::guard('admin')->user()->pegawai->nomor_telepon}}" autocomplete="off">
+                                            <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->pegawai->nomor_telepon) }}" autocomplete="off">
+                                            @error('no_tlpn')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        @error('no_tlpn')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
