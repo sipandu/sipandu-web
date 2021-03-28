@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Admin;
 use App\Kabupaten;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Http;
 class ForgotPasswordController extends Controller
 {
 
@@ -42,5 +42,35 @@ class ForgotPasswordController extends Controller
 
         return redirect()->route('form.verify.token')->with('message','Mohon Cek Emailmu Code OTP sudah di kirim');
 
+    }
+
+    public function postTelegram(Request $request)
+    {
+        $this->validate($request,[
+            'telegram' => "required|exists:tb_admin",
+        ],
+        [
+            'email.required' => "Email wajib diisi",
+            'email.exists' => "Email yang anda masukan tidak terdaftar",
+        ]);
+        $admin = Admin::where('username_tele', $request->telegram)->first();
+
+        $admin->timestamps = false;
+        $admin->otp_token = rand(100000,999999);
+        $admin->updated_at = Carbon::now()->setTimezone('GMT+8');
+
+        $admin->save();
+
+
+        $url = 'https://bagushikano-sipandu-test.herokuapp.com/api/request/token/forget-password';
+
+        $response = Http::post($url, [
+            'chat_id' => $admin->id_chat_tele,
+            'token' => $admin->otp_token,
+        ]);
+
+        if($response->successful()) {
+            return redirect()->route('form.verify.token')->with('message','Mohon Cek Telegrammu Code OTP sudah di kirim');
+        }
     }
 }

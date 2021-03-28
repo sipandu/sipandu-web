@@ -195,6 +195,9 @@ Route::get('/blog', function () {
 Route::get('/penyuluhan', function () {
     return view('user/blog/penyuluhan');
 })->name('Penyuluhan');
+Route::get('/data-diri/bayi-balita', function () {
+    return view('pages/auth/anak/data-diri-anak');
+})->name("Data Diri Anak");
 
 
 
@@ -202,11 +205,6 @@ Route::get('/penyuluhan', function () {
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
 Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
-Route::get('/data-diri/bayi-balita', function () {
-    return view('pages/auth/anak/data-diri-anak');
-})->name("Data Diri Anak");
-
-
 
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
@@ -216,8 +214,6 @@ Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('pe
 Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
-
-
 
 //Kegiatan
 Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
