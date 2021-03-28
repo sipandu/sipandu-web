@@ -17,11 +17,13 @@ class User extends Authenticatable
     protected $fillable = [
         'id_kk',
         'id_chat_tele',
+        'username_tele',
         'email',
         'password',
         'profile_image',
         'is_verified',
         'otp_token',
+        'keterangan',
     ];
 
 
@@ -39,6 +41,10 @@ class User extends Authenticatable
 
     public function lansia(){
         return $this->hasOne('App\Lansia','id_user','id');
+    }
+
+    public function kk(){
+        return $this->belongsTo('App\KK','id_kk');
     }
 
 

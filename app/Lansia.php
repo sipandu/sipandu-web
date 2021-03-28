@@ -27,4 +27,14 @@ class Lansia extends Model
     ];
 
 
+    public function user(){
+        return $this->belongsTo('App\User','id_user');
+    }
+
+    public function posyandu(){
+        return $this->belongsTo('App\Posyandu','id_posyandu');
+    }
+
+
+
 }

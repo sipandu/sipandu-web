@@ -20,7 +20,7 @@ class MasterDataController extends Controller
         $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
         $pegawai = Pegawai::where('jabatan', 'admin')->get();
 
-        return view('pages/admin/master-data/data-posyandu', compact('posyandu', 'pegawai'));
+        return view('pages/admin/master-data/data-posyandu/data-posyandu', compact('posyandu', 'pegawai'));
     }
 
     public function addPosyandu()
@@ -29,7 +29,7 @@ class MasterDataController extends Controller
         $kecamatan = Kecamatan::get();
         $desa = Desa::get();
 
-        return view('pages/admin/master-data/new-posyandu', compact('kabupaten', 'kecamatan', 'desa'));
+        return view('pages/admin/master-data/data-posyandu/new-posyandu', compact('kabupaten', 'kecamatan', 'desa'));
     }
 
     public function storePosyandu(Request $request)
@@ -41,7 +41,7 @@ class MasterDataController extends Controller
             'desa' => 'required|exists:tb_desa,nama_desa',
             'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
             'telp_posyandu' => "nullable|numeric|digits_between:10,15|unique:tb_posyandu,nomor_telepon",
-            'alamat_posyandu' => "required|regex:/^[a-z ,.]+$/i|min:7",
+            'alamat_posyandu' => "required|min:7",
             'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
             'lng' => "required|regex:/^[0-9.-]+$/i|min:5",
             'nama_pegawai' => "required|regex:/^[a-z ]+$/i|min:2|max:50",
@@ -142,10 +142,10 @@ class MasterDataController extends Controller
         $posyandu = Posyandu::create([
             'id_desa' => $desa->id,
             'id_admin' => $admin->id,
-            'id_chat_group_tele' => 1234,
+            'id_chat_group_tele' => NULL,
             'nama_posyandu' => $request->nama_posyandu,
             'alamat' => $request->alamat_posyandu,
-            'nomor_telepon' => $request->telp,
+            'nomor_telepon' => $request->telp_posyandu,
             'banjar' => $request->banjar,
             'latitude' => $request->lat,
             'longitude' => $request->lng
@@ -176,6 +176,28 @@ class MasterDataController extends Controller
         return redirect()->route("Data Posyandu");
     }
 
+    // public function testing()
+    // {
+    //     Carbon::setLocale('id');
+    //     $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        
+    //     //untuk di db
+    //     $waktuSaatIni = Carbon::now()->setTimezone('GMT+8');
+
+    //     //disable created dan update di db
+    //     // public $timestamps = false;
+
+    //     $now = Carbon::parse($today);
+
+    //     $compare = Carbon::parse('2021-03-19 21:19:15');
+        
+    //     $duration = $compare->diff($now);
+
+    //     $minutes = ($duration->i);
+
+    //     return($minutes);
+    // }
+
     public function detailPosyandu(Posyandu $posyandu)
     {
         Carbon::setLocale('id');
@@ -193,7 +215,7 @@ class MasterDataController extends Controller
         // In progres Event Checking
         $currentKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '<', $today)->where('end_at', '>', $today)->get();
 
-        return view('pages/admin/master-data/detail-posyandu', compact(
+        return view('pages/admin/master-data/data-posyandu/detail-posyandu', compact(
             'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan'
         ));
         // return $kegiatanPosyandu;
@@ -216,7 +238,7 @@ class MasterDataController extends Controller
         // In progres Event Checking
         $currentKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '<', $today)->where('end_at', '>', $today)->get();
 
-        return view('pages/admin/master-data/edit-posyandu', compact(
+        return view('pages/admin/master-data/data-posyandu/edit-posyandu', compact(
             'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan'
         ));
         // return $kegiatanPosyandu;
@@ -311,5 +333,5 @@ class MasterDataController extends Controller
         }
 
         // return $pegawai;
-    }
+    }   
 }

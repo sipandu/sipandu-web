@@ -1,26 +1,25 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Add Kader')
+@section('title', 'Tambar Kader')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('admin-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{url('admin-template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{url('admin-template/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
 @endpush
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3">New Kader</h1>
-    <div class="col-auto ml-auto text-right mt-n1">
-        <nav aria-label="breadcrumb">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Kader</h1>
+    <div class="col-auto ml-auto text-right my-auto mt-n1">
+        <nav aria-label="breadcrumb text-center">
             <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Add Account</li>
-                <li class="breadcrumb-item active" aria-current="page">Add Kader</li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah Kader</li>
             </ol>
         </nav>
     </div>
@@ -29,13 +28,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">Tambah Kader Baru</h3>
+                <div class="card-header my-auto">
+                    <h3 class="card-title my-auto">Tambah Kader Baru</h3>
                 </div>
                 <div class="card-body p-0">
                     <div class="bs-stepper py-3">
                         <div class="bs-stepper-header px-3 d-flex justify-content-center" role="tablist">
-                            <!-- your steps here -->
                             <div class="step" data-target="#data-pertama">
                                 <button type="button" class="step-trigger" role="tab" aria-controls="data-pertama" id="data-pertama-trigger">
                                 <span class="bs-stepper-circle">1</span>
@@ -62,7 +60,7 @@
                                                     <input  type="text" name="name" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"  placeholder="Nama lengkap kader">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-user-tag"></span>
                                                         </div>
                                                     </div>
                                                     @error('name')
@@ -94,7 +92,7 @@
                                                     <input  type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}"  placeholder="Tempat lahir">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-map-marked-alt"></span>
+                                                            <span class="fas fa-map-marker-alt"></span>
                                                         </div>
                                                     </div>
                                                     @error('tempat_lahir')
@@ -107,7 +105,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
                                                 <div class="input-group">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir') }}" placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="far fa-calendar-alt"></i>
@@ -145,7 +143,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">NIK</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
+                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan NIK">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-address-card"></span>
@@ -163,7 +161,7 @@
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KTP</label>
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
                                                     </div>
                                                     @error('file')
                                                         <div class="invalid-feedback text-start">
@@ -175,7 +173,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal">
+                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal kader">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
@@ -189,8 +187,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 d-flex justify-content-between">
-                                            <a href="{{ route('Admin Home') }}" class="btn btn-danger text-end">Batal</a>
+                                        <div class="col-12 d-flex justify-content-end">
                                             <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                         </div>
                                     </div>
@@ -199,14 +196,20 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                @csrf
                                                 <label for="exampleInputEmail1">Jabatan</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih jabatan....</option>
-                                                        <option value="kader">Kader</option>
-                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                    </select>
+                                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @else
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Kader</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @endif
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-venus-mars"></span>
@@ -225,7 +228,7 @@
                                                     <input type="text" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                            <span class="fas fa-phone"></span>
                                                         </div>
                                                     </div>
                                                     @error('tlpn')
@@ -241,7 +244,7 @@
                                                     <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}"  placeholder="Masukan Username Telegram aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                            <span class="fab fa-telegram-plane"></span>
                                                         </div>
                                                     </div>
                                                     @error('telegram')
@@ -256,7 +259,7 @@
                                             <div class="form-group">
                                                 <label>Tempat Tugas</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%" >
                                                         <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
                                                             <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
@@ -308,7 +311,6 @@
                                                     <a class="btn btn-warning" onclick="stepper.previous()">Sebelumnya</a>
                                                 </div>
                                                 <div class="col-6 text-end">
-                                                    <a href="{{ route('Admin Home') }}" class="btn btn-danger my-1">Batal</a>
                                                     <button type="submit" class="btn btn-primary my-1">Daftarkan Akun</button>
                                                 </div>
                                             </div>
@@ -328,13 +330,13 @@
 
 @push('js')
     {{-- Custom Step Page --}}
-    <script src="{{url('admin-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
 
     <!-- Custom Input Date -->
-    <script src="{{url('admin-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <script src="{{url('admin-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -358,7 +360,7 @@
                 theme: 'bootstrap4'
             })
 
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
 
             $('[data-mask]').inputmask()
         })

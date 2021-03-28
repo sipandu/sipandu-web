@@ -122,7 +122,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-informasi').addClass('menu-open');
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#sig-posyandu').addClass('active');
