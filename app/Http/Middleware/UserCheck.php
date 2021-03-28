@@ -9,34 +9,44 @@ use Closure;
 
 class UserCheck
 {
-
     public function handle($request, Closure $next, $level)
     {
-
         switch($level){
             case 'anak':
                 $data = 'anak.data-diri.form';
+                if(Auth::user()->is_verified == 1){
+                    if (Auth::user()->anak->NIK == null) {
+                        return redirect()->route($data);
+                    }
+                    return $next($request);
+                }
+                Auth::guard('web')->logout();
+                return redirect()->route('landing.verif');
                 break;
 
             case 'ibu':
                 $data = 'ibu.data-diri.form';
+                if(Auth::user()->is_verified == 1){
+                    if (Auth::user()->ibu->NIK == null) {
+                        return redirect()->route($data);
+                    }
+                    return $next($request);
+                }
+                Auth::guard('web')->logout();
+                return redirect()->route('landing.verif');
                 break;
 
-            default:
-                $getNIK = 'lansia.data-diri.form';
+            case 'lansia':
+                $data = 'lansia.data-diri.form';
+                if(Auth::user()->is_verified == 1){
+                    if (Auth::user()->lansia->NIK == null) {
+                        return redirect()->route($data);
+                    }
+                    return $next($request);
+                }
+                Auth::guard('web')->logout();
+                return redirect()->route('landing.verif');
                 break;
         }
-
-        if(Auth::user()->is_verified == 1){
-            if(Auth::user()->username_tele == null){
-                return redirect()->route($data);
-            }
-            return $next($request);
-        }else{
-            Auth::guard('web')->logout();
-            return redirect()->route('landing.verif');
-        }
-
-        // return $next($request);
     }
 }

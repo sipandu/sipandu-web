@@ -4,34 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>SIPANDU - Registrasi Anak</title>
+    @if ($role == 'ibu')
+        <title>Smart Posyandu | Registrasi Ibu Hamil</title>
+    @endif
+    @if ($role == 'anak')
+        <title>Smart Posyandu | Registrasi Lansia</title>
+    @endif
+    @if ($role == 'lansia')
+        <title>Smart Posyandu | Registrasi Anak</title>
+    @endif
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
-    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- daterange picker -->
     <link rel="stylesheet" href="{{url('base-template/plugins/daterangepicker/daterangepicker.css')}}">
-    <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="{{url('base-template/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="{{url('base-template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
-    <!-- Select2 -->
     <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{url('base-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-    <!-- dropzonejs -->
     <link rel="stylesheet" href="{{url('base-template/plugins/dropzone/min/dropzone.min.css')}}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
-    <!-- embedd library jquery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <style>
         html, body {
             font-family: 'Nunito', sans-serif;
@@ -41,23 +37,30 @@
 
 </head>
 <body >
-
     <div class="container justify-content-center pt-4">
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">SIPANDU</a>
-                <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Sistem Informasi Pos Pelayanan Terpadu</p>
+                <a href="" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
+                <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Daftarkan
+                    @if ($role == 'ibu')
+                        Ibu Hamil
+                    @endif
+                    @if ($role == 'anak')
+                        Anak
+                    @endif
+                    @if ($role == 'lansia')
+                        Lansia
+                    @endif
+                 Sebagai Anggota Posyandu Baru</p>
             </div>
-            <div class="card-body" style="padding: 30px">
-                <p class="text-center fs-5 pt-2 pb-1">Silahkan lengkapi data di bawah ini</p>
+            <div class="card-body">
+                <p class="text-center fs-5 py-2">Silahkan lengkapi data di bawah ini</p>
                 <form action="user/{{$role}}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <input type="hidden" name="idKK" value="{{$idKK}}">
                     <input type="hidden" name="noKK" value="{{$scr}}">
                     <input type="hidden" name="role" value="{{$role}}">
-
                     @if ($idKK == null)
                     <div class="form-group">
                         <label>Kartu Keluarga</label>
@@ -190,8 +193,8 @@
                     </div>
                     <div class="row d-flex justify-content-end mt-4">
                         <div class="col-8">
-                            <p> Terdapat kendala? Klik
-                                <a href="register.html" class="text-decoration-none link-primary">di sini</a>
+                            <p> Sudah memiliki akun? Klik
+                                <a href="{{ route("form.user.login") }}" class="text-decoration-none link-primary">di sini</a>
                             </p>
                         </div>
                         <div class="col-4">
@@ -200,11 +203,9 @@
                     </div>
                 </form>
             </div>
-
             <div class="text-center mt-4 mb-0">
-                <a href="" class="nav-link link-dark">SIPANDU &copy 2021</a>
+                <a href="" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
             </div>
-
         </div>
     </div>
 
@@ -305,7 +306,6 @@
 
 
         });
-
     </script>
 
     <script>

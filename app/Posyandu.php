@@ -51,9 +51,14 @@ class Posyandu extends Model
         return $this->hasMany('App\Lansia','id_posyandu','id');
     }
 
-    // public function desa()
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
+    }
+
+    // public function posyandu()
     // {
-    //     return $this->belongsTo('App\desa');
+    //     return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
     // }
 
 

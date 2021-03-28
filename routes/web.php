@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing_page');
-});
+// Route::get('/', function () {
+//     return view('landing_page');
+// })->name("Landing Page");
 
 
 
@@ -74,12 +74,8 @@ Route::get('/user/account/new-user', function () {
     return view('pages/auth/user/new-anggota');
 })->name("form.add.anggota.keluarga");
 
-// <<<<<<< HEAD
-// Route::get('/password', function () {
-//     return view('pages/auth/forgot-password');
-// });
 
-// =======
+
 Route::get('/', function () {
     return view('pages/landing-page');
 })->name('Landing Page');
@@ -90,8 +86,6 @@ Route::get('/test', function () {
 
 
 
-
-// >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
@@ -170,7 +164,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test ,parameter');
         Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan ');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin');
-        Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin.kader');
+        Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
         Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
         Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
@@ -189,7 +183,6 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
         Route::get('/lansia', 'EditProfileController@lansia')->name('lansia.profile');
     });
-    // Route::get('/profile', 'UserController@profile')->name('profile.user');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'EditProfileController@updateProfile')->name('edit.profile.user');
         Route::post('/password', 'EditProfileController@updatePassword')->name('edit.password.user');
@@ -197,7 +190,27 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::post('/personal/ibu', 'EditProfileController@updatePersonalIbu')->name('edit.account.ibu');
         Route::post('/personal/lansia', 'EditProfileController@updatePersonalLansia')->name('edit.account.lansia');
     });
+});
 
+
+
+//Daftarkan Anggota Keluarga Lain
+Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
+Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
+Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
+
+
+
+//Riwayat Kesehatan Anggota Keluarga User
+Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
+    Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
+    Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
+    Route::get('/lansia', 'RiwayatKeluargaController@keluargaLansia')->name('Keluarga Lansia');
+    Route::prefix('riwayat')->group(function(){
+        Route::get('/detail/anak', 'RiwayatKeluargaController@riwayatKeluargaAnak')->name('Riwayat Keluarga Anak');
+        Route::get('/detail/ibu', 'RiwayatKeluargaController@riwayatKeluargaIbu')->name('Riwayat Keluarga Ibu');
+        Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
+    });
 });
 
 

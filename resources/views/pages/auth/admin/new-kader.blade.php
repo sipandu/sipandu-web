@@ -60,7 +60,7 @@
                                                     <input  type="text" name="name" autocomplete="off" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"  placeholder="Nama lengkap kader">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-user-tag"></span>
                                                         </div>
                                                     </div>
                                                     @error('name')
@@ -92,7 +92,7 @@
                                                     <input  type="text" name="tempat_lahir" autocomplete="off" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}"  placeholder="Tempat lahir">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-map-marked-alt"></span>
+                                                            <span class="fas fa-map-marker-alt"></span>
                                                         </div>
                                                     </div>
                                                     @error('tempat_lahir')
@@ -143,7 +143,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">NIK</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan nomor NIK">
+                                                    <input type="text" name="nik" autocomplete="off" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" placeholder="Masukan NIK">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-address-card"></span>
@@ -161,7 +161,7 @@
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Upload scan KTP</label>
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
                                                     </div>
                                                     @error('file')
                                                         <div class="invalid-feedback text-start">
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal">
+                                                    <input type="text" name="alamat" autocomplete="off" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"  placeholder="Alamat tempat tinggal kader">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
@@ -197,13 +197,20 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                @csrf
                                                 <label for="exampleInputEmail1">Jabatan</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih jabatan....</option>
-                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                    </select>
+                                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @else
+                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
+                                                            <option selected disabled>Pilih jabatan....</option>
+                                                            <option value="tenaga kesehatan">Kader</option>
+                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
+                                                        </select>
+                                                    @endif
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-venus-mars"></span>
@@ -222,7 +229,7 @@
                                                     <input type="text" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                            <span class="fas fa-phone"></span>
                                                         </div>
                                                     </div>
                                                     @error('tlpn')
@@ -238,7 +245,7 @@
                                                     <input type="text" name="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}"  placeholder="Masukan Username Telegram aktif">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
+                                                            <span class="fab fa-telegram-plane"></span>
                                                         </div>
                                                     </div>
                                                     @error('telegram')
