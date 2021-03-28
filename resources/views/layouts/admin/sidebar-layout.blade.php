@@ -132,7 +132,7 @@
                         <li class="nav-item">
                             <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
                                 @csrf
-                                <button class="nav-link text-danger">
+                                <button class="nav-link text-danger text-start btn-block">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>Logout</p>
                                 </button>
@@ -157,12 +157,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
-                                    <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>Data Posyandu</p>
-                                </a>
-                            </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                <li class="nav-item">
+                                    <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
+                                        <i class="nav-icon fas fa-layer-group"></i>
+                                        <p>Data Posyandu</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                     <i class="nav-icon fas fa-user-cog"></i>
