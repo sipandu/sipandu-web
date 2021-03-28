@@ -127,6 +127,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => 0
                 ]);
 
                 $anak = $user->anak()->create([
@@ -228,6 +229,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => 1
                 ]);
 
                 $anak = $user->ibu()->create([
@@ -291,7 +293,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
-                    'role' => 0
+                    'role' => 2
                 ]);
 
                 $anak = $user->anak()->create([
@@ -329,6 +331,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => 2
                 ]);
 
                 $anak = $user->anak()->create([
