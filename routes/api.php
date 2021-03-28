@@ -30,3 +30,5 @@ Route::post('/register-anak', 'User\Auth\Api\ApiRegisterController@storeAnak');
 Route::post('/register-ibu', 'User\Auth\Api\ApiRegisterController@storeIbu');
 Route::post('/register-lansia', 'User\Auth\Api\ApiRegisterController@storeLansia');
 
+Route::get('/regist-data-posyandu', 'User\Auth\Api\ApiRegisterController@getAllPosyandu');
+
