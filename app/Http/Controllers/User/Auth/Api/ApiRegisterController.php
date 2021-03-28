@@ -15,6 +15,13 @@ use Illuminate\Http\Request;
 
 class ApiRegisterController extends Controller
 {
+    /*
+    Flag role user
+        0, anak
+        1, bumil
+        2, lansia
+    */
+
     public function firstRegis(Request $request)
     {
         $noKK = $request->no_kk;
@@ -66,60 +73,72 @@ class ApiRegisterController extends Controller
 
         // ]);
 
-        if($request->idKK != null){
-            $user = User::create([
-                'id_kk' => $request->idKK,
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
-
-            $anak = $user->anak()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_anak' => $request->nama,
-            ]);
-
+        $cekUser = User::where('email', $request->email)->count();
+        if($cekUser > 0) {
             return response()->json([
+                'status_register' => 'email sama',
                 'status_code' => 200
             ]);
+        }
+        else {
+            if($request->idKK != null){
+                $user = User::create([
+                    'id_kk' => $request->idKK,
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                    'role' => 0
+                ]);
 
-        }else{
-            // $this->validate($request,[
-            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
-            //     'file.required' => "Kolom Upload File Wajib Diisi ",
-            //     'file.image' => "File yang di upload harus berupa foto",
-            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            // ]);
+                $anak = $user->anak()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_anak' => $request->nama,
+                ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            }else{
+                // $this->validate($request,[
+                //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+                //     'file.required' => "Kolom Upload File Wajib Diisi ",
+                //     'file.image' => "File yang di upload harus berupa foto",
+                //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+                // ]);
 
-            $kk = KK::create([
-                'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
-            ]);
+                $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+                $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $user = new User;
-            $user = $kk->user()->create([
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
+                $request->file->move(public_path('images/upload/KK'),$imageName);
 
-            $anak = $user->anak()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_anak' => $request->nama,
-            ]);
+                $kk = KK::create([
+                    'no_kk' =>  $request->noKK,
+                    'file_kk' => $path,
+                ]);
 
-            return response()->json([
-                'status_code' => 200
-            ]);
+                $user = new User;
+                $user = $kk->user()->create([
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                ]);
+
+                $anak = $user->anak()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_anak' => $request->nama,
+                ]);
+
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
+            }
         }
     }
 
@@ -155,61 +174,72 @@ class ApiRegisterController extends Controller
 
         // ]);
 
-        if($request->idKK != null){
-            $user = User::create([
-                'id_kk' => $request->idKK,
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
-
-            $anak = $user->ibu()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_ibu_hamil' => $request->nama,
-            ]);
-
+        $cekUser = User::where('email', $request->email)->count();
+        if($cekUser > 0) {
             return response()->json([
+                'status_register' => 'email sama',
                 'status_code' => 200
             ]);
+        }
+        else {
+            if($request->idKK != null){
+                $user = User::create([
+                    'id_kk' => $request->idKK,
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                    'role' => 1
+                ]);
 
-        }else{
-            // $this->validate($request,[
-            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
-            //     'file.required' => "Kolom Upload File Wajib Diisi ",
-            //     'file.image' => "File yang di upload harus berupa foto",
-            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            // ]);
+                $anak = $user->ibu()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_ibu_hamil' => $request->nama,
+                ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            }else{
+                // $this->validate($request,[
+                //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+                //     'file.required' => "Kolom Upload File Wajib Diisi ",
+                //     'file.image' => "File yang di upload harus berupa foto",
+                //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+                // ]);
 
-            $kk = KK::create([
-                'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
-            ]);
+                $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+                $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $user = new User;
-            $user = $kk->user()->create([
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
+                $request->file->move(public_path('images/upload/KK'),$imageName);
 
-            $anak = $user->ibu()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_ibu_hamil' => $request->nama,
-            ]);
+                $kk = KK::create([
+                    'no_kk' =>  $request->noKK,
+                    'file_kk' => $path,
+                ]);
 
-            return response()->json([
-                'status_code' => 200
-            ]);
+                $user = new User;
+                $user = $kk->user()->create([
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                ]);
 
+                $anak = $user->ibu()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_ibu_hamil' => $request->nama,
+                ]);
+
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
+            }
         }
     }
 
@@ -245,58 +275,72 @@ class ApiRegisterController extends Controller
 
         // ]);
 
-        if($request->idKK != null){
-            $user = User::create([
-                'id_kk' => $request->idKK,
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
-
-            $anak = $user->anak()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_lansia' => $request->nama,
-            ]);
-
-            return redirect()->route('landing.verif');
-
-        }else{
-            // $this->validate($request,[
-            //     'file'=> 'required|image|mimes:jpeg,png,jpg',
-            //     'file.required' => "Kolom Upload File Wajib Diisi ",
-            //     'file.image' => "File yang di upload harus berupa foto",
-            //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
-            // ]);
-
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
-
-            $request->file->move(public_path('images/upload/KK'),$imageName);
-
-            $kk = KK::create([
-                'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
-            ]);
-
-            $user = new User;
-            $user = $kk->user()->create([
-                'id_chat_tele' => null,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
-                'is_verified' => 0,
-            ]);
-
-            $anak = $user->anak()->create([
-                'id_posyandu' => $request->banjar,
-                'nama_lansia' => $request->nama,
-            ]);
-
+        $cekUser = User::where('email', $request->email)->count();
+        if($cekUser > 0) {
             return response()->json([
+                'status_register' => 'email sama',
                 'status_code' => 200
             ]);
+        }
+        else {
+            if($request->idKK != null){
+                $user = User::create([
+                    'id_kk' => $request->idKK,
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                    'role' => 0
+                ]);
+
+                $anak = $user->anak()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_lansia' => $request->nama,
+                ]);
+
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
+
+            }else{
+                // $this->validate($request,[
+                //     'file'=> 'required|image|mimes:jpeg,png,jpg',
+                //     'file.required' => "Kolom Upload File Wajib Diisi ",
+                //     'file.image' => "File yang di upload harus berupa foto",
+                //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
+                // ]);
+
+                $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+                $imageName = time().'-'.$request->file->getClientOriginalName();
+
+                $request->file->move(public_path('images/upload/KK'),$imageName);
+
+                $kk = KK::create([
+                    'no_kk' =>  $request->noKK,
+                    'file_kk' => $path,
+                ]);
+
+                $user = new User;
+                $user = $kk->user()->create([
+                    'id_chat_tele' => null,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'profile_image' => "/images/upload/Profile/deafult.jpg",
+                    'is_verified' => 0,
+                ]);
+
+                $anak = $user->anak()->create([
+                    'id_posyandu' => $request->banjar,
+                    'nama_lansia' => $request->nama,
+                ]);
+
+                return response()->json([
+                    'status_register' => 'sukses',
+                    'status_code' => 200
+                ]);
+            }
         }
     }
 
