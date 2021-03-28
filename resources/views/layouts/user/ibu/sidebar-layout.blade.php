@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             {{-- Add icons to the links using the .nav-icon class with
                 font-awesome or any other icon font library --}}
-                <li class="nav-item"  id="list-ibu-account">
+                <li class="nav-item" id="list-ibu-account">
                     <a href="#" class="nav-link" id="list-ibu-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('form.add.anggota.keluarga') }}" class="nav-link">
+                            <a href="{{ route('Tambah Keluarga Ibu') }}" class="nav-link" id="tambah-keluarga">
                                 <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Tambah Keluarga</p>
                             </a>
@@ -46,7 +46,7 @@
                     </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li class="nav-item menu-open">
+                <li class="nav-item">
                     <a href="{{ route("ibu.home") }}" id="ibu-dashboard" class="nav-link">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>Beranda</p>
@@ -84,8 +84,8 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-riwayat-kesehatan">
+                        <a href="#" class="nav-link" id="list-riwayat-kesehatan-link">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Riwayat Kesehatan
@@ -100,7 +100,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('Keluarga Ibu') }}" class="nav-link" id="kesehatan-keluarga">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Kesehatan Keluarga</p>
                                 </a>

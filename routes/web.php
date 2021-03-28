@@ -74,12 +74,8 @@ Route::get('/user/account/new-user', function () {
     return view('pages/auth/user/new-anggota');
 })->name("form.add.anggota.keluarga");
 
-// <<<<<<< HEAD
-// Route::get('/password', function () {
-//     return view('pages/auth/forgot-password');
-// });
 
-// =======
+
 Route::get('/', function () {
     return view('pages/landing-page');
 })->name('Landing Page');
@@ -90,8 +86,6 @@ Route::get('/test', function () {
 
 
 
-
-// >>>>>>> origin/loginRegis
 // Ajax Dependent Select //
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
@@ -198,10 +192,25 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     });
 });
 
-Route::prefix('keluarga')->namespace('User\RiwayatKeluarga')->group(function(){
+
+
+//Daftarkan Anggota Keluarga Lain
+Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
+Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
+Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
+
+
+
+//Riwayat Kesehatan Anggota Keluarga User
+Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
     Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
     Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
-    Route::get('/lansia', 'RiwayatKeluargaController@keluargLansia')->name('Keluarga Lansia');
+    Route::get('/lansia', 'RiwayatKeluargaController@keluargaLansia')->name('Keluarga Lansia');
+    Route::prefix('riwayat')->group(function(){
+        Route::get('/detail/anak', 'RiwayatKeluargaController@riwayatKeluargaAnak')->name('Riwayat Keluarga Anak');
+        Route::get('/detail/ibu', 'RiwayatKeluargaController@riwayatKeluargaIbu')->name('Riwayat Keluarga Ibu');
+        Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
+    });
 });
 
 

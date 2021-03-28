@@ -1,6 +1,6 @@
-@extends('layouts/user/anak/user-layout')
+@extends('layouts/user/ibu/user-layout')
 
-@section('title', 'Riwayat Keluarga Anak')
+@section('title', 'Riwayat Keluarga Ibu')
 
 @push('css')
     <!-- DataTables -->
@@ -31,7 +31,7 @@
                                 <h3 class="card-title my-auto">Seluruh Anggota Keluarga</h3>
                             </div>
                             <div class="col-6 col-sm-6 text-end">
-                                <a href="{{ route("Tambah Keluarga Anak") }}" class="btn btn-success">
+                                <a href="{{ route("Tambah Keluarga Ibu") }}" class="btn btn-success">
                                     <i class="fa fa-plus"></i> Tambah
                                 </a>
                             </div>
@@ -50,10 +50,10 @@
                             <tbody>
                                 <tr class="text-center align-middle my-auto">
                                     <td class="align-middle">#</td>
-                                    <td class="align-middle">Made Putu Nyoman</td>
+                                    <td class="align-middle">Gede Ketut Ngurah</td>
                                     <td class="align-middle d-none d-xs-block d-none d-sm-block">Anak</td>
                                     <td class="text-center align-middle">
-                                        <a href="{{ route("Riwayat Keluarga Anak") }}" class="btn btn-warning btn-sm">
+                                        <a href="{{ route("Riwayat Keluarga Ibu") }}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                                 Detail
                                         </a>
