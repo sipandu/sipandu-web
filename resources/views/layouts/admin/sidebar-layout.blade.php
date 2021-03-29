@@ -165,12 +165,14 @@
                                     </a>
                                 </li>
                             @endif
-                            <li class="nav-item">
-                                <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
-                                    <i class="nav-icon fas fa-user-cog"></i>
-                                    <p>Data Admin</p>
-                                </a>
-                            </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                <li class="nav-item">
+                                    <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+                                        <i class="nav-icon fas fa-user-cog"></i>
+                                        <p>Data Admin</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
                                     <i class="nav-icon fas fa-clinic-medical"></i>

@@ -38,44 +38,82 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Admnistrator</th>
-                                    <th>Jabatan</th>
-                                    <th>Tempat Tugas</th>
-                                    <th>Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center align-middle my-auto">
-                                    <td class="align-middle">#</td>
-                                    <td class="align-middle">Nama Admin</td>
-                                    <td class="align-middle">Jabatannya</td>
-                                    <td class="align-middle">
-                                        <ul class="list-unstyled">
-                                            <li>Tampat Tugas</li>
-                                        </ul>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <a href="{{ route('Detail Admin') }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Admnistrator</th>
-                                    <th>Jabatan</th>
-                                    <th>Tempat Tugas</th>
-                                    <th>Tindakan</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin')    
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Admnistrator</th>
+                                        <th>Jabatan</th>
+                                        <th>Tempat Tugas</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($admin as $data)
+                                        <tr class="text-center align-middle my-auto">
+                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                            <td class="align-middle">{{ $data->nama_pegawai }}</td>
+                                            <td class="align-middle">{{ $data->jabatan }}</td>
+                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
+                                            <td class="text-center align-middle">
+                                                <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                    Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot class="text-center">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Admnistrator</th>
+                                        <th>Jabatan</th>
+                                        <th>Tempat Tugas</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            @endif
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Admnistrator</th>
+                                        <th>Jabatan</th>
+                                        <th>Tempat Tugas</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($admin as $data)
+                                        <tr class="text-center align-middle my-auto">
+                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                            <td class="align-middle">{{ $data->nama_pegawai }}</td>
+                                            <td class="align-middle">{{ $data->jabatan }}</td>
+                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
+                                            <td class="text-center align-middle">
+                                                <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                    Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot class="text-center">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Admnistrator</th>
+                                        <th>Jabatan</th>
+                                        <th>Tempat Tugas</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </tfoot>
+                            </table>  
+                        @endif
                     </div>
                 </div>
             </div>

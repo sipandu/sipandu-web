@@ -67,7 +67,7 @@
                             @endif
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->created_at)) }}</a>
                             </li>
                         </ul>
                         <form action="{{route('logout.admin')}}">
@@ -155,7 +155,7 @@
                                 <div class="form-group row">
                                     <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-yy', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
+                                        <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
                                     </div>
                                 </div>
                                 <div class="form-group row my-auto">

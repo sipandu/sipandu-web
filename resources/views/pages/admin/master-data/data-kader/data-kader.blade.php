@@ -49,22 +49,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center align-middle my-auto">
-                                    <td class="align-middle">#</td>
-                                    <td class="align-middle">Nama Admin</td>
-                                    <td class="align-middle">Jabatannya</td>
-                                    <td class="align-middle">
-                                        <ul class="list-unstyled">
-                                            <li>Tampat Tugas</li>
-                                        </ul>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <a href="{{ route('Detail Kader') }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($kader as $data)
+                                    <tr class="text-center align-middle my-auto">
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle"> {{ $data->nama_pegawai }}</td>
+                                        <td class="align-middle">{{ $data->jabatan }}</td>
+                                        <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                        <td class="text-center align-middle">
+                                            <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                                Detail
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <tfoot class="text-center">
                                 <tr>

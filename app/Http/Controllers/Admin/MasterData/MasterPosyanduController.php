@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\MasterData;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
@@ -15,6 +16,11 @@ use App\Kegiatan;
 
 class MasterPosyanduController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function listPosyandu()
     {
         // $admin = Admin::with('pegawai')->get();
@@ -194,8 +200,10 @@ class MasterPosyanduController extends Controller
         // In progres Event Checking
         $currentKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '<', $today)->where('end_at', '>', $today)->get();
 
+        $headAdmin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'head admin')->get();
+
         return view('pages/admin/master-data/data-posyandu/detail-posyandu', compact(
-            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan'
+            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin'
         ));
         // return $kegiatanPosyandu;
     }
@@ -225,32 +233,62 @@ class MasterPosyanduController extends Controller
 
     public function updatePosyandu(Request $request, Posyandu $posyandu)
     {
-        $request->validate([
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
-            'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
-            'telp' => "required|numeric|digits_between:10,15",
-            'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
-            'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
-            'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
-        ],
-        [
-            'nama.required' => "Nama Posyandu wajib diisi",
-            'nama.regex' => "Format penamaan posyandu tidak sesuai",
-            'nama.min' => "Nama posyandu minimal 2 huruf",
-            'nama.max' => "Nama posyandu maksimal 27 huruf",
-            'banjar.required' => "Banjar wajib diisi",
-            'banjar.regex' => "Format nama banjar tidak sesuai",
-            'banjar.min' => "Nama banjar minimal 3 huruf",
-            'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
-            'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
-            'alamat.required' => "Alamat posyandu wajib diisi",
-            'alamat.regex' => "Format alamat posyandu tidak sesuai",
-            'alamat.min' => "Alamat posyandu minimal 7 karakter",
-            'lat.required' => "Koordinat Latitude posyandu wajib diisi",
-            'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
-            'lng.required' => "Koordinat Longitude posyandu wajib diisi",
-            'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
-        ]);
+        if ($request->telp == $posyandu->nomor_telepon) {
+            $request->validate([
+                'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
+                'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
+                'telp' => "required|numeric|digits_between:10,15",
+                'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
+            ],
+            [
+                'nama.required' => "Nama Posyandu wajib diisi",
+                'nama.regex' => "Format penamaan posyandu tidak sesuai",
+                'nama.min' => "Nama posyandu minimal 2 huruf",
+                'nama.max' => "Nama posyandu maksimal 27 huruf",
+                'banjar.required' => "Banjar wajib diisi",
+                'banjar.regex' => "Format nama banjar tidak sesuai",
+                'banjar.min' => "Nama banjar minimal 3 huruf",
+                'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
+                'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
+                'alamat.required' => "Alamat posyandu wajib diisi",
+                'alamat.regex' => "Format alamat posyandu tidak sesuai",
+                'alamat.min' => "Alamat posyandu minimal 7 karakter",
+                'lat.required' => "Koordinat Latitude posyandu wajib diisi",
+                'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
+                'lng.required' => "Koordinat Longitude posyandu wajib diisi",
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
+            ]);
+        } else {
+            $request->validate([
+                'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
+                'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
+                'telp' => "required|numeric|unique:tb_posyandu,nomor_telepon|digits_between:10,15",
+                'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
+            ],
+            [
+                'nama.required' => "Nama Posyandu wajib diisi",
+                'nama.regex' => "Format penamaan posyandu tidak sesuai",
+                'nama.min' => "Nama posyandu minimal 2 huruf",
+                'nama.max' => "Nama posyandu maksimal 27 huruf",
+                'banjar.required' => "Banjar wajib diisi",
+                'banjar.regex' => "Format nama banjar tidak sesuai",
+                'banjar.min' => "Nama banjar minimal 3 huruf",
+                'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
+                'telp.unique' => "Nomor telepon posyandu sudah digunakan",
+                'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
+                'alamat.required' => "Alamat posyandu wajib diisi",
+                'alamat.regex' => "Format alamat posyandu tidak sesuai",
+                'alamat.min' => "Alamat posyandu minimal 7 karakter",
+                'lat.required' => "Koordinat Latitude posyandu wajib diisi",
+                'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
+                'lng.required' => "Koordinat Longitude posyandu wajib diisi",
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
+            ]);
+        }
 
         $data = Posyandu::where('id', $posyandu->id)->update([
             'nama_posyandu' => $request->nama,
@@ -266,62 +304,6 @@ class MasterPosyanduController extends Controller
         } else if ($data < 1) {
             return ('Input Gagal');
         }
-
-        // return $request;
-    }
-
-    public function updateAdminPosyandu(Request $request, Pegawai $pegawai)
-    {
-        // $request->validate([
-        //     'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
-        //     'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
-        //     'telp' => "required|numeric|digits_between:10,15",
-        //     'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
-        //     'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
-        //     'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
-        // ],
-        // [
-        //     'nama.required' => "Nama Posyandu wajib diisi",
-        //     'nama.regex' => "Format penamaan posyandu tidak sesuai",
-        //     'nama.min' => "Nama posyandu minimal 2 huruf",
-        //     'nama.max' => "Nama posyandu maksimal 27 huruf",
-        //     'banjar.required' => "Banjar wajib diisi",
-        //     'banjar.regex' => "Format nama banjar tidak sesuai",
-        //     'banjar.min' => "Nama banjar minimal 3 huruf",
-        //     'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
-        //     'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
-        //     'alamat.required' => "Alamat posyandu wajib diisi",
-        //     'alamat.regex' => "Format alamat posyandu tidak sesuai",
-        //     'alamat.min' => "Alamat posyandu minimal 7 karakter",
-        //     'lat.required' => "Koordinat Latitude posyandu wajib diisi",
-        //     'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
-        //     'lng.required' => "Koordinat Longitude posyandu wajib diisi",
-        //     'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
-        // ]);
-
-        $data = Pegawai::where('nik', $pegawai->nik)->update([
-            'jabatan' => 'disactive'
-        ]);
-
-        $posyandu = Posyandu::where('id', $pegawai->id_posyandu)->get()->first();
-
-        if ($data > 0) {
-            return redirect()->route('Detail Posyandu', [$posyandu->id]);
-        } else if ($data < 1) {
-            return ('Input Gagal');
-        }
-
-        // return $pegawai;
-    }
-
-    public function profilePosyandu()
-    {
-        return view("pages/admin/master-data/profile-posyandu");
-    }
-
-    public function editProfilePosyandu()
-    {
-        return view("pages/admin/master-data/edit-profile-posyandu");
     }
 }
 

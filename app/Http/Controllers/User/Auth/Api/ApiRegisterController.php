@@ -89,7 +89,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
-                    'role' => 0
+                    'role' => '0'
                 ]);
 
                 $anak = $user->anak()->create([
@@ -127,6 +127,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => '0'
                 ]);
 
                 $anak = $user->anak()->create([
@@ -190,7 +191,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
-                    'role' => 1
+                    'role' => '1'
                 ]);
 
                 $anak = $user->ibu()->create([
@@ -228,6 +229,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => '1'
                 ]);
 
                 $anak = $user->ibu()->create([
@@ -291,10 +293,10 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
-                    'role' => 0
+                    'role' => '2'
                 ]);
 
-                $anak = $user->anak()->create([
+                $anak = $user->lansia()->create([
                     'id_posyandu' => $request->banjar,
                     'nama_lansia' => $request->nama,
                 ]);
@@ -329,6 +331,7 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
+                    'role' => '2'
                 ]);
 
                 $anak = $user->lansia()->create([

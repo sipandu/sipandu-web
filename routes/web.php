@@ -26,25 +26,32 @@ Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
 // Master Data
-Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu")->middleware('cek:super admin, param2, param3, param4');
+Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu")->middleware("cek:super admin,param2,param3,param4");
 Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu");
 Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu");
 Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu");
 Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu");
 Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu");
-Route::post('/admin/posyandu/update-admin/{pegawai}', 'Admin\MasterData\MasterPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu");
 
-Route::get('/admin/posyandu/profile', 'Admin\MasterData\MasterPosyanduController@profilePosyandu')->name("Profile Posyandu");
-Route::get('/admin/posyandu/edit', 'Admin\MasterData\MasterPosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu");
+//Data Posyandu
+Route::get('/admin/posyandu/profile', 'Admin\MasterData\DataPosyanduController@profilePosyandu')->name("Profile Posyandu");
+Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\DataPosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu");
+Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\DataPosyanduController@updateProfilePosyandu')->name("Update Profile Posyandu");
+Route::post('/admin/posyandu/update-admin/', 'Admin\MasterData\DataPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu");
 
-Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin");
-Route::get('/admin/data-admin/detail', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin");
+//Data Admin
+Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,head admin,param3,param4");
+Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin");
+Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin");
 
+//Data Kader
 Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader");
-Route::get('/admin/data-kader/detail', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader");
+Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader");
+Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader");
 
+//Data Anggota
 Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota");
-Route::get('/admin/data-anggota/detail', 'Admin\MasterData\DataAnggotaController@detailAnggota')->name("Detail Anggota");
+Route::get('/admin/data-anggota/detail/anak/{anak}', 'Admin\MasterData\DataAnggotaController@detailAnggotaAnak')->name("Detail Anggota Anak");
 
 
 
@@ -86,10 +93,11 @@ Route::get('/test', function () {
 
 
 
-// Ajax Dependent Select //
-Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
-Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
-Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
+// Ajax Dependent Select
+    Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
+    Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
+    Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
+// End Ajax Dependent Select
 
 
 
@@ -129,7 +137,6 @@ Route::prefix('login')->group(function(){
         Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('cek.otp.token');
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('password.update');
-
     });
     Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::get('/', 'LoginController@showForm')->name('form.user.login');
@@ -143,6 +150,7 @@ Route::prefix('login')->group(function(){
         Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('user.password.update');
     });
 });
+
 
 
 //ADMIN DASBOARD//
@@ -161,7 +169,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
     Route::prefix('account')->group(function(){
-        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test ,parameter');
+        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test,parameter');
         Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan ');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin');
         Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');

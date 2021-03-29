@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class ForgotPasswordController extends Controller
 {
-
     public function showForm(Request $request)
     {
         return view('pages.auth.admin.forgot-password');
