@@ -44,7 +44,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <form  action="{{route('user.cek.otp.token')}}" method="post">
+                <form  action="{{route('cek.otp.token')}}" method="post">
                     @csrf
                     <div class="input-group mb-4">
                         <input name="otp" type="text" class="form-control  @error('otp') is-invalid @enderror" placeholder="Masukan Code OTP">
