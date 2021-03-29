@@ -23,59 +23,150 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 p-0">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-6 col-sm-6 my-auto">
-                                <h3 class="card-title my-auto">Data Anggota Posyandu</h3>
-                            </div>
-                            <div class="col-6 col-sm-6 text-end">
-                                <a href="{{ route("Add User") }}" class="btn btn-success">
-                                    <i class="fa fa-plus"></i> Tambah
-                                </a>
-                            </div>
-                        </div>
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#tbIbu" data-toggle="tab">Ibu Hamil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tbAnak" data-toggle="tab">Anak</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tbLansia" data-toggle="tab">Lansia</a></li>
+                        </ul>
                     </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Anggota</th>
-                                    <th>Status Keluarga</th>
-                                    <th>Lokasi Posyandu</th>
-                                    <th>Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center align-middle my-auto">
-                                    <td class="align-middle">#</td>
-                                    <td class="align-middle">Nama Admin</td>
-                                    <td class="align-middle">Jabatannya</td>
-                                    <td class="align-middle">
-                                        <ul class="list-unstyled">
-                                            <li>Tampat Tugas</li>
-                                        </ul>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <a href="{{ route('Detail Anggota') }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Anggota</th>
-                                    <th>Status Keluarga</th>
-                                    <th>Lokasi Posyandu</th>
-                                    <th>Tindakan</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="tbIbu">
+                                @if ($ibu->count() > 0)
+                                    <table id="dataIbu" class="table table-bordered table-hover table-responsive-sm">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Anak</th>
+                                                <th>Lokasi Posyandu</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($ibu as $data)
+                                                <tr class="text-center align-middle my-auto">
+                                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                                    <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="text-center align-middle d-md-none">
+                                                        <a href="" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center align-middle d-none d-md-block">
+                                                        <a href="" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                            Detail
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Anak</th>
+                                                <th>Lokasi Posyandu</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                @else
+                                    <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Lanjut Usia</p>
+                                @endif
+                            </div>
+                            <div class="tab-pane" id="tbAnak">
+                                @if ($anak->count() > 0)
+                                    <table id="dataAnak" class="table table-bordered table-hover table-responsive-sm">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Anak</th>
+                                                <th>Lokasi Posyandu</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($anak as $data)
+                                                <tr class="text-center align-middle my-auto">
+                                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                                    <td class="align-middle">{{ $data->nama_anak }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="text-center align-middle d-md-none">
+                                                        <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center align-middle d-none d-md-block">
+                                                        <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                            Detail
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Anak</th>
+                                                <th>Lokasi Posyandu</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                @else
+                                    <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Bayi dan Balitas</p>
+                                @endif
+                            </div>
+                            <div class="tab-pane" id="tbLansia">
+                                @if ($lansia->count() > 0)
+                                    <table id="dataLansia" class="table table-bordered table-hover table-responsive-sm">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Lansia</th>
+                                                <th>Jabatan</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($lansia as $data)
+                                                <tr class="text-center align-middle my-auto">
+                                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                                    <td class="align-middle">{{ $data->nama_lansia }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="text-center align-middle d-md-none">
+                                                        <a href="" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center align-middle d-none d-md-block">
+                                                        <a href="" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                            Detail
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot class="text-center">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Lansia</th>
+                                                <th>Jabatan</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                @else
+                                    <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Lanjut Usia</p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,8 +198,54 @@
         });
         
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+            $("#dataLansia").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari:",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "sSearchPlaceholder": "Cari data....",
+                },
+                "language": {
+                    "buttons": {
+                        "colvis": 'Tampilkan kolom',
+                        // "excel": 'Unduh',
+                    },
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                },
+                "buttons": ["colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function () {
+            $("#dataAnak").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari:",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "sSearchPlaceholder": "Cari data....",
+                },
+                "language": {
+                    "buttons": {
+                        "colvis": 'Tampilkan kolom',
+                        // "excel": 'Unduh',
+                    },
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                },
+                "buttons": ["colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function () {
+            $("#dataIbu").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",

@@ -13,7 +13,7 @@ class ResetPasswordController extends Controller
 {
     public function showForm(Request $request)
     {
-        return view('pages.auth.admin.password.verify-otp');
+        return view('pages.auth.admin.verify-otp');
     }
 
     public function cekOTP(Request $request)

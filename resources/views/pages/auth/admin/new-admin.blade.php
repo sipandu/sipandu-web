@@ -200,13 +200,13 @@
                                                         <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
                                                             @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
                                                                 <option selected disabled>Pilih jabatan....</option>
-                                                                <option value="Super Admin">Super Admin</option>
-                                                                <option value="Head Admin">Head Admin</option>
-                                                                <option value="Admin">Admin</option>
+                                                                <option value="super admin">Super Admin</option>
+                                                                <option value="head admin">Head Admin</option>
+                                                                <option value="admin">Admin</option>
                                                             @endif
                                                             @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
                                                                 <option selected disabled>Pilih jabatan....</option>
-                                                                <option value="Admin">Admin</option>
+                                                                <option value="admin">Admin</option>
                                                             @endif
                                                         </select>
                                                         <div class="input-group-append">

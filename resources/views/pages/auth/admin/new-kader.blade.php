@@ -187,7 +187,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 d-flex justify-content-end">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <a href="{{ route("Data Kader") }}" class="btn btn-warning text-end">Kembali</a>
                                             <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                         </div>
                                     </div>
@@ -206,7 +207,7 @@
                                                     @else
                                                         <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
                                                             <option selected disabled>Pilih jabatan....</option>
-                                                            <option value="tenaga kesehatan">Kader</option>
+                                                            <option value="kader">Kader</option>
                                                             <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                         </select>
                                                     @endif
@@ -262,7 +263,7 @@
                                                     <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%" >
                                                         <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{ $p->desa->nama_desa }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('lokasi_posyandu')
