@@ -41,6 +41,7 @@ class RegisController extends Controller
 
     public function storeAdminKader(Request $request)
     {
+        // return($request);
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "email|unique:tb_admin,email",
@@ -125,7 +126,7 @@ class RegisController extends Controller
             'nik' => $request->nik,
             'file_ktp' => $path,
         ]);
-        return redirect()->back()->with(['success' => 'Akun baru berhasil ditambahkan']);
+        return redirect()->back()->with(['success' => 'Data akun '.$request->jabatan.' baru berhasil ditambahkan']);
     }
 
     public function storeUserIbu(Request $request)

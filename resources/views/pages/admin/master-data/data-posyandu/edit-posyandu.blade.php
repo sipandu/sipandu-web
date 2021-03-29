@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="card-footer">
                                         <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                     </div>
@@ -198,7 +198,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="card-footer">
                                         <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
                                     </div>
