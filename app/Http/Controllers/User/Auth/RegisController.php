@@ -273,7 +273,7 @@ class RegisController extends Controller
                 'is_verified' => 0,
             ]);
 
-            $lansia = $user->anak()->create([
+            $lansia = $user->lansia()->create([
                 'id_posyandu' => $request->banjar,
                 'nama_lansia' => $request->nama,
             ]);
