@@ -331,7 +331,7 @@ class ApiRegisterController extends Controller
                     'is_verified' => 0,
                 ]);
 
-                $anak = $user->anak()->create([
+                $anak = $user->lansia()->create([
                     'id_posyandu' => $request->banjar,
                     'nama_lansia' => $request->nama,
                 ]);
