@@ -45,13 +45,13 @@ class ForgotPasswordController extends Controller
     public function postTelegram(Request $request)
     {
         $this->validate($request,[
-            'telegram' => "required|exists:tb_admin",
+            'username_tele' => "required|exists:tb_admin",
         ],
         [
             'email.required' => "Email wajib diisi",
             'email.exists' => "Email yang anda masukan tidak terdaftar",
         ]);
-        $admin = Admin::where('username_tele', $request->telegram)->first();
+        $admin = Admin::where('username_tele', $request->username_tele)->first();
 
         $admin->timestamps = false;
         $admin->otp_token = rand(100000,999999);

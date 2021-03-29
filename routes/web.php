@@ -125,11 +125,11 @@ Route::prefix('login')->group(function(){
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
         Route::post('/reset/password', 'ForgotPasswordController@postEmail')->name('post.email');
+        Route::post('/reset/password/telegram', 'ForgotPasswordController@postTelegram')->name('post.telegram');
         Route::get('/verify/token', 'ResetPasswordController@showForm')->name('form.verify.token');
         Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('cek.otp.token');
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('/password/reset', 'ResetPasswordController@passwordUpdate')->name('password.update');
-
     });
     Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::get('/', 'LoginController@showForm')->name('form.user.login');
@@ -246,6 +246,15 @@ Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('pe
 Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
+
+//Pengumuman
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home');
+Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create');
+Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store');
+Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show');
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update');
+Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete');
+Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
 //Kegiatan
 Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');

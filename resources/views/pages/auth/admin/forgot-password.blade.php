@@ -37,13 +37,13 @@
                     </div>
                 @endif
                 <div class="row">
-                    <form action="#" method="POST" class="col-md-6">
+                    <form action="{{ route('post.telegram') }}" method="POST" class="col-md-6">
                         @csrf
                         <div class="col-md">
                             <div class="form-group mb-2">
                                 <label>Telegram</label>
                                 <div class="input-group">
-                                    <input name="telegram" type="text" class="form-control" placeholder="Username Telegram">
+                                    <input name="username_tele" type="text" class="form-control" placeholder="Username Telegram">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fab fa-telegram-plane"></span>

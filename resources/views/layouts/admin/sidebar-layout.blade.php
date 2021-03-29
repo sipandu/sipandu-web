@@ -321,7 +321,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
                                     <i class="fas fa-bullhorn nav-icon"></i>
                                     <p>Pengumuman</p>
                                 </a>
