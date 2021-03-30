@@ -100,7 +100,7 @@
                                 <ul class="list-unstyled">
                                     @foreach ($headAdmin as $admin)
                                         <li>
-                                            <a class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
+                                            <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -131,13 +131,13 @@
                                 <h5 class="mt-3 text-muted"><i class="fas fa-users"></i> Jumlah Petugas</h5>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntAdmin->count() }} Administrator</a>
+                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none">{{ $cntAdmin->count() }} Administrator</a>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntKader->count() }} Kader</a>
+                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntKader->count() }} Kader</a>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
+                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Selanjutnya</h5>
@@ -153,12 +153,6 @@
                                         
                                     @endif
                                 </ul>
-                                {{-- <div class="text-center mt-5 mb-5">
-                                    <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    @foreach ($dataPosyandu as $data)
-                                        <a href="{{ route('Edit Posyandu', [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
-                                    @endforeach
-                                </div> --}}
                                 <div class="text-center mt-5 mb-5">
                                     <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
                                     <a href="{{ route('Edit Profile Posyandu', [Auth::guard('admin')->user()->pegawai->id_posyandu]) }}" class="btn btn-sm btn-warning">Edit</a>

@@ -75,7 +75,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            @endif
+                        @endif
                         @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead class="text-center">
@@ -88,7 +88,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($admin as $data)
+                                    @foreach ($adminAll as $data)
                                         <tr class="text-center align-middle my-auto">
                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                             <td class="align-middle">{{ $data->nama_pegawai }}</td>

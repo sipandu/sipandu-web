@@ -28,8 +28,11 @@ class DataKaderController extends Controller
         $kader = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where( function ($q) {
             $q->where('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan');
         })->orderBy('id', 'desc')->get();
+        $kaderAll = Pegawai::orWhere('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan')->get();
 
-        return view('pages/admin/master-data/data-kader/data-kader', compact('kader'));
+        // return($kaderAll);
+
+        return view('pages/admin/master-data/data-kader/data-kader', compact('kader', 'kaderAll'));
     }
 
     public function detailKader(Pegawai $pegawai)

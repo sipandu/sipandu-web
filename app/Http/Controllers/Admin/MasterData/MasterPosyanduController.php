@@ -25,7 +25,7 @@ class MasterPosyanduController extends Controller
     {
         // $admin = Admin::with('pegawai')->get();
         $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
-        $pegawai = Pegawai::where('jabatan', 'admin')->get();
+        $pegawai = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/data-posyandu', compact('posyandu', 'pegawai'));
     }
@@ -238,9 +238,9 @@ class MasterPosyanduController extends Controller
                 'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
                 'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
                 'telp' => "required|numeric|digits_between:10,15",
-                'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
-                'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
-                'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
+                'alamat' => "required|regex:/^[a-z0-9 ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:3",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:3"
             ],
             [
                 'nama.required' => "Nama Posyandu wajib diisi",
@@ -256,18 +256,20 @@ class MasterPosyanduController extends Controller
                 'alamat.regex' => "Format alamat posyandu tidak sesuai",
                 'alamat.min' => "Alamat posyandu minimal 7 karakter",
                 'lat.required' => "Koordinat Latitude posyandu wajib diisi",
+                'lat.min' => "Koordinat Latitude minimal berjumlah 3 karakter",
                 'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
                 'lng.required' => "Koordinat Longitude posyandu wajib diisi",
-                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
+                'lng.min' => "Koordinat Longitude minimal berjumlah 3 karakter",
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai",
             ]);
         } else {
             $request->validate([
                 'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
                 'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
                 'telp' => "required|numeric|unique:tb_posyandu,nomor_telepon|digits_between:10,15",
-                'alamat' => "required|regex:/^[a-z ,.]+$/i|min:7",
-                'lat' => "required|regex:/^[0-9.-]+$/i|min:5",
-                'lng' => "required|regex:/^[0-9.-]+$/i|min:5"
+                'alamat' => "required|regex:/^[a-z0-9 ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:3",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:3"
             ],
             [
                 'nama.required' => "Nama Posyandu wajib diisi",
@@ -285,8 +287,10 @@ class MasterPosyanduController extends Controller
                 'alamat.min' => "Alamat posyandu minimal 7 karakter",
                 'lat.required' => "Koordinat Latitude posyandu wajib diisi",
                 'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
+                'lat.min' => "Koordinat Latitude minimal berjumlah 3 karakter",
                 'lng.required' => "Koordinat Longitude posyandu wajib diisi",
-                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai"
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai",
+                'lng.min' => "Koordinat Longitude minimal berjumlah 3 karakter",
             ]);
         }
 
@@ -299,10 +303,10 @@ class MasterPosyanduController extends Controller
             'longitude' => $request->lng,
         ]);
 
-        if ($data > 0) {
-            return redirect()->route('Detail Posyandu', [$posyandu->id]);
-        } else if ($data < 1) {
-            return ('Input Gagal');
+        if ($data) {
+            return redirect()->route('Detail Posyandu', [$posyandu->id])->with(['success' => 'Data profile '.$posyandu->nama_posyandu.' berhasil diubah']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data profile '.$request->nama.' gagal diubah']);
         }
     }
 }

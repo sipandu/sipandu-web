@@ -97,44 +97,49 @@
                             </div>
                             <div class="col-12 col-sm-12 col-lg-4 order-1 order-sm-1  order-lg-2">
                                 @foreach ($dataPosyandu as $data)
-                                <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ $data->nama_posyandu }}</h3>
-                                <h5 class="mt-5 text-muted">Administrator</h5>
-                                <ul class="list-unstyled">
-                                    @foreach ($pegawai->where('jabatan', 'admin') as $pgw)
+                                    <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ $data->nama_posyandu }}</h3>
+                                    <h5 class="mt-5 text-muted"><i class="fas fa-user-cog"></i> Head Admin</h5>
+                                    <ul class="list-unstyled">
+                                        @foreach ($pegawai->where('jabatan', 'head admin') as $pgw)
+                                            <li>
+                                                <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <h5 class="text-muted"><i class="fas fa-user-shield"></i> Administrator</h5>
+                                    <ul class="list-unstyled">
+                                        @foreach ($pegawai->where('jabatan', 'admin') as $pgw)
+                                            <li>
+                                                <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <h5 class="mt-3 text-muted"><i class="fas fa-map-marker-alt"></i> Alamat</h5>
+                                    <ul class="list-unstyled">
                                         <li>
-                                            <a href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-user-shield"></i> {{ $pgw->nama_pegawai }}</a>
+                                            <p href="" class="btn-link text-secondary text-decoration-none">{{ $data->alamat }}</p>
                                         </li>
-                                    @endforeach
-                                </ul>
-                                <h5 class="mt-3 text-muted">Alamat</h5>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <p href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-map-marker-alt"></i> {{ $data->alamat }}</p>
-                                    </li>
-                                </ul>
-                                <h5 class="mt-3 text-muted">Lokasi</h5>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-map-marked-alt"></i> Lihat pada peta</a>
-                                    </li>
-                                </ul>
-                                <h5 class="mt-3 text-muted">Nomor Telp</h5>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <p href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-phone-square-alt"></i> {{ $data->nomor_telepon}}</p>
-                                    </li>
-                                </ul>
+                                    </ul>
+                                    <h5 class="mt-3 text-muted"><i class="fas fa-map-marked-alt"></i> Lokasi</h5>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="" class="btn-link text-secondary text-decoration-none">Lihat pada peta</a>
+                                        </li>
+                                    </ul>
+                                    <h5 class="mt-3 text-muted"><i class="fas fa-phone-alt"></i> Nomor Telp</h5>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <p href="" class="btn-link text-secondary text-decoration-none">{{ $data->nomor_telepon}}</p>
+                                        </li>
+                                    </ul>
                                 @endforeach
-                                <h5 class="mt-4 text-muted">Jumlah Petugas</h5>
+                                <h5 class="mt-4 text-muted"><i class="fas fa-users-cog"></i> Jumlah Petugas</h5>
                                 <ul class="list-unstyled lh-sm">
-                                    <li>
-                                        <p href="" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ $pegawai->where('jabatan', 'admin')->count() }} Petugas</p>
+                                    <li class="my-1">
+                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</a>
                                     </li>
-                                    <li>
-                                        <p href="" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader</p>
-                                    </li>
-                                    <li>
-                                        <p href="" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-nurse"></i> {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Tenaga Kesehatan</p>
+                                    <li class="my-1">
+                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</a>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Berikutnya</h5>
@@ -147,13 +152,12 @@
                                         @endforeach
                                     @else
                                         <p href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-long-arrow-alt-right"></i> Tidak Terdapat Kegiatan</p>
-                                        
                                     @endif
                                 </ul>
                                 <div class="text-center mt-5 mb-5">
                                     <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
                                     @foreach ($dataPosyandu as $data)
-                                        <a href="{{ route('Edit Posyandu', [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{ route("Edit Posyandu", [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -175,4 +179,20 @@
             $('#data-posyandu').addClass('active');
         });
     </script>
+
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush

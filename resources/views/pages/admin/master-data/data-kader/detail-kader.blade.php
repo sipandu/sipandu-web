@@ -135,7 +135,7 @@
                                 <form action="{{ route('Update Data Kader', [$dataAdmin->pegawai->id]) }}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Kader">
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Lengkap Kader">
                                         <label for="floatingInput">Nama Lengkap</label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
