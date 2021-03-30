@@ -26,37 +26,38 @@ Route::get('/refresh-captcha', 'Admin\Auth\ChangeCaptcha@refreshCaptcha');
 
 
 //Data Posyandu
-Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu")->middleware("cek:super admin,param2,param3,param4");
-Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu")->middleware("cek:super admin,param2,param3,param4");
-Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu")->middleware("cek:super admin,param2,param3,param4");
-Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu")->middleware("cek:super admin,param2,param3,param4");
-Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu")->middleware("cek:super admin,param2,param3,param4");
-Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu")->middleware("cek:super admin,param2,param3,param4");
+Route::get('/admin/posyandu/all', 'Admin\MasterData\MasterPosyanduController@listPosyandu')->name("Data Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('/admin/posyandu/new', 'Admin\MasterData\MasterPosyanduController@addPosyandu')->name("Add Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@storePosyandu')->name("New Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('/admin/posyandu/update-admin/', 'Admin\MasterData\MasterPosyanduController@updateAdminPosyandu')->name("Update Posyandu-Admin")->middleware("cek:super admin,param2,param3,param4,param5");
 
 //Profile Posyandu
-Route::get('/admin/profile-posyandu/profile', 'Admin\MasterData\DataPosyanduController@profilePosyandu')->name("Profile Posyandu")->middleware("cek:head admin,admin,param3,param4");
-Route::get('/admin/profile-posyandu/edit/{posyandu}', 'Admin\MasterData\DataPosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu")->middleware("cek:head admin,admin,param3,param4");
-Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\DataPosyanduController@updateProfilePosyandu')->name("Update Profile Posyandu")->middleware("cek:head admin,admin,param3,param4");
-Route::post('/admin/profile-posyandu/update-admin/', 'Admin\MasterData\DataPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu")->middleware("cek:head admin,admin,param3,param4");
+Route::get('/admin/profile-posyandu/profile', 'Admin\MasterData\DataPosyanduController@profilePosyandu')->name("Profile Posyandu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/admin/profile-posyandu/edit/{posyandu}', 'Admin\MasterData\DataPosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu")->middleware("cek:head admin,kader,tenaga kesehatan,admin,param5");
+Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\DataPosyanduController@updateProfilePosyandu')->name("Update Profile Posyandu")->middleware("cek:head admin,admin,param3,param4,param5");
+Route::post('/admin/profile-posyandu/update-admin/', 'Admin\MasterData\DataPosyanduController@updateAdminPosyandu')->name("Update Admin Posyandu")->middleware("cek:head admin,param2,param3,param4,param5");
 
 //Data Admin
-Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,head admin,admin,param4");
-Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4");
-Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4");
+Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
+Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
+Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
 
 //Data Kader
-Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader");
-Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader");
-Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4");
+Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
 
 //Data Anggota
-Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::get('/admin/data-anggota/detail/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@detailAnggotaIbu')->name("Detail Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::get('/admin/data-anggota/detail/anak/{anak}', 'Admin\MasterData\DataAnggotaController@detailAnggotaAnak')->name("Detail Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::get('/admin/data-anggota/detail/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@detailAnggotaLansia')->name("Detail Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-anggota/update/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@updateAnggotaIbu')->name("Update Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-anggota/update/anak/{anak}', 'Admin\MasterData\DataAnggotaController@updateAnggotaAnak')->name("Update Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@updateAnggotaLansia')->name("Update Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan");
+Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/admin/data-anggota/detail/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@detailAnggotaIbu')->name("Detail Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/admin/data-anggota/detail/anak/{anak}', 'Admin\MasterData\DataAnggotaController@detailAnggotaAnak')->name("Detail Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/admin/data-anggota/detail/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@detailAnggotaLansia')->name("Detail Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::post('/admin/data-anggota/update/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@updateAnggotaIbu')->name("Update Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::post('/admin/data-anggota/update/anak/{anak}', 'Admin\MasterData\DataAnggotaController@updateAnggotaAnak')->name("Update Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@updateAnggotaLansia')->name("Update Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
 
 

@@ -24,7 +24,9 @@
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-posyandu-tab" data-bs-toggle="tab" data-bs-target="#nav-posyandu" type="button" role="tab" aria-controls="nav-posyandu" aria-selected="true">Data Posyandu</button>
-                        <button class="nav-link" id="nav-administrator-tab" data-bs-toggle="tab" data-bs-target="#nav-administrator" type="button" role="tab" aria-controls="nav-administrator" aria-selected="false">Admin & Kader</button>
+                        @if (Auth::guard('admin')->user()->pegawai->jabatan != 'admin')
+                            <button class="nav-link" id="nav-administrator-tab" data-bs-toggle="tab" data-bs-target="#nav-administrator" type="button" role="tab" aria-controls="nav-administrator" aria-selected="false">Admin & Kader</button>
+                        @endif
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -147,58 +149,67 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
-                        <div class="card card-primary">
-                            <div class="card-header my-auto">
-                                <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
-                            </div>
-                            <form action="{{ route('Update Admin Posyandu') }}" method="POST">
-                                @csrf
-                                <div class="modal-body p-3">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>Non-aktifkan Kader/Admin</label>
-                                                <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror" style="width: 100%;">
-                                                    <option value="#" disabled selected>Select Kabupaten</option>
-                                                    @foreach ($pegawai as $pgw)
-                                                        <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('pegawai')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
+                    @if (Auth::guard('admin')->user()->pegawai->jabatan != 'admin')
+                        <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
+                            <div class="card card-primary">
+                                <div class="card-header my-auto">
+                                    <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
+                                </div>
+                                <form action="{{ route('Update Admin Posyandu') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body p-3">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Non-aktifkan Kader/Admin</label>
+                                                    <div class="input-group mb-3">
+                                                        <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror">
+                                                            <option value="#" disabled selected>Pilih admin/kader</option>
+                                                            @foreach ($pegawai as $pgw)
+                                                                <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-city"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('pegawai')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                @enderror
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="inputBanjar">NIK Kader/Admin</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-city"></span>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputBanjar">NIK Kader/Admin</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-city"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('nik')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('nik')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer text-end">
-                                    <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
-                                </div>
-                            </form>
+                                    <div class="modal-footer text-end">
+                                        <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

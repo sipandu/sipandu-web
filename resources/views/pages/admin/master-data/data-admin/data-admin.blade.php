@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin')    
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin' || auth()->guard('admin')->user()->pegawai->jabatan == 'admin')
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>

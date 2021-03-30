@@ -70,7 +70,11 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#ubahProfile" data-toggle="tab">Ubah Profile</a></li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan != 'kader' && Auth::guard('admin')->user()->pegawai->jabatan != 'tenaga kesehatan')
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan != $dataAdmin->pegawai->jabatan)
+                                    <li class="nav-item"><a class="nav-link" href="#ubahProfile" data-toggle="tab">Ubah Profile</a></li>
+                                @endif
+                            @endif
                         </ul>
                     </div>
                     <div class="card-body">
@@ -131,60 +135,64 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="tab-pane" id="ubahProfile">
-                                <form action="{{ route('Update Data Kader', [$dataAdmin->pegawai->id]) }}" method="POST" class="form-horizontal">
-                                    @csrf
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Lengkap Kader">
-                                        <label for="floatingInput">Nama Lengkap</label>
-                                        @error('nama')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataAdmin->pegawai->nik) }}" placeholder="NIK Kader">
-                                        <label for="floatingInput">Nomor Induk Kependudukan</label>
-                                        @error('nik')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan != 'kader' && Auth::guard('admin')->user()->pegawai->jabatan != 'tenaga kesehatan')
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan != $dataAdmin->pegawai->jabatan)
+                                    <div class="tab-pane" id="ubahProfile">
+                                        <form action="{{ route('Update Data Kader', [$dataAdmin->pegawai->id]) }}" method="POST" class="form-horizontal">
+                                            @csrf
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataAdmin->pegawai->tempat_lahir) }}" placeholder="Tempat Lahir Kader">
-                                                <label for="floatingInput">Tampat Lahir</label>
-                                                @error('tempat_lahir')
+                                                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Lengkap Kader">
+                                                <label for="floatingInput">Nama Lengkap</label>
+                                                @error('nama')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataAdmin->pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Kader" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <label for="floatingInput">Tanggal Lahir</label>
-                                                    @error('tgl_lahir')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataAdmin->pegawai->nik) }}" placeholder="NIK Kader">
+                                                <label for="floatingInput">Nomor Induk Kependudukan</label>
+                                                @error('nik')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataAdmin->pegawai->tempat_lahir) }}" placeholder="Tempat Lahir Kader">
+                                                        <label for="floatingInput">Tampat Lahir</label>
+                                                        @error('tempat_lahir')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="form-floating">
+                                                            <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataAdmin->pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Kader" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <label for="floatingInput">Tanggal Lahir</label>
+                                                            @error('tgl_lahir')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12 d-grid">
+                                                    <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12 d-grid">
-                                            <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                @endif
+                            @endif
                         </div>
                     </div>
                 </div>

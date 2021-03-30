@@ -165,7 +165,7 @@
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'super admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
                                 <li class="nav-item">
                                     <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                         <i class="nav-icon fas fa-user-cog"></i>
