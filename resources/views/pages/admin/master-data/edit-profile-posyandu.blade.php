@@ -33,14 +33,15 @@
                             <div class="card-header my-auto">
                                 <h3 class="card-title my-auto">Ubah Data Posyandu</h3>
                             </div>
-                            <form action="" method="">
+                            <form action="{{ route('Update Profile Posyandu', [$dataPosyandu->id]) }}" method="POST">
+                            @csrf
                                 <div class="modal-body p-3">
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="inputNama">Nama Posyandu</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="inputNama" value="" placeholder="Masukan nama posyandu">
+                                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="inputNama" value="{{ old('nama', $dataPosyandu->nama_posyandu) }}" placeholder="Masukan nama posyandu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-clinic-medical"></span>
@@ -56,8 +57,8 @@
                                             <div class="form-group">
                                                 <label for="inputBanjar">Banjar</label>
                                                 <div class="input-group mb-3">
-                                                    <span class="input-group-text @error('banjar') is-invalid @enderror" id="basic-addon1">Banjar</span>
-                                                    <input type="text" class="form-control" name="banjar" id="inputBanjar" value="" placeholder="Masukan lokasi banjar">
+                                                    <span class="input-group-text" id="basic-addon1">Banjar</span>
+                                                    <input type="text" class="form-control @error('banjar') is-invalid @enderror" name="banjar" id="inputBanjar" value="{{ old('banjar', $dataPosyandu->banjar) }}" placeholder="Masukan lokasi banjar">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-city"></span>
@@ -73,7 +74,7 @@
                                             <div class="form-group">
                                                 <label for="inputTelp">Nomor Telepon</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" id="inputTelp" value="" placeholder="Masukan nomor telepon posyandu">
+                                                    <input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" id="inputTelp" value="{{ old('telp', $dataPosyandu->nomor_telepon) }}" placeholder="Masukan nomor telepon posyandu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-phone-alt"></span>
@@ -91,7 +92,7 @@
                                             <div class="form-group">
                                                 <label for="inputAlamat">Alamat</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="inputAlamat" value="" placeholder="Masukan alamat posyandu">
+                                                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="inputAlamat" value="{{ old('alamat', $dataPosyandu->alamat) }}" placeholder="Masukan alamat posyandu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-road"></span>
@@ -107,7 +108,7 @@
                                             <div class="form-group">
                                                 <label for="inputLay">Koordinat Latitude</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="inputLat" value="" placeholder="Masukan koordinat Latitude posyandu">
+                                                    <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="inputLat" value="{{ old('lat', $dataPosyandu->latitude) }}" placeholder="Masukan koordinat Latitude posyandu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-map-marker-alt"></span>
@@ -123,7 +124,7 @@
                                             <div class="form-group">
                                                 <label for="inputLng">Koordinat Longitude</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="inputLng" value="" placeholder="Masukan koordinat Longitude posyandu">
+                                                    <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="inputLng" value="{{ old('lng', $dataPosyandu->longitude) }}" placeholder="Masukan koordinat Longitude posyandu">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-map-marker-alt"></span>
@@ -149,47 +150,49 @@
                     <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
                         <div class="card card-primary">
                             <div class="card-header my-auto">
-                                <h3 class="card-title my-auto">Ubah Kader dan Admin Posyandu</h3>
+                                <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
                             </div>
-                            <form action="" method="">
+                            <form action="{{ route('Update Admin Posyandu') }}" method="POST">
+                                @csrf
                                 <div class="modal-body p-3">
-                                    <div class="form-group">
-                                        <label for="inputDesa">Non-aktifkan Kader/Admin</label>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control @error('pegawai') is-invalid @enderror" name="pegawai" list="dataPegawai" id="inputPegawai" value="" placeholder="Cari admin Nama Posyandu..." autocomplete="off">
-                                            <datalist id="dataPegawai">
-                                                <option value="">
-                                            </datalist>
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-city"></span>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>Non-aktifkan Kader/Admin</label>
+                                                <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror" style="width: 100%;">
+                                                    <option value="#" disabled selected>Select Kabupaten</option>
+                                                    @foreach ($pegawai as $pgw)
+                                                        <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('pegawai')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
-                                            @error('pegawai')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputBanjar">NIK Kader/Admin</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-city"></span>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="inputBanjar">NIK Kader/Admin</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-city"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('nik')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
-                                            @error('nik')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                <div class="modal-footer text-end">
                                     <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
                                 </div>
@@ -211,4 +214,20 @@
             $('#profile-posyandu').addClass('active');
         });
     </script>
+
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush

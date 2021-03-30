@@ -161,12 +161,12 @@
                                                         <div class="custom-file">
                                                             <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
                                                             <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
+                                                            @error('file')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                        @error('file')
-                                                            <div class="invalid-feedback text-start">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -186,8 +186,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 d-flex justify-content-between">
-                                                <a href="{{ route('Admin Home') }}" class="btn btn-danger text-end">Batal</a>
+                                            <div class="col-12 d-flex justify-content-end">
                                                 <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                             </div>
                                         </div>
@@ -201,13 +200,13 @@
                                                         <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
                                                             @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
                                                                 <option selected disabled>Pilih jabatan....</option>
-                                                                <option value="Super Admin">Super Admin</option>
-                                                                <option value="Head Admin">Head Admin</option>
-                                                                <option value="Admin">Admin</option>
+                                                                <option value="super admin">Super Admin</option>
+                                                                <option value="head admin">Head Admin</option>
+                                                                <option value="admin">Admin</option>
                                                             @endif
                                                             @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
                                                                 <option selected disabled>Pilih jabatan....</option>
-                                                                <option value="Admin">Admin</option>
+                                                                <option value="admin">Admin</option>
                                                             @endif
                                                         </select>
                                                         <div class="input-group-append">
@@ -311,7 +310,6 @@
                                                         <a class="btn btn-warning" onclick="stepper.previous()">Sebelumnya</a>
                                                     </div>
                                                     <div class="col-6 text-end">
-                                                        <a href="{{ route('Admin Home') }}" class="btn btn-danger my-1">Batal</a>
                                                         <button type="submit" class="btn btn-primary my-1">Daftarkan Akun</button>
                                                     </div>
                                                 </div>

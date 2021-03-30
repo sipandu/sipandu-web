@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Profile Admin')
+@section('title', 'Data Profile Ibu Hamil')
 
 @push('css')
     <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -16,18 +16,16 @@
             height: 150px;
         }
     </style>
-
-    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Administrator</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Anak</h1>
+        <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Admin') }}">Data Admin</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Profile Admin</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Anggota') }}">Data Anggota Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Profile Ibu Hamil</li>
                 </ol>
             </nav>
         </div>
@@ -39,29 +37,23 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{$dataAdmin->profile_image}}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ $dataUser->profile_image}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
-                        <h3 class="profile-username text-center">{{$dataAdmin->pegawai->nama_pegawai}}</h3>
-                        <p class="text-muted text-center">{{$dataAdmin->email}}</p>
+                        <h3 class="profile-username text-center">{{ $dataUser->ibu->nama_ibu_hamil }}</h3>
+                        <p class="text-muted text-center">{{ $dataUser->email }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b class="fw-bold">Jabatan</b>
-                                @if ($dataAdmin->pegawai->jabatan == 'admin')
-                                    <a class="float-right text-decoration-none link-dark">Administrator</a>                                   
-                                @endif
-                                @if ($dataAdmin->pegawai->jabatan == 'head admin')
-                                    <a class="float-right text-decoration-none link-dark">Head Admin</a>  
-                                @endif
+                                <b class="fw-bold">Status Keluarga</b>
+                                <a class="float-right text-decoration-none link-dark">Ibu</a>
                             </li>
                             <li class="list-group-item">
-                                <b class="fw-bold">Tempat Tugas</b>
-                                <a class="float-right text-decoration-none link-dark">{{$dataAdmin->pegawai->posyandu->nama_posyandu}}</a>
-                                @include('modal/admin/status-konsultasi')
+                                <b class="fw-bold">Lokasi Posyandu</b>
+                                <a class="float-right text-decoration-none link-dark">{{ $dataUser->ibu->posyandu->nama_posyandu}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataAdmin->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataUser->created_at)) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -79,23 +71,23 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="profile">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->nama_pegawai}}" disabled readonly>
+                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->nama_ibu_hamil }}" disabled readonly>
                                     <label for="floatingInput">Nama Lengkap</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->nik}}" disabled readonly>
+                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->NIK }}" disabled readonly>
                                     <label for="floatingInput">Nomor Induk Kependudukan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->tempat_lahir}}" disabled readonly>
+                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir }}" disabled readonly>
                                             <label for="floatingInput">Tampat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ old('email', date('d-M-Y', strtotime($dataAdmin->pegawai->tanggal_lahir))) }}" disabled readonly>
+                                            <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->ibu->tanggal_lahir)) }}" disabled readonly>
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
                                     </div>
@@ -103,20 +95,20 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            @if ($dataAdmin->pegawai->nomor_telepon == NULL)
+                                            @if ($dataUser->ibu->nomor_telepon == NULL)
                                                 <input type="text" class="form-control" id="floatingInput" value="Nomor telepon belum dimasukan" disabled readonly>
                                             @else
-                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->nomor_telepon}}" disabled readonly>
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->nomor_telepon }}" disabled readonly>
                                             @endif
                                             <label for="floatingInput">Nomor Telp</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            @if ($dataAdmin->pegawai->username_telegram == NULL)
+                                            @if ($dataUser->username_tele == NULL)
                                                 <input type="text" class="form-control" id="floatingInput" value="Username Telegram belum dimasukan" disabled readonly>
                                             @else
-                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->username_telegram }}" disabled readonly>
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->username_tele }}" disabled readonly>
                                             @endif
                                             <label for="floatingInput">Username Telegram</label>
                                         </div>
@@ -126,18 +118,15 @@
                                     <div class="card-body bg-light my-auto">
                                         <p class="fs-5 fw-bold my-auto">Scan KTP</p>
                                     </div>
-                                    @if ($dataAdmin->pegawai->file_ktp == NULL)
-                                        <p class="text-center text-danger my-auto">Anda Belum mengunggah Scan KTP!</p>
-                                    @else
-                                        <img src="{{ $dataAdmin->pegawai->file_ktp }}" class="card-img-buttom" alt="...">
-                                    @endif
+                                    <img src="{{ $dataUser->kk->file_kk }}" class="card-img-buttom" alt="{{ $dataUser->kk->no_kk }}">
                                 </div>
                             </div>
                             <div class="tab-pane" id="ubahProfile">
-                                <form action="{{ route('Update Data Admin', [$dataAdmin->pegawai->id]) }}" method="POST" class="form-horizontal">
+                                <form action="{{ route('Update Anggota Ibu', [$dataUser->ibu->id]) }}" method="POST" class="form-horizontal">
+                                {{-- <form action="" method="POST" class="form-horizontal"> --}}
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Administrator">
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataUser->ibu->nama_ibu_hamil) }}" placeholder="Nama Lengkap Ibu Hamil">
                                         <label for="floatingInput">Nama Lengkap</label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
@@ -146,7 +135,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataAdmin->pegawai->nik) }}" placeholder="NIK Administrator">
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataUser->ibu->NIK) }}" placeholder="NIK Ibu Hamil">
                                         <label for="floatingInput">Nomor Induk Kependudukan</label>
                                         @error('nik')
                                             <div class="invalid-feedback text-start">
@@ -157,7 +146,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataAdmin->pegawai->tempat_lahir) }}" placeholder="Tampat Lahir Administrator">
+                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataUser->ibu->tempat_lahir) }}" placeholder="Tempat Lahir Ibu Hamil">
                                                 <label for="floatingInput">Tampat Lahir</label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
@@ -169,7 +158,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-YY', strtotime('tgl_lahir')), date('d-m-YY', strtotime($dataAdmin->pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Administrator" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataUser->ibu->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Ibu Hamil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <label for="floatingInput">Tanggal Lahir</label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">
@@ -196,34 +185,14 @@
 @endsection
 
 @push('js')
-    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-management-posyandu').addClass('menu-is-opening menu-open');
             $('#management-posyandu').addClass('active');
-            $('#data-admin').addClass('active');
+            $('#data-anggota').addClass('active');
         });
-
-        // Custom Input Date
-        $(function () {
-            bsCustomFileInput.init();
-
-            $('.select2').select2()
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
-            $('[data-mask]').inputmask()
-        })
     </script>
-
     @if($message = Session::get('failed'))
     <script>
         $(document).ready(function(){

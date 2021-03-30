@@ -41,6 +41,7 @@ class RegisController extends Controller
 
     public function storeAdminKader(Request $request)
     {
+        // return($request);
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "email|unique:tb_admin,email",
@@ -48,7 +49,7 @@ class RegisController extends Controller
             'tgl_lahir' => "required|date",
             'gender' => "required",
             'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
-            'file'=> 'image|mimes:jpeg,png,jpg',
+            'file'=> 'required|image|mimes:jpeg,png,jpg',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'jabatan' => "required",
             'tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
@@ -75,6 +76,7 @@ class RegisController extends Controller
             'nik.numeric' => "NIK harus berupa angka",
             'nik.unique' => "NIK sudah digunakan",
             'nik.digits' => "NIK harus berjumlah 16 karakter",
+            'file.required' => "NIK wajib diisi",
             'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
             'alamat.required' => "Alamat wajib diisi",
             'alamat.regex' => "Format alamat tidak sesuai",
@@ -107,7 +109,7 @@ class RegisController extends Controller
         $admin = Admin::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'profile_image' => '/images/upload/Profile/deafult.jpg',
+            'profile_image' => '/images/upload/Profile/default.jpg',
             'is_verified' => 1,
         ]);
 
@@ -124,7 +126,7 @@ class RegisController extends Controller
             'nik' => $request->nik,
             'file_ktp' => $path,
         ]);
-        return redirect()->back()->with(['success' => 'Akun baru berhasil ditambahkan']);
+        return redirect()->back()->with(['success' => 'Data akun '.$request->jabatan.' baru berhasil ditambahkan']);
     }
 
     public function storeUserIbu(Request $request)
@@ -201,7 +203,7 @@ class RegisController extends Controller
                 'email' => $request->email_bumil,
                 'username_tele' => $request->telegram_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -211,7 +213,7 @@ class RegisController extends Controller
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir_bumil,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_bumil,
                 'nomor_telepon' => $request->no_tlpn_bumil,
                 'NIK' => $request->nik_bumil,
@@ -241,7 +243,7 @@ class RegisController extends Controller
                 'id_kk' => $kk->id,
                 'email' => $request->email_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -251,7 +253,7 @@ class RegisController extends Controller
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir_bumil,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_bumil,
                 'nomor_telepon' => $request->no_tlpn_bumil,
                 'username_telegram' => $request->telegram_bumil,
@@ -346,7 +348,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->passwordAnak),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -357,7 +359,7 @@ class RegisController extends Controller
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
                 'tempat_lahir' => $request->tempat_lahir_anak,
-                'tanggal_lahir' => $tgl_lahir_anak,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_anak,
                 'nomor_telepon' => $request->no_tlpn_anak,
                 'NIK' => $request->nik_anak,
@@ -388,7 +390,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->password_anak),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -399,7 +401,7 @@ class RegisController extends Controller
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
                 'tempat_lahir' => $request->tempat_lahir_anak,
-                'tanggal_lahir' => $tgl_lahir_anak,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_anak,
                 'nomor_telepon' => $request->no_tlpn_anak,
                 'NIK' => $request->nik_anak,
@@ -423,7 +425,7 @@ class RegisController extends Controller
             'alamat_lansia' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'email_lansia' => "required|email|unique:tb_user,email",
             'telegram_lansia' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_lansia' => "required|numeric|unique:tb_lansia,nomor_telepon|digits:between:11,15",
+            'no_tlpn_lansia' => "required|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
             'status_lansia' => "required",
             'lokasi_posyandu_lansia' => "required",
             'passwordLansia' => 'required|min:8|max:50|confirmed',
@@ -482,7 +484,7 @@ class RegisController extends Controller
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -491,7 +493,7 @@ class RegisController extends Controller
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
-                'tanggal_lahir' => $tgl_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_lansia,
                 'nomor_telepon' => $request->no_tlpn_lansia,
                 'username_telegram' => $request->telegram_lansia,
@@ -523,7 +525,7 @@ class RegisController extends Controller
                 'id_kk' => $kk->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -532,7 +534,7 @@ class RegisController extends Controller
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
-                'tanggal_lahir' => $tgl_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_lansia,
                 'nomor_telepon' => $request->no_tlpn_lansia,
                 'username_telegram' => $request->telegram_lansia,

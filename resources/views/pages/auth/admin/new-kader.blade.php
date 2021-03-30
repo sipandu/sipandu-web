@@ -188,7 +188,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 d-flex justify-content-between">
-                                            <a href="{{ route('Admin Home') }}" class="btn btn-danger text-end">Batal</a>
+                                            <a href="{{ route("Data Kader") }}" class="btn btn-warning text-end">Kembali</a>
                                             <a class="btn btn-primary text-end" onclick="stepper.next()">Berikutnya</a>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                                     @else
                                                         <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="inputGroupSelect02">
                                                             <option selected disabled>Pilih jabatan....</option>
-                                                            <option value="tenaga kesehatan">Kader</option>
+                                                            <option value="kader">Kader</option>
                                                             <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                         </select>
                                                     @endif
@@ -260,10 +260,10 @@
                                             <div class="form-group">
                                                 <label>Tempat Tugas</label>
                                                 <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%,;" >
+                                                    <select name="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%" >
                                                         <option selected disabled>Pilih Lokasi Posyandu ....</option>
                                                         @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{ $p->desa->nama_desa }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('lokasi_posyandu')
@@ -312,7 +312,6 @@
                                                     <a class="btn btn-warning" onclick="stepper.previous()">Sebelumnya</a>
                                                 </div>
                                                 <div class="col-6 text-end">
-                                                    <a href="{{ route('Admin Home') }}" class="btn btn-danger my-1">Batal</a>
                                                     <button type="submit" class="btn btn-primary my-1">Daftarkan Akun</button>
                                                 </div>
                                             </div>

@@ -16,19 +16,18 @@ class CekLevel
      */
     public function handle($request, Closure $next, $level1, $level2, $level3, $level4)
     {
-
-        if($request->user()->pegawai->jabatan == $level1){
+        if(Auth::guard('admin')->user()->pegawai->jabatan == $level1){
             return $next($request);
-        }elseif($request->user()->pegawai->jabatan == $level2){
+        }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level2){
             return $next($request);
-        }elseif($request->user()->pegawai->jabatan == $level3){
+        }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level3){
             return $next($request);
-        }elseif($request->user()->pegawai->jabatan == $level4){
+        }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level4){
             return $next($request);
         }else{
-            return redirect()->route('Admin Home');
+            return redirect()->back();
         }
 
-        return redirect()->route('Admin Home');
+        return redirect()->back();
     }
 }
