@@ -199,7 +199,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             } else {
                 if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -237,7 +237,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
 
@@ -306,4 +306,23 @@ class AdminController extends Controller
         $user->save();
         return redirect()->route('show.verify');
     }
+
+
+    public function updateStatus(Request $request)
+    {
+        $this->validate($request, [
+            'customRadio' => "required",
+        ],
+        [
+            'customRadio.required' => "Pilihlah Custom Status Anda",
+        ]);
+
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
+        $pegawai->status = $request->customRadio;
+        $pegawai->save();
+
+        return redirect()->back()->with(['success' => 'Status Berhasil Di Ubah']);
+    }
+
 }

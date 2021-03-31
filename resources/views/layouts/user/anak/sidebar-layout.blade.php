@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Tambah Keluarga Anak') }}" class="nav-link" id="tambah-keluarga">
+                            <a href="{{ route('Tambah Keluarga') }}" class="nav-link" id="tambah-keluarga">
                                 <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Tambah Keluarga</p>
                             </a>

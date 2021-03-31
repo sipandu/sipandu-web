@@ -26,10 +26,11 @@ class Pegawai extends Authenticatable
         'jabatan',
         'username_telegram',
         'nik',
+        'status',
         'file_ktp',
 
     ];
-  
+
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'id_admin', 'id');

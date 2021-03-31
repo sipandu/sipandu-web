@@ -45,7 +45,8 @@ class ResetPasswordController extends Controller
 
             $total_menit = $tahun + $bulan + $day + $jam + $minutes;
 
-            if($minutes > 15){
+
+            if($total_menit > 15){
                 return redirect()->back()->with('error','Code OTP is Expired,Request Kembali Code OTP anda');
             }else{
                 $user->update([

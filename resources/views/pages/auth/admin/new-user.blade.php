@@ -79,7 +79,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group" id="kkuser">
+                                            {{-- <div class="form-group" id="kkuser">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
@@ -92,7 +92,20 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="inputTelp" class="col-sm-3 col-form-label">Scan KK</label>
+                                                <div class="col-sm-12">
+                                                    <input type="file" name="file_bumil" autocomplete="off" class="custom-file-input @error('file_bumil') is-invalid @enderror"  id="inputTelp" autocomplete="off">
+                                                    <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
+                                                    @error('file_bumil')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Nama Ibu Hamil</label>
                                                 <div class="input-group mb-3">
@@ -336,13 +349,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input type="file" name="file_anak" class="custom-file-input @error('file_anak') is-invalid @enderror" id="exampleInputFile">
                                                         <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     </div>
+                                                    @error('file_anak')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="inputTelp" class="col-sm-3 col-form-label">Scan KK</label>
+                                                <div class="col-sm-12">
+                                                    <input type="file" name="file_anak" autocomplete="off" class="custom-file-input @error('file_anak') is-invalid @enderror"  id="inputTelp" autocomplete="off">
+                                                    <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     @error('file_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -649,13 +674,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input type="file" name="file_lansia" class="custom-file-input @error('file_lansia') is-invalid @enderror" value="{{ old('file_lansia') }}" id="exampleInputFile">
                                                         <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     </div>
+                                                    @error('file_lansia')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="inputTelp" class="col-sm-3 col-form-label">Scan KK</label>
+                                                <div class="col-sm-12">
+                                                    <input type="file" name="file_lansia" autocomplete="off" class="custom-file-input @error('file_lansia') is-invalid @enderror"  id="inputTelp" autocomplete="off">
+                                                    <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     @error('file_lansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}

@@ -168,6 +168,8 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu');
     Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user');
     Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user');
+    Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin');
+
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
@@ -175,7 +177,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     });
     Route::prefix('account')->group(function(){
         Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test,parameter');
-        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan ');
+        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan');
         Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin');
         Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
         Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
@@ -188,9 +190,15 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 
 //USER DASBOARD//
 Route::prefix('user')->namespace('User\Auth')->group(function(){
-    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware('user:anak');
-    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('user:ibu');
-    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('user:lansia');
+    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware(['userAkses:0','user:anak']);
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware(['userAkses:1','user:ibu']);
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware(['userAkses:2','user:lansia']);
+
+    Route::get('/tambah-keluarga', 'TambahKeluargaController@form')->name('Tambah Keluarga');
+    Route::post('/ibu/store', 'TambahKeluargaController@storeIbu')->name('ibu.store');
+    Route::post('/anak/store', 'TambahKeluargaController@storeAnak')->name('anak.store');
+    Route::post('/lansia/store', 'TambahKeluargaController@storeLansia')->name('lansia.store');
+
     Route::prefix('profile')->group(function(){
         Route::get('/anak', 'EditProfileController@anak')->name('anak.profile');
         Route::get('/ibu', 'EditProfileController@ibu')->name('ibu.profile');
@@ -208,9 +216,9 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
 
 
 //Daftarkan Anggota Keluarga Lain
-Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
-Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
-Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
+// Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
+// Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
+// Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
 
 
 
