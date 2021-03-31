@@ -32,3 +32,10 @@ Route::post('/register-lansia', 'User\Auth\Api\ApiRegisterController@storeLansia
 
 Route::get('/regist-data-posyandu', 'User\Auth\Api\ApiRegisterController@getAllPosyandu');
 
+
+Route::post('/register-data-anak', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataAnak');
+Route::post('/register-data-ibu', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataIbu');
+Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
+
+Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
+
