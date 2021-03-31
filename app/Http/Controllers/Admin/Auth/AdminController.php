@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Hash;
+use Mail;
+use App\Mail\NotificationAccUser;
+use App\Mail\NotificationRjctUser;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
@@ -283,6 +287,8 @@ class AdminController extends Controller
     {
         $user = User::find($request->iduser);
         $user->is_verified = 1;
+        Mail::to($user->email)->send(new NotificationAccUser($user));
+
         $user->save();
         return redirect()->route('show.verify');
 
@@ -304,6 +310,9 @@ class AdminController extends Controller
         $user->is_verified = 0;
         $user->keterangan = $request->keterangan;
         $user->save();
+
+        Mail::to($user->email)->send(new NotificationRjctUser($user));
+
         return redirect()->route('show.verify');
     }
 
