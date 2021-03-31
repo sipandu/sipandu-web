@@ -99,7 +99,7 @@ class RegisController extends Controller
         if($request->idKK != null){
             $user = User::create([
                 'id_kk' => $request->idKK,
-                'role' => 0,
+                'role' => '0',
                 'id_chat_tele' => null,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -137,7 +137,7 @@ class RegisController extends Controller
             // $user = new User;
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
-                'role' => 0,
+                'role' => '0',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
@@ -186,7 +186,7 @@ class RegisController extends Controller
             $user = User::create([
                 'id_kk' => $request->idKK,
                 'id_chat_tele' => null,
-                'role' => 1,
+                'role' => '1',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
@@ -223,7 +223,7 @@ class RegisController extends Controller
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
                 'email' => $request->email,
-                'role' => 1,
+                'role' => '1',
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
                 'is_verified' => 0,
@@ -271,7 +271,7 @@ class RegisController extends Controller
             $user = User::create([
                 'id_kk' => $request->idKK,
                 'id_chat_tele' => null,
-                'role' => 2,
+                'role' => '2',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
@@ -307,7 +307,7 @@ class RegisController extends Controller
             // $user = new User;
             $user = $kk->user()->create([
                 'id_chat_tele' => null,
-                'role' => 2,
+                'role' => '2',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'profile_image' => "/images/upload/Profile/deafult.jpg",
