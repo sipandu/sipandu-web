@@ -105,7 +105,7 @@ class RegisDataDiriController extends Controller
             'nama_ayah' => $request->nama_ayah,
             'nama_ibu' => $request->nama_ibu,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $tgl_lahir,
+            'tanggal_lahir' => $tgl_lahir,
             'jenis_kelamin' => $request->gender,
             'nomor_telepon' => $request->no_tlpn,
             'anak_ke' => $request->anak_ke,
@@ -173,7 +173,7 @@ class RegisDataDiriController extends Controller
             'NIK' => $request->nik,
             'nama_suami' => $request->nama_suami,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $tgl_lahir,
+            'tanggal_lahir' => $tgl_lahir,
             'nomor_telepon' => $request->no_tlpn,
             'alamat' => $request->alamat,
         ]);
@@ -237,7 +237,7 @@ class RegisDataDiriController extends Controller
         $lansia->update([
             'NIK' => $request->nik,
             'tempat_lahir' => $request->tempat_lahir,
-            'tangal_lahir' => $tgl_lahir,
+            'tanggal_lahir' => $tgl_lahir,
             'jenis_kelamin' => $request->gender,
             'nomor_telepon' => $request->no_tlpn,
             'status' => $request->status,

@@ -165,7 +165,7 @@
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'super admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
                                 <li class="nav-item">
                                     <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                         <i class="nav-icon fas fa-user-cog"></i>
@@ -173,24 +173,28 @@
                                     </a>
                                 </li>
                             @endif
-                            <li class="nav-item">
-                                <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
-                                    <i class="nav-icon fas fa-clinic-medical"></i>
-                                    <p>Profile Posyandu</p>
-                                </a>
-                            </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan != 'super admin')
+                                <li class="nav-item">
+                                    <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
+                                        <i class="nav-icon fas fa-clinic-medical"></i>
+                                        <p>Profile Posyandu</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('Data Kader') }}" class="nav-link" id="data-kader">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Kader Posyandu</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
-                                    <i class="nav-icon fas fa-user-friends"></i>
-                                    <p>Anggota Posyandu</p>
-                                </a>
-                            </li>
+                            @if (Auth::guard('admin')->user()->pegawai->jabatan != 'super admin')
+                                <li class="nav-item">
+                                    <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                        <i class="nav-icon fas fa-user-friends"></i>
+                                        <p>Anggota Posyandu</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 </li>

@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="modal-footer justify-content-between">
                                         <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                     </div>
@@ -155,7 +155,7 @@
                                 <h3 class="card-title">Ubah Administrator Posyandu</h3>
                             </div>
                             @foreach ($dataPosyandu as $posyandu)
-                                @foreach ($pegawai->where('id_posyandu', $posyandu->id) as $pgw)
+                                {{-- @foreach ($pegawai->where('id_posyandu', $posyandu->id) as $pgw)
                                     <form action="{{route('Update Admin Posyandu', [$pgw->id])}}" method="POST">
                                 @endforeach
                                     @csrf
@@ -198,11 +198,70 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="modal-footer justify-content-between">
                                         <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
                                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
                                     </div>
-                                </form>
+                                </form> --}}
+                                {{-- <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
+                                    <div class="card card-primary">
+                                        <div class="card-header my-auto">
+                                            <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
+                                        </div> --}}
+                                        <form action="{{ route('Update Posyandu-Admin') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body p-3">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Non-aktifkan Kader/Admin</label>
+                                                            <div class="input-group mb-3">
+                                                                <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror">
+                                                                    <option value="#" disabled selected>Pilih admin/kader</option>
+                                                                    @foreach ($pegawai as $pgw)
+                                                                        <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-users-cog"></span>
+                                                                    </div>
+                                                                </div>
+                                                                @error('pegawai')
+                                                                    <div class="invalid-feedback text-start">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="inputBanjar">NIK Kader/Admin</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-city"></span>
+                                                                    </div>
+                                                                </div>
+                                                                @error('nik')
+                                                                    <div class="invalid-feedback text-start">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-end">
+                                                <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
+                                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -221,4 +280,20 @@
             $('#data-posyandu').addClass('active');
         });
     </script>
+
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush

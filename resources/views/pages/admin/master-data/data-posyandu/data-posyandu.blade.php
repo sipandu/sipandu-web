@@ -62,7 +62,7 @@
                                             @endforeach
                                         </td>
                                         <td class="text-center align-middle">
-                                            <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
+                                            <a href="{{ route('Detail Posyandu', [$data->id]) }}" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                  Detail
                                             </a>

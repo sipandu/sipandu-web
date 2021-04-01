@@ -83,7 +83,7 @@
                                                 <label for="exampleInputEmail1">Scan KK</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input name="file" type="file_bumil" class="custom-file-input @error('file_bumil') is-invalid @enderror" id="exampleInputFile">
+                                                        <input name="file" type="file" class="custom-file-input @error('file_bumil') is-invalid @enderror" id="exampleInputFile">
                                                         <label class="custom-file-label" for="exampleInputFile">Unggah scan KK</label>
                                                         @error('file_bumil')
                                                             <div class="invalid-feedback text-start">
