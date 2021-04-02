@@ -57,7 +57,7 @@
                                         <button class="nav-link text-left btn btn-primary" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                                             <i class="fas fa-wheelchair nav-icon"></i> Lanjut Usia
                                             @if ($lansia->count() > 0)
-                                                <span class="badge bg-warning float-right">{{ $lansia->count() }}</span>                                                
+                                                <span class="badge bg-warning float-right">{{ $lansia->count() }}</span>
                                             @endif
                                         </button>
                                     </li>

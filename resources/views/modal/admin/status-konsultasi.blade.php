@@ -5,28 +5,50 @@
                 <h5 class="modal-title" id="exampleModalLabel">Status Konsultasi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="">
+            <form action="{{route('edit.status.admin')}}" method="POST">
+                @csrf
                 <div class="modal-body text-center">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked>
-                                <label for="customRadio2" class="custom-control-label">Available</label>
+                        @if (Auth::guard('admin')->user()->pegawai->status == 'tersedia')
+                            <div class="col-sm-6">
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input"  type="radio"  value="tersedia" id="customRadio2" name="customRadio" checked >
+                                    <label for="customRadio2" class="custom-control-label">tersedia</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
-                                <label for="customRadio1" class="custom-control-label">Not Available</label>
+                            <div class="col-sm-6">
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input"  type="radio" value="tidak tersedia" id="customRadio1" name="customRadio" >
+                                    <label for="customRadio1" class="custom-control-label">tidak tersedia</label>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+                        @if (Auth::guard('admin')->user()->pegawai->status=='tidak tersedia')
+                            <div class="col-sm-6">
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input"  type="radio"  value="tersedia" id="customRadio2" name="customRadio" >
+                                    <label for="customRadio2" class="custom-control-label">tersedia</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input"  type="radio" value="tidak tersedia" id="customRadio1" name="customRadio" checked >
+                                    <label for="customRadio1" class="custom-control-label">tidak tersedia</label>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success">Save changes</button>
+                    <button type="cancle" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+
+
+</script>

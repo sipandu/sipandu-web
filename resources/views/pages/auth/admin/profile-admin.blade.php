@@ -54,14 +54,14 @@
                             @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Konsultasi</b>
-                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">{{Auth::guard('admin')->user()->pegawai->status}}</a>
                                     @include('modal/admin/status-konsultasi')
                                 </li>
                             @endif
                             @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Konsultasi</b>
-                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Available</a>
+                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">{{Auth::guard('admin')->user()->pegawai->status}}</a>
                                     @include('modal/admin/status-konsultasi')
                                 </li>
                             @endif
@@ -170,13 +170,16 @@
                                     @csrf
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="exampleInputEmail1">Profile Image</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input name="file" type="file" class="custom-file-input" id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image</label>
+                                            <div class="col-sm-9">
+                                                <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">
+                                                <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
+                                                @error('file')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">

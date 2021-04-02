@@ -157,12 +157,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Scan KTP</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input name="file" type="file" class="custom-file-input @error('file') is-invalid @enderror" id="exampleInputFile" value="{{ old('file') }}" >
-                                                        <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
-                                                    </div>
+                                                <label for="inputTelp" class="col-sm-3 col-form-label">Scan KTP</label>
+                                                <div class="col-sm-12">
+                                                    <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp" autocomplete="off">
+                                                    <label class="custom-file-label" for="exampleInputFile">Unggah scan KTP</label>
                                                     @error('file')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}

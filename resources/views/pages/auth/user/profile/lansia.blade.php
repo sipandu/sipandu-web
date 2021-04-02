@@ -19,7 +19,7 @@
 @endpush
 
 @section('content')
-    <div class="d-flex 
+    <div class="d-flex
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3 col-lg-auto text-center text-md-start">Profile Pribadi</h1>
         <div class="col-auto ml-auto text-right mt-n1">
@@ -184,18 +184,16 @@
                                     @csrf
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="exampleInputEmail1">Profile Image</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input name="file" type="file" class="custom-file-input  @error('file') is-invalid @enderror" id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
-                                                    @error('file')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image</label>
+                                            <div class="col-sm-9">
+                                                <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">
+                                                <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
+                                                @error('file')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>

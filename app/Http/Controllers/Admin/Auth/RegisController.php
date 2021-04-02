@@ -76,7 +76,7 @@ class RegisController extends Controller
             'nik.numeric' => "NIK harus berupa angka",
             'nik.unique' => "NIK sudah digunakan",
             'nik.digits' => "NIK harus berjumlah 16 karakter",
-            'file.required' => "NIK wajib diisi",
+            'file.required' => "Upload Scan KTP Wajib diisi",
             'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
             'alamat.required' => "Alamat wajib diisi",
             'alamat.regex' => "Format alamat tidak sesuai",
@@ -199,6 +199,7 @@ class RegisController extends Controller
         if($selectIdKK != NULL){
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '1',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_bumil,
                 'username_tele' => $request->telegram_bumil,
@@ -240,6 +241,7 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '1',
                 'id_kk' => $kk->id,
                 'email' => $request->email_bumil,
                 'password' => Hash::make($request->passwordBumil),
@@ -344,6 +346,7 @@ class RegisController extends Controller
         if($selectIdKK != null){
             $user = User::create([
                 'id_chat_tele' => null,
+                'role' => '0',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
@@ -386,6 +389,7 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_kk' => $kk->id,
+                'role' => '0',
                 'id_chat_tele' => NULL,
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
@@ -481,6 +485,7 @@ class RegisController extends Controller
         if($selectIdKK != NULL){
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '2',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
@@ -522,6 +527,7 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '2',
                 'id_kk' => $kk->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),

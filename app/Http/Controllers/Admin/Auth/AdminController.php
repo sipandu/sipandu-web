@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Hash;
+use Mail;
+use App\Mail\NotificationAccUser;
+use App\Mail\NotificationRjctUser;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
@@ -199,7 +203,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             } else {
                 if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -237,7 +241,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
 
@@ -283,6 +287,8 @@ class AdminController extends Controller
     {
         $user = User::find($request->iduser);
         $user->is_verified = 1;
+        Mail::to($user->email)->send(new NotificationAccUser($user));
+
         $user->save();
         return redirect()->route('show.verify');
 
@@ -304,6 +310,28 @@ class AdminController extends Controller
         $user->is_verified = 0;
         $user->keterangan = $request->keterangan;
         $user->save();
+
+        Mail::to($user->email)->send(new NotificationRjctUser($user));
+
         return redirect()->route('show.verify');
     }
+
+
+    public function updateStatus(Request $request)
+    {
+        $this->validate($request, [
+            'customRadio' => "required",
+        ],
+        [
+            'customRadio.required' => "Pilihlah Custom Status Anda",
+        ]);
+
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
+        $pegawai->status = $request->customRadio;
+        $pegawai->save();
+
+        return redirect()->back()->with(['success' => 'Status Berhasil Di Ubah']);
+    }
+
 }
