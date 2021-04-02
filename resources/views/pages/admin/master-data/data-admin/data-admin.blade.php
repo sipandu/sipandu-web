@@ -37,16 +37,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive-md">
                         @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin' || auth()->guard('admin')->user()->pegawai->jabatan == 'admin')
-                            <table id="example1" class="table table-bordered table-hover">
+                            <table id="tbHeadAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Admnistrator</th>
-                                        <th>Jabatan</th>
-                                        <th>Tempat Tugas</th>
-                                        <th>Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Jabatan</th>
+                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
+                                        <th class="d-md-none">Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,9 +55,14 @@
                                         <tr class="text-center align-middle my-auto">
                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                             <td class="align-middle">{{ $data->nama_pegawai }}</td>
-                                            <td class="align-middle">{{ $data->jabatan }}</td>
-                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
-                                            <td class="text-center align-middle">
+                                            <td class="align-middle d-none d-md-table-cell">{{ $data->jabatan }}</td>
+                                            <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu}}</td>
+                                            <td class="text-center align-middle d-md-none">
+                                                <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
                                                 <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                     Detail
@@ -69,22 +75,24 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Admnistrator</th>
-                                        <th>Jabatan</th>
-                                        <th>Tempat Tugas</th>
-                                        <th>Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Jabatan</th>
+                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
+                                        <th class="d-md-none">Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         @endif
                         @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
-                            <table id="example1" class="table table-bordered table-hover">
+                            <table id="tbSuperAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Admnistrator</th>
                                         <th>Jabatan</th>
-                                        <th>Tempat Tugas</th>
-                                        <th>Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
+                                        <th class="d-md-none">Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,8 +101,13 @@
                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                             <td class="align-middle">{{ $data->nama_pegawai }}</td>
                                             <td class="align-middle">{{ $data->jabatan }}</td>
-                                            <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
-                                            <td class="text-center align-middle">
+                                            <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu}}</td>
+                                            <td class="text-center align-middle d-md-none">
+                                                <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
                                                 <a href="{{route('Detail Admin', [$data->id])}}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                     Detail
@@ -108,8 +121,9 @@
                                         <th>No</th>
                                         <th>Nama Admnistrator</th>
                                         <th>Jabatan</th>
-                                        <th>Tempat Tugas</th>
-                                        <th>Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
+                                        <th class="d-md-none">Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                     </tr>
                                 </tfoot>
                             </table>  
@@ -145,12 +159,40 @@
         });
         
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+            $("#tbSuperAdmin").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
                     "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)"
+                },
+                "language": {
+                    "buttons": {
+                        "colvis": 'Tampilkan kolom',
+                        // "excel": 'Unduh',
+                    },
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                },
+                "buttons": ["colvis"]
+                // "buttons": ["excel", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function () {
+            $("#tbHeadAdmin").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari:",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)"
                 },
                 "language": {
                     "buttons": {
