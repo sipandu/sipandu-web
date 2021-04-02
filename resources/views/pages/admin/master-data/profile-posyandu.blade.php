@@ -98,11 +98,17 @@
                                 <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</h3>
                                 <h5 class="mt-5 text-muted"><i class="fas fa-user-shield"></i> Ketua Administrator</h5>
                                 <ul class="list-unstyled">
-                                    @foreach ($headAdmin as $admin)
-                                        <li>
-                                            <a href="{{ route("Detail Admin", [$admin->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
-                                        </li>
-                                    @endforeach
+                                        @if ($headAdmin->count() < 1)
+                                            <li>
+                                                <a class="btn-link text-secondary text-decoration-none">Head Admin Belum Ditambahkan</a>
+                                            </li>
+                                        @else
+                                            @foreach ($headAdmin as $admin)
+                                                <li>
+                                                    <a href="{{ route("Detail Admin", [$admin->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                 </ul>
                                 <h5 class="mt-3 text-muted"><i class="fas fa-map-marker-alt"></i> Alamat</h5>
                                 <ul class="list-unstyled">
