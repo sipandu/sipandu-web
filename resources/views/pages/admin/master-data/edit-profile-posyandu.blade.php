@@ -41,7 +41,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="inputNama">Nama Posyandu</label>
+                                                <label for="inputNama">Nama Posyandu<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="inputNama" value="{{ old('nama', $dataPosyandu->nama_posyandu) }}" placeholder="Masukan nama posyandu">
                                                     <div class="input-group-append">
@@ -57,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputBanjar">Banjar</label>
+                                                <label for="inputBanjar">Banjar<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">Banjar</span>
                                                     <input type="text" class="form-control @error('banjar') is-invalid @enderror" name="banjar" id="inputBanjar" value="{{ old('banjar', $dataPosyandu->banjar) }}" placeholder="Masukan lokasi banjar">
@@ -74,7 +74,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputTelp">Nomor Telepon</label>
+                                                <label for="inputTelp">Nomor Telepon<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" id="inputTelp" value="{{ old('telp', $dataPosyandu->nomor_telepon) }}" placeholder="Masukan nomor telepon posyandu">
                                                     <div class="input-group-append">
@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="inputAlamat">Alamat</label>
+                                                <label for="inputAlamat">Alamat<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="inputAlamat" value="{{ old('alamat', $dataPosyandu->alamat) }}" placeholder="Masukan alamat posyandu">
                                                     <div class="input-group-append">
@@ -108,7 +108,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputLay">Koordinat Latitude</label>
+                                                <label for="inputLay">Koordinat Latitude<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="inputLat" value="{{ old('lat', $dataPosyandu->latitude) }}" placeholder="Masukan koordinat Latitude posyandu">
                                                     <div class="input-group-append">
@@ -124,7 +124,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputLng">Koordinat Longitude</label>
+                                                <label for="inputLng">Koordinat Longitude<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="inputLng" value="{{ old('lng', $dataPosyandu->longitude) }}" placeholder="Masukan koordinat Longitude posyandu">
                                                     <div class="input-group-append">
@@ -140,6 +140,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="mb-0">
+                                            <p class="text-danger small text-end mb-0 pb-0"><span>*</span>Data Wajib Diisi</p>
+                                        </div> 
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -161,7 +164,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Non-aktifkan Kader/Admin</label>
+                                                    <label>Non-aktifkan Kader/Admin<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror">
                                                             <option value="#" disabled selected>Pilih admin/kader</option>
@@ -184,9 +187,9 @@
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="inputBanjar">NIK Kader/Admin</label>
+                                                    <label for="inputBanjar">NIK Kader/Admin<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
+                                                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="{{ old('nik') }}" placeholder="Masukan NIK Admin">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-city"></span>
@@ -200,6 +203,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="mb-0">
+                                                <p class="text-danger small text-end mb-0 pb-0"><span>*</span>Data Wajib Diisi</p>
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="modal-footer text-end">
