@@ -66,7 +66,7 @@
                     </div>
                 </form>
                 <div class="text-center mt-4 mb-0">
-                    <a href="" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
+                    <a href="{{ route('Landing Page') }}" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
                 </div>
             </div>
         </div>
