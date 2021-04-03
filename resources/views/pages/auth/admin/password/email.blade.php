@@ -7,15 +7,11 @@
 {{-- <img src="{{embed(asset('images/sipandu-logo.png'))}}"> --}}
 {{-- [logo]: {{asset('/images/sipandu-logo.png')}} "Logo" --}}
 
-Please Your Konfirmasi Password Code
-
-<h1>Hello, {{$admin->email}}</h1>
-
-<h1>Your Code OTP, {{$admin->otp_token}}</h1>
-
-
-<h2>Perhatian!!,Jangan Berikan Code OTP tersebut kepada orang lain</h2>
-<h2>Code hanya berlaku dalam 15 menit</h2>
+<p>Kode Konfirmasi Password</p>
+<h1>Halo, {{$admin->email}}</h1>
+<h5>Kode OTP Anda "{{$admin->otp_token}}"</h5>
+<h2>PERHATIAN! Jangan Berikan kode OTP tersebut kepada orang lain</h2>
+<p>Code hanya berlaku dalam 15 menit</p>
 
 Thanks,<br>
 

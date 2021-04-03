@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('images/sipandu-logo.ico') }}">
-    <title>SIPANDU - Reset Password</title>
+    <title>Smart Posyandu - Reset Password</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
@@ -27,10 +27,10 @@
 <body class="hold-transition login-page">
 
     <div class="login-box">
-        <div class="card card-outline card-primary" style=" width: 520px; height: 620px;">
+        <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">Smart POSYANDU</a>
+                <a href="" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
             </div>
             <div class="card-body">
                 <p class="text-center py-2">Silahkan atur ulang password anda</p>
@@ -76,12 +76,12 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                            <button type="submit" class="btn btn-outline-primary btn-block">Simpan Password</button>
                         </div>
                     </div>
                 </form>
                 <div class="text-center mt-4 mb-0">
-                    <a href="" class="nav-link link-dark">SIPANDU &copy 2021</a>
+                    <a href="" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
                 </div>
             </div>
         </div>
