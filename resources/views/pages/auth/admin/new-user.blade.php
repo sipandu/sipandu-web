@@ -897,12 +897,20 @@
     </script>
 
 
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
     @if($message = Session::get('success'))
-        <script>
-            $(document).ready(function(){
-                alertSuccess('{{$message}}');
-            });
-        </script>
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
     @endif
 
 @endpush

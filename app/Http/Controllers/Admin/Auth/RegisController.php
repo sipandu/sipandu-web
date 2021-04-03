@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
@@ -205,7 +206,7 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
             Ibu::create([
                 'id_posyandu' => $posyandu->id,
@@ -219,8 +220,14 @@ class RegisController extends Controller
                 'NIK' => $request->nik_bumil,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
-        }else{
+            if ($user && $ibu) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+            }
+        } else {
 
             $this->validate($request,[
                 'file_bumil'=> 'required|image|mimes:jpeg,png,jpg',
@@ -248,9 +255,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
-            Ibu::create([
+            $ibu = Ibu::create([
                 'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_bumil,
@@ -263,7 +270,13 @@ class RegisController extends Controller
                 'NIK' => $request->nik_bumil,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            if ($user && $ibu) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+            }
         }
     }
 
@@ -345,7 +358,7 @@ class RegisController extends Controller
 
         if($selectIdKK != null){
             $user = User::create([
-                'id_chat_tele' => null,
+                'id_chat_tele' => NULL,
                 'role' => '0',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_anak,
@@ -355,9 +368,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
-            Anak::create([
+            $anak = Anak::create([
                 'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
@@ -372,12 +385,21 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_anak,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
-        }else{
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun anak gagal ditambahkan']);
+            }
+            
+        } else {
 
             $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK "
+                'file_anak'=> 'required|image|mimes:jpeg,png,jpg',
+            ],
+            [
+                'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK"
             ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file_anak->getClientOriginalName();
@@ -400,9 +422,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
-            Anak::create([
+            $anak = Anak::create([
                 'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
@@ -417,7 +439,13 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_anak,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun anak gagal ditambahkan']);
+            }
         }
     }
 
@@ -498,7 +526,7 @@ class RegisController extends Controller
 
             $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
 
-            Lansia::create([
+            $lansia = Lansia::create([
                 'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
@@ -512,8 +540,14 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_lansia,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
-        }else{
+            if ($user && $lansia) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun lansia gagal ditambahkan']);
+            }
+        } else {
             $this->validate($request,[
                 'file_lansia'=> 'required|image|mimes:jpeg,png,jpg',
             ],
@@ -540,9 +574,9 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
-            Lansia::create([
+            $lansia = Lansia::create([
                 'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
@@ -556,7 +590,13 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_lansia,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun lansia gagal ditambahkan']);
+            }
         }
     }
 }

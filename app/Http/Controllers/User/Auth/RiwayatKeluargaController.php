@@ -8,6 +8,11 @@ use App\Posyandu;
 
 class RiwayatKeluargaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function keluargaAnak()
     {
         return view('pages/user/riwayat-keluarga/keluarga-anak');

@@ -191,9 +191,9 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 
 //USER DASBOARD//
 Route::prefix('user')->namespace('User\Auth')->group(function(){
-    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware(['userAkses:0','user:anak']);
-    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware(['userAkses:1','user:ibu']);
-    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware(['userAkses:2','user:lansia']);
+    Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware('userAkses:0,user:anak');
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('userAkses:1,user:ibu');
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('userAkses:2,user:lansia');
 
     Route::get('/tambah-keluarga', 'TambahKeluargaController@form')->name('Tambah Keluarga');
     Route::post('/ibu/store', 'TambahKeluargaController@storeIbu')->name('ibu.store');
@@ -213,13 +213,6 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
         Route::post('/personal/lansia', 'EditProfileController@updatePersonalLansia')->name('edit.account.lansia');
     });
 });
-
-
-
-//Daftarkan Anggota Keluarga Lain
-// Route::get('/anak/new', 'User\Auth\TambahKeluargaController@tambahAnak')->name('Tambah Keluarga Anak');
-// Route::get('/ibu/new', 'User\Auth\TambahKeluargaController@tambahIbu')->name('Tambah Keluarga Ibu');
-// Route::get('/lansia/new', 'User\Auth\TambahKeluargaController@tambahLansia')->name('Tambah Keluarga Lansia');
 
 
 
