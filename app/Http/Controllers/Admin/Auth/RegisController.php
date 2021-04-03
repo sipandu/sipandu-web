@@ -140,9 +140,8 @@ class RegisController extends Controller
             'nik_bumil' => "required|numeric|unique:tb_ibu_hamil,nik|digits:16",
             'alamat_bumil' => "required|regex:/^[a-z .,0-9]+$/i",
             'email_bumil' => "required|email|unique:tb_user,email",
-            'telegram_bumil' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_bumil' => "required|numeric|unique:tb_ibu_hamil,nomor_telepon",
-            'lokasi_posyandu_bumil' => "required",
+            'telegram_bumil' => "nullable|max:25|unique:tb_user,username_tele",
+            'no_tlpn_bumil' => "nullable|numeric|unique:tb_ibu_hamil,nomor_telepon",
             'passwordBumil' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -174,11 +173,9 @@ class RegisController extends Controller
             'email_bumil.unique' => "Email ibu hamil sudah pernah digunakan",
             'telegram_bumil.max' => "Username Telegram maksimal berjumlah 25 karakter",
             'telegram_bumil.unique' => "Username Telegram ibu hamil sudah pernah digunakan",
-            'no_tlpn_bumil.required' => "Nomor telepon ibu hamil wajib diisi",
             'no_tlpn_bumil.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn_bumil.between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
             'no_tlpn_bumil.unique' => "Nomor telepon ibu hamil sudah digunakan",
-            'lokasi_posyandu_bumil.required' => "Lokasi posyandu ibu hamil wajib diisi",
             'passwordBumil.required' => "Password akun ibu hamil wajib diisi",
             'passwordBumil.min' => "Password minimal berjumlah 8 karakter",
             'passwordBumil.max' => "Password maksimal berjumlah 50 karakter",
@@ -208,8 +205,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Ibu::create([
-                'id_posyandu' => $request->lokasi_posyandu_bumil,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
@@ -249,8 +248,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Ibu::create([
-                'id_posyandu' => $request->_bumil,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
@@ -279,10 +280,9 @@ class RegisController extends Controller
             'nik_anak' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat_anak' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'email_anak' => "required|email|unique:tb_user,email",
-            'telegram_anak' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_anak' => "required|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
+            'telegram_anak' => "nullable|unique:tb_user,username_tele",
+            'no_tlpn_anak' => "nullable|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
             'status_anak' => "required|numeric",
-            'lokasi_posyandu_anak' => "required",
             'passwordAnak' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -355,8 +355,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Anak::create([
-                'id_posyandu' => $request->lokasi_posyandu_anak,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
                 'nama_ayah' => $request->nama_ayah,
@@ -398,8 +400,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Anak::create([
-                'id_posyandu' => $request->lokasi_posyandu_anak,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
                 'nama_ayah' => $request->nama_ayah,
@@ -428,10 +432,9 @@ class RegisController extends Controller
             'nik_lansia' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat_lansia' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'email_lansia' => "required|email|unique:tb_user,email",
-            'telegram_lansia' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_lansia' => "required|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
+            'telegram_lansia' => "nullable|max:25|unique:tb_user,username_tele",
+            'no_tlpn_lansia' => "nullable|required|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
             'status_lansia' => "required",
-            'lokasi_posyandu_lansia' => "required",
             'passwordLansia' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -493,8 +496,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu_lansia,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
@@ -535,8 +540,10 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
             Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu_lansia,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
