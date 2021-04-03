@@ -31,6 +31,7 @@ class ApiRegisterController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'idKK' => $idKK,
+                'noKK' => $selectKK->no_kk
             ]);
 
         }else{
