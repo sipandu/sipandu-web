@@ -279,7 +279,7 @@
                                             <div class="form-group mb-3">
                                                 <label for="exampleInputEmail1">Konfirmasi Password</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" class="form-control @error('passwordBumil_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Masukan kembali Password" autocomplete="off">
+                                                    <input type="password" class="form-control @error('passwordBumil_confirmation') is-invalid @enderror" name="passwordBumil_confirmation" placeholder="Masukan kembali Password" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
