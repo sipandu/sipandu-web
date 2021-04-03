@@ -163,13 +163,13 @@ Route::prefix('login')->group(function(){
 Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
-    Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify');
-    Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak');
-    Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia');
-    Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu');
-    Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user');
-    Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user');
-    Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin');
+    Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
 
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');

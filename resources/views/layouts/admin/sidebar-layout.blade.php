@@ -123,12 +123,14 @@
                                 @endif
                             </ul>
                         </li>
-                        <li class="nav-item" id="list-data-user-verify">
-                            <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
-                                <i class="nav-icon fas fa-user-check"></i>
-                                <p>Verification User</p>
-                            </a>
-                        </li>
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan != "super admin")
+                            <li class="nav-item" id="list-data-user-verify">
+                                <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
+                                    <i class="nav-icon fas fa-user-check"></i>
+                                    <p>Verification User</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
                                 @csrf
