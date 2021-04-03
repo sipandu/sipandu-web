@@ -30,15 +30,15 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/register-anak', 'User\Auth\Api\ApiRegisterController@storeAnak');
     Route::post('/register-ibu', 'User\Auth\Api\ApiRegisterController@storeIbu');
     Route::post('/register-lansia', 'User\Auth\Api\ApiRegisterController@storeLansia');
+
+
     Route::get('/get-posyandu', 'User\Auth\Api\GetData@dataPosyandu')->middleware('auth:sanctum');
+    Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
+    Route::get('/regist-data-posyandu', 'User\Auth\Api\ApiRegisterController@getAllPosyandu');
+    Route::post('/register-data-anak', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataAnak');
+    Route::post('/register-data-ibu', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataIbu');
+    Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
 });
 
-Route::get('/regist-data-posyandu', 'User\Auth\Api\ApiRegisterController@getAllPosyandu');
 
-
-Route::post('/register-data-anak', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataAnak');
-Route::post('/register-data-ibu', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataIbu');
-Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
-
-Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
 
