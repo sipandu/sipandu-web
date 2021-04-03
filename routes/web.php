@@ -195,7 +195,9 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('userAkses:1,user:ibu');
     Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('userAkses:2,user:lansia');
 
-    Route::get('/tambah-keluarga', 'TambahKeluargaController@form')->name('Tambah Keluarga');
+    Route::get('/anak/tambah-keluarga', 'TambahKeluargaController@formAnak')->name('Tambah Keluarga Anak');
+    Route::get('/ibu/tambah-keluarga', 'TambahKeluargaController@formIbu')->name('Tambah Keluarga Ibu');
+    Route::get('/lansia/tambah-keluarga', 'TambahKeluargaController@formLansia')->name('Tambah Keluarga Lansia');
     Route::post('/ibu/store', 'TambahKeluargaController@storeIbu')->name('ibu.store');
     Route::post('/anak/store', 'TambahKeluargaController@storeAnak')->name('anak.store');
     Route::post('/lansia/store', 'TambahKeluargaController@storeLansia')->name('lansia.store');
