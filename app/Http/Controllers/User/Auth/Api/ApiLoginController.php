@@ -38,7 +38,7 @@ class ApiLoginController extends Controller
                 */
 
             $user = User::where('email', $request->email)->first();
-            if ($user->role == '0') {
+            if ($user->role == "0") {
                 $role = Anak::where('id_user', $user->id)->get()->first();
             }
             else if ($user->role == '1') {
@@ -47,8 +47,8 @@ class ApiLoginController extends Controller
             else if ($user->role == '2') {
                 $role = Lansia::where('id_user', $user->id)->get()->first();
             }
-
-            if ($role->NIK == null) {
+            
+            if ($role->NIK == NULL) {
                 $flagComplete = 0;
             }
             else {
@@ -80,21 +80,21 @@ class ApiLoginController extends Controller
     }
 
     public function logout(Request $request){
-        try{
-            $user = $request->user();
-            // $user = User::where('id', $id)->get();
-            $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'Logout Successfull',
-        ]);
-        } catch (Exception $error){
-            return response()->json([
-                'status_code' => 500,
-                'message' => 'Error in Logout',
-                'error' => $error,
+            if($request->user() != null){
+                $user = $request->user();
+                $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Logout Successfull',
                 ]);
-        }
+            }else{
+                return response()->json([
+                    'status_code' => 500,
+                    'message' => 'Login First !',
+                    ]);    
+            }
+            // $user = User::where('id', $id)->get();
+
 
     }
 }
