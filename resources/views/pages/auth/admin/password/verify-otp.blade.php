@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 
     <div class="login-box">
-        <div class="card card-outline card-primary" style=" width: 502px; height: 504px;">
+        <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
                 <a href="" class="text-decoration-none h4 fw-bold">Smart Posyandu</a>
