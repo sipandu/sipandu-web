@@ -13,11 +13,14 @@
 	<link rel="stylesheet" href="{{ url('index-template/css/animate.css')}}">
 	<link rel="stylesheet" href="{{ url('index-template/css/tiny-slider.css')}}">
 	<link rel="stylesheet" href="{{ url('index-template/css/main.css')}}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
 </head>
 <body>
 	{{-- Preload Start --}}
 	<div class="preloader">
 		<div class="loader">
+			<img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="50" height="50" class="d-inline-block align-top" alt="Logo Smart Posyandu">
 			<div class="ytp-spinner">
 				<div class="ytp-spinner-container">
 					<div class="ytp-spinner-rotator">
@@ -462,6 +465,7 @@
 	</section> --}}
 	<!-- ========================= contact-section end ========================= -->
 
+	{{-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> --}}
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 	@stack('js')
@@ -470,6 +474,7 @@
 	<script src="{{ url("index-template/js/wow.min.js")}}"></script>
 	<script src="{{ url('index-template/js/tiny-slider.js')}}"></script>
 	<script src="{{ url('index-template/js/main.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -90,7 +90,7 @@ Route::get('/user/account/new-user', function () {
 
 
 Route::get('/', function () {
-    return view('pages/landing-page');
+    return view('pages/user/content/landing-page');
 })->name('Landing Page');
 
 Route::get('/test', function () {
@@ -234,10 +234,10 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
 
 //Blog
 Route::get('/blog', function () {
-    return view('pages/user/blog/news');
-})->name("berita");
+    return view('pages/user/content/news');
+})->name("Berita");
 Route::get('/penyuluhan', function () {
-    return view('user/blog/penyuluhan');
+    return view('pages/user/content/penyuluhan');
 })->name('Penyuluhan');
 
 

@@ -24,12 +24,12 @@
                     <div class="footer-widget mb-30">
                         <h4>Menu</h4>
                         <ul class="footer-links">
-                            <li><a href="#">Beranda</a></li>
-                            <li><a href="#">Berita</a></li>
-                            <li><a href="#">Tentang</a></li>
-                            <li><a href="#">Kontak</a></li>
-                            <li><a href="#">Regiatrasi</a></li>
-                            <li><a href="#">Masuk</a></li>
+                            <li><a class="text-decoration-none" href="#">Beranda</a></li>
+                            <li><a class="text-decoration-none" href="#">Berita</a></li>
+                            <li><a class="text-decoration-none" href="#">Tentang</a></li>
+                            <li><a class="text-decoration-none" href="#">Kontak</a></li>
+                            <li><a class="text-decoration-none" href="#">Regiatrasi</a></li>
+                            <li><a class="text-decoration-none" href="#">Masuk</a></li>
                         </ul>
                     </div>
                 </div>
@@ -37,19 +37,19 @@
                     <div class="footer-widget mb-30">
                         <h4>Pintasan</h4>
                         <ul class="footer-links">
-                            <li><a href="#">Cardiology</a></li>
-                            <li><a href="#">Neurology</a></li>
-                            <li><a href="#">Gastroenterology</a></li>
-                            <li><a href="#">Routine Checkup</a></li>
-                            <li><a href="#">Orthopedics</a></li>
-                            <li><a href="#">Dental Surgery</a></li>
+                            <li><a class="text-decoration-none" href="#">Cardiology</a></li>
+                            <li><a class="text-decoration-none" href="#">Neurology</a></li>
+                            <li><a class="text-decoration-none" href="#">Gastroenterology</a></li>
+                            <li><a class="text-decoration-none" href="#">Routine Checkup</a></li>
+                            <li><a class="text-decoration-none" href="#">Orthopedics</a></li>
+                            <li><a class="text-decoration-none" href="#">Dental Surgery</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div class="copyright-area">
-            <p class="mb-0 text-center">Copyright &copy; 2021  <a href="https://uideck.com/" rel="nofollow">Smart Posyandu</a></p>
+            <p class="mb-0 text-center">Copyright &copy; 2021  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu</a></p>
         </div>
     </div>
 </footer>
