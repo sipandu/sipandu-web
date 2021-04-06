@@ -43,6 +43,8 @@ class AdminController extends Controller
         $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
         $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
         $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
+        
+        // return($anak);
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
 

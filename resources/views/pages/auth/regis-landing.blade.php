@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label>Nomor KK</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="Nomor KK">
+                            <input type="text" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="Nomor KK*">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="far fa-address-card"></span>
@@ -56,7 +56,7 @@
                         <label>Daftar Sebagai</label>
                         <div class="input-group mb-3">
                             <select class="form-control select2bs4 @error('role') is-invalid @enderror" name="role">
-                                <option disabled selected>Daftar sebagai....</option>
+                                <option disabled selected>*Daftar sebagai....</option>
                                 <option value="anak">Anak / Balita</option>
                                 <option value="ibu">Ibu Hamil</option>
                                 <option value="lansia">Lansia</option>

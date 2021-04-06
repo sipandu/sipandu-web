@@ -30,7 +30,7 @@
             </nav>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         <div class="row">
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
@@ -57,7 +57,7 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-yy', strtotime(Auth::user()->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime(Auth::user()->created_at)) }}</a>
                             </li>
                         </ul>
                         <form action="{{route('logout.user')}}">
@@ -160,7 +160,7 @@
                                 <form action="{{route('edit.account.anak')}}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
                                         <div class="col-sm-10 my-auto">
                                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::user()->email) }}">
                                             @error('email')
@@ -192,9 +192,12 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div>
+                                        <p class="text-danger text-end">*Data Wajib Diisi</p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
-                                            <button type="submit" class="btn btn-outline-success my-1">Save Change</button>
+                                            <button type="submit" class="btn btn-outline-success">Save Change</button>
                                         </div>
                                     </div>
                                 </form>
@@ -205,8 +208,8 @@
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
                                     <div class="modal-body">
                                         <div class="form-group row">
-                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image</label>
-                                            <div class="col-sm-9">
+                                            <label for="inputTelp" class="col-sm-3 col-form-label">Foto Profile<span class="text-danger">*</span></label>
+                                            <div class="col-sm-9 my-auto">
                                                 <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">
                                                 <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
                                                 @error('file')
@@ -217,19 +220,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <p class="text-danger text-end">*Data Wajib Diisi</p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-outline-success my-1" >Simpan Foto Profile</button>
+                                            <button id="test" type="submit" class="btn btn-outline-success">Simpan Foto Profile</button>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="border border-bottom border-primary my-4"></div>
                                 <form action="{{route('edit.password.user')}}" method="POST" class="form-horizontal">
-                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
+                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Kata Sandi</label>
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
-                                        <div class="col-sm-9">
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Kata Sandi Lama<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9 my-auto">
                                             <input type="password" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror"  id="inputTelp" placeholder="Password Lama" >
                                             @error('password_lama')
                                                 <div class="invalid-feedback text-start">
@@ -239,8 +245,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
-                                        <div class="col-sm-9">
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Kata Sandi Baru<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9 my-auto">
                                             <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"   id="inputTelp" placeholder="Password Baru" >
                                             @error('password')
                                                 <div class="invalid-feedback text-start">
@@ -250,8 +256,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
-                                        <div class="col-sm-9">
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Kata Sandi Baru<span class="text-danger">*</span></label>
+                                        <div class="col-sm-9 my-auto">
                                             <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"  id="inputTelp" placeholder="Konfirmasi Password" >
                                             @error('password_confirmation')
                                                 <div class="invalid-feedback text-start">
@@ -260,9 +266,12 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div>
+                                        <p class="text-danger text-end">*Data Wajib Diisi</p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-outline-success my-1">Simpan Password Baru</button>
+                                            <button id="test" type="submit" class="btn btn-outline-success">Simpan Kata Sandi</button>
                                         </div>
                                     </div>
                                 </form>

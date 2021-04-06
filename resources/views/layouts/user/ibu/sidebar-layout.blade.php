@@ -17,7 +17,7 @@
                     <a href="#" class="nav-link" id="list-ibu-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            Ibu
+                            Ibu Hamil
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Tambah Keluarga') }}" class="nav-link" id="tambah-keluarga">
+                            <a href="{{ route('Tambah Keluarga Ibu') }}" class="nav-link" id="tambah-keluarga">
                                 <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Tambah Keluarga</p>
                             </a>

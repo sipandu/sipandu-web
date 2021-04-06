@@ -14,7 +14,6 @@ class Posyandu extends Model
 
     protected $fillable = [
         'id_desa',
-        'id_admin',
         'nama_posyandu',
         'id_chat_group_tele',
         'alamat',

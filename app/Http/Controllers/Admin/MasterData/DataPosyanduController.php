@@ -159,9 +159,9 @@ class DataPosyanduController extends Controller
                 'jabatan' => 'disactive'
             ]);
             if ($data) {
-                return redirect()->back()->with(['success' => 'Data '.$pegawai->jabatan.' berhasil di non-aktifkan']);
+                return redirect()->back()->with(['success' => 'Akun '.$pegawai->jabatan.' berhasil di non-aktifkan']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data '.$pegawai->jabatan.' gagal di non-aktifkan']);
+                return redirect()->back()->with(['failed' => 'Akun '.$pegawai->jabatan.' gagal di non-aktifkan']);
             }
         } else {
             return redirect()->back()->with(['failed' => 'NIK '.$pegawai->jabatan.' tidak sesuai']);

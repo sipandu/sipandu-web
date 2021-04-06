@@ -14,7 +14,7 @@ class CekLevel
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $level1, $level2, $level3, $level4)
+    public function handle($request, Closure $next, $level1, $level2, $level3, $level4, $level5)
     {
         if(Auth::guard('admin')->user()->pegawai->jabatan == $level1){
             return $next($request);
@@ -23,6 +23,8 @@ class CekLevel
         }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level3){
             return $next($request);
         }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level4){
+            return $next($request);
+        }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level5){
             return $next($request);
         }else{
             return redirect()->back();

@@ -123,11 +123,10 @@
                             </div>
                             <div class="tab-pane" id="ubahProfile">
                                 <form action="{{ route('Update Anggota Ibu', [$dataUser->ibu->id]) }}" method="POST" class="form-horizontal">
-                                {{-- <form action="" method="POST" class="form-horizontal"> --}}
                                     @csrf
                                     <div class="form-floating mb-3">
                                         <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataUser->ibu->nama_ibu_hamil) }}" placeholder="Nama Lengkap Ibu Hamil">
-                                        <label for="floatingInput">Nama Lengkap</label>
+                                        <label for="floatingInput">Nama Lengkap<span class="text-danger">*</span></label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -136,7 +135,7 @@
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataUser->ibu->NIK) }}" placeholder="NIK Ibu Hamil">
-                                        <label for="floatingInput">Nomor Induk Kependudukan</label>
+                                        <label for="floatingInput">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
                                         @error('nik')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -147,7 +146,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataUser->ibu->tempat_lahir) }}" placeholder="Tempat Lahir Ibu Hamil">
-                                                <label for="floatingInput">Tampat Lahir</label>
+                                                <label for="floatingInput">Tampat Lahir<span class="text-danger">*</span></label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -159,7 +158,7 @@
                                             <div class="form-group">
                                                 <div class="form-floating">
                                                     <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataUser->ibu->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Ibu Hamil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <label for="floatingInput">Tanggal Lahir</label>
+                                                    <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}

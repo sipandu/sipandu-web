@@ -31,6 +31,7 @@ class ApiRegisterController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'idKK' => $idKK,
+                'noKK' => $selectKK->no_kk
             ]);
 
         }else{
@@ -109,6 +110,7 @@ class ApiRegisterController extends Controller
                 //     'file.image' => "File yang di upload harus berupa foto",
                 //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
                 // ]);
+
 
                 $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
                 $imageName = time().'-'.$request->file->getClientOriginalName();
