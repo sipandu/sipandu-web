@@ -236,6 +236,11 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
 Route::get('/blog', function () {
     return view('pages/user/content/news');
 })->name("Berita");
+
+Route::get('/blog/detail', function () {
+    return view('pages/user/content/detail-news');
+})->name("Detail Berita");
+
 Route::get('/penyuluhan', function () {
     return view('pages/user/content/penyuluhan');
 })->name('Penyuluhan');

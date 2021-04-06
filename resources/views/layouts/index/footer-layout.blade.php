@@ -1,4 +1,4 @@
-<footer class="footer pt-100 img-bg" style="background-image:url('index-template/img/bg/footer-bg.jpg');">
+<footer class="footer pt-100 img-bg" style="background-image:url('/index-template/img/bg/footer-bg.jpg')">
     <div class="container">
         <div class="footer-widget-wrapper">
             <div class="row">
