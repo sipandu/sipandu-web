@@ -40,14 +40,17 @@ class ApiLoginController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user->role == "0") {
                 $role = Anak::where('id_user', $user->id)->get()->first();
+                $nama = $role->nama_anak;
             }
             else if ($user->role == '1') {
                 $role = Ibu::where('id_user', $user->id)->get()->first();
+                $nama = $role->nama_ibu_hamil;
             }
             else if ($user->role == '2') {
                 $role = Lansia::where('id_user', $user->id)->get()->first();
+                $nama = $role->nama_lansia;
             }
-            
+
             if ($role->NIK == NULL) {
                 $flagComplete = 0;
             }
@@ -67,7 +70,8 @@ class ApiLoginController extends Controller
             'token_type' => 'Bearer',
             'message' => 'sucess',
             'user' => $user,
-            'flag_complete' => $flagComplete
+            'flag_complete' => $flagComplete,
+            'nama' => $nama
             ]);
 
         } catch (Exception $error) {
@@ -91,7 +95,7 @@ class ApiLoginController extends Controller
                 return response()->json([
                     'status_code' => 500,
                     'message' => 'Login First !',
-                    ]);    
+                    ]);
             }
             // $user = User::where('id', $id)->get();
 
