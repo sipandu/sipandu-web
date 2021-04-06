@@ -111,6 +111,7 @@ class ApiRegisterController extends Controller
                 //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
                 // ]);
 
+
                 $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
                 $imageName = time().'-'.$request->file->getClientOriginalName();
 
