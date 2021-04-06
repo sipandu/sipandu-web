@@ -20,14 +20,14 @@
 @section('content')
 <div class="container mt-5 pt-5">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center my-auto">
-      <h1 class="h4 fw-bold text-dark border-2 border-bottom border-danger p-2">Rincian Berita</h1>
+      <h1 class="h4 fw-bold text-dark border-2 border-bottom border-danger p-2">Rincian Penyuluhan</h1>
       <h1 class="h6 fw-bold my-auto"><a class="text-decoration-none fw-bold btn btn-sm btn-outline-info text-dark p-2" href="">Kembali</a></h1>
     </div>
     <hr class="border border-dark dropdown-divider p-0">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-2">
           <li class="breadcrumb-item"><a class="text-decoration-none link-primary" href="#">Beranda</a></li>
-          <li class="breadcrumb-item"><a class="text-decoration-none link-primary" href="#">Berita</a></li>
+          <li class="breadcrumb-item"><a class="text-decoration-none link-primary" href="#">Penyuluhan</a></li>
           <li class="breadcrumb-item active" aria-current="page">Rincian</li>
         </ol>
     </nav>
@@ -36,7 +36,7 @@
     <img src="https://images.unsplash.com/photo-1584581893475-7e64f711bdcf?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDEwOXxKcGc2S2lkbC1Ia3x8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-fluid w-100 ratio ratio-16x9 mb-5" alt="...">
     <div class="container px-md-5">
         <div class="card border-info border-2 mx-md-5 mx-2 p-2 p-md-5">
-            <h2 class="fw-bold text-center">Judul Dari Berita Yang Dipilih Sebelumnya</h4>
+            <h2 class="fw-bold text-center">Judul Dari Penyuluhan Yang Dipilih Sebelumnya</h4>
             <div class="row mb-5">
                 <div class="col-sm-12 col-md-6 text-md-center">
                     <p class="card-text text-center text-md-start small">
@@ -58,7 +58,7 @@
         </div>
         <hr class="border border-dark dropdown-divider mt-5 mb-4 mx-5">
         <div class="mx-md-5 mx-2">
-            <h1 class="h4 fw-bold text-dark border-2 border-bottom border-danger p-2">Berita Lainnya</h1>
+            <h1 class="h4 fw-bold text-dark border-2 border-bottom border-danger p-2">Penyuluhan Lainnya</h1>
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-5 my-auto">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita') }}" class="text-decoration-none page-scroll">Judul Berita</a></h5>
+                            <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita') }}" class="text-decoration-none page-scroll">Judul Penyuluhan</a></h5>
                             <p class="card-text small"><span class="text-muted">Oleh Admin A</span> | <span>Pada 15-Mar-20</span></p>
                             <p class="card-text">Deskripsi singkat dari berita yang ditampilkan nantinya pada list berita</p>
                             <p class="card-text small">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita') }}" class="text-decoration-none page-scroll">Judul Berita</a></h5>
+                            <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita') }}" class="text-decoration-none page-scroll">Judul Penyuluhan</a></h5>
                             <p class="card-text small"><span class="text-muted">Oleh Admin A</span> | <span>Pada 15-Mar-20</span></p>
                             <p class="card-text">Deskripsi singkat dari berita yang ditampilkan nantinya pada list berita</p>
                             <p class="card-text small">
@@ -112,7 +112,24 @@
                         <span class="text-muted small">Anaknya Si A</span>
                         <span class="text-muted small"> | </span>
                         <span class="text-muted small">15-Mar-20</span>
-                        <h6 class="card-title fw-bold">Isi dari komentar pesan yang diinputkan user pada sebuah news</h6>
+                        <h6 class="card-title fw-bold">Isi dari komentar pesan yang diinputkan user pada sebuah penyuluhan</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 border-0 border-bottom pb-3 mx-md-5 mx-2 mt-4">
+            <div class="row g-0">
+                <div class="col-3 col-md-2 my-auto d-flex justify-content-end">
+                    <div class="image d-block">
+                        <img src="https://images.unsplash.com/photo-1568725992957-ead7b0259b5f?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDV8cVBZc0R6dkpPWWN8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="..." width="150" height="150">
+                    </div>
+                </div>
+                <div class="col-9 col-md-10">
+                    <div class="card-body">
+                        <span class="text-muted small">Anaknya Si A</span>
+                        <span class="text-muted small"> | </span>
+                        <span class="text-muted small">15-Mar-20</span>
+                        <h6 class="card-title fw-bold">Isi dari komentar pesan yang diinputkan user pada sebuah penyuluhan</h6>
                     </div>
                 </div>
             </div>
@@ -124,9 +141,9 @@
 @push('js')
     <script>
         $(document).ready(function(){
-            $('#menu-berita').addClass('active');
+            $('#menu-penyuluhan').addClass('active');
             $('#menu-berita').attr("href", "{{ route('Berita') }}");
-            $('#menu-penyuluhan').attr("href", "{{ route('Penyuluhan') }}");
+            $('#menu-penyuluhan').attr("href", "{{ route('Penyuluhan') }}");;
         });
     </script>
 @endpush

@@ -245,6 +245,10 @@ Route::get('/penyuluhan', function () {
     return view('pages/user/content/penyuluhan');
 })->name('Penyuluhan');
 
+Route::get('/penyuluhan/detail', function () {
+    return view('pages/user/content/detail-penyuluhan');
+})->name('Detail Penyuluhan');
+
 
 
 //Informasi Penting
