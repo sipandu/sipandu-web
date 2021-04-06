@@ -36,7 +36,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::guard('admin')->user()->profile_image}}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{route('admin.get_profile')}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>

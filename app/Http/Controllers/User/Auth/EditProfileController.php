@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Mover;
 use App\User;
 use App\Anak;
 use App\Ibu;
@@ -44,14 +45,16 @@ class EditProfileController extends Controller
             'file.mimes' => "Foto profile harus berformat jpeg, png, jpg",
         ]);
 
-        $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
+        // $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
+        // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-        $request->file->move(public_path('images/upload/Profile'),$imageName);
+        // $request->file->move(public_path('images/upload/Profile'),$imageName);
+
+        $filename = Mover::slugFile($request->file('file'), 'app/images/user/profile/');
 
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $user->profile_image = $path;
+        $user->profile_image = $filename;
         $user->save();
 
         return redirect()->back()->with(['success' => 'Foto profile berhasil di ubah']);
@@ -196,7 +199,7 @@ class EditProfileController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             } else {
                 if (Auth::user()->anak->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -234,10 +237,10 @@ class EditProfileController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
-        
+
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $user->email = $request->email;
@@ -346,7 +349,7 @@ class EditProfileController extends Controller
                         'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            
+
                     ]);
                 } else {
                     $this->validate($request, [
@@ -365,9 +368,9 @@ class EditProfileController extends Controller
                         'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            
+
                     ]);
-                } 
+                }
             } else {
                 if (Auth::user()->ibu->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -405,7 +408,7 @@ class EditProfileController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
 
@@ -517,7 +520,7 @@ class EditProfileController extends Controller
                         'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            
+
                     ]);
                 } else {
                     $this->validate($request, [
@@ -536,9 +539,9 @@ class EditProfileController extends Controller
                         'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-            
+
                     ]);
-                } 
+                }
             } else {
                 if (Auth::user()->lansia->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -576,10 +579,10 @@ class EditProfileController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
-        
+
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $user->email = $request->email;

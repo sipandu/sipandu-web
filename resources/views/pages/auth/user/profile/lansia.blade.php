@@ -38,7 +38,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{Auth::user()->profile_image}}" alt="..." width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{route('user.get-profile')}}" alt="..." width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center lh-1">{{Auth::user()->lansia->nama_lansia}}</h3>

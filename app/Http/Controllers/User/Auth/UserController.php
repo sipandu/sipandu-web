@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -12,6 +13,15 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function getProfile()
+    {
+        // dd(Auth::user()->profile_image);
+        return response()->file(
+            storage_path(Auth::user()->profile_image)
+        );
+    }
+
 
     public function anakhome(Request $request)
     {

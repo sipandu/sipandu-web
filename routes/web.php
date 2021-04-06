@@ -163,6 +163,8 @@ Route::prefix('login')->group(function(){
 Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
+    Route::get('/get-image/profile', 'AdminController@getProfile')->name('admin.get_profile');
+    Route::get('/get-image/kk-user/{id}', 'AdminController@getKKUser')->name('get_kk.user');
     Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
     Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
     Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
@@ -194,6 +196,8 @@ Route::prefix('user')->namespace('User\Auth')->group(function(){
     Route::get('/', 'UserController@anakhome')->name('anak.home')->middleware('userAkses:0,user:anak');
     Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('userAkses:1,user:ibu');
     Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('userAkses:2,user:lansia');
+
+    Route::get('/get-profile', 'UserController@getProfile')->name('user.get-profile');
 
     Route::get('/anak/tambah-keluarga', 'TambahKeluargaController@formAnak')->name('Tambah Keluarga Anak');
     Route::get('/ibu/tambah-keluarga', 'TambahKeluargaController@formIbu')->name('Tambah Keluarga Ibu');

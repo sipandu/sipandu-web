@@ -32,7 +32,8 @@
                         <div class="row">
                             <div class="col-12">
                                 {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
-                                <img src="{{$lansia->kk->file_kk}}" class="card-img-bottom" alt="...">
+                                {{-- <img src="{{$lansia->kk->file_kk}}" class="card-img-bottom" alt="..."> --}}
+                                <img src="{{route('get_kk.user',$lansia->id_kk)}}" class="card-img-bottom" alt="File KK Lansia">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">

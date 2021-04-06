@@ -65,7 +65,7 @@ class TambahKeluargaController extends Controller
             'email' => $request->email_ibu,
             'password' => Hash::make($request->passwordIbu),
             'role' => '1',
-            'profile_image' => "/images/upload/Profile/default.jpg",
+            'profile_image' => "app/images/user/profile/default.jpg",
             'is_verified' => 1,
         ]);
 
@@ -109,7 +109,7 @@ class TambahKeluargaController extends Controller
             'email' => $request->email_anak,
             'password' => Hash::make($request->passwordAnak),
             'role' => '0',
-            'profile_image' => "/images/upload/Profile/default.jpg",
+            'profile_image' => "app/images/user/profile/default.jpg",
             'is_verified' => 1,
         ]);
 
@@ -153,7 +153,7 @@ class TambahKeluargaController extends Controller
             'email' => $request->email_lansia,
             'password' => Hash::make($request->passwordLansia),
             'role' => '2',
-            'profile_image' => "/images/upload/Profile/deafult.jpg",
+            'profile_image' => "app/images/user/profile/default.jpg",
             'is_verified' => 1,
         ]);
 

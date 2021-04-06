@@ -6,6 +6,7 @@ use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
 use App\User;
+use App\Mover;
 use App\Anak;
 use App\Ibu;
 use App\Lansia;
@@ -102,15 +103,12 @@ class RegisController extends Controller
         $tgl = $tgl_lahir_eng[0];
         $tgl_lahir = $tahun.$bulan.$tgl;
 
-        $path ='/images/upload/KTP/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
-
-        $request->file->move(public_path('images/upload/KTP'),$imageName);
+        $filename = Mover::slugFile($request->file('file'), 'app/images/admin/ktp/');
 
         $admin = Admin::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'profile_image' => '/images/upload/Profile/default.jpg',
+            'profile_image' => 'app/images/admin/profile/default.jpg',
             'is_verified' => 1,
         ]);
 
@@ -125,7 +123,7 @@ class RegisController extends Controller
             'nomor_telepon' => $request->tlpn,
             'username_telegram' => $request->telegram,
             'nik' => $request->nik,
-            'file_ktp' => $path,
+            'file_ktp' => $filename,
         ]);
         return redirect()->back()->with(['success' => 'Data akun '.$request->jabatan.' baru berhasil ditambahkan']);
     }
@@ -202,7 +200,7 @@ class RegisController extends Controller
                 'email' => $request->email_bumil,
                 'username_tele' => $request->telegram_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -236,13 +234,15 @@ class RegisController extends Controller
                 'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK "
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file_bumil->getClientOriginalName();
-            $imageName = time().'-'.$request->file_bumil->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file_bumil->getClientOriginalName();
+            // $imageName = time().'-'.$request->file_bumil->getClientOriginalName();
 
-            $request->file_bumil->move(public_path('images/upload/KK'),$imageName);
+            // $request->file_bumil->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file_bumil'), 'app/images/user/kk/');
+
             $kk = KK::create([
                 'no_kk' => $request->no_kk_bumil,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             $user = User::create([
@@ -251,7 +251,7 @@ class RegisController extends Controller
                 'id_kk' => $kk->id,
                 'email' => $request->email_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -364,7 +364,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->passwordAnak),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -392,7 +392,7 @@ class RegisController extends Controller
                 # code...
                 return redirect()->back()->with(['failed' => 'Akun anak gagal ditambahkan']);
             }
-            
+
         } else {
 
             $this->validate($request,[
@@ -402,13 +402,15 @@ class RegisController extends Controller
                 'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file_anak->getClientOriginalName();
-            $imageName = time().'-'.$request->file_anak->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file_anak->getClientOriginalName();
+            // $imageName = time().'-'.$request->file_anak->getClientOriginalName();
 
-            $request->file_anak->move(public_path('images/upload/KK'),$imageName);
+            // $request->file_anak->move(public_path('images/upload/KK'),$imageName);
+
+            $filename = Mover::slugFile($request->file('file_anak'), 'app/images/user/kk/');
             $kk = KK::create([
                 'no_kk' => $request->no_kk_anak,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             $user = User::create([
@@ -418,7 +420,7 @@ class RegisController extends Controller
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
                 'password' => Hash::make($request->password_anak),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -520,7 +522,7 @@ class RegisController extends Controller
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
@@ -555,13 +557,14 @@ class RegisController extends Controller
                 'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file_lansia->getClientOriginalName();
-            $imageName = time().'-'.$request->file_lansia->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file_lansia->getClientOriginalName();
+            // $imageName = time().'-'.$request->file_lansia->getClientOriginalName();
 
-            $request->file_lansia->move(public_path('images/upload/KK'),$imageName);
+            // $request->file_lansia->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file_lansia'), 'app/images/user/kk/');
             $kk = KK::create([
                 'no_kk' => $request->no_kk_lansia,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             $user = User::create([
@@ -570,7 +573,7 @@ class RegisController extends Controller
                 'id_kk' => $kk->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/default.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 1,
             ]);
 

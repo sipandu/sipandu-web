@@ -7,6 +7,7 @@ use App\Anak;
 use App\Ibu;
 use App\Lansia;
 use App\Kabupaten;
+use App\Mover;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -102,7 +103,7 @@ class RegisController extends Controller
                 'id_chat_tele' => null,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 
@@ -123,14 +124,15 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            // $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/images/user/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -139,7 +141,7 @@ class RegisController extends Controller
                 'role' => '0',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 
@@ -188,7 +190,7 @@ class RegisController extends Controller
                 'role' => '1',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 
@@ -208,14 +210,15 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            // $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/images/user/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -224,7 +227,7 @@ class RegisController extends Controller
                 'email' => $request->email,
                 'role' => '1',
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 
@@ -273,7 +276,7 @@ class RegisController extends Controller
                 'role' => '2',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 
@@ -293,14 +296,15 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
+            // $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
+            // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            // $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/images/user/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -309,7 +313,7 @@ class RegisController extends Controller
                 'role' => '2',
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "app/images/user/profile/default.jpg",
                 'is_verified' => 0,
             ]);
 

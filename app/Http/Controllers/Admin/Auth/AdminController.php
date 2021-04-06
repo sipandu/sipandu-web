@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Hash;
 use Mail;
+use App\Mover;
 use App\Mail\NotificationAccUser;
 use App\Mail\NotificationRjctUser;
 use App\Posyandu;
@@ -30,6 +31,21 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
+    public function getProfile()
+    {
+        return response()->file(
+            storage_path(Auth::guard('admin')->user()->profile_image)
+        );
+    }
+
+    public function getKKUser($id)
+    {
+        $kk = KK::find($id);
+
+        return response()->file(
+            storage_path($kk->file_kk)
+        );
+    }
 
     public function profile(Request $request)
     {
@@ -43,7 +59,7 @@ class AdminController extends Controller
         $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
         $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
         $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        
+
         // return($anak);
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
@@ -78,14 +94,15 @@ class AdminController extends Controller
             'file.mimes' => "Format gambar harus jpeg, png atau jpg",
         ]);
 
-        $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
+        // $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
+        // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-        $request->file->move(public_path('images/upload/Profile'),$imageName);
+        // $request->file->move(public_path('images/upload/Profile'),$imageName);
+        $filename = Mover::slugFile($request->file('file'), 'app/images/admin/profile/');
 
         $idAdmin = Auth::guard('admin')->user()->id;
         $admin = Admin::find($idAdmin);
-        $admin->profile_image = $path;
+        $admin->profile_image = $filename;
         $admin->save();
 
         return redirect()->back()->with(['success' => 'Foto profile anda berhasil di ubah']);
