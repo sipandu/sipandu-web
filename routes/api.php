@@ -33,6 +33,9 @@ Route::prefix('mobileuser')->group(function(){
 
     Route::get('/get-posyandu', 'User\Auth\Api\GetData@dataPosyandu')->middleware('auth:sanctum');
     Route::post('/get-posyandu-bolong', 'User\Auth\Api\ApiUserDataController@getPosyandu');
+
+    Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
+
     Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
     Route::post('/user/get-user-ibu', 'User\Auth\Api\ApiUserDataController@getUserIbu');
     Route::post('/user/get-user-lansia', 'User\Auth\Api\ApiUserDataController@getUserLansia');

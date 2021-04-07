@@ -10,6 +10,8 @@ use App\Anak;
 use App\Ibu;
 use App\Lansia;
 use Hash;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ApiLoginController extends Controller
 {
@@ -98,7 +100,14 @@ class ApiLoginController extends Controller
                     ]);
             }
             // $user = User::where('id', $id)->get();
+    }
 
+    public function videoBg(Request $request){
+        $files = Storage::files('/video');
+        $rand = Arr::random($files, 1);
 
+        return response()->json([
+            'video' => $rand
+        ]);
     }
 }
