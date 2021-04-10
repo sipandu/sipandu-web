@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-12 col-lg-3">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Anggota</h3>
@@ -65,76 +65,88 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-12 col-lg-9">
                         <div class="card card-primary card-outline tab-content" id="v-pills-tabContent">
                             <div class="card-header my-auto">
                                 <h3 class="card-title my-auto">Permintaan Verifikasi</h3>
                             </div>
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="card-body p-0">
-                                    <div class="table-responsive mailbox-messages p-2">
-                                        @if ($ibu->count() > 0)
-                                            <table id="tbBumil" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                    @if ($ibu->count() > 0)
+                                        <div class="table-responsive mailbox-messages p-2">
+                                            <table id="tbBumil" class="table table-bordered table-hover">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama Ibu Hamil</th>
-                                                        <th>Nama Suami</th>
-                                                        <th>Mendaftar Pada</th>
-                                                        <th>Tindakan</th>
+                                                        <th>Nama Bumil</th>
+                                                        <th class="d-none d-md-table-cell">Nama Suami</th>
+                                                        <th class="d-none d-md-table-cell">Mendaftar Pada</th>
+                                                        <th class="d-md-none">Tindakan</th>
+                                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($ibu as $data)
-                                                        <tr class="text-center">
-                                                            <td class="align-middle">{{ $loop->first }}</td>
-                                                            <td class="align-middle">{{ $data->nama_ibu_hamil}}</td>
-                                                            <td class="align-middle">{{ $data->nama_suami}}</td>
-                                                            <td class="align-middle">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
-                                                            <td class="text-center align-middle">
-                                                                <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    Lihat
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                    <tr class="text-center align-middle my-auto">
+                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ $data->nama_suami }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
+                                                        <td class="text-center align-middle d-md-none">
+                                                            <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                                            <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                                Detail
+                                                            </a>
+                                                        </td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                        @else
-                                            <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Ibu Hamil untuk Diverifikasi</p>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @else
+                                        <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Anak untuk Diverifikasi</p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                 <div class="card-body p-0">
                                     @if ($anak->count() > 0)
                                         <div class="table-responsive mailbox-messages p-2">
-                                            <table id="tbAnak" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                            <table id="tbAnak" class="table table-bordered table-hover">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Nama Anak</th>
-                                                        <th>Nama Ibu</th>
-                                                        <th>Mendaftar Pada</th>
-                                                        <th>Tindakan</th>
+                                                        <th class="d-none d-md-table-cell">Nama Ibu</th>
+                                                        <th class="d-none d-md-table-cell">Mendaftar Pada</th>
+                                                        <th class="d-md-none">Tindakan</th>
+                                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($anak as $data)
-                                                        <tr class="text-center">
-                                                            <td class="align-middle">{{ $loop->iteration }}</td>
-                                                            <td class="align-middle">{{ $data->nama_anak}}</td>
-                                                            <td class="align-middle">{{ $data->nama_ibu}}</td>
-                                                            <td class="align-middle">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
-                                                            <td class="text-center align-middle">
-                                                                <a href="{{ route('detail.verify.anak', [$data->user->id])}}" class="btn btn-warning btn-sm">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    Lihat
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                    <tr class="text-center align-middle my-auto">
+                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $data->nama_anak }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ $data->nama_ibu }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
+                                                        <td class="text-center align-middle d-md-none">
+                                                            <a href="{{ route('detail.verify.anak', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                                            <a href="{{ route('detail.verify.anak', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                                Detail
+                                                            </a>
+                                                        </td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -148,30 +160,36 @@
                                 <div class="card-body p-0">
                                     @if ($lansia->count() > 0)
                                         <div class="table-responsive mailbox-messages p-2">
-                                            <table id="tbLansia" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                            <table id="tbLansia" class="table table-bordered table-hover">
                                                 <thead class="text-center">
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama Lanjut Usia</th>
-                                                        <th>Kategori</th>
-                                                        <th>Mendaftar Pada</th>
-                                                        <th>Tindakan</th>
+                                                        <th>Nama Lansia</th>
+                                                        <th class="d-none d-md-table-cell">Kategori</th>
+                                                        <th class="d-none d-md-table-cell">Mendaftar Pada</th>
+                                                        <th class="d-md-none">Tindakan</th>
+                                                        <th class="d-none d-md-table-cell">Tindakan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($lansia as $data)
-                                                        <tr class="text-center align-middle my-auto">
-                                                            <td class="align-middle">{{ $loop->iteration }}</td>
-                                                            <td class="align-middle">{{ $data->nama_lansia}}</td>
-                                                            <td class="align-middle">{{ $data->status}}</td>
-                                                            <td class="align-middle">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
-                                                            <td class="text-center align-middle">
-                                                                <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    Lihat
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                    @foreach ($ibu as $data)
+                                                    <tr class="text-center align-middle my-auto">
+                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $data->nama_lansia }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
+                                                        <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
+                                                        <td class="text-center align-middle d-md-none">
+                                                            <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                                            <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-edit"></i>
+                                                                Detail
+                                                            </a>
+                                                        </td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -183,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
