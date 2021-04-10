@@ -37,34 +37,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-hover table-responsive-md">
+                    <div class="card-body table-responsive-md">
+                        <table id="example1" class="table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Posyandu</th>
-                                    <th>Lokasi Banjar</th>
-                                    <th>Administrator</th>
-                                    <th>Tindakan</th>
+                                    <th class="d-none d-sm-table-cell">Lokasi Banjar</th>
+                                    <th class="d-none d-md-table-cell">Administrator</th>
+                                    <th class="d-md-none">Tindakan</th>
+                                    <th class="d-none d-md-table-cell">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($posyandu as $data)
-                                    <tr class="text-center align-middle my-auto">
+                                    <tr class="text-center align-middle">
                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                         <td class="align-middle">{{ $data->nama_posyandu}}</td>
-                                        <td class="align-middle">{{ $data->banjar }}</td>
-                                        <td class="align-middle">
+                                        <td class="align-middle d-none d-sm-table-cell">{{ $data->banjar }}</td>
+                                        <td class="align-middle d-none d-md-table-cell">
                                             @foreach ($pegawai->where('id_posyandu', $data->id) as $pgw)
                                                 <ul class="list-unstyled">
                                                     <li> {{ $pgw->nama_pegawai }}</li>
                                                 </ul>
                                             @endforeach
                                         </td>
-                                        <td class="text-center align-middle">
+                                        <td class="text-center align-middle d-md-none">
                                             <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
-                                                 Detail
+                                            </a>
+                                        </td>
+                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                            <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                                Detail
                                             </a>
                                         </td>
                                     </tr>
@@ -74,9 +80,10 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Posyandu</th>
-                                    <th>Lokasi Banjar</th>
-                                    <th>Administrator</th>
-                                    <th>Tindakan</th>
+                                    <th class="d-none d-sm-table-cell">Lokasi Banjar</th>
+                                    <th class="d-none d-md-table-cell">Administrator</th>
+                                    <th class="d-md-none">Tindakan</th>
+                                    <th class="d-none d-md-table-cell">Tindakan</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -117,6 +124,8 @@
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
                     "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)"
                 },
                 "language": {
                     "buttons": {
@@ -129,7 +138,7 @@
                     },
                     "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
                 },
-                "buttons": ["colvis"]
+                // "buttons": ["colvis"]
                 // "buttons": ["excel", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });

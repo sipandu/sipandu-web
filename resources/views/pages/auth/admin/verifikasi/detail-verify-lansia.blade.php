@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ date('d-M-yy', strtotime($lansia->created_at)) }}
+                        {{ date('d-M-Y', strtotime($lansia->created_at)) }}
                     </div>
                 </div>
             </div>

@@ -32,17 +32,18 @@
                             <li class="nav-item"><a class="nav-link" href="#tbLansia" data-toggle="tab">Lansia</a></li>
                         </ul>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive-md">
                         <div class="tab-content">
                             <div class="active tab-pane" id="tbIbu">
                                 @if ($ibu->count() > 0)
-                                    <table id="dataIbu" class="table table-bordered table-hover table-responsive-sm">
+                                    <table id="dataIbu" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
-                                                <th>Lokasi Posyandu</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -50,14 +51,14 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
-                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Detail Anggota Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
-                                                    <td class="text-center align-middle d-none d-md-block">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                    <td class="text-center align-middle d-none d-md-table-cell">
+                                                        <a href="{{route('Detail Anggota Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
                                                         </a>
@@ -69,8 +70,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
-                                                <th>Lokasi Posyandu</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -80,13 +82,14 @@
                             </div>
                             <div class="tab-pane" id="tbAnak">
                                 @if ($anak->count() > 0)
-                                    <table id="dataAnak" class="table table-bordered table-hover table-responsive-sm">
+                                    <table id="dataAnak" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
-                                                <th>Lokasi Posyandu</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -94,13 +97,13 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_anak }}</td>
-                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
-                                                    <td class="text-center align-middle d-none d-md-block">
+                                                    <td class="text-center align-middle d-none d-md-table-cell">
                                                         <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
@@ -113,8 +116,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
-                                                <th>Lokasi Posyandu</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -124,13 +128,15 @@
                             </div>
                             <div class="tab-pane" id="tbLansia">
                                 @if ($lansia->count() > 0)
-                                    <table id="dataLansia" class="table table-bordered table-hover table-responsive-sm">
+                                    <table id="dataLansia" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lansia</th>
-                                                <th>Jabatan</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-sm-table-cell">Golongan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -138,14 +144,15 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_lansia }}</td>
-                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    <td class="align-middle d-none d-sm-table-cell">{{ $data->status }}</td>
+                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
-                                                    <td class="text-center align-middle d-none d-md-block">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                    <td class="text-center align-middle d-none d-md-table-cell">
+                                                        <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
                                                         </a>
@@ -157,8 +164,10 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lansia</th>
-                                                <th>Jabatan</th>
-                                                <th>Tindakan</th>
+                                                <th class="d-none d-sm-table-cell">Golongan</th>
+                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
+                                                <th class="d-md-none">Tindakan</th>
+                                                <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -204,6 +213,8 @@
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
                     "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
                 },
                 "language": {
                     "buttons": {
@@ -216,7 +227,7 @@
                     },
                     "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
                 },
-                "buttons": ["colvis"]
+                // "buttons": ["colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 
@@ -227,6 +238,8 @@
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
                     "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
                 },
                 "language": {
                     "buttons": {
@@ -250,6 +263,8 @@
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
                     "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
                 },
                 "language": {
                     "buttons": {

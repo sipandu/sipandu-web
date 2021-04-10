@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Profile Anggota')
+@section('title', 'Data Profile Anak')
 
 @push('css')
     <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -20,12 +20,12 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Anggota</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Anak</h1>
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Anggota') }}">Data Anggota Posyandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Profile Anggota</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Profile Anak</li>
                 </ol>
             </nav>
         </div>
@@ -71,23 +71,23 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="profile">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
+                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->nama_anak }}" disabled readonly>
                                     <label for="floatingInput">Nama Lengkap</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
+                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->NIK }}" disabled readonly>
                                     <label for="floatingInput">Nomor Induk Kependudukan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
+                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->tempat_lahir }}" disabled readonly>
                                             <label for="floatingInput">Tampat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
+                                            <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->anak->tanggal_lahir)) }}" disabled readonly>
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
                                     </div>
@@ -95,21 +95,21 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            {{-- @if ($dataAdmin->pegawai->nomor_telepon == NULL)
+                                            @if ($dataUser->anak->nomor_telepon == NULL)
                                                 <input type="text" class="form-control" id="floatingInput" value="Nomor telepon belum dimasukan" disabled readonly>
-                                            @else --}}
-                                                <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
-                                            {{-- @endif --}}
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->nomor_telepon }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Nomor Telp</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        {{-- <div class="form-floating mb-3">
-                                            @if ($dataAdmin->pegawai->username_telegram == NULL)
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->username_tele == NULL)
                                                 <input type="text" class="form-control" id="floatingInput" value="Username Telegram belum dimasukan" disabled readonly>
-                                            @else --}}
-                                                <input type="text" class="form-control" id="floatingInput" value="" disabled readonly>
-                                            {{-- @endif --}}
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->username_tele }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Username Telegram</label>
                                         </div>
                                     </div>
@@ -118,19 +118,15 @@
                                     <div class="card-body bg-light my-auto">
                                         <p class="fs-5 fw-bold my-auto">Scan KTP</p>
                                     </div>
-                                    {{-- @if ($dataAdmin->pegawai->file_ktp == NULL) --}}
-                                        <p class="text-center text-danger my-auto">Anda Belum mengunggah Scan KTP!</p>
-                                    {{-- @else
-                                        <img src="{{ $dataAdmin->pegawai->file_ktp }}" class="card-img-buttom" alt="...">
-                                    @endif --}}
+                                    <img src="{{ $dataUser->kk->file_kk }}" class="card-img-buttom" alt="{{ $dataUser->kk->no_kk }}">
                                 </div>
                             </div>
                             <div class="tab-pane" id="ubahProfile">
-                                <form action="" method="POST" class="form-horizontal">
+                                <form action="{{ route('Update Anggota Anak', [$dataUser->anak->id]) }}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="" placeholder="Nama Kader">
-                                        <label for="floatingInput">Nama Lengkap</label>
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataUser->anak->nama_anak) }}" placeholder="Nama Lengkap Anak">
+                                        <label for="floatingInput">Nama Lengkap<span class="text-danger">*</span></label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -138,8 +134,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="" placeholder="NIK Kader">
-                                        <label for="floatingInput">Nomor Induk Kependudukan</label>
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataUser->anak->NIK) }}" placeholder="NIK Anak">
+                                        <label for="floatingInput">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
                                         @error('nik')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -149,8 +145,8 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="" placeholder="Tempat Lahir Kader">
-                                                <label for="floatingInput">Tampat Lahir</label>
+                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataUser->anak->tempat_lahir) }}" placeholder="Tempat Lahir Anak">
+                                                <label for="floatingInput">Tampat Lahir<span class="text-danger">*</span></label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -161,8 +157,8 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="" id="floatingInput" placeholder="Tanggal Lahir Kader" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <label for="floatingInput">Tanggal Lahir</label>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataUser->anak->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Anak" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -196,4 +192,19 @@
             $('#data-anggota').addClass('active');
         });
     </script>
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
@@ -76,7 +77,7 @@ class RegisController extends Controller
             'nik.numeric' => "NIK harus berupa angka",
             'nik.unique' => "NIK sudah digunakan",
             'nik.digits' => "NIK harus berjumlah 16 karakter",
-            'file.required' => "NIK wajib diisi",
+            'file.required' => "Upload Scan KTP Wajib diisi",
             'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
             'alamat.required' => "Alamat wajib diisi",
             'alamat.regex' => "Format alamat tidak sesuai",
@@ -140,9 +141,8 @@ class RegisController extends Controller
             'nik_bumil' => "required|numeric|unique:tb_ibu_hamil,nik|digits:16",
             'alamat_bumil' => "required|regex:/^[a-z .,0-9]+$/i",
             'email_bumil' => "required|email|unique:tb_user,email",
-            'telegram_bumil' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_bumil' => "required|numeric|unique:tb_ibu_hamil,nomor_telepon",
-            'lokasi_posyandu_bumil' => "required",
+            'telegram_bumil' => "nullable|max:25|unique:tb_user,username_tele",
+            'no_tlpn_bumil' => "nullable|numeric|unique:tb_ibu_hamil,nomor_telepon",
             'passwordBumil' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -174,11 +174,9 @@ class RegisController extends Controller
             'email_bumil.unique' => "Email ibu hamil sudah pernah digunakan",
             'telegram_bumil.max' => "Username Telegram maksimal berjumlah 25 karakter",
             'telegram_bumil.unique' => "Username Telegram ibu hamil sudah pernah digunakan",
-            'no_tlpn_bumil.required' => "Nomor telepon ibu hamil wajib diisi",
             'no_tlpn_bumil.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn_bumil.between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
             'no_tlpn_bumil.unique' => "Nomor telepon ibu hamil sudah digunakan",
-            'lokasi_posyandu_bumil.required' => "Lokasi posyandu ibu hamil wajib diisi",
             'passwordBumil.required' => "Password akun ibu hamil wajib diisi",
             'passwordBumil.min' => "Password minimal berjumlah 8 karakter",
             'passwordBumil.max' => "Password maksimal berjumlah 50 karakter",
@@ -199,6 +197,7 @@ class RegisController extends Controller
         if($selectIdKK != NULL){
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '1',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_bumil,
                 'username_tele' => $request->telegram_bumil,
@@ -207,20 +206,28 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+
             Ibu::create([
-                'id_posyandu' => $request->lokasi_posyandu_bumil,
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir_bumil,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_bumil,
                 'nomor_telepon' => $request->no_tlpn_bumil,
                 'NIK' => $request->nik_bumil,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
-        }else{
+            if ($user && $ibu) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+            }
+        } else {
 
             $this->validate($request,[
                 'file_bumil'=> 'required|image|mimes:jpeg,png,jpg',
@@ -240,27 +247,36 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '1',
                 'id_kk' => $kk->id,
                 'email' => $request->email_bumil,
                 'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
-            Ibu::create([
-                'id_posyandu' => $request->_bumil,
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+
+            $ibu = Ibu::create([
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_ibu_hamil' => $request->nama_bumil,
                 'nama_suami' => $request->nama_suami,
                 'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir_bumil,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_bumil,
                 'nomor_telepon' => $request->no_tlpn_bumil,
                 'username_telegram' => $request->telegram_bumil,
                 'NIK' => $request->nik_bumil,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            if ($user && $ibu) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+            }
         }
     }
 
@@ -277,10 +293,9 @@ class RegisController extends Controller
             'nik_anak' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat_anak' => "required|regex:/^[a-z .,0-9]+$/i|max:30",
             'email_anak' => "required|email|unique:tb_user,email",
-            'telegram_anak' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_anak' => "required|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
+            'telegram_anak' => "nullable|unique:tb_user,username_tele",
+            'no_tlpn_anak' => "nullable|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
             'status_anak' => "required|numeric",
-            'lokasi_posyandu_anak' => "required",
             'passwordAnak' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -343,7 +358,8 @@ class RegisController extends Controller
 
         if($selectIdKK != null){
             $user = User::create([
-                'id_chat_tele' => null,
+                'id_chat_tele' => NULL,
+                'role' => '0',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
@@ -352,14 +368,16 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            Anak::create([
-                'id_posyandu' => $request->lokasi_posyandu_anak,
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+
+            $anak = Anak::create([
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
                 'tempat_lahir' => $request->tempat_lahir_anak,
-                'tanggal_lahir' => $tgl_lahir_anak,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_anak,
                 'nomor_telepon' => $request->no_tlpn_anak,
                 'NIK' => $request->nik_anak,
@@ -367,12 +385,21 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_anak,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
-        }else{
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun anak gagal ditambahkan']);
+            }
+            
+        } else {
 
             $this->validate($request,[
-                'file'=> 'required|image|mimes:jpeg,png,jpg',
-                'file.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK "
+                'file_anak'=> 'required|image|mimes:jpeg,png,jpg',
+            ],
+            [
+                'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK"
             ]);
 
             $path ='/images/upload/KK/'.time().'-'.$request->file_anak->getClientOriginalName();
@@ -386,6 +413,7 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_kk' => $kk->id,
+                'role' => '0',
                 'id_chat_tele' => NULL,
                 'email' => $request->email_anak,
                 'username_tele' => $request->telegram_anak,
@@ -394,14 +422,16 @@ class RegisController extends Controller
                 'is_verified' => 1,
             ]);
 
-            Anak::create([
-                'id_posyandu' => $request->lokasi_posyandu_anak,
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+
+            $anak = Anak::create([
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_anak' => $request->nama_anak,
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
                 'tempat_lahir' => $request->tempat_lahir_anak,
-                'tanggal_lahir' => $tgl_lahir_anak,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_anak,
                 'nomor_telepon' => $request->no_tlpn_anak,
                 'NIK' => $request->nik_anak,
@@ -409,7 +439,13 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_anak,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun anak berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun anak gagal ditambahkan']);
+            }
         }
     }
 
@@ -424,10 +460,9 @@ class RegisController extends Controller
             'nik_lansia' => "required|numeric|unique:tb_lansia,nik|digits:16",
             'alamat_lansia' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'email_lansia' => "required|email|unique:tb_user,email",
-            'telegram_lansia' => "max:25|unique:tb_user,username_tele",
-            'no_tlpn_lansia' => "required|numeric|unique:tb_lansia,nomor_telepon|digits:between:11,15",
+            'telegram_lansia' => "nullable|max:25|unique:tb_user,username_tele",
+            'no_tlpn_lansia' => "nullable|required|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
             'status_lansia' => "required",
-            'lokasi_posyandu_lansia' => "required",
             'passwordLansia' => 'required|min:8|max:50|confirmed',
         ],
         [
@@ -481,19 +516,22 @@ class RegisController extends Controller
         if($selectIdKK != NULL){
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '2',
                 'id_kk' => $selectIdKK->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
-            Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu_lansia,
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+
+            $lansia = Lansia::create([
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
-                'tanggal_lahir' => $tgl_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_lansia,
                 'nomor_telepon' => $request->no_tlpn_lansia,
                 'username_telegram' => $request->telegram_lansia,
@@ -502,8 +540,14 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_lansia,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
-        }else{
+            if ($user && $lansia) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun lansia gagal ditambahkan']);
+            }
+        } else {
             $this->validate($request,[
                 'file_lansia'=> 'required|image|mimes:jpeg,png,jpg',
             ],
@@ -522,19 +566,22 @@ class RegisController extends Controller
 
             $user = User::create([
                 'id_chat_tele' => NULL,
+                'role' => '2',
                 'id_kk' => $kk->id,
                 'email' => $request->email_lansia,
                 'password' => Hash::make($request->passwordLansia),
-                'profile_image' => "/images/upload/Profile/deafult.jpg",
+                'profile_image' => "/images/upload/Profile/default.jpg",
                 'is_verified' => 1,
             ]);
 
-            Lansia::create([
-                'id_posyandu' => $request->lokasi_posyandu_lansia,
+            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+
+            $lansia = Lansia::create([
+                'id_posyandu' => $posyandu->id,
                 'id_user' => $user->id,
                 'nama_lansia' => $request->nama_lansia,
                 'tempat_lahir' => $request->tempat_lahir_lansia,
-                'tanggal_lahir' => $tgl_lahir_lansia,
+                'tanggal_lahir' => $tgl_lahir,
                 'alamat' => $request->alamat_lansia,
                 'nomor_telepon' => $request->no_tlpn_lansia,
                 'username_telegram' => $request->telegram_lansia,
@@ -543,7 +590,13 @@ class RegisController extends Controller
                 'jenis_kelamin' => $request->gender_lansia,
             ]);
 
-            return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            if ($user && $anak) {
+                # code...
+                return redirect()->back()->with(['success' => 'Akun lansia berhasil ditambahkan']);
+            } else {
+                # code...
+                return redirect()->back()->with(['failed' => 'Akun lansia gagal ditambahkan']);
+            }
         }
     }
 }

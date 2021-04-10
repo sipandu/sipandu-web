@@ -26,6 +26,7 @@ class Pegawai extends Authenticatable
         'jabatan',
         'username_telegram',
         'nik',
+        'status',
         'file_ktp',
 
     ];

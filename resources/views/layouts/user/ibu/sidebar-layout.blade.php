@@ -17,7 +17,7 @@
                     <a href="#" class="nav-link" id="list-ibu-account-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
-                            Ibu
+                            Ibu Hamil
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>

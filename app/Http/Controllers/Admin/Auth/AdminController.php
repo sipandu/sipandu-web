@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Hash;
+use Mail;
+use App\Mail\NotificationAccUser;
+use App\Mail\NotificationRjctUser;
 use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
@@ -36,9 +40,28 @@ class AdminController extends Controller
     public function showVerifyUser(Request $request)
     {
         $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
-        $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
+
+        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            ->select('tb_ibu_hamil.*')
+            ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
+        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+            ->select('tb_anak.*')
+            ->where('tb_anak.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
+        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+            ->select('tb_lansia.*')
+            ->where('tb_lansia.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
 
@@ -199,7 +222,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             } else {
                 if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
                     $this->validate($request, [
@@ -237,7 +260,7 @@ class AdminController extends Controller
                         'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
                         'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
                     ]);
-                } 
+                }
             }
         }
 
@@ -283,6 +306,8 @@ class AdminController extends Controller
     {
         $user = User::find($request->iduser);
         $user->is_verified = 1;
+        Mail::to($user->email)->send(new NotificationAccUser($user));
+
         $user->save();
         return redirect()->route('show.verify');
 
@@ -304,6 +329,28 @@ class AdminController extends Controller
         $user->is_verified = 0;
         $user->keterangan = $request->keterangan;
         $user->save();
+
+        Mail::to($user->email)->send(new NotificationRjctUser($user));
+
         return redirect()->route('show.verify');
     }
+
+
+    public function updateStatus(Request $request)
+    {
+        $this->validate($request, [
+            'customRadio' => "required",
+        ],
+        [
+            'customRadio.required' => "Pilihlah Custom Status Anda",
+        ]);
+
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
+        $pegawai->status = $request->customRadio;
+        $pegawai->save();
+
+        return redirect()->back()->with(['success' => 'Status Berhasil Di Ubah']);
+    }
+
 }

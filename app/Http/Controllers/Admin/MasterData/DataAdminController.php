@@ -24,7 +24,7 @@ class DataAdminController extends Controller
     public function listAdmin()
     {
         $admin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'admin')->get();
-        $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->get();
+        $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orWhere('jabatan', 'super admin')->get();
 
         return view('pages/admin/master-data/data-admin/data-admin', compact('admin', 'adminAll'));
     }
@@ -54,7 +54,7 @@ class DataAdminController extends Controller
                 'nik.required' => "NIK admin wajib diisi",
                 'nik.regex' => "NIK harus berupa angka",
                 'nik.digits' => "NIK harus berjumlah 16 huruf",
-                'nik.digits' => "NIK sudah pernah digunakan",
+                'nik.unique' => "NIK sudah pernah digunakan",
                 'tempat_lahir.required' => "Tempat lahir admin wajib diisi",
                 'tempat_lahir.min' => "Penulisan tempat lahir miniminal berjumlah 3 karakter",
                 'tempat_lahir.max' => "Penulisan tempat lahir maksimal berjumlah 50 karakter",

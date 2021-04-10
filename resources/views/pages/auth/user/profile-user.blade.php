@@ -54,7 +54,7 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-yy', strtotime(Auth::user()->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime(Auth::user()->created_at)) }}</a>
                             </li>
                         </ul>
                         <form action="{{route('logout.admin')}}">

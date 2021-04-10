@@ -98,11 +98,17 @@
                                 <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</h3>
                                 <h5 class="mt-5 text-muted"><i class="fas fa-user-shield"></i> Ketua Administrator</h5>
                                 <ul class="list-unstyled">
-                                    @foreach ($headAdmin as $admin)
+                                    @if ($headAdmin->count() < 1)
                                         <li>
-                                            <a class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
+                                            <a class="btn-link text-secondary text-decoration-none">Head Admin Belum Ditambahkan</a>
                                         </li>
-                                    @endforeach
+                                    @else
+                                        @foreach ($headAdmin as $admin)
+                                            <li>
+                                                <a href="{{ route("Detail Admin", [$admin->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                                 <h5 class="mt-3 text-muted"><i class="fas fa-map-marker-alt"></i> Alamat</h5>
                                 <ul class="list-unstyled">
@@ -131,13 +137,13 @@
                                 <h5 class="mt-3 text-muted"><i class="fas fa-users"></i> Jumlah Petugas</h5>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntAdmin->count() }} Administrator</a>
+                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none">{{ $cntAdmin->count() }} Administrator</a>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntKader->count() }} Kader</a>
+                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntKader->count() }} Kader</a>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary text-decoration-none">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
+                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Selanjutnya</h5>
@@ -153,15 +159,13 @@
                                         
                                     @endif
                                 </ul>
-                                {{-- <div class="text-center mt-5 mb-5">
-                                    <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    @foreach ($dataPosyandu as $data)
-                                        <a href="{{ route('Edit Posyandu', [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
-                                    @endforeach
-                                </div> --}}
                                 <div class="text-center mt-5 mb-5">
-                                    <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    <a href="{{ route('Edit Profile Posyandu', [Auth::guard('admin')->user()->pegawai->id_posyandu]) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    @if ((Auth::guard('admin')->user()->pegawai->jabatan != 'head admin') && (Auth::guard('admin')->user()->pegawai->jabatan != 'admin'))
+                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
+                                    @else
+                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
+                                        <a href="{{ route('Edit Profile Posyandu', [Auth::guard('admin')->user()->pegawai->id_posyandu]) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

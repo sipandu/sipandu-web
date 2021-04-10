@@ -31,6 +31,7 @@ class ApiRegisterController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'idKK' => $idKK,
+                'noKK' => $selectKK->no_kk
             ]);
 
         }else{
@@ -109,6 +110,7 @@ class ApiRegisterController extends Controller
                 //     'file.image' => "File yang di upload harus berupa foto",
                 //     'file.mimes' => "Format yang di dukung hanya : jpeg,png,jpg "
                 // ]);
+
 
                 $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
                 $imageName = time().'-'.$request->file->getClientOriginalName();
@@ -296,7 +298,7 @@ class ApiRegisterController extends Controller
                     'role' => '2'
                 ]);
 
-                $anak = $user->anak()->create([
+                $anak = $user->lansia()->create([
                     'id_posyandu' => $request->banjar,
                     'nama_lansia' => $request->nama,
                 ]);
@@ -331,10 +333,10 @@ class ApiRegisterController extends Controller
                     'password' => Hash::make($request->password),
                     'profile_image' => "/images/upload/Profile/deafult.jpg",
                     'is_verified' => 0,
-                    'role' => 2
+                    'role' => '2'
                 ]);
 
-                $anak = $user->anak()->create([
+                $anak = $user->lansia()->create([
                     'id_posyandu' => $request->banjar,
                     'nama_lansia' => $request->nama,
                 ]);

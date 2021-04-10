@@ -24,7 +24,9 @@
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-posyandu-tab" data-bs-toggle="tab" data-bs-target="#nav-posyandu" type="button" role="tab" aria-controls="nav-posyandu" aria-selected="true">Data Posyandu</button>
-                        <button class="nav-link" id="nav-administrator-tab" data-bs-toggle="tab" data-bs-target="#nav-administrator" type="button" role="tab" aria-controls="nav-administrator" aria-selected="false">Admin & Kader</button>
+                        @if (Auth::guard('admin')->user()->pegawai->jabatan != 'admin')
+                            <button class="nav-link" id="nav-administrator-tab" data-bs-toggle="tab" data-bs-target="#nav-administrator" type="button" role="tab" aria-controls="nav-administrator" aria-selected="false">Admin & Kader</button>
+                        @endif
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -39,7 +41,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="inputNama">Nama Posyandu</label>
+                                                <label for="inputNama">Nama Posyandu<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="inputNama" value="{{ old('nama', $dataPosyandu->nama_posyandu) }}" placeholder="Masukan nama posyandu">
                                                     <div class="input-group-append">
@@ -55,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputBanjar">Banjar</label>
+                                                <label for="inputBanjar">Banjar<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">Banjar</span>
                                                     <input type="text" class="form-control @error('banjar') is-invalid @enderror" name="banjar" id="inputBanjar" value="{{ old('banjar', $dataPosyandu->banjar) }}" placeholder="Masukan lokasi banjar">
@@ -72,7 +74,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputTelp">Nomor Telepon</label>
+                                                <label for="inputTelp">Nomor Telepon<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" id="inputTelp" value="{{ old('telp', $dataPosyandu->nomor_telepon) }}" placeholder="Masukan nomor telepon posyandu">
                                                     <div class="input-group-append">
@@ -90,7 +92,7 @@
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="inputAlamat">Alamat</label>
+                                                <label for="inputAlamat">Alamat<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="inputAlamat" value="{{ old('alamat', $dataPosyandu->alamat) }}" placeholder="Masukan alamat posyandu">
                                                     <div class="input-group-append">
@@ -106,7 +108,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputLay">Koordinat Latitude</label>
+                                                <label for="inputLay">Koordinat Latitude<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="inputLat" value="{{ old('lat', $dataPosyandu->latitude) }}" placeholder="Masukan koordinat Latitude posyandu">
                                                     <div class="input-group-append">
@@ -122,7 +124,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputLng">Koordinat Longitude</label>
+                                                <label for="inputLng">Koordinat Longitude<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="inputLng" value="{{ old('lng', $dataPosyandu->longitude) }}" placeholder="Masukan koordinat Longitude posyandu">
                                                     <div class="input-group-append">
@@ -138,6 +140,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="mb-0">
+                                            <p class="text-danger small text-end mb-0 pb-0"><span>*</span>Data Wajib Diisi</p>
+                                        </div> 
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -147,58 +152,70 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
-                        <div class="card card-primary">
-                            <div class="card-header my-auto">
-                                <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
-                            </div>
-                            <form action="{{ route('Update Admin Posyandu') }}" method="POST">
-                                @csrf
-                                <div class="modal-body p-3">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>Non-aktifkan Kader/Admin</label>
-                                                <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror" style="width: 100%;">
-                                                    <option value="#" disabled selected>Select Kabupaten</option>
-                                                    @foreach ($pegawai as $pgw)
-                                                        <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('pegawai')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="inputBanjar">NIK Kader/Admin</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="" placeholder="Masukan NIK Admin">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-city"></span>
+                    @if (Auth::guard('admin')->user()->pegawai->jabatan != 'admin')
+                        <div class="tab-pane fade" id="nav-administrator" role="tabpanel" aria-labelledby="nav-administrator-tab">
+                            <div class="card card-primary">
+                                <div class="card-header my-auto">
+                                    <h3 class="card-title my-auto">Non-aktifkan Admin/Kader/Nakes</h3>
+                                </div>
+                                <form action="{{ route('Update Admin Posyandu') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body p-3">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Non-aktifkan Kader/Admin<span class="text-danger">*</span></label>
+                                                    <div class="input-group mb-3">
+                                                        <select name="pegawai" class="form-control select2 kabupaten @error('pegawai') is-invalid @enderror">
+                                                            <option value="#" disabled selected>Pilih admin/kader</option>
+                                                            @foreach ($pegawai as $pgw)
+                                                                <option value="{{ $pgw->id }}">{{ $pgw->nama_pegawai }}, {{ $pgw->jabatan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-city"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('pegawai')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('nik')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputBanjar">NIK Kader/Admin<span class="text-danger">*</span></label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="inputBanjar" value="{{ old('nik') }}" placeholder="Masukan NIK Admin">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-city"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('nik')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-0">
+                                                <p class="text-danger small text-end mb-0 pb-0"><span>*</span>Data Wajib Diisi</p>
+                                            </div> 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer text-end">
-                                    <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
-                                </div>
-                            </form>
+                                    <div class="modal-footer text-end">
+                                        <a href="{{ route('Profile Posyandu') }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan Perubahan</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
