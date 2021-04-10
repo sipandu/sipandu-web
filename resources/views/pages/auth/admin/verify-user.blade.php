@@ -73,21 +73,21 @@
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="card-body p-0">
                                     <div class="table-responsive mailbox-messages p-2">
-                                        <table id="tbBumil" class="table table-striped table-hover mx-auto table-responsive-sm">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Ibu Hamil</th>
-                                                    <th>Nama Suami</th>
-                                                    <th>Mendaftar Pada</th>
-                                                    <th>Tindakan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($ibu as $data)
-                                                    @if ($data->user->is_verified == 0 && $data->user->keterangan == null)
+                                        @if ($ibu->count() > 0)
+                                            <table id="tbBumil" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Ibu Hamil</th>
+                                                        <th>Nama Suami</th>
+                                                        <th>Mendaftar Pada</th>
+                                                        <th>Tindakan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($ibu as $data)
                                                         <tr class="text-center">
-                                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                                            <td class="align-middle">{{ $loop->first }}</td>
                                                             <td class="align-middle">{{ $data->nama_ibu_hamil}}</td>
                                                             <td class="align-middle">{{ $data->nama_suami}}</td>
                                                             <td class="align-middle">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
@@ -98,29 +98,31 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
-                                                    @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Ibu Hamil untuk Diverifikasi</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                 <div class="card-body p-0">
-                                    <div class="table-responsive mailbox-messages p-2">
-                                        <table id="tbAnak" class="table table-striped table-hover mx-auto table-responsive-sm">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Anak</th>
-                                                    <th>Nama Ibu</th>
-                                                    <th>Mendaftar Pada</th>
-                                                    <th>Tindakan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($anak as $data)
-                                                    @if ($data->user->is_verified == 0 && $data->user->keterangan == null)
+                                    @if ($anak->count() > 0)
+                                        <div class="table-responsive mailbox-messages p-2">
+                                            <table id="tbAnak" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Anak</th>
+                                                        <th>Nama Ibu</th>
+                                                        <th>Mendaftar Pada</th>
+                                                        <th>Tindakan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($anak as $data)
                                                         <tr class="text-center">
                                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                                             <td class="align-middle">{{ $data->nama_anak}}</td>
@@ -133,29 +135,31 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
-                                                    @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Anak untuk Diverifikasi</p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                 <div class="card-body p-0">
-                                    <div class="table-responsive mailbox-messages p-2">
-                                        <table id="tbLansia" class="table table-striped table-hover mx-auto table-responsive-sm">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Lanjut Usia</th>
-                                                    <th>Kategori</th>
-                                                    <th>Mendaftar Pada</th>
-                                                    <th>Tindakan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($lansia as $data)
-                                                    @if ($data->user->is_verified == 0 && $data->user->keterangan == null)
+                                    @if ($lansia->count() > 0)
+                                        <div class="table-responsive mailbox-messages p-2">
+                                            <table id="tbLansia" class="table table-striped table-hover mx-auto table-responsive-sm">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Lanjut Usia</th>
+                                                        <th>Kategori</th>
+                                                        <th>Mendaftar Pada</th>
+                                                        <th>Tindakan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($lansia as $data)
                                                         <tr class="text-center align-middle my-auto">
                                                             <td class="align-middle">{{ $loop->iteration }}</td>
                                                             <td class="align-middle">{{ $data->nama_lansia}}</td>
@@ -168,11 +172,13 @@
                                                                 </a>
                                                             </td>
                                                         </tr>
-                                                    @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Lansia untuk Diverifikasi</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

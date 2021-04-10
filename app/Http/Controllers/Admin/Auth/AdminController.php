@@ -40,11 +40,28 @@ class AdminController extends Controller
     public function showVerifyUser(Request $request)
     {
         $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
-        $anak = Anak::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        $ibu = Ibu::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        $lansia = Lansia::with('user')->where('id_posyandu',$idPosyandu)->orderBy('created_at', 'asc')->get();
-        
-        // return($anak);
+
+        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            ->select('tb_ibu_hamil.*')
+            ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
+        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+            ->select('tb_anak.*')
+            ->where('tb_anak.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
+        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+            ->select('tb_lansia.*')
+            ->where('tb_lansia.id_posyandu', $idPosyandu)
+            ->where('tb_user.is_verified', 0)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
 
