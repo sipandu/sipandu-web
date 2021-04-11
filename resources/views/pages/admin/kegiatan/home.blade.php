@@ -44,7 +44,6 @@
                         <th>Tempat</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Berakhir</th>
-                        <th>Deskripsi</th>
                         <th style="text-align: center">Action</th>
                       </tr>
                     </thead>
@@ -56,7 +55,6 @@
                                 <td>{{ $item->tempat }}</td>
                                 <td>{{ $item->start_at }}</td>
                                 <td>{{ $item->end_at }}</td>
-                                <td>{{ $item->deskripsi }}</td>
                                 <td style="text-align: center">
                                     <a href="{{ route('kegiatan.show', $item->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     <button class="btn btn-primary btn-sm" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
@@ -72,7 +70,6 @@
                         <th>Tempat</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Berakhir</th>
-                        <th>Deskripsi</th>
                         <th>Action</th>
                       </tr>
                     </tfoot>

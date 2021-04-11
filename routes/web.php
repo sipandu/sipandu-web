@@ -89,11 +89,6 @@ Route::get('/user/account/new-user', function () {
 })->name("form.add.anggota.keluarga");
 
 
-
-Route::get('/', function () {
-    return view('pages/user/content/landing-page');
-})->name('Landing Page');
-
 Route::get('/test', function () {
     return view('test');
 });
@@ -140,6 +135,7 @@ Route::prefix('login')->group(function(){
         Route::get('/logout', 'LoginController@logoutAdmin')->name('logout.admin');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('form.reset-password');
         Route::post('/reset/password', 'ForgotPasswordController@postEmail')->name('post.email');
+        Route::post('/reset/password/telegram', 'ForgotPasswordController@postTelegram')->name('post.telegram');
         Route::get('/verify/token', 'ResetPasswordController@showForm')->name('form.verify.token');
         Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('cek.otp.token');
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('password.reset');
@@ -151,6 +147,7 @@ Route::prefix('login')->group(function(){
         Route::get('/logout', 'LoginController@logoutUser')->name('logout.user');
         Route::get('/reset/password', 'ForgotPasswordController@showForm')->name('user.form.reset-password');
         Route::post('/reset/password', 'ForgotPasswordController@postEmail')->name('user.post.email');
+        Route::post('/forget-password/request-token/telegram', 'ForgotPasswordController@postTelegram')->name('user.forget.tele');
         Route::get('/verify/token', 'ResetPasswordController@showForm')->name('user.form.verify.token');
         Route::post('/verify/token', 'ResetPasswordController@cekOTP')->name('user.cek.otp.token');
         Route::get('/password/reset/{otp_token}', 'ResetPasswordController@showResetForm')->name('user.password.reset');
@@ -231,24 +228,20 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
     });
 });
 
+//Landing
+Route::get('/', 'Landing\LandingController@index')->name('Landing Page');
 
+//Blog User
+Route::get('/blog', 'Landing\BlogController@index')->name("Berita");
 
-//Blog
-Route::get('/blog', function () {
-    return view('pages/user/content/news');
-})->name("Berita");
+Route::get('/blog/detail/{slug}', 'Landing\BlogController@show')->name("Detail Berita");
 
-Route::get('/blog/detail', function () {
-    return view('pages/user/content/detail-news');
-})->name("Detail Berita");
+Route::get('/penyuluhan', 'Landing\PenyuluhanController@index')->name('Penyuluhan');
+Route::get('/data-diri/bayi-balita', function () {
+    return view('pages/auth/anak/data-diri-anak');
+})->name("Data Diri Anak");
 
-Route::get('/penyuluhan', function () {
-    return view('pages/user/content/penyuluhan');
-})->name('Penyuluhan');
-
-Route::get('/penyuluhan/detail', function () {
-    return view('pages/user/content/detail-penyuluhan');
-})->name('Detail Penyuluhan');
+Route::get('/penyuluhan/detail/{slug}', 'Landing\PenyuluhanController@show')->name('Detail Penyuluhan');
 
 
 
@@ -256,11 +249,10 @@ Route::get('/penyuluhan/detail', function () {
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
 Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
-Route::get('/data-diri/bayi-balita', function () {
-    return view('pages/auth/anak/data-diri-anak');
-})->name("Data Diri Anak");
-
-
+Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show');
+Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update');
+Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
+Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete');
 
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
@@ -271,7 +263,14 @@ Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->nam
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
 
-
+//Pengumuman
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home');
+Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create');
+Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store');
+Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show');
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update');
+Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete');
+Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
 //Kegiatan
 Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');

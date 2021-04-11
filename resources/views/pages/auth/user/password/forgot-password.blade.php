@@ -38,7 +38,12 @@
                     </div>
                 @endif
                 <div class="row">
+<<<<<<< HEAD
+                    {{-- Telegram --}}
+                    <form action="{{ route('user.forget.tele') }}" method="POST" class="col-md-6">
+=======
                     <form action="#" method="POST" class="col-md-6">
+>>>>>>> 5be1b54aba9475aa56a60d1d0cf5580247223231
                         @csrf
                         <div class="col-md">
                             <div class="form-group mb-2">

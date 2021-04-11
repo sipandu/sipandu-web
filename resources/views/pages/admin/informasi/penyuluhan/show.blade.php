@@ -34,15 +34,33 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Nama Penyuluhan</label>
-                                    <input type="text" class="form-control" value="{{ $penyuluhan->nama_penyuluhan }}" placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
+                                    <input type="text" class="form-control  @error('nama_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->nama_penyuluhan }}"
+                                    placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
+                                    @error('nama_penyuluhan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Topik</label>
-                                    <input type="text" class="form-control" value="{{ $penyuluhan->topik_penyuluhan }}" placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
+                                    <input type="text" class="form-control  @error('topik_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->topik_penyuluhan }}"
+                                    placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
+                                    @error('topik_penyuluhan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="form-control" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ $penyuluhan->deskripsi }}</textarea>
+                                    <textarea name="deskripsi" class="ckeditor  @error('deskripsi') is-invalid @enderror" id=""
+                                    placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ $penyuluhan->deskripsi }}</textarea>
+                                    @error('deskripsi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -65,16 +83,32 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Lokasi Penyuluhan</label>
-                                    <input type="text" name="lokasi" class="form-control" value="{{ $penyuluhan->lokasi }}" placeholder="Masukkan Lokasi Penyuluhan" id="">
+                                    <input type="text" name="lokasi" class="form-control  @error('lokasi') is-invalid @enderror" value="{{ $penyuluhan->lokasi }}"
+                                    placeholder="Masukkan Lokasi Penyuluhan" id="">
+                                    @error('lokasi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tanggal Penyuluhan</label>
-                                    <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control" id="">
+                                    <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" id="">
+                                    @error('nama_penyuluhan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar Penyuluhan</label>
                                     <img id="img-preview" src="{{ route('penyuluhan.get_img', $penyuluhan->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input id="input-file" type="file" name="image" value="" class="form-control-file" id="">
+                                    <input id="input-file" type="file" name="image" value="" class="form-control-file  @error('image') is-invalid @enderror" id="">
+                                    @error('image')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -88,7 +122,18 @@
 @endsection
 
 @push('js')
+<script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
+        $(function () {
+          $('.ckeditor').each(function(e){
+              CKEDITOR.replace(this.id ,{
+                  height : 800,
+                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+              });
+          });
+        });
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');

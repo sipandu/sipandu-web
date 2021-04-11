@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mover;
+use App\Pegawai;
 use App\Penyuluhan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 class PenyuluhanController extends Controller
 {
     public function index()
@@ -21,15 +24,27 @@ class PenyuluhanController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_penyuluhan' => 'required|min:2',
+            'deskripsi' => 'required|min:2',
+            'lokasi' => 'required|min:2',
+            'tanggal' => 'required',
+            'topik_penyuluhan' => 'required|min:2',
+            'image' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
+        ]);
+
+        $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
+
         $filename = Mover::slugFile($request->file('image'), 'app/informasi/penyuluhan/');
         $penyuluhan = new Penyuluhan();
-        $penyuluhan->id_posyandu = 4;
+        $penyuluhan->id_posyandu = $pegawai->posyandu->id;
         $penyuluhan->nama_penyuluhan = $request->nama_penyuluhan;
         $penyuluhan->lokasi = $request->lokasi;
         $penyuluhan->tanggal = $request->tanggal;
         $penyuluhan->topik_penyuluhan = $request->topik_penyuluhan;
         $penyuluhan->deskripsi = $request->deskripsi;
         $penyuluhan->image = $filename;
+        $penyuluhan->slug = Str::slug($request->nama_penyuluhan);
         $penyuluhan->save();
         $penyuluhan->sendMessage();
 
@@ -44,6 +59,15 @@ class PenyuluhanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_penyuluhan' => 'required|min:2',
+            'deskripsi' => 'required|min:2',
+            'lokasi' => 'required|min:2',
+            'tanggal' => 'required',
+            'topik_penyuluhan' => 'required|min:2',
+            'image' => 'max:2000|mimes:png,jpg,svg,jpeg',
+        ]);
+
         $penyuluhan = Penyuluhan::find($id);
 
         if($request->file('image') != null){
@@ -57,6 +81,7 @@ class PenyuluhanController extends Controller
         $penyuluhan->tanggal = $request->tanggal;
         $penyuluhan->topik_penyuluhan = $request->topik_penyuluhan;
         $penyuluhan->deskripsi = $request->deskripsi;
+        $penyuluhan->slug = Str::slug($request->nama_penyuluhan);
         $penyuluhan->save();
         $penyuluhan->sendMessageRalat();
 
