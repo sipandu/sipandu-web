@@ -235,16 +235,12 @@ Route::get('/blog', 'Landing\BlogController@index')->name("Berita");
 
 Route::get('/blog/detail/{slug}', 'Landing\BlogController@show')->name("Detail Berita");
 
-Route::get('/penyuluhan', function () {
-    return view('pages/user/content/penyuluhan');
-})->name('Penyuluhan');
+Route::get('/penyuluhan', 'Landing\PenyuluhanController@index')->name('Penyuluhan');
 Route::get('/data-diri/bayi-balita', function () {
     return view('pages/auth/anak/data-diri-anak');
 })->name("Data Diri Anak");
 
-Route::get('/penyuluhan/detail', function () {
-    return view('pages/user/content/detail-penyuluhan');
-})->name('Detail Penyuluhan');
+Route::get('/penyuluhan/detail/{slug}', 'Landing\PenyuluhanController@show')->name('Detail Penyuluhan');
 
 
 
