@@ -66,7 +66,7 @@
                             <div class="card-body">
                                 <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">Judul Berita</a></h5>
                                 <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai }}</span> | <span>Pada {{ date('d F Y', strtotime($item->tanggal)) }}</span></p>
-                                <p class="card-text">{!! substr($item->informasi, 3, 100) !!} ...</p>
+                                <p class="card-text">{{ strip_tags(substr($item->informasi, 0, 100)) }} ...</p>
                                 <p class="card-text small">
                                 <span><i class="fas fa-eye"></i> {{ $item->dilihat }}</span>
                                 </p>
