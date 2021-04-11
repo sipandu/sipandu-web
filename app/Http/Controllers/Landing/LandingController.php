@@ -9,7 +9,7 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $informasi_terbaru = InformasiPenting::orderby('created_at', 'desc')->limit(5)->get();
+        $informasi_terbaru = InformasiPenting::orderby('created_at', 'desc')->limit(3)->get();
         return view('pages/user/content/landing-page', compact('informasi_terbaru'));
     }
 }
