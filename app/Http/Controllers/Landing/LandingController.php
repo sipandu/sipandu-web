@@ -12,7 +12,8 @@ class LandingController extends Controller
     public function index()
     {
         $informasi_terbaru = InformasiPenting::orderby('created_at', 'desc')->limit(3)->get();
+        $informasi_populer = InformasiPenting::orderby('dilihat', 'desc')->limit(3)->get();
         $penyuluhan_terbaru = Penyuluhan::orderby('created_at', 'desc')->limit(3)->get();
-        return view('pages/user/content/landing-page', compact('informasi_terbaru', 'penyuluhan_terbaru'));
+        return view('pages/user/content/landing-page', compact('informasi_terbaru', 'penyuluhan_terbaru', 'informasi_populer'));
     }
 }
