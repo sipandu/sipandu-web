@@ -63,7 +63,9 @@ Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\Data
 
 //Konsultasi
 Route::get('admin/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi");
+Route::get('admin/konsultasi/ibu/{ibu}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiIbu')->name("Konsultasi Ibu");
 Route::get('admin/konsultasi/anak/{anak}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiAnak')->name("Konsultasi Anak");
+Route::get('admin/konsultasi/lansia/{lansia}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiLansia')->name("Konsultasi Lansia");
 
 
 

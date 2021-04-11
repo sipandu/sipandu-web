@@ -41,9 +41,18 @@ class KonsultasiController extends Controller
         return view('pages/admin/kesehatan-keluarga/tambah-konsul', compact('ibu', 'anak', 'lansia'));
     }
 
+    public function konsultasiIbu(Ibu $ibu)
+    {
+        return view('pages/admin/kesehatan-keluarga/konsul-ibu');
+    }
+
     public function konsultasiAnak(Anak $anak)
     {
         return view('pages/admin/kesehatan-keluarga/konsul-anak');
-        # code...
+    }
+
+    public function konsultasiLansia(Lansia $lansia)
+    {
+        return view('pages/admin/kesehatan-keluarga/konsul-lansia');
     }
 }

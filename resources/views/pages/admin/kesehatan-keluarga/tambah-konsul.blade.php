@@ -65,12 +65,12 @@
                                                     <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->nama_suami }}</td>
                                                     <td class="text-center align-middle d-md-none">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Konsultasi Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
                                                     <td class="text-center align-middle d-none d-md-table-cell">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Konsultasi Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
                                                         </a>
@@ -171,12 +171,12 @@
                                                     <td class="align-middle">{{ $data->nama_lansia }}</td>
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
                                                     <td class="text-center align-middle d-md-none">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Konsultasi Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
                                                     <td class="text-center align-middle d-none d-md-table-cell">
-                                                        <a href="" class="btn btn-warning btn-sm">
+                                                        <a href="{{route('Konsultasi Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
                                                         </a>
