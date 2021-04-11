@@ -66,9 +66,7 @@
                         <div class="card-body">
                             <h5 class="card-title fw-bold"><a href="" class="text-decoration-none page-scroll">{{ $item->nama_penyuluhan }}</a></h5>
                             <p class="card-text small"><span class="text-muted">{{ $item->posyandu->nama_posyandu }}</span> | <span>Pada {{ date('d F Y', strtotime($item->tanggal)) }}</span></p>
-                            <div id="desc-content">
-                                {!! substr($item->deskripsi, 0, 100) !!}
-                            </div>
+                            <p class="card-text">{{ strip_tags(substr($item->deskripsi, 0, 100)) }}</p>
                             <p class="card-text small">
                                 <span class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ $item->lokasi }}</span>
                             </p>
