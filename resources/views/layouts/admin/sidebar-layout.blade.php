@@ -216,28 +216,10 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
+                            <li class="nav-item" >
                                 <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-female nav-icon"></i>
-                                    <p>Pemeriksaan Ibu Hamil</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-baby nav-icon"></i>
-                                    <p>Pemeriksaan Bayi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-child nav-icon"></i>
-                                    <p>Pemeriksaan Balita</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-wheelchair nav-icon"></i>
-                                    <p>Pemeriksaan Lansia</p>
+                                    <i class="fas fa-medkit nav-icon"></i>
+                                    <p>Pemeriksaan</p>
                                 </a>
                             </li>
                             <li class="nav-item">

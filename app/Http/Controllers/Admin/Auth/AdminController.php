@@ -46,6 +46,7 @@ class AdminController extends Controller
             ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 0)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_ibu_hamil.created_at', 'desc')
         ->get();
 
         $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
@@ -53,6 +54,7 @@ class AdminController extends Controller
             ->where('tb_anak.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 0)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_anak.created_at', 'desc')
         ->get();
 
         $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
@@ -60,6 +62,7 @@ class AdminController extends Controller
             ->where('tb_lansia.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 0)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
 
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
