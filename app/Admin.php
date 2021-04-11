@@ -34,6 +34,11 @@ class Admin extends Authenticatable
         return $this->hasOne('App\Pegawai','id_admin','id');
     }
 
+    public function informasi_penting()
+    {
+        return $this->belongsTo(Admin::class, 'author_id');
+    }
+
 
 // =======
 

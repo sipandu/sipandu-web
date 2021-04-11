@@ -88,11 +88,6 @@ Route::get('/user/account/new-user', function () {
 })->name("form.add.anggota.keluarga");
 
 
-
-Route::get('/', function () {
-    return view('pages/user/content/landing-page');
-})->name('Landing Page');
-
 Route::get('/test', function () {
     return view('test');
 });
@@ -232,16 +227,13 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
     });
 });
 
+//Landing
+Route::get('/', 'Landing\LandingController@index')->name('Landing Page');
 
+//Blog User
+Route::get('/blog', 'Landing\BlogController@index')->name("Berita");
 
-//Blog
-Route::get('/blog', function () {
-    return view('pages/user/content/news');
-})->name("Berita");
-
-Route::get('/blog/detail', function () {
-    return view('pages/user/content/detail-news');
-})->name("Detail Berita");
+Route::get('/blog/detail/{slug}', 'Landing\BlogController@show')->name("Detail Berita");
 
 Route::get('/penyuluhan', function () {
     return view('pages/user/content/penyuluhan');

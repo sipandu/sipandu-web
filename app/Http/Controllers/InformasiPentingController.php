@@ -7,11 +7,18 @@ use Illuminate\Http\Request;
 use App\Mover;
 use Illuminate\Support\Str;
 use File;
+use Illuminate\Support\Facades\Auth;
+
 class InformasiPentingController extends Controller
 {
     public function index()
     {
-        $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
+        if(Auth::guard('admin')->user()->pegawai->jabatan == 'super admin') {
+            $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
+        } else {
+            $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)
+                ->orderby('tanggal', 'desc')->get();
+        }
         return view('pages.admin.informasi.informasi-penting.home', compact('informasi'));
     }
 
@@ -35,6 +42,8 @@ class InformasiPentingController extends Controller
         $informasi->tanggal = NOW();
         $informasi->image = $filename;
         $informasi->slug = Str::slug($request->judul_informasi);
+        $informasi->dilihat = 0;
+        $informasi->author_id = Auth::guard('admin')->user()->id;
         $informasi->save();
         return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
     }
@@ -64,6 +73,7 @@ class InformasiPentingController extends Controller
         $informasi->judul_informasi = $request->judul_informasi;
         $informasi->informasi = $request->informasi;
         $informasi->slug = Str::slug($request->judul_informasi);
+        $informasi->author_id = Auth::guard('admin')->user()->id;
         $informasi->save();
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
