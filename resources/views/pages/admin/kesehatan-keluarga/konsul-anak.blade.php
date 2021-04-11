@@ -90,7 +90,7 @@
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
                                                     <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan diagnosa penyakit"></textarea>
-                                                    <label for="keterangan">Diagnosa Penyakit</label>
+                                                    <label for="keterangan">Bahasan Konsutlasi</label>
                                                     @error('diagnosa')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -101,13 +101,16 @@
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
                                                     <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan peneriksaan"></textarea>
-                                                    <label for="keterangan">Keterangan Pemeriksaan</label>
+                                                    <label for="keterangan">Keterangan Tambahan</label>
                                                     @error('keterangan')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <button class="btn btn-block btn-sm btn-success">Simpan Catatan Konsultasi</button>
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +170,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <a href="" class="btn btn-sm btn-info btn-block mt-3">Detail Anak</a>
+                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Anak</a>
                             </div>
                         </div>
                         <div class="card card-primary card-outline">
