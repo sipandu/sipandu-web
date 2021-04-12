@@ -89,8 +89,8 @@
                                             </div>
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
-                                                    <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan diagnosa konsultasi"></textarea>
-                                                    <label for="keterangan">Bahasan Konsultasi<span class="text-danger">*</span></label>
+                                                    <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
+                                                    <label for="keterangan">Hasil Konsultasi<span class="text-danger">*</span></label>
                                                     @error('diagnosa')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -141,7 +141,23 @@
                                     </div>
                                     <div class="collapse my-3" id="mar12-2020">
                                         <div class="card card-body">
-                                            <span class="fw-bold">Bahasan Konsultasi :</span>
+                                            <span class="fw-bold">Hasil Konsultasi :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                            <span class="fw-bold">Pengobatan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                            <span class="fw-bold">Keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Pemeriksaan 10 Mar 2020 | Oleh Dr. Made Ayu</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#mar10-2020" role="button" aria-expanded="false" aria-controls="mar10-2020"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="mar10-2020">
+                                        <div class="card card-body">
+                                            <span class="fw-bold">Hasil Pemeriksaan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <span class="fw-bold">Pengobatan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
@@ -167,17 +183,6 @@
                                                     <p>15 Sentimeter</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Pemeriksaan 10 Mar 2020 | Oleh Dr. Made Ayu</p></div>
-                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#mar10-2020" role="button" aria-expanded="false" aria-controls="mar10-2020"><i class="fas fa-plus-circle"></i></a></div>
-                                    </div>
-                                    <div class="collapse my-3" id="mar10-2020">
-                                        <div class="card card-body">
-                                            Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
                                         </div>
                                     </div>
                                 </li>

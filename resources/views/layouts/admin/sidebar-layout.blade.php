@@ -207,8 +207,8 @@
                     </a>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-pemeriksaan">
+                        <a href="#" class="nav-link" id="pemeriksaan">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Kesehatan Keluarga
@@ -217,7 +217,7 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item" >
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
                                     <i class="fas fa-medkit nav-icon"></i>
                                     <p>Pemeriksaan</p>
                                 </a>
