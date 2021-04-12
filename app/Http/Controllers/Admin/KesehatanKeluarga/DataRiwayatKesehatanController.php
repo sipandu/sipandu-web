@@ -10,9 +10,9 @@ use App\Anak;
 use App\Ibu;
 use App\Lansia;
 
-class PemeriksaanController extends Controller
+class DataRiwayatKesehatanController extends Controller
 {
-    public function tambahPemeriksaan()
+    public function dataKesehatan()
     {
         $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
 
@@ -38,21 +38,6 @@ class PemeriksaanController extends Controller
             ->where('tb_user.keterangan', NULL)
         ->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/tambah-pemeriksaan', compact('ibu', 'anak', 'lansia') );
-    }
-
-    public function pemeriksaanIbu(Ibu $ibu)
-    {
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-ibu');
-    }
-
-    public function pemeriksaanAnak(Anak $anak)
-    {
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak');
-    }
-
-    public function pemeriksaanLansia(Lansia $lansia)
-    {
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-lansia');
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan', compact('ibu', 'anak', 'lansia'));
     }
 }

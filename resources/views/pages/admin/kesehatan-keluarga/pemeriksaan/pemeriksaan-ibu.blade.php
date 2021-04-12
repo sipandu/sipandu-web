@@ -339,8 +339,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-pemeriksaan').addClass('menu-is-opening menu-open');
-            $('#pemeriksaan').addClass('active');
+            $('#list-kesehatan').addClass('menu-is-opening menu-open');
+            $('#kesehatan').addClass('active');
             $('#pemeriksaan-keluarga').addClass('active');
         });
     </script>

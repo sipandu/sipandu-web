@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Pemriksaan')
+@section('title', 'Data Kesehatan')
 
 @push('css')
     <!-- DataTables -->
@@ -11,12 +11,12 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Pemeriksaaan Kesehatan</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Smart Posyandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Konsultasi</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan</li>
                 </ol>
             </nav>
         </div>
@@ -215,9 +215,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-pemeriksaan').addClass('menu-is-opening menu-open');
-            $('#pemeriksaan').addClass('active');
-            $('#pemeriksaan-keluarga').addClass('active');
+            $('#list-kesehatan').addClass('menu-is-opening menu-open');
+            $('#kesehatan').addClass('active');
+            $('#data-kesehatan-keluarga').addClass('active');
         });
 
         $(function () {

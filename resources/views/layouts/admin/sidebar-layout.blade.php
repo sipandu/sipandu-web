@@ -207,8 +207,8 @@
                     </a>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item" id="list-pemeriksaan">
-                        <a href="#" class="nav-link" id="pemeriksaan">
+                    <li class="nav-item" id="list-kesehatan">
+                        <a href="#" class="nav-link" id="kesehatan">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Kesehatan Keluarga
@@ -223,7 +223,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
                                     <i class="fas fa-file-medical-alt nav-icon"></i>
                                     <p>Data Kesehatan</p>
                                 </a>

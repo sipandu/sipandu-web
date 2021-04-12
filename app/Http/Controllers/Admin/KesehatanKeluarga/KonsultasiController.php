@@ -38,21 +38,21 @@ class KonsultasiController extends Controller
             ->where('tb_user.keterangan', NULL)
         ->get();
 
-        return view('pages/admin/kesehatan-keluarga/tambah-konsul', compact('ibu', 'anak', 'lansia'));
+        return view('pages/admin/kesehatan-keluarga/konsultasi/tambah-konsul', compact('ibu', 'anak', 'lansia'));
     }
 
     public function konsultasiIbu(Ibu $ibu)
     {
-        return view('pages/admin/kesehatan-keluarga/konsul-ibu');
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu');
     }
 
     public function konsultasiAnak(Anak $anak)
     {
-        return view('pages/admin/kesehatan-keluarga/konsul-anak');
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak');
     }
 
     public function konsultasiLansia(Lansia $lansia)
     {
-        return view('pages/admin/kesehatan-keluarga/konsul-lansia');
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-lansia');
     }
 }
