@@ -228,6 +228,12 @@
                                     <p>Data Kesehatan</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Riwayat Kesehatan</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </li>
