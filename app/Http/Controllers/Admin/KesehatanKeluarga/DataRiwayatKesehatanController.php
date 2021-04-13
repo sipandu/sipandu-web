@@ -12,6 +12,11 @@ use App\Lansia;
 
 class DataRiwayatKesehatanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function dataKesehatan()
     {
         $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
@@ -39,5 +44,10 @@ class DataRiwayatKesehatanController extends Controller
         ->get();
 
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan', compact('ibu', 'anak', 'lansia'));
+    }
+
+    public function kesehatanIbu(Ibu $ibu)
+    {
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu');
     }
 }

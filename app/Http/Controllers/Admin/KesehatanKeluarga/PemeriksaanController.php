@@ -12,6 +12,11 @@ use App\Lansia;
 
 class PemeriksaanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function tambahPemeriksaan()
     {
         $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;

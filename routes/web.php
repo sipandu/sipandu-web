@@ -62,23 +62,24 @@ Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\Data
 
 
 //Konsultasi
-Route::get('nakes/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/konsultasi/ibu/{ibu}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiIbu')->name("Konsultasi Ibu")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/konsultasi/anak/{anak}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiAnak')->name("Konsultasi Anak")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/konsultasi/lansia/{lansia}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiLansia')->name("Konsultasi Lansia")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
+Route::get('nakes/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+Route::get('nakes/konsultasi/ibu/{ibu}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiIbu')->name("Konsultasi Ibu")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/konsultasi/anak/{anak}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiAnak')->name("Konsultasi Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/konsultasi/lansia/{lansia}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiLansia')->name("Konsultasi Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 
 
 //Pemeriksaan
-Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
-Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:param1,param2,param3,param4,tenaga kesehatan");
+Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
 
 
 
 //Data & Riwayat Kesehatan
 Route::get('admin/data-kesehatan', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@dataKesehatan')->name("Data Kesehatan")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
+Route::get('admin/data-kesehatan/kesehatan-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbu')->name("Data Kesehatan Ibu")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
 
 
 

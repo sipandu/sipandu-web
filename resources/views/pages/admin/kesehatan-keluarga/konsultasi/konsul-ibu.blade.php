@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
+                    <div class="col-sm-12 col-md-7 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -43,72 +43,6 @@
                                     </div>
                                     <div class="collapse my-3" id="konsulAnak">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Berat Badan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" value="{{ old('berat_badan') }}" placeholder="Usia Ibu" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-weight"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Tekanan Darah<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" value="{{ old('tensi') }}" placeholder="Usia Ibu" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Usia Ibu<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('usia_ibu') }}" placeholder="LP Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Usia Kandungan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('usia_kandungan') }}" placeholder="Berat Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar-week"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Jumlah Kehamilan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('jumlah_kehamilan') }}" placeholder="Kehamilan ke" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-list-ol"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Jarak Anak Sebelumnya<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('jarak_kehamilan') }}" placeholder="Jarak kehamilan" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-sort-numeric-down"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
                                                     <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
@@ -187,18 +121,18 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
-                                                    <p>50 Kilogram</p>
+                                                    <span class="fw-bold">Lingkar Lengan :</span>
+                                                    <p>20 Sentimeter</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tekanan Darah :</span>
-                                                    <p>120/80</p>
+                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <p>80 Kilogram</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Usia Ibu :</span>
-                                                    <p>15 Tahun</p>
+                                                    <span class="fw-bold">Tinggi Rahim :</span>
+                                                    <p>30 Sentimeter</p>
                                                 </div>
                                                 <div class="col-6">
                                                     <span class="fw-bold">Usia Kehamilan :</span>
@@ -207,12 +141,12 @@
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Jumlah  Kehamilan :</span>
-                                                    <p>Kemahilan ke-2</p>
+                                                    <span class="fw-bold">Tekanan Darah :</span>
+                                                    <p>120/80</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Jarak Anak Sebelumnya :</span>
-                                                    <p>4 Tahun</p>
+                                                    <span class="fw-bold">Detak Jantung Bayi :</span>
+                                                    <p>80</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +155,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2">
+                    <div class="col-sm-12 col-md-5 order-1 order-md-2 mb-3">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
@@ -234,37 +168,48 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-4 my-auto"><span class="fw-bold">Suami</span></div>
-                                            <div class="col-8 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                            <div class="col-6 my-auto"><span class="fw-bold">Suami</span></div>
+                                            <div class="col-6 text-end"><span>Nama Bapaknya Hadi</span></div>
                                         </div>
                                     </li>
-                                </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Bumil</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <h3 class="profile-username text-center fw-bold mb-4">Data Kesehatan Bumil</h3>
-                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Kesehatan Ibu</span></div>
+                                            <div class="col-5 text-end my-auto"><span class="btn btn-success btn-sm">Sehat</span></div>
+                                        </div>
+                                    </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Usia Kandungan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>40 Cm</span></div>
+                                            <div class="col-5 text-end my-auto"><span>50 Minggu</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Kehamilan ke</span></div>
-                                            <div class="col-5 text-end my-auto"><span>20.5 Kg</span></div>
+                                            <div class="col-7 my-auto"><span class="fw-bold">Jumlah Kehamilan</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Kehamilan ke-3</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Jarak Anak Sebelumnya</span></div>
-                                            <div class="col-5 text-end my-auto"><span>60 Cm</span></div>
+                                            <div class="col-5 text-end my-auto"><span>5 Tahun</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Golongan Darah</span></div>
+                                            <div class="col-6 text-end my-auto"><span>B+</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Penyakit Bawaan</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Autoimun</span></div>
                                         </div>
                                     </li>
                                 </ul>
+                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Bumil</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
                             </div>
                         </div>
