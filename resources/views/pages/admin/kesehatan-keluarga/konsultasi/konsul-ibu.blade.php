@@ -209,6 +209,12 @@
                                             <div class="col-6 text-end my-auto"><span>Autoimun</span></div>
                                         </div>
                                     </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Aspirin</span></div>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Bumil</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>

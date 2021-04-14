@@ -171,19 +171,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-6 my-auto"><span class="fw-bold">Berat Badan</span></div>
-                                            <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Sehat</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-6 my-auto"><span class="fw-bold">Tinggi Badan</span></div>
-                                            <div class="col-6 text-end my-auto"><span class="btn btn-warning btn-sm">Kurang Sehat</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-6 my-auto"><span class="fw-bold">Lingkar Kepala</span></div>
+                                            <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
                                             <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
                                         </div>
                                     </li>
@@ -203,6 +191,12 @@
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
                                             <div class="col-5 text-end my-auto"><span>B+</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Penisilin</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
