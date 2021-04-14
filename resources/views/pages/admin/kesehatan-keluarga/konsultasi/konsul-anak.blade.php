@@ -43,50 +43,6 @@
                                     </div>
                                     <div class="collapse my-3" id="konsulAnak">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Umur Anak<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" value="{{ old('usia') }}" placeholder="Usia Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Lingkar Kepala<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('lingkar_kepala') }}" placeholder="LK Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-circle-notch"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Berat Badan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('berat_badan') }}" placeholder="Berat Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-weight"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Tinggi Badan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('tinggi_badan') }}" placeholder="Tinggi Anak" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-ruler-vertical"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
                                                     <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
@@ -183,13 +139,14 @@
                                                     <p>15 Sentimeter</p>
                                                 </div>
                                             </div>
+                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2">
+                    <div class="col-sm-12 col-md-4 order-1 order-md-2 mb-2">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
@@ -199,53 +156,63 @@
                                 </div>
                                 <h3 class="profile-username text-center mt-3">I Gede Hadi Darmawan</h3>
                                 <p class="text-muted text-center">Laki-laki</p>
-                                {{-- <h3 class="profile-username text-center my-3">I Gede Hadi Darmawan</h3> --}}
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-4 my-auto"><span class="fw-bold">Ayah</span></div>
-                                            <div class="col-8 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                            <div class="col-5 my-auto"><span class="fw-bold">Ayah</span></div>
+                                            <div class="col-7 text-end"><span>Nama Bapaknya Hadi</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-4 my-auto"><span class="fw-bold">Ibu</span></div>
-                                            <div class="col-8 text-end"><span>Nama Ibunya Hadi</span></div>
+                                            <div class="col-5 my-auto"><span class="fw-bold">Ibu</span></div>
+                                            <div class="col-7 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Berat Badan</span></div>
+                                            <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Sehat</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Tinggi Badan</span></div>
+                                            <div class="col-6 text-end my-auto"><span class="btn btn-warning btn-sm">Kurang Sehat</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Lingkar Kepala</span></div>
+                                            <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Usia Anak</span></div>
+                                            <div class="col-6 text-end my-auto"><span>24 Bulan</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Status Anak</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Anak ke-2</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
+                                            <div class="col-5 text-end my-auto"><span>B+</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Kelahiran</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Normal</span></div>
                                         </div>
                                     </li>
                                 </ul>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Anak</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <h3 class="profile-username text-center fw-bold mb-4">Data Kesehatan Anak</h3>
-                                <ul class="list-group list-group-unbordered">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Umur</span></div>
-                                            <div class="col-5 text-end my-auto"><span>2 Tahun</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Lingkar Kepala</span></div>
-                                            <div class="col-5 text-end my-auto"><span>40 Cm</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Berat Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>20.5 Kg</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Tinggi Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>60 Cm</span></div>
-                                        </div>
-                                    </li>
-                                </ul>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
                             </div>
                         </div>
