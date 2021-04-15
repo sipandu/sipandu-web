@@ -155,6 +155,108 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Imunisasi</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi1" role="button" aria-expanded="false" aria-controls="imunisasi1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-2</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi2" role="button" aria-expanded="false" aria-controls="imunisasi2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-1</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Vitamin</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin1" role="button" aria-expanded="false" aria-controls="vitamin1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-2</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin2" role="button" aria-expanded="false" aria-controls="vitamin2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-1</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2">
                         <div class="card card-primary card-outline">
