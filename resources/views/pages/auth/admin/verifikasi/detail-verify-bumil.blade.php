@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ date('d-M-yy', strtotime($ibu->created_at)) }}
+                        {{ date('d-M-Y', strtotime($ibu->created_at)) }}
                     </div>
                 </div>
             </div>

@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ date('d-M-yy', strtotime($anak->created_at)) }}
+                        {{ date('d-M-Y', strtotime($anak->created_at)) }}
                     </div>
                 </div>
             </div>

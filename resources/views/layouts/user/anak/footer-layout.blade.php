@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2021 
+    <strong>Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }} 
         <a class="text-decoration-none link-primary" href="#">Smart Posyandu</a>
     </strong>
     <div class="float-right d-none d-sm-inline-block">

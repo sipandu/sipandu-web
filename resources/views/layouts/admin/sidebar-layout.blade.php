@@ -123,12 +123,14 @@
                                 @endif
                             </ul>
                         </li>
-                        <li class="nav-item" id="list-data-user-verify">
-                            <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
-                                <i class="nav-icon fas fa-user-check"></i>
-                                <p>Verification User</p>
-                            </a>
-                        </li>
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan != "super admin")
+                            <li class="nav-item" id="list-data-user-verify">
+                                <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
+                                    <i class="nav-icon fas fa-user-check"></i>
+                                    <p>Verification User</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
                                 @csrf
@@ -205,8 +207,8 @@
                     </a>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-kesehatan">
+                        <a href="#" class="nav-link" id="kesehatan">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Kesehatan Keluarga
@@ -214,34 +216,22 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-female nav-icon"></i>
-                                    <p>Pemeriksaan Ibu Hamil</p>
+                            <li class="nav-item" >
+                                <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
+                                    <i class="fas fa-medkit nav-icon"></i>
+                                    <p>Pemeriksaan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-baby nav-icon"></i>
-                                    <p>Pemeriksaan Bayi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-child nav-icon"></i>
-                                    <p>Pemeriksaan Balita</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-wheelchair nav-icon"></i>
-                                    <p>Pemeriksaan Lansia</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
                                     <i class="fas fa-file-medical-alt nav-icon"></i>
                                     <p>Data Kesehatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <i class="fas fa-file-medical nav-icon"></i>
+                                    <p>Riwayat Kesehatan</p>
                                 </a>
                             </li>
                         </ul>
@@ -260,20 +250,13 @@
                             <li class="nav-item">
                                 <a href="pages/examples/lockscreen.html" class="nav-link">
                                     <i class="fas fa-crutch nav-icon"></i>
-                                    <p>Pemberian Imunisasi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    {{-- <i class="fal fa-crutches"></i> --}}
-                                    <i class="fas fa-vials nav-icon"></i>
                                     <p>Jenis Imunisasi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Data Imunisasi</p>
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
                                 </a>
                             </li>
                         </ul>
@@ -292,19 +275,13 @@
                             <li class="nav-item">
                                 <a href="pages/examples/lockscreen.html" class="nav-link">
                                     <i class="fas fa-capsules nav-icon"></i>
-                                    <p>Pemberian Vitamin</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-pills nav-icon"></i>
                                     <p>Jenis Vitamin</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Data Vitamin</p>
+                                    <i class="fas fa-pills nav-icon"></i>
+                                    <p>Tambah Vitamin</p>
                                 </a>
                             </li>
                         </ul>
@@ -327,7 +304,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
                                     <i class="fas fa-bullhorn nav-icon"></i>
                                     <p>Pengumuman</p>
                                 </a>

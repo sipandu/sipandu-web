@@ -144,7 +144,7 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataAdmin->pegawai->nama_pegawai) }}" placeholder="Nama Administrator">
-                                                <label for="floatingInput">Nama Lengkap</label>
+                                                <label for="floatingInput">Nama Lengkap<span class="text-danger">*</span></label>
                                                 @error('nama')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -153,7 +153,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataAdmin->pegawai->nik) }}" placeholder="NIK Administrator">
-                                                <label for="floatingInput">Nomor Induk Kependudukan</label>
+                                                <label for="floatingInput">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
                                                 @error('nik')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -164,7 +164,7 @@
                                                 <div class="col-sm-12 col-md-6">
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataAdmin->pegawai->tempat_lahir) }}" placeholder="Tampat Lahir Administrator">
-                                                        <label for="floatingInput">Tampat Lahir</label>
+                                                        <label for="floatingInput">Tampat Lahir<span class="text-danger">*</span></label>
                                                         @error('tempat_lahir')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
@@ -176,7 +176,7 @@
                                                     <div class="form-group">
                                                         <div class="form-floating">
                                                             <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-YY', strtotime('tgl_lahir')), date('d-m-YY', strtotime($dataAdmin->pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Administrator" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                            <label for="floatingInput">Tanggal Lahir</label>
+                                                            <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
                                                             @error('tgl_lahir')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}

@@ -14,7 +14,6 @@ class Posyandu extends Model
 
     protected $fillable = [
         'id_desa',
-        'id_admin',
         'nama_posyandu',
         'id_chat_group_tele',
         'alamat',
@@ -27,6 +26,11 @@ class Posyandu extends Model
     public function penyuluhan()
     {
         return $this->hasMany(Penyuluhan::class, 'id_posyandu');
+    }
+
+    public function pengumuman()
+    {
+        return $this->hasMany(Pengumuman::class, 'id_posyandu');
     }
 
     public function pegawai()

@@ -100,11 +100,17 @@
                                     <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ $data->nama_posyandu }}</h3>
                                     <h5 class="mt-5 text-muted"><i class="fas fa-user-cog"></i> Head Admin</h5>
                                     <ul class="list-unstyled">
-                                        @foreach ($pegawai->where('jabatan', 'head admin') as $pgw)
+                                        @if ($pegawai->where('jabatan', 'head admin')->count() < 1)
                                             <li>
-                                                <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
+                                                <a class="btn-link text-secondary text-decoration-none">Head Admin Belum Ditambahkan</a>
                                             </li>
-                                        @endforeach
+                                        @else
+                                            @foreach ($pegawai->where('jabatan', 'head admin') as $pgw)
+                                                <li>
+                                                    <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                     <h5 class="text-muted"><i class="fas fa-user-shield"></i> Administrator</h5>
                                     <ul class="list-unstyled">

@@ -18,8 +18,9 @@ class Kabupaten extends Model
 
     public function kecamatan()
     {
-        return $this->hasMany(Kecamatan::class, 'id_kabupaten');
+        return $this->hasMany(Kecamatan::class, 'id_kabupaten', 'id');
     }
+
 // =======
 
 // class Kabupaten extends Model

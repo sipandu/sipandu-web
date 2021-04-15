@@ -62,20 +62,20 @@
                     <input type="hidden" name="noKK" value="{{$scr}}">
                     <input type="hidden" name="role" value="{{$role}}">
                     @if ($idKK == null)
-                    <div class="form-group">
-                        <label>Kartu Keluarga</label>
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input @error('nama') is-invalid @enderror" name="file" id="exampleInputFile2" >
-                                <label class="custom-file-label " for="exampleInputFile2">Upload Kartu Keluarga</label>
-                            </div>
-                            @error('file')
-                                <div class="invalid-feedback text-start">
-                                    {{ $message }}
+                        <div class="form-group">
+                            <label>Kartu Keluarga</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="exampleInputFile2" >
+                                    <label class="custom-file-label " for="exampleInputFile2">Upload Kartu Keluarga</label>
                                 </div>
-                            @enderror
+                                @error('file')
+                                    <div class="invalid-feedback text-start">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
                     @endif
                     <div class="row">
                         <div class="col-md">
