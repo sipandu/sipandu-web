@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
+                    <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -209,6 +209,68 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Imunisasi</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahImunisasi">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="imunisasi">Jenis Imunisasi<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <select name="imunisasi" class="form-control @error('imunisasi') is-invalid @enderror" value="{{ old('imunisasi') }}" id="imunisasi">
+                                                        <option selected disabled>Pilih pemberian imunisasi....</option>
+                                                        <option value="Laki-laki">Imunisasi Campak</option>
+                                                        <option value="Perempuan">Imunisasi TT</option>
+                                                        <option value="Perempuan">Imunisasi Tetanus</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-tablets"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('imunisasi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="pemberian">Jumlah Pemberian<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control @error('pemberian') is-invalid @enderror" id="pemberian" value="{{ old('pemberian') }}" placeholder="Pemberian ke-X">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-redo-alt"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('pemberian')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <div class="form-floating">
+                                                    <textarea name="keteranganImunisasi" class="form-control @error('keteranganImunisasi') is-invalid @enderror" id="keteranganImunisasi" placeholder="Masukan keterangan tambahan"></textarea>
+                                                    <label for="keteranganImunisasi">Keterangan Tambahan</label>
+                                                    @error('keteranganImunisasi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                <button class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="card card-primary card-outline">
@@ -270,8 +332,110 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Imunisasi</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi1" role="button" aria-expanded="false" aria-controls="imunisasi1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-2</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi2" role="button" aria-expanded="false" aria-controls="imunisasi2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-1</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Vitamin</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin1" role="button" aria-expanded="false" aria-controls="vitamin1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-2</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin2" role="button" aria-expanded="false" aria-controls="vitamin2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jumlah Pemberian :</span>
+                                                <p>Pemberian ke-1</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2">
+                    <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2 mb-2">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
@@ -284,50 +448,55 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-4 my-auto"><span class="fw-bold">Ayah</span></div>
-                                            <div class="col-8 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                            <div class="col-5 my-auto"><span class="fw-bold">Ayah</span></div>
+                                            <div class="col-7 text-end"><span>Nama Bapaknya Hadi</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-4 my-auto"><span class="fw-bold">Ibu</span></div>
-                                            <div class="col-8 text-end"><span>Nama Ibunya Hadi</span></div>
+                                            <div class="col-5 my-auto"><span class="fw-bold">Ibu</span></div>
+                                            <div class="col-7 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
+                                            <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Usia Anak</span></div>
+                                            <div class="col-6 text-end my-auto"><span>24 Bulan</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Status Anak</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Anak ke-2</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
+                                            <div class="col-5 text-end my-auto"><span>B+</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Penisilin</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Kelahiran</span></div>
+                                            <div class="col-6 text-end my-auto"><span>Normal</span></div>
                                         </div>
                                     </li>
                                 </ul>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Anak</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <h3 class="profile-username text-center fw-bold mb-4">Data Kesehatan Anak</h3>
-                                <ul class="list-group list-group-unbordered">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Umur</span></div>
-                                            <div class="col-5 text-end my-auto"><span>2 Tahun</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Lingkar Kepala</span></div>
-                                            <div class="col-5 text-end my-auto"><span>40 Cm</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Berat Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>20.5 Kg</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Tinggi Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>60 Cm</span></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
+                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
                             </div>
                         </div>
                     </div>
