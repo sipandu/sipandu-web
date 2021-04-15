@@ -250,20 +250,13 @@
                             <li class="nav-item">
                                 <a href="pages/examples/lockscreen.html" class="nav-link">
                                     <i class="fas fa-crutch nav-icon"></i>
-                                    <p>Pemberian Imunisasi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    {{-- <i class="fal fa-crutches"></i> --}}
-                                    <i class="fas fa-vials nav-icon"></i>
                                     <p>Jenis Imunisasi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Data Imunisasi</p>
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
                                 </a>
                             </li>
                         </ul>
@@ -282,19 +275,13 @@
                             <li class="nav-item">
                                 <a href="pages/examples/lockscreen.html" class="nav-link">
                                     <i class="fas fa-capsules nav-icon"></i>
-                                    <p>Pemberian Vitamin</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-pills nav-icon"></i>
                                     <p>Jenis Vitamin</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-file-medical nav-icon"></i>
-                                    <p>Data Vitamin</p>
+                                    <i class="fas fa-pills nav-icon"></i>
+                                    <p>Tambah Vitamin</p>
                                 </a>
                             </li>
                         </ul>
