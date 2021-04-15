@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
+                    <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -43,50 +43,6 @@
                                     </div>
                                     <div class="collapse my-3" id="konsulAnak">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Usia Lansia<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" value="{{ old('usia') }}" placeholder="Usia Lansia" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Berat Badan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('berat_badan') }}" placeholder="Berat Badan" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-circle-notch"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Tekanan Darah<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('tensi') }}" placeholder="Tekanan Darah" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-weight"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Penyakit Bawaan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control" value="{{ old('penyakit_bawaan') }}" placeholder="Penyakit bawaan" disabled>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-ruler-vertical"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-12 my-2">
                                                 <div class="form-floating">
                                                     <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
@@ -147,26 +103,6 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <span class="fw-bold">Keterangan Tambahan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                            <div class="row text-center">
-                                                <div class="col-6">
-                                                    <span class="fw-bold">Usia Lansia :</span>
-                                                    <p>15 Tahun</p>
-                                                </div>
-                                                <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
-                                                    <p>15 Kilogram</p>
-                                                </div>
-                                            </div>
-                                            <div class="row text-center">
-                                                <div class="col-6">
-                                                    <span class="fw-bold">Tekanan Darah :</span>
-                                                    <p>120/80</p>
-                                                </div>
-                                                <div class="col-6">
-                                                    <span class="fw-bold">Penyakit Bawaan :</span>
-                                                    <p>Rematik</p>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -185,11 +121,11 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Usia Lansia :</span>
+                                                    <span class="fw-bold">Berat Badan :</span>
                                                     <p>15 Tahun</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <span class="fw-bold">Tinggi Lutut :</span>
                                                     <p>15 Kilogram</p>
                                                 </div>
                                             </div>
@@ -199,17 +135,28 @@
                                                     <p>120/80</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Penyakit Bawaan :</span>
+                                                    <span class="fw-bold">Denyut Nadi :</span>
                                                     <p>Rematik</p>
                                                 </div>
                                             </div>
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Suhu Tubuh :</span>
+                                                    <p>120/80</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Tanda Vital :</span>
+                                                    <p>Rematik</p>
+                                                </div>
+                                            </div>
+                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2">
+                    <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
@@ -218,7 +165,7 @@
                                     </div>
                                 </div>
                                 <h3 class="profile-username text-center mt-3">I Gede Hadi Darmawan</h3>
-                                <p class="text-muted text-center">Laki-laki</p>
+                                <p class="text-muted text-center">68 Tahun</p>
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
@@ -226,39 +173,44 @@
                                             <div class="col-7 text-end my-auto"><span>Lansia Beresiko</span></div>
                                         </div>
                                     </li>
-                                </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Lansia</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <h3 class="profile-username text-center fw-bold mb-4">Data Kesehatan Lansia</h3>
-                                <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Umur</span></div>
-                                            <div class="col-5 text-end my-auto"><span>2 Tahun</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Berat Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>50 Kilogram</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Tekanan Darah</span></div>
-                                            <div class="col-5 text-end my-auto"><span>120/80</span></div>
+                                            <div class="col-7 my-auto"><span class="fw-bold">Keluarga Dekat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Hadi Darmawan</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Penyakit Bawaan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>Rematik</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Hipertensi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Masalah Kesehatan</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Dimensia</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Penisilin</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Makanan</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Makanan Laut</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Lain</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Debu, Dingin</span></div>
                                         </div>
                                     </li>
                                 </ul>
+                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Lansia</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
                             </div>
                         </div>

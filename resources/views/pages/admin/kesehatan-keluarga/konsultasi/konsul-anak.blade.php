@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
+                    <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -146,7 +146,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2 mb-2">
+                    <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2 mb-2">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
