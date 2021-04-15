@@ -158,9 +158,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Tanggal Kembali<span class="text-danger">*</span></label>
+                                                <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="fas fa-calendar-check"></i>
@@ -242,15 +242,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="detak_jantung_bayi">Jumlah Pemberian<span class="text-danger">*</span></label>
+                                                <label for="tgl_kembali_vitamin">Tanggal Kembali<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control @error('tekanan_darah') is-invalid @enderror" id="detak_jantung_bayi" value="{{ old('tensi') }}" placeholder="Pemberian ke-X">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-redo-alt"></span>
-                                                        </div>
+                                                    <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                        </span>
                                                     </div>
-                                                    @error('detak_jantung_bayi')
+                                                    @error('tgl_kembali_vitamin')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -293,7 +293,7 @@
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-tablets"></span>
+                                                            <span class="fas fa-syringe"></span>
                                                         </div>
                                                     </div>
                                                     @error('imunisasi')
@@ -304,15 +304,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="pemberian">Jumlah Pemberian<span class="text-danger">*</span></label>
+                                                <label for="tgl_kembali_imunisasi">Tanggal Kembali<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control @error('pemberian') is-invalid @enderror" id="pemberian" value="{{ old('pemberian') }}" placeholder="Pemberian ke-X">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-redo-alt"></span>
-                                                        </div>
+                                                    <input type="text" name="tgl_kembali_imunisasi" autocomplete="off" class="form-control @error('tgl_kembali_imunisasi') is-invalid @enderror" id="tgl_kembali_imunisasi" value="{{ old('tgl_kembali_imunisasi') }}"  placeholder="Tanggal imunisasi kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                        </span>
                                                     </div>
-                                                    @error('pemberian')
+                                                    @error('tgl_kembali_vitamin')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -359,31 +359,31 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Usia Kehamilan :</span>
+                                                    <span class="fw-bold">Usia Ibu :</span>
                                                     <p>50 Minggu</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Lingkar Lengan :</span>
+                                                    <span class="fw-bold">Usia Kehamilan :</span>
                                                     <p>20 Sentimeter</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <span class="fw-bold">Lingkar Lengan :</span>
                                                     <p>80 Kilogram</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tinggi Rahim :</span>
+                                                    <span class="fw-bold">Berat Badan :</span>
                                                     <p>30 Sentimeter</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Denyut Nadi :</span>
+                                                    <span class="fw-bold">Tinggi Rahim :</span>
                                                     <p>130</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Detak Jantung Bayi :</span>
+                                                    <span class="fw-bold">Denyut Nadi :</span>
                                                     <p>80</p>
                                                 </div>
                                             </div>
@@ -393,10 +393,11 @@
                                                     <p>120/80</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tanggal Kembali :</span>
+                                                    <span class="fw-bold">Detak Jantung Bayi :</span>
                                                     <p>21 Mei 2021</p>
                                                 </div>
                                             </div>
+                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                         </div>
                                     </div>
                                 </li>
@@ -435,8 +436,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -457,8 +458,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -482,12 +483,12 @@
                                     <div class="collapse my-3" id="vitamin1">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -504,12 +505,12 @@
                                     <div class="collapse my-3" id="vitamin2">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -607,8 +608,8 @@
             $('#pemeriksaan-keluarga').addClass('active');
         });
 
-                // Custom Input Date
-                $(function () {
+        // Custom Input Date
+        $(function () {
             bsCustomFileInput.init();
 
             $('.select2').select2()
@@ -621,10 +622,5 @@
 
             $('[data-mask]').inputmask()
         })
-
-        // Custom Step Page
-        document.addEventListener('DOMContentLoaded', function () {
-            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-        });
     </script>
 @endpush

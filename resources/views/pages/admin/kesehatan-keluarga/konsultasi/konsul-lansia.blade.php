@@ -121,32 +121,42 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
-                                                    <p>15 Tahun</p>
+                                                    <span class="fw-bold">Usia :</span>
+                                                    <p>50 Kilogram</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tinggi Lutut :</span>
-                                                    <p>15 Kilogram</p>
+                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <p>120/80</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tekanan Darah :</span>
+                                                    <span class="fw-bold">Denyut Nadi :</span>
                                                     <p>120/80</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Denyut Nadi :</span>
-                                                    <p>Rematik</p>
+                                                    <span class="fw-bold">Tekanan Darah :</span>
+                                                    <p>50 Kilogram</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
                                                     <span class="fw-bold">Suhu Tubuh :</span>
-                                                    <p>120/80</p>
+                                                    <p>15 Tahun</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tanda Vital :</span>
-                                                    <p>Rematik</p>
+                                                    <span class="fw-bold">Tinggi Lutut :</span>
+                                                    <p>50 Minggu</p>
+                                                </div>
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <span class="fw-bold">IMT :</span>
+                                                    <p>Kemahilan ke-2</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="fw-bold">MNA :</span>
+                                                    <p>4 Tahun</p>
                                                 </div>
                                             </div>
                                             <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
@@ -172,8 +182,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -194,8 +204,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -219,12 +229,12 @@
                                     <div class="collapse my-3" id="vitamin1">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -241,12 +251,12 @@
                                     <div class="collapse my-3" id="vitamin2">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">

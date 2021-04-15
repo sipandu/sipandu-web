@@ -3,6 +3,8 @@
 @section('title', 'Pemeriksaan Lansia')
 
 @push('css')
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+
     <style>
         .image {
             width: 150px;
@@ -44,15 +46,15 @@
                                     <div class="collapse my-3" id="tambahPemeriksaan">
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label>Usia Lansia<span class="text-danger">*</span></label>
+                                                <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control @error('usia') is-invalid @enderror" id="usia" value="{{ old('usia') }}" placeholder="Usia Lansia">
+                                                    <input type="text" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-calendar"></span>
+                                                            <span class="fas fa-weight"></span>
                                                         </div>
                                                     </div>
-                                                    @error('usia')
+                                                    @error('berat_badan')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -60,15 +62,31 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
+                                                <label for="tinggi_lutut">Tinggi Lutut<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
+                                                    <input type="text" autocomplete="off" class="form-control @error('tinggi_lutut') is-invalid @enderror" id="tinggi_lutut" value="{{ old('tinggi_lutut') }}" placeholder="Tinggi lutut">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-circle-notch"></span>
+                                                            <span class="fas fa-ruler-vertical"></span>
                                                         </div>
                                                     </div>
-                                                    @error('berat_badan')
+                                                    @error('tinggi_lutut')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="suhu_tubuh">Suhu Tubuh<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control @error('suhu_tubuh') is-invalid @enderror" id="suhu_tubuh" value="{{ old('suhu_tubuh') }}" placeholder="Suhu tubuh">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-thermometer"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('suhu_tubuh')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -81,7 +99,7 @@
                                                     <input type="text" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan Darah">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-weight"></span>
+                                                            <span class="fas fa-plus"></span>
                                                         </div>
                                                     </div>
                                                     @error('tekanan_darah')
@@ -92,15 +110,31 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="penyakit_bawaan">Penyakit Bawaan<span class="text-danger">*</span></label>
+                                                <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control @error('penyakit_bawaan') is-invalid @enderror" id="penyakit_bawaan" value="{{ old('penyakit_bawaan') }}" placeholder="Penyakit bawaan">
+                                                    <input type="text" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut Nadi">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-ruler-vertical"></span>
+                                                            <span class="fas fa-plus"></span>
                                                         </div>
                                                     </div>
-                                                    @error('penyakit_bawaan')
+                                                    @error('denyut_nadi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                        </span>
+                                                    </div>
+                                                    @error('tgl_kembali')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -176,15 +210,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="detak_jantung_bayi">Frekuensi<span class="text-danger">*</span></label>
+                                                <label for="tgl_kembali_vitamin">Tanggal Kembali<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control @error('detak_jantung_bayi') is-invalid @enderror" id="detak_jantung_bayi" value="{{ old('detak_jantung_bayi') }}" placeholder="Frekuensi pemberian vitamin">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-redo-alt"></span>
-                                                        </div>
+                                                    <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                        </span>
                                                     </div>
-                                                    @error('detak_jantung_bayi')
+                                                    @error('tgl_kembali_vitamin')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -196,6 +230,68 @@
                                                     <textarea name="keteranganVitamin" class="form-control @error('keteranganVitamin') is-invalid @enderror" id="keteranganVitamin" placeholder="Masukan keterangan tambahan"></textarea>
                                                     <label for="keteranganVitamin">Keterangan Tambahan</label>
                                                     @error('keteranganVitamin')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                <button class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Imunisasi</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahImunisasi">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="imunisasi">Jenis Imunisasi<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <select name="imunisasi" class="form-control @error('imunisasi') is-invalid @enderror" value="{{ old('imunisasi') }}" id="imunisasi">
+                                                        <option selected disabled>Pilih pemberian imunisasi....</option>
+                                                        <option value="Laki-laki">Imunisasi Campak</option>
+                                                        <option value="Perempuan">Imunisasi TT</option>
+                                                        <option value="Perempuan">Imunisasi Tetanus</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-syringe"></span>
+                                                        </div>
+                                                    </div>
+                                                    @error('imunisasi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 my-2">
+                                                <label for="tgl_kembali_imunisasi">Tanggal Kembali<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" name="tgl_kembali_imunisasi" autocomplete="off" class="form-control @error('tgl_kembali_imunisasi') is-invalid @enderror" id="tgl_kembali_imunisasi" value="{{ old('tgl_kembali_imunisasi') }}"  placeholder="Tanggal imunisasi kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                        </span>
+                                                    </div>
+                                                    @error('tgl_kembali_imunisasi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <div class="form-floating">
+                                                    <textarea name="keteranganImunisasi" class="form-control @error('keteranganImunisasi') is-invalid @enderror" id="keteranganImunisasi" placeholder="Masukan keterangan tambahan"></textarea>
+                                                    <label for="keteranganImunisasi">Keterangan Tambahan</label>
+                                                    @error('keteranganImunisasi')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -231,34 +327,45 @@
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <span class="fw-bold">Usia :</span>
                                                     <p>50 Kilogram</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Tekanan Darah :</span>
+                                                    <span class="fw-bold">Berat Badan :</span>
                                                     <p>120/80</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Usia Ibu :</span>
+                                                    <span class="fw-bold">Denyut Nadi :</span>
+                                                    <p>120/80</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Tekanan Darah :</span>
+                                                    <p>50 Kilogram</p>
+                                                </div>
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Suhu Tubuh :</span>
                                                     <p>15 Tahun</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Usia Kehamilan :</span>
+                                                    <span class="fw-bold">Tinggi Lutut :</span>
                                                     <p>50 Minggu</p>
                                                 </div>
                                             </div>
                                             <div class="row text-center">
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Jumlah  Kehamilan :</span>
+                                                    <span class="fw-bold">IMT :</span>
                                                     <p>Kemahilan ke-2</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <span class="fw-bold">Jarak Anak Sebelumnya :</span>
+                                                    <span class="fw-bold">MNA :</span>
                                                     <p>4 Tahun</p>
                                                 </div>
                                             </div>
+                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                         </div>
                                     </div>
                                 </li>
@@ -280,8 +387,110 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Imunisasi</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi1" role="button" aria-expanded="false" aria-controls="imunisasi1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi2" role="button" aria-expanded="false" aria-controls="imunisasi2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="imunisasi2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card card-primary card-outline">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Vitamin</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin1" role="button" aria-expanded="false" aria-controls="vitamin1"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin1">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Vitamin :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin2" role="button" aria-expanded="false" aria-controls="vitamin2"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="vitamin2">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Vitamin :</span>
+                                                <p>50 Minggu</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 order-1 order-md-2">
+                    <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2">
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
@@ -290,7 +499,7 @@
                                     </div>
                                 </div>
                                 <h3 class="profile-username text-center mt-3">I Gede Hadi Darmawan</h3>
-                                <p class="text-muted text-center">27 Tahun</p>
+                                <p class="text-muted text-center">68 Tahun</p>
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
@@ -298,39 +507,44 @@
                                             <div class="col-7 text-end my-auto"><span>Lansia Beresiko</span></div>
                                         </div>
                                     </li>
-                                </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Lansia</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <h3 class="profile-username text-center fw-bold mb-4">Data Kesehatan Lansia</h3>
-                                <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Umur</span></div>
-                                            <div class="col-5 text-end my-auto"><span>2 Tahun</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Berat Badan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>50 Kilogram</span></div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-7 my-auto"><span class="fw-bold">Tekanan Darah</span></div>
-                                            <div class="col-5 text-end my-auto"><span>120/80</span></div>
+                                            <div class="col-7 my-auto"><span class="fw-bold">Keluarga Dekat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Hadi Darmawan</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Penyakit Bawaan</span></div>
-                                            <div class="col-5 text-end my-auto"><span>Rematik</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Hipertensi</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Masalah Kesehatan</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Dimensia</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Penisilin</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Makanan</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Makanan Laut</span></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Alergi Lain</span></div>
+                                            <div class="col-5 text-end my-auto"><span>Debu, Dingin</span></div>
                                         </div>
                                     </li>
                                 </ul>
+                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Lansia</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
                             </div>
                         </div>
@@ -342,6 +556,12 @@
 @endsection
 
 @push('js')
+    <!-- Custom Input Date -->
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
@@ -349,5 +569,20 @@
             $('#kesehatan').addClass('active');
             $('#pemeriksaan-keluarga').addClass('active');
         });
+
+                // Custom Input Date
+                $(function () {
+            bsCustomFileInput.init();
+
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+
+            $('[data-mask]').inputmask()
+        })
     </script>
 @endpush

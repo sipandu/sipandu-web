@@ -97,12 +97,33 @@
                                     </div>
                                     <div class="collapse my-3" id="mar12-2020">
                                         <div class="card card-body">
-                                            <span class="fw-bold">Hasil Konsultasi :</span>
+                                            <span class="fw-bold">Hasil Pemeriksaan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <span class="fw-bold">Pengobatan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                             <span class="fw-bold">Keterangan Tambahan :</span>
                                             <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Usia Anak :</span>
+                                                    <p>15 Tahun</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Berat Badan :</span>
+                                                    <p>15 Kilogram</p>
+                                                </div>
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Lingkar Kelapa :</span>
+                                                    <p>40 Sentimeter</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="fw-bold">Tinggi Badan :</span>
+                                                    <p>15 Sentimeter</p>
+                                                </div>
+                                            </div>
+                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                         </div>
                                     </div>
                                 </li>
@@ -162,8 +183,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -184,8 +205,8 @@
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -209,12 +230,12 @@
                                     <div class="collapse my-3" id="vitamin1">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-2</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
@@ -231,12 +252,12 @@
                                     <div class="collapse my-3" id="vitamin2">
                                         <div class="row text-center">
                                             <div class="col-6">
-                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <span class="fw-bold">Jenis Vitamin :</span>
                                                 <p>50 Minggu</p>
                                             </div>
                                             <div class="col-6">
-                                                <span class="fw-bold">Jumlah Pemberian :</span>
-                                                <p>Pemberian ke-1</p>
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                <p>30 Jun 2021</p>
                                             </div>
                                         </div>
                                         <div class="card card-body">
