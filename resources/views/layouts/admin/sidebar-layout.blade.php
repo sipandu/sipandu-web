@@ -248,7 +248,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
                                     <i class="fas fa-crutch nav-icon"></i>
                                     <p>Jenis Imunisasi</p>
                                 </a>
@@ -257,8 +257,8 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-vitamin">
+                        <a href="#" class="nav-link" id="vitamin">
                             <i class="nav-icon fas fa-prescription-bottle-alt"></i>
                             <p>
                                 Vitamin
@@ -267,13 +267,13 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
                                     <i class="fas fa-pills nav-icon"></i>
                                     <p>Tambah Vitamin</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="{{ route('Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
                                     <i class="fas fa-capsules nav-icon"></i>
                                     <p>Jenis Vitamin</p>
                                 </a>

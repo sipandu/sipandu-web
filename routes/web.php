@@ -215,7 +215,14 @@ Route::get('nakes/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKel
 
 
 //Imunisasi
-Route::get('nakes/imunisasi/new', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi");
+Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi");
+Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi");
+
+
+
+//Imunisasi
+Route::get('nakes/vitamin/tambah-vitamin', 'Admin\ImunisasiVitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin");
+Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin");
 
 
 
