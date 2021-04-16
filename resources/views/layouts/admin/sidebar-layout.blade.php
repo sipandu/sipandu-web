@@ -232,8 +232,8 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" id="list-imunisasi">
+                        <a href="#" class="nav-link" id="imunisasi">
                             <i class="nav-icon fas fa-syringe"></i>
                             <p>
                                 Imunisasi
@@ -242,15 +242,15 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-crutch nav-icon"></i>
-                                    <p>Jenis Imunisasi</p>
+                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="fas fa-vials nav-icon"></i>
-                                    <p>Tambah Imunisasi</p>
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-crutch nav-icon"></i>
+                                    <p>Jenis Imunisasi</p>
                                 </a>
                             </li>
                         </ul>
@@ -267,15 +267,15 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="fas fa-capsules nav-icon"></i>
-                                    <p>Jenis Vitamin</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="pages/examples/legacy-user-menu.html" class="nav-link">
                                     <i class="fas fa-pills nav-icon"></i>
                                     <p>Tambah Vitamin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                    <i class="fas fa-capsules nav-icon"></i>
+                                    <p>Jenis Vitamin</p>
                                 </a>
                             </li>
                         </ul>
