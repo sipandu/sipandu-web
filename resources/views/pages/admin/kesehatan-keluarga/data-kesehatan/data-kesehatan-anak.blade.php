@@ -114,42 +114,22 @@
                                     <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <span class="fw-bold">Usia Ibu :</span>
-                                            <p>50 Minggu</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Usia Kehamilan :</span>
-                                            <p>20 Sentimeter</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Lingkar Lengan :</span>
-                                            <p>80 Kilogram</p>
+                                            <span class="fw-bold">Usia Anak :</span>
+                                            <p>15 Tahun</p>
                                         </div>
                                         <div class="col-6">
                                             <span class="fw-bold">Berat Badan :</span>
-                                            <p>30 Sentimeter</p>
+                                            <p>15 Kilogram</p>
                                         </div>
                                     </div>
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <span class="fw-bold">Tinggi Rahim :</span>
-                                            <p>130</p>
+                                            <span class="fw-bold">Lingkar Kelapa :</span>
+                                            <p>40 Sentimeter</p>
                                         </div>
                                         <div class="col-6">
-                                            <span class="fw-bold">Denyut Nadi :</span>
-                                            <p>80</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tekanan Darah :</span>
-                                            <p>120/80</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Detak Jantung Bayi :</span>
-                                            <p>21 Mei 2021</p>
+                                            <span class="fw-bold">Tinggi Badan :</span>
+                                            <p>15 Sentimeter</p>
                                         </div>
                                     </div>
                                     <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
@@ -163,7 +143,7 @@
                             </div>
                             <div class="collapse my-3" id="mar10-2020">
                                 <div class="card card-body">
-                                    <span class="fw-bold">Hasil Pemeriksaan :</span>
+                                    <span class="fw-bold">Hasil Konsultasi :</span>
                                     <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                     <span class="fw-bold">Pengobatan :</span>
                                     <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>

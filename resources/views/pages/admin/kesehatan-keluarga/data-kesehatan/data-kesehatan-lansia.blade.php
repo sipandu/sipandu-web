@@ -46,7 +46,7 @@
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Ibu</p>
+                            <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Lansia</p>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
@@ -63,42 +63,42 @@
                                     <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <span class="fw-bold">Usia Ibu :</span>
-                                            <p>50 Minggu</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Usia Kehamilan :</span>
-                                            <p>20 Sentimeter</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Lingkar Lengan :</span>
-                                            <p>80 Kilogram</p>
+                                            <span class="fw-bold">Usia :</span>
+                                            <p>50 Kilogram</p>
                                         </div>
                                         <div class="col-6">
                                             <span class="fw-bold">Berat Badan :</span>
-                                            <p>30 Sentimeter</p>
+                                            <p>120/80</p>
                                         </div>
                                     </div>
                                     <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tinggi Rahim :</span>
-                                            <p>130</p>
-                                        </div>
                                         <div class="col-6">
                                             <span class="fw-bold">Denyut Nadi :</span>
-                                            <p>80</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tekanan Darah :</span>
                                             <p>120/80</p>
                                         </div>
                                         <div class="col-6">
-                                            <span class="fw-bold">Detak Jantung Bayi :</span>
-                                            <p>21 Mei 2021</p>
+                                            <span class="fw-bold">Tekanan Darah :</span>
+                                            <p>50 Kilogram</p>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <span class="fw-bold">Suhu Tubuh :</span>
+                                            <p>15 Tahun</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold">Tinggi Lutut :</span>
+                                            <p>50 Minggu</p>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <span class="fw-bold">IMT :</span>
+                                            <p>Kemahilan ke-2</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold">MNA :</span>
+                                            <p>4 Tahun</p>
                                         </div>
                                     </div>
                                     <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
