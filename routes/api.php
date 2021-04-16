@@ -44,6 +44,9 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/register-data-anak', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataAnak');
     Route::post('/register-data-ibu', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataIbu');
     Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
+
+    Route::get('/get-informasi-home', 'User\Auth\Api\ApiBlogController@getInformasiHome');
+    Route::post('/get-image', 'User\Auth\Api\ApiBlogController@getImage');
 });
 
 
