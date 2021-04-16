@@ -1,15 +1,15 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Kesehatan Ibu')
+@section('title', 'Data Kesehatan Lansia')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Ibu</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Lansia</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Ibu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Lansia</li>
                 </ol>
             </nav>
         </div>
@@ -18,35 +18,26 @@
         <div class="row">
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Nama Ibu</span>
-                    <p>Nama ibu hamilnya</p>
-                    <span class="fw-bold">Nama Suami</span>
-                    <p>Nama suaminya ibu</p>
+                    <span class="fw-bold">Nama Lansia</span>
+                    <p>Nama lansiany</p>
+                    <span class="fw-bold">Nama Keluarga Dekat</span>
+                    <p>Nama keluarganya</p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Usia Ibu</span>
-                    <p>Usia Ibunya</p>
-                    <span class="fw-bold">Usia Kehamilan</span>
-                    <p>Usia kehamilan terbaru</p>
+                    <span class="fw-bold">Usia Lansia</span>
+                    <p>Usia lansianya</p>
+                    <span class="fw-bold">Kategori Lansia</span>
+                    <p>Pra Lansia</p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Berat Badan Rata-rata</span>
+                    <span class="fw-bold">Penyakit Diderita</span>
                     <p>50 Kg</p>
                     <span class="fw-bold">Indeks Masa Tubuh</span>
                     <p>Ideal</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div>
-                        <canvas id="myChart"></canvas>
-                    </div>
                 </div>
             </div>
         </div>

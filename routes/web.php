@@ -80,6 +80,8 @@ Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\Pemerik
 //Data & Riwayat Kesehatan
 Route::get('admin/data-kesehatan', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@dataKesehatan')->name("Data Kesehatan")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
 Route::get('admin/data-kesehatan/kesehatan-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbu')->name("Data Kesehatan Ibu")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
+Route::get('admin/data-kesehatan/kesehatan-anak/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnak')->name("Data Kesehatan Anak")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
+Route::get('admin/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanLansia')->name("Data Kesehatan Lansia")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
 
 
 

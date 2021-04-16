@@ -225,7 +225,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
                                     <i class="fas fa-file-medical-alt nav-icon"></i>
-                                    <p>Riwayat Kesehatan</p>
+                                    <p>Data Kesehatan</p>
                                 </a>
                             </li>
                         </ul>
