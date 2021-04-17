@@ -12,4 +12,9 @@ class InformasiPenting extends Model
     {
         return $this->belongsTo(Admin::class, 'author_id', 'id');
     }
+
+
+    public function getUrlImage() {
+        return url('/admin/informasi-penting/get-img/'.$this->id);
+    }
 }
