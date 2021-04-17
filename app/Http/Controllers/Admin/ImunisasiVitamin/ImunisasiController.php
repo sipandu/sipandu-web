@@ -87,10 +87,9 @@ class ImunisasiController extends Controller
 
     public function updateImunisasi(Imunisasi $imunisasi, Request $request)
     {
-        // return($request);
         if ($request->nama_imunisasi != $imunisasi->nama_imunisasi) {
             $this->validate($request,[
-                'nama_imunisasi' => "required|unique:tb_jenis_imunisasi,nama_imunisasi|regex:/^[a-z,. 0-9]+$/i|min:5|max:50",
+                'nama_imunisasi' => "required|unique:tb_jenis_imunisasi,nama_imunisasi|regex:/^[a-z,. 0-9]+$/i|min:2|max:50",
                 'usia_pemberian' => 'required|regex:/^[a-z 0-9]+$/i|min:2|max:25',
                 'perulangan' => 'required|regex:/^[a-z 0-9]+$/i|min:5|max:25',
                 'keterangan' => 'required',
@@ -130,7 +129,7 @@ class ImunisasiController extends Controller
             if ($updateImunisasi) {
                 return redirect()->back()->with(['success' => 'Data Imunisasi '.$request->nama_imunisasi.' berhasil diperbaharui']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Imunisasi gagal ditambahkan']);
+                return redirect()->back()->with(['failed' => 'Data Imunisasi gagal diperbaharui']);
             }
         } else {
             $this->validate($request,[
@@ -171,9 +170,9 @@ class ImunisasiController extends Controller
             ]);
 
             if ($updateImunisasi) {
-                return redirect()->back()->with(['success' => 'Data Imunisasi '.$imunisasi->nama_imunisasi.' berhasil diperbaharui']);
+                return redirect()->back()->with(['success' => 'Data Imunisasi '.$request->nama_imunisasi.' berhasil diperbaharui']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Imunisasi gagal ditambahkan']);
+                return redirect()->back()->with(['failed' => 'Data Imunisasi gagal diperbaharui']);
             }
         }
     }

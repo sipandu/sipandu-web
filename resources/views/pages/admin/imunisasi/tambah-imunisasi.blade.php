@@ -20,7 +20,7 @@
                 <div class="card card-outline card-primary p-3">
                     <p class="text-center fs-5">Tambah Jenis Imunisasi Baru</p>
                     <form action="{{ route('Store Imunisasi') }}" method="POST">
-                    @csrf
+                        @csrf
                         <div class="row">
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="nama_imunisasi">Nama Imunisasi<span class="text-danger">*</span></label>
