@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-// <<<<<<< loginRegis
 use Illuminate\Notifications\Notifiable;
 
 class Posyandu extends Model
