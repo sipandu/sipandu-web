@@ -68,7 +68,6 @@ class ImunisasiController extends Controller
         } else {
             return redirect()->back()->with(['failed' => 'Imunisasi gagal ditambahkan']);
         }
-        
     }
 
     public function jenisImunisasi()

@@ -204,6 +204,11 @@ Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanCo
 Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
 Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
 
+//Pemberian Imunisasi
+Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiAnak')->name('Imunisasi Anak');
+Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiIbu')->name('Imunisasi Ibu');
+Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiLansia')->name('Imunisasi Lansia');
+
 
 
 //Data & Riwayat Kesehatan

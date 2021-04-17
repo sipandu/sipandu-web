@@ -281,60 +281,78 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahImunisasi">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="imunisasi">Jenis Imunisasi<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <select name="imunisasi" class="form-control @error('imunisasi') is-invalid @enderror" value="{{ old('imunisasi') }}" id="imunisasi">
-                                                        <option selected disabled>Pilih pemberian imunisasi....</option>
-                                                        <option value="Laki-laki">Imunisasi Campak</option>
-                                                        <option value="Perempuan">Imunisasi TT</option>
-                                                        <option value="Perempuan">Imunisasi Tetanus</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-syringe"></span>
+                                        <form action="{{ route('Imunisasi Ibu', [$dataIbu->id]) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="imunisasi">Jenis Imunisasi<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <select name="imunisasi" class="form-control @error('imunisasi') is-invalid @enderror" value="{{ old('imunisasi') }}" id="imunisasi">
+                                                            @if ($imunisasi->count() < 1)
+                                                                <option selected disabled>Imunisasi tidak tersedia</option>
+                                                            @else
+                                                                <option selected disabled>Pilih pemberian imunisasi....</option>
+                                                                @foreach ($imunisasi as $data)
+                                                                    <option value="{{ $data->id }}">{{ $data->nama_imunisasi }}, {{ $data->status }}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-syringe"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('imunisasi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('imunisasi')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="tgl_kembali_imunisasi">Tanggal Kembali<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_kembali_imunisasi" autocomplete="off" class="form-control @error('tgl_kembali_imunisasi') is-invalid @enderror" id="tgl_kembali_imunisasi" value="{{ old('tgl_kembali_imunisasi') }}"  placeholder="Tanggal imunisasi kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-calendar-check"></i>
-                                                        </span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tgl_kembali_imunisasi">Tanggal Kembali</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tgl_kembali_imunisasi" autocomplete="off" class="form-control @error('tgl_kembali_imunisasi') is-invalid @enderror" id="tgl_kembali_imunisasi" value="{{ old('tgl_kembali_imunisasi') }}"  placeholder="Tanggal imunisasi kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-calendar-check"></i>
+                                                            </span>
+                                                        </div>
+                                                        @error('tgl_kembali_vitamin')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('tgl_kembali_vitamin')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="lokasiImunisasi" class="form-control @error('lokasiImunisasi') is-invalid @enderror" id="lokasiImunisasi" placeholder="Masukan lokasi posyandu"></textarea>
+                                                        <label for="lokasiImunisasi">Lokasi Imunisasi<span class="text-danger">*</span></label>
+                                                        @error('lokasiImunisasi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="keteranganImunisasi" class="form-control @error('keteranganImunisasi') is-invalid @enderror" id="keteranganImunisasi" placeholder="Masukan keterangan tambahan"></textarea>
+                                                        <label for="keteranganImunisasi">Keterangan Tambahan</label>
+                                                        @error('keteranganImunisasi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
                                                 </div>
                                             </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="keteranganImunisasi" class="form-control @error('keteranganImunisasi') is-invalid @enderror" id="keteranganImunisasi" placeholder="Masukan keterangan tambahan"></textarea>
-                                                    <label for="keteranganImunisasi">Keterangan Tambahan</label>
-                                                    @error('keteranganImunisasi')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                <button class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </li>
                             </ul>
@@ -623,4 +641,20 @@
             $('[data-mask]').inputmask()
         })
     </script>
+
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush

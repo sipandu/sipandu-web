@@ -26,15 +26,4 @@ class Kecamatan extends Model
     {
         return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
     }
-// =======
-
-// class Kecamatan extends Model
-// {
-//     protected $table = 'tb_kecamatan';
-
-//     public function kabupaten()
-//     {
-//         return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
-// >>>>>>> main
-//     }
 }

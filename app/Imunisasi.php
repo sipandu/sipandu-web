@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\PemberianImunisasi;
 
 class Imunisasi extends Model
 {
@@ -16,4 +17,9 @@ class Imunisasi extends Model
         'status',
         'penerima',
     ];
+
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany('PemberianImunisasi','id_jenis_imunisasi','id');
+    }
 }

@@ -48,6 +48,8 @@ class User extends Authenticatable
         return $this->belongsTo('App\KK','id_kk');
     }
 
-
-
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany('PemberianImunisasi','id_user','id');
+    }
 }

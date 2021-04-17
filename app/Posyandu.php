@@ -59,24 +59,8 @@ class Posyandu extends Model
         return $this->belongsTo(Desa::class, 'id_desa', 'id');
     }
 
-    // public function posyandu()
-    // {
-    //     return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
-    // }
-
-
-
-
-// =======
-
-// class Posyandu extends Model
-// {
-//     protected $table = 'tb_posyandu';
-
-//     protected $fillable = [
-//         'id_desa', 'id_admin', 'id_chat_group_tele', 'telegram_group_invite', 'nama_posyandu', 'alamat', 'nomor_telepon', 'banjar', 'latitude', 'longitude'
-//     ];
-
-
-// >>>>>>> main
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany('PemberianImunisasi','id_posyandu','id');
+    }
 }
