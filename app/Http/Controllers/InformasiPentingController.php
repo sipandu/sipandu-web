@@ -89,8 +89,15 @@ class InformasiPentingController extends Controller
     public function getImage($id)
     {
         $informasi = InformasiPenting::find($id);
-        return response()->file(
-            storage_path($informasi->image)
-        );
+
+        if(File::exists(storage_path($informasi->image))) {
+            return response()->file(
+                storage_path($informasi->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
     }
 }
