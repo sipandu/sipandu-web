@@ -27,8 +27,8 @@ class PemberianVitaminController extends Controller
             'keteranganVitamin' => 'nullable',
         ],
         [
-            'Vitamin.required' => "Nama Vitamin wajib diisi",
-            'Vitamin.exists' => "Jenis Vitamin tidak terdaftar",
+            'vitamin.required' => "Nama Vitamin wajib diisi",
+            'vitamin.exists' => "Jenis Vitamin tidak terdaftar",
             'tgl_kembali_vitamin.date' => "Format tanggal Vitamin kembali tidak sesuai",
             'lokasiVitamin.required' => "Lokasi Vitamin wajib diisi",
             'lokasiVitamin.regex' => "Format penulisan lokasi Vitamin tidak sesuai",
@@ -98,8 +98,8 @@ class PemberianVitaminController extends Controller
             'keteranganVitamin' => 'nullable',
         ],
         [
-            'Vitamin.required' => "Nama Vitamin wajib diisi",
-            'Vitamin.exists' => "Jenis Vitamin tidak terdaftar",
+            'vitamin.required' => "Nama Vitamin wajib diisi",
+            'vitamin.exists' => "Jenis Vitamin tidak terdaftar",
             'tgl_kembali_vitamin.date' => "Format tanggal Vitamin kembali tidak sesuai",
             'lokasiVitamin.required' => "Lokasi Vitamin wajib diisi",
             'lokasiVitamin.regex' => "Format penulisan lokasi Vitamin tidak sesuai",
@@ -169,8 +169,8 @@ class PemberianVitaminController extends Controller
             'keteranganVitamin' => 'nullable',
         ],
         [
-            'Vitamin.required' => "Nama Vitamin wajib diisi",
-            'Vitamin.exists' => "Jenis Vitamin tidak terdaftar",
+            'vitamin.required' => "Nama Vitamin wajib diisi",
+            'vitamin.exists' => "Jenis Vitamin tidak terdaftar",
             'tgl_kembali_vitamin.date' => "Format tanggal Vitamin kembali tidak sesuai",
             'lokasiVitamin.required' => "Lokasi Vitamin wajib diisi",
             'lokasiVitamin.regex' => "Format penulisan lokasi Vitamin tidak sesuai",

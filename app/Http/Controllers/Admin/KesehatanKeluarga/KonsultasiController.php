@@ -94,6 +94,7 @@ class KonsultasiController extends Controller
             'tempat_pemeriksaan' => 'Virtual by Telegram',
             'tanggal_pemeriksaan' => $today,
         ]);
+        
         if ($konsultasiIbu) {
             return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
         } else {
@@ -125,6 +126,7 @@ class KonsultasiController extends Controller
             'tempat_pemeriksaan' => 'Virtual by Telegram',
             'tanggal_pemeriksaan' => $today,
         ]);
+
         if ($konsultasiAnak) {
             return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
         } else {
@@ -156,6 +158,7 @@ class KonsultasiController extends Controller
             'tempat_pemeriksaan' => 'Virtual by Telegram',
             'tanggal_pemeriksaan' => $today,
         ]);
+
         if ($konsultasiLansia) {
             return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
         } else {

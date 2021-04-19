@@ -44,173 +44,187 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPemeriksaan" role="button" aria-expanded="false" aria-controls="tambahPemeriksaan"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahPemeriksaan">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="usia_kandungan">Usia Kandungan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" autocomplete="off" class="form-control @error('usia_kandungan') is-invalid @enderror" id="usia_kandungan" value="{{ old('usia_kandungan') }}" placeholder="Usia kehamilan">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-calendar-week"></span>
+                                        <form action="{{ route('Tambah Pemeriksaan Ibu', [$dataIbu->id]) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="usia_kandungan">Usia Kandungan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="usia_kandungan" autocomplete="off" class="form-control @error('usia_kandungan') is-invalid @enderror" id="usia_kandungan" value="{{ old('usia_kandungan') }}" placeholder="Usia kehamilan">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-calendar-week"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('usia_kandungan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('usia_kandungan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="linkar_lengan">Lingkar Lengan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('linkar_lengan') is-invalid @enderror" id="linkar_lengan" value="{{ old('linkar_lengan') }}" placeholder="Lingkar Lengan Atas">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-circle-notch"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="linkar_lengan">Lingkar Lengan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="lingkar_lengan" class="form-control @error('linkar_lengan') is-invalid @enderror" id="linkar_lengan" value="{{ old('linkar_lengan') }}" placeholder="Lingkar Lengan Atas">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-circle-notch"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('linkar_lengan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('linkar_lengan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-weight"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="berat_badan" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-weight"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('berat_badan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('berat_badan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="tinggi_rahim">Tinggi Rahim<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('tinggi_rahim') is-invalid @enderror" id="tinggi_rahim" value="{{ old('tinggi_rahim') }}" placeholder="Tinggi rahim">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-ruler-vertical"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tinggi_rahim">Tinggi Rahim<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tinggi_rahim" class="form-control @error('tinggi_rahim') is-invalid @enderror" id="tinggi_rahim" value="{{ old('tinggi_rahim') }}" placeholder="Tinggi rahim">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-ruler-vertical"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('tinggi_rahim')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('tinggi_rahim')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi ibu">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-plus"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="denyut_nadi" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi ibu">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-plus"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('denyut_nadi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('denyut_nadi')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="detak_jantung_bayi">Detak Jantung Bayi<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('tekanan_darah') is-invalid @enderror" id="detak_jantung_bayi" value="{{ old('detak_jantung_bayi') }}" placeholder="Detak jantung bayi">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-heart"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="detak_jantung_bayi">Detak Jantung Bayi<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="detak_jantung_bayi" class="form-control @error('detak_jantung_bayi') is-invalid @enderror" id="detak_jantung_bayi" value="{{ old('detak_jantung_bayi') }}" placeholder="Detak jantung bayi">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-heart"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('detak_jantung_bayi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('detak_jantung_bayi')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-plus"></span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tekanan_darah" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-plus"></span>
+                                                            </div>
                                                         </div>
+                                                        @error('tekanan_darah')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('tekanan_darah')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-calendar-check"></i>
-                                                        </span>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-calendar-check"></i>
+                                                            </span>
+                                                        </div>
+                                                        @error('tgl_kembali')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    @error('tgl_kembali')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan"></textarea>
+                                                        <label for="lokasiPemeriksaan">Lokasi Pemeriksaan<span class="text-danger">*</span></label>
+                                                        @error('lokasiPemeriksaan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil pemeriksaan"></textarea>
+                                                        <label for="diagnosa">Hasil Pemeriksaan<span class="text-danger">*</span></label>
+                                                        @error('diagnosa')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
+                                                        <label for="pengobatan">Pengobatan</label>
+                                                        @error('pengobatan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan"></textarea>
+                                                        <label for="keterangan">Keterangan Tambahan</label>
+                                                        @error('keterangan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Pemeriksaan Kesehatan</button>
                                                 </div>
                                             </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
-                                                    <label for="diagnosa">Hasil Pemeriksaan<span class="text-danger">*</span></label>
-                                                    @error('diagnosa')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
-                                                    <label for="pengobatan">Pengobatan</label>
-                                                    @error('pengobatan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="keteranganPemeriksaan" class="form-control @error('keteranganPemeriksaan') is-invalid @enderror" id="keteranganPemeriksaan" placeholder="Masukan keterangan tambahan"></textarea>
-                                                    <label for="keteranganPemeriksaan">Keterangan Tambahan</label>
-                                                    @error('keteranganPemeriksaan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                <button class="btn btn-block btn-success">Simpan Pemeriksaan Kesehatan</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </li>
                                 <li class="list-group-item">

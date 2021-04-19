@@ -22,7 +22,6 @@ class PemeriksaanLansia extends Model
         'suhu_tubuh',
         'denyut_nadi',
         'IMT',
-        'MNA',
         'diagnosa',
         'pengobatan',
         'keterangan',

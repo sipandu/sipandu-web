@@ -22,7 +22,6 @@ class PemeriksaanIbu extends Model
         'denyut_nadi_ibu',
         'detak_jantung_bayi',
         'tinggi_rahim',
-        'IMT',
         'diagnosa',
         'pengobatan',
         'keterangan',
