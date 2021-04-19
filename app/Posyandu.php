@@ -68,4 +68,19 @@ class Posyandu extends Model
     {
         return $this->hasMany(PemberianVitamin::class,'id_posyandu','id');
     }
+
+    public function pemeriksaanIbu()
+    {
+        return $this->hasMany(PemeriksaanIbu::class,'id_posyandu','id');
+    }
+
+    public function pemeriksaanAnak()
+    {
+        return $this->hasMany(PemeriksaanAnak::class,'id_posyandu','id');
+    }
+
+    public function pemeriksaanLansia()
+    {
+        return $this->hasMany(PemeriksaanLansia::class,'id_posyandu','id');
+    }
 }

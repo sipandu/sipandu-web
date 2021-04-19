@@ -35,6 +35,9 @@ class Anak extends Authenticatable
         return $this->belongsTo('App\Posyandu','id_posyandu');
     }
 
-
+    public function pemeriksaanAnak()
+    {
+        return $this->hasMany(PemeriksaanAnak::class,'id_anak','id');
+    }
 
 }
