@@ -64,15 +64,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-6 my-2">
-                                                    <label for="linkar_lengan">Lingkar Lengan<span class="text-danger">*</span></label>
+                                                    <label for="lingkar_lengan">Lingkar Lengan<span class="text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" name="lingkar_lengan" class="form-control @error('linkar_lengan') is-invalid @enderror" id="linkar_lengan" value="{{ old('linkar_lengan') }}" placeholder="Lingkar Lengan Atas">
+                                                        <input type="text" name="lingkar_lengan" class="form-control @error('lingkar_lengan') is-invalid @enderror" id="lingkar_lengan" value="{{ old('lingkar_lengan') }}" placeholder="Lingkar Lengan Atas">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-circle-notch"></span>
                                                             </div>
                                                         </div>
-                                                        @error('linkar_lengan')
+                                                        @error('lingkar_lengan')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
                                                             </div>
@@ -675,18 +675,26 @@
     </script>
 
     @if($message = Session::get('failed'))
-    <script>
-        $(document).ready(function(){
-            alertDanger('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertDanger('{{$message}}');
+            });
+        </script>
+    @endif
+
+    @if($message = Session::get('error'))
+        <script>
+            $(document).ready(function(){
+                alertError('{{$message}}');
+            });
+        </script>
     @endif
 
     @if($message = Session::get('success'))
-    <script>
-        $(document).ready(function(){
-            alertSuccess('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
     @endif
 @endpush
