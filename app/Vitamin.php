@@ -16,4 +16,9 @@ class Vitamin extends Model
         'status',
         'penerima',
     ];
+
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_jenis_vitamin','id');
+    }
 }

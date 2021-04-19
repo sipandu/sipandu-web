@@ -43,6 +43,11 @@ class Pegawai extends Authenticatable
 
     public function pemberianImunisasi()
     {
-        return $this->hasMany('PemberianImunisasi','id_pegawai','id');
+        return $this->hasMany(PemberianImunisasi::class,'id_pegawai','id');
+    }
+    
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_pegawai','id');
     }
 }

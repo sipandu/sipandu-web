@@ -50,6 +50,11 @@ class User extends Authenticatable
 
     public function pemberianImunisasi()
     {
-        return $this->hasMany('PemberianImunisasi','id_user','id');
+        return $this->hasMany(PemberianImunisasi::class,'id_user','id');
+    }
+    
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_user','id');
     }
 }

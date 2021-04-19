@@ -205,9 +205,14 @@ Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan
 Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
 
 //Pemberian Imunisasi
-Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiAnak')->name('Imunisasi Anak');
-Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiIbu')->name('Imunisasi Ibu');
-Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@imunisasiLansia')->name('Imunisasi Lansia');
+Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiAnak')->name('Imunisasi Anak');
+Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiIbu')->name('Imunisasi Ibu');
+Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiLansia')->name('Imunisasi Lansia');
+
+//Pemberian Vitamin
+Route::post('nakes/pemeriksaan-anak/tambah-vitamin/{anak}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminAnak')->name('Vitamin Anak');
+Route::post('nakes/pemeriksaan-ibu/tambah-vitamin/{ibu}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminIbu')->name('Vitamin Ibu');
+Route::post('nakes/pemeriksaan-lansia/tambah-vitamin/{lansia}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminLansia')->name('Vitamin Lansia');
 
 
 

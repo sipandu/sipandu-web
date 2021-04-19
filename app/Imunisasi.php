@@ -20,6 +20,6 @@ class Imunisasi extends Model
 
     public function pemberianImunisasi()
     {
-        return $this->hasMany('PemberianImunisasi','id_jenis_imunisasi','id');
+        return $this->hasMany(PemberianImunisasi::class,'id_jenis_imunisasi','id');
     }
 }

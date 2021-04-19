@@ -151,69 +151,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemberian Vitamin</p></div>
-                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahVitamin" role="button" aria-expanded="false" aria-controls="tambahVitamin"><i class="fas fa-plus-circle"></i></a></div>
-                                    </div>
-                                    <div class="collapse my-3" id="tambahVitamin">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="vitamin">Jenis Vitamin<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <select name="vitamin" class="form-control @error('vitamin') is-invalid @enderror" value="{{ old('vitamin') }}" id="vitamin">
-                                                        <option selected disabled>Pilih pemberian vitamin....</option>
-                                                        <option value="Laki-laki">Vitamin A</option>
-                                                        <option value="Perempuan">Vitamin B</option>
-                                                        <option value="Perempuan">Vitamin C</option>
-                                                    </select>
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-tablets"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('vitamin')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 my-2">
-                                                <label for="tgl_kembali_vitamin">Tanggal Kembali<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-calendar-check"></i>
-                                                        </span>
-                                                    </div>
-                                                    @error('tgl_kembali_vitamin')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan konsultasi"></textarea>
-                                                    <label for="keterangan">Keterangan Tambahan</label>
-                                                    @error('keterangan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                <button class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Imunisasi</p></div>
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemberian Imunisasi</p></div>
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahImunisasi">
@@ -285,7 +223,87 @@
                                                 </div>
                                                 <div class="col-12 my-2">
                                                     <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                    <button type="submit" class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Pemberian Imunisasi</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemberian Vitamin</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahVitamin" role="button" aria-expanded="false" aria-controls="tambahVitamin"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahVitamin">
+                                        <form action="{{ route('Vitamin Anak', [$dataAnak->id]) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="vitamin">Jenis Vitamin<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <select name="vitamin" class="form-control @error('vitamin') is-invalid @enderror" value="{{ old('vitamin') }}" id="vitamin">
+                                                            @if ($vitamin->count() < 1)
+                                                                <option selected disabled>Vitamin tidak tersedia</option>
+                                                            @else
+                                                                <option selected disabled>Pilih pemberian vitamin....</option>
+                                                                @foreach ($vitamin as $data)
+                                                                    <option value="{{ $data->id }}">{{ $data->nama_vitamin }}, {{ $data->status }}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-tablets"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('vitamin')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tgl_kembali_vitamin">Tanggal Kembali</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-calendar-check"></i>
+                                                            </span>
+                                                        </div>
+                                                        @error('tgl_kembali_vitamin')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="lokasiVitamin" class="form-control @error('lokasiVitamin') is-invalid @enderror" id="lokasiVitamin" placeholder="Masukan lokasi pemberian"></textarea>
+                                                        <label for="lokasiVitamin">Lokasi Vitamin<span class="text-danger">*</span></label>
+                                                        @error('lokasiVitamin')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan"></textarea>
+                                                        <label for="keterangan">Keterangan Tambahan</label>
+                                                        @error('keterangan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button class="btn btn-block btn-success">Simpan Pemberian Vitamin</button>
                                                 </div>
                                             </div>
                                         </form>
