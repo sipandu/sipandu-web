@@ -12,7 +12,10 @@ class ApiBlogController extends Controller
     //
     public function getInformasiHome()
     {
-        $informasi = InformasiPenting::orderby('created_at', 'desc')->limit(5)->get();
+        $informasi = InformasiPenting::orderby('created_at', 'desc')->limit(3)->get()->map(function($item){
+            $item->foto = $item->getUrlImage();
+            return $item;
+        });
         // $populer_informasi = InformasiPenting::orderby('dilihat', 'desc')->limit(5)->get();
         return response()->json([
             'status_code' => 200,
@@ -32,6 +35,8 @@ class ApiBlogController extends Controller
             'message' => 'success',
         ]);
     }
+
+
 
     public function show($slug)
     {
