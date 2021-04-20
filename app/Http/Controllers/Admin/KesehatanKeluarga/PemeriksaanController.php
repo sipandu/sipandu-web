@@ -136,7 +136,7 @@ class PemeriksaanController extends Controller
         $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
 
         if ($tanggal_kembali <= $today) {
-            return redirect()->back()->with(['error' => 'Tanggal periksa kembali ibu hamil tidak sesuai']);
+            return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk ibu hamil tidak sesuai']);
         } else {
             $pemeriksaanIbu = PemeriksaanIbu::create([
                 'id_posyandu' => $posyandu->id,
@@ -179,9 +179,6 @@ class PemeriksaanController extends Controller
         $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
         $pegawai = Auth::guard('admin')->user()->pegawai;
 
-        $tb = $request->tinggi_badan / 100;
-        $imt = $request->berat_badan / $tb;
-
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
         $tgl_bersih = explode("-", $tgl_kotor);
@@ -190,31 +187,40 @@ class PemeriksaanController extends Controller
         $tgl = $tgl_bersih[0];
         $tgl_kembali = $tahun.$bulan.$tgl;
 
-        $pemeriksaanAnak = PemeriksaanAnak::create([
-            'id_posyandu' => $posyandu->id,
-            'id_pegawai' => $pegawai->id,
-            'id_anak' => $anak->id,
-            'nama_posyandu' => $posyandu->nama_posyandu,
-            'nama_pemeriksa' => $pegawai->nama_pegawai,
-            'nama_anak' => $anak->nama_anak,
-            'usia_anak' => $umur,
-            'lingkar_kepala' => $request->lingkar_kepala,
-            'berat_badan' => $request->berat_badan,
-            'tinggi_badan' => $request->tinggi_badan,
-            'diagnosa' => $request->diagnosa,
-            'pengobatan' => $request->pengobatan,
-            'keterangan' => $request->keterangan,
-            'IMT' => $imt,
-            'jenis_pemeriksaan' => 'Pemeriksaan',
-            'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
-            'tanggal_pemeriksaan' => $today,
-            'tanggal_kembali' => $tgl_kembali,
-        ]);
-        
-        if ($pemeriksaanAnak) {
-            return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
+        $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
+
+        if ($tanggal_kembali <= $today) {
+            return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk anak tidak sesuai']);
         } else {
-            return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
+            $tb = $request->tinggi_badan / 100;
+            $imt = $request->berat_badan / $tb;
+
+            $pemeriksaanAnak = PemeriksaanAnak::create([
+                'id_posyandu' => $posyandu->id,
+                'id_pegawai' => $pegawai->id,
+                'id_anak' => $anak->id,
+                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_anak' => $anak->nama_anak,
+                'usia_anak' => $umur,
+                'lingkar_kepala' => $request->lingkar_kepala,
+                'berat_badan' => $request->berat_badan,
+                'tinggi_badan' => $request->tinggi_badan,
+                'diagnosa' => $request->diagnosa,
+                'pengobatan' => $request->pengobatan,
+                'keterangan' => $request->keterangan,
+                'IMT' => $imt,
+                'jenis_pemeriksaan' => 'Pemeriksaan',
+                'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
+                'tanggal_pemeriksaan' => $today,
+                'tanggal_kembali' => $tgl_kembali,
+            ]);
+            
+            if ($pemeriksaanAnak) {
+                return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
+            }
         }
     }
     
@@ -228,9 +234,6 @@ class PemeriksaanController extends Controller
         $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
         $pegawai = Auth::guard('admin')->user()->pegawai;
 
-        $tb = $request->tinggi_badan / 100;
-        $imt = $request->berat_badan / $tb;
-
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
         $tgl_bersih = explode("-", $tgl_kotor);
@@ -239,33 +242,42 @@ class PemeriksaanController extends Controller
         $tgl = $tgl_bersih[0];
         $tgl_kembali = $tahun.$bulan.$tgl;
 
-        $pemeriksaanLansia = PemeriksaanLansia::create([
-            'id_posyandu' => $posyandu->id,
-            'id_pegawai' => $pegawai->id,
-            'id_lansia' => $lansia->id,
-            'nama_posyandu' => $posyandu->nama_posyandu,
-            'nama_pemeriksa' => $pegawai->nama_pegawai,
-            'nama_lansia' => $lansia->nama_lansia,
-            'usia_lansia' => $umur,
-            'berat_badan' => $request->berat_badan,
-            'tinggi_lutut' => $request->tinggi_lutut,
-            'tekanan_darah' => $request->tekanan_darah,
-            'suhu_tubuh' => $request->suhu_tubuh,
-            'denyut_nadi' => $request->denyut_nadi,
-            'diagnosa' => $request->diagnosa,
-            'pengobatan' => $request->pengobatan,
-            'keterangan' => $request->keteranganPemeriksaan,
-            'IMT' => $imt,
-            'jenis_pemeriksaan' => 'Pemeriksaan',
-            'tempat_pemeriksaan' => $request->lokasi_pemeriksaan,
-            'tanggal_pemeriksaan' => $today,
-            'tanggal_kembali' => $tgl_kembali,
-        ]);
-        
-        if ($pemeriksaanLansia) {
-            return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
+        $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
+
+        if ($tanggal_kembali <= $today) {
+            return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk lansia tidak sesuai']);
         } else {
-            return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
+            $tb = $request->tinggi_badan / 100;
+            $imt = $request->berat_badan / $tb;
+
+            $pemeriksaanLansia = PemeriksaanLansia::create([
+                'id_posyandu' => $posyandu->id,
+                'id_pegawai' => $pegawai->id,
+                'id_lansia' => $lansia->id,
+                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_lansia' => $lansia->nama_lansia,
+                'usia_lansia' => $umur,
+                'berat_badan' => $request->berat_badan,
+                'tinggi_lutut' => $request->tinggi_lutut,
+                'tekanan_darah' => $request->tekanan_darah,
+                'suhu_tubuh' => $request->suhu_tubuh,
+                'denyut_nadi' => $request->denyut_nadi,
+                'diagnosa' => $request->diagnosa,
+                'pengobatan' => $request->pengobatan,
+                'keterangan' => $request->keteranganPemeriksaan,
+                'IMT' => $imt,
+                'jenis_pemeriksaan' => 'Pemeriksaan',
+                'tempat_pemeriksaan' => $request->lokasi_pemeriksaan,
+                'tanggal_pemeriksaan' => $today,
+                'tanggal_kembali' => $tgl_kembali,
+            ]);
+            
+            if ($pemeriksaanLansia) {
+                return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
+            }
         }
     }
 }
