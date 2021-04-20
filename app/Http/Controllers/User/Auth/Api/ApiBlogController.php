@@ -26,6 +26,53 @@ class ApiBlogController extends Controller
         // $item->slug
     }
 
+
+    public function getInformasi(Request $request)
+    {
+        /*
+            0 = paling baru -> paling lama (default)
+            1 = paling lama -> paling baru
+            2 = paling banyak di view -> paling sedikit
+        */
+
+        if ($request->flag == 0) {
+            $informasi = InformasiPenting::orderby('created_at', 'desc')->get()->map(function($item){
+                $item->foto = $item->getUrlImage();
+                return $item;
+            });
+            return response()->json([
+                'status_code' => 200,
+                'informasi' => $informasi,
+                'message' => 'success',
+            ]);
+        }
+
+        else if ($request->flag == 1) {
+            $informasi = InformasiPenting::orderby('created_at', 'asc')->get()->map(function($item){
+                $item->foto = $item->getUrlImage();
+                return $item;
+            });
+            return response()->json([
+                'status_code' => 200,
+                'informasi' => $informasi,
+                'message' => 'success',
+            ]);
+        }
+
+        else if ($request->flag == 2) {
+            $informasi = InformasiPenting::orderby('dilihat', 'desc')->get()->map(function($item){
+                $item->foto = $item->getUrlImage();
+                return $item;
+            });
+            return response()->json([
+                'status_code' => 200,
+                'informasi' => $informasi,
+                'message' => 'success',
+            ]);
+        }
+    }
+
+
     public function getImage(Request $request)
     {
         $informasi = InformasiPenting::find($request->id);
@@ -35,8 +82,6 @@ class ApiBlogController extends Controller
             'message' => 'success',
         ]);
     }
-
-
 
     public function show($slug)
     {
