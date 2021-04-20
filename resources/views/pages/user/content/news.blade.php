@@ -44,7 +44,7 @@
                         <a class="page-link" href="{{ $informasi->url($informasi->currentPage()-1) }}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
                     </li>
                     @for($i=1; $i <= $informasi->lastPage(); $i++)
-                    <li class="page-item"><a class="page-link" href="{{$informasi->url($i)}}">1</a></li>
+                    <li class="page-item"><a class="page-link" href="{{$informasi->url($i)}}">{{ $i }}</a></li>
                     @endfor
                     <li class="page-item <?php if($informasi->currentPage() == $informasi->lastPage()): ?> disabled <?php endif; ?>">
                         <a class="page-link" href="{{ $informasi->url($informasi->currentPage()+1) }}">Berikutnya</a>
