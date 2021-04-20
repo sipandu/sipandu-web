@@ -39,7 +39,7 @@ class DataPosyanduController extends Controller
         $nextKegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('start_at', '>', $today)->get();
 
         // Ended Event Checking
-        $lastKegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+        $lastKegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('end_at', '<', $today)->get();
 
         // In progres Event Checking
         $currentKegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('end_at', '>', $today)->get();

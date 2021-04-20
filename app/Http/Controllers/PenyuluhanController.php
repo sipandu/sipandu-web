@@ -91,9 +91,16 @@ class PenyuluhanController extends Controller
     public function getImage($id)
     {
         $penyuluhan = Penyuluhan::find($id);
-        return response()->file(
-            storage_path($penyuluhan->image)
-        );
+        if(File::exists(storage_path($penyuluhan->image))) {
+            return response()->file(
+                storage_path($penyuluhan->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
+
     }
 
     public function delete(Request $request)

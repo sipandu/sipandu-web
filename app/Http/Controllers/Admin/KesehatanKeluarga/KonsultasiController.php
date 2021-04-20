@@ -5,10 +5,15 @@ namespace App\Http\Controllers\admin\KesehatanKeluarga;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\User;
 use App\Anak;
 use App\Ibu;
 use App\Lansia;
+use App\Posyandu;
+use App\PemeriksaanIbu;
+use App\PemeriksaanAnak;
+use App\PemeriksaanLansia;
 
 class KonsultasiController extends Controller
 {
@@ -48,16 +53,116 @@ class KonsultasiController extends Controller
 
     public function konsultasiIbu(Ibu $ibu)
     {
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu');
+        $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
+
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu', compact('dataIbu'));
     }
 
     public function konsultasiAnak(Anak $anak)
     {
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak');
+        $dataAnak = Anak::where('id', $anak->id)->get()->first();
+
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak', compact('dataAnak'));
     }
 
     public function konsultasiLansia(Lansia $lansia)
     {
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-lansia');
+        $dataLansia = Lansia::where('id', $lansia->id)->get()->first();
+
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-lansia', compact('dataLansia'));
+    }
+
+    public function storeKonsultasiIbu(Ibu $ibu, Request $request)
+    {
+        Carbon::setLocale('id');
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
+        $pegawai = Auth::guard('admin')->user()->pegawai;
+
+        $konsultasiIbu = PemeriksaanIbu::create([
+            'id_posyandu' => $posyandu->id,
+            'id_pegawai' => $pegawai->id,
+            'id_ibu_hamil' => $ibu->id,
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'nama_pemeriksa' => $pegawai->nama_pegawai,
+            'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
+            'diagnosa' => $request->diagnosa,
+            'pengobatan' => $request->pengobatan,
+            'keterangan' => $request->keterangan,
+            'jenis_pemeriksaan' => 'Konsultasi',
+            'tempat_pemeriksaan' => 'Virtual by Telegram',
+            'tanggal_pemeriksaan' => $today,
+        ]);
+        
+        if ($konsultasiIbu) {
+            return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Konsultasi Gagal di Simpan']);
+        }
+    }
+
+    public function storeKonsultasiAnak(Anak $anak, Request $request)
+    {
+        Carbon::setLocale('id');
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
+        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+
+        $konsultasiAnak = PemeriksaanAnak::create([
+            'id_posyandu' => $posyandu->id,
+            'id_pegawai' => $pegawai->id,
+            'id_anak' => $anak->id,
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'nama_pemeriksa' => $pegawai->nama_pegawai,
+            'nama_anak' => $anak->nama_anak,
+            'usia_anak' => $umur,
+            'diagnosa' => $request->diagnosa,
+            'pengobatan' => $request->pengobatan,
+            'keterangan' => $request->keterangan,
+            'jenis_pemeriksaan' => 'Konsultasi',
+            'tempat_pemeriksaan' => 'Virtual by Telegram',
+            'tanggal_pemeriksaan' => $today,
+        ]);
+
+        if ($konsultasiAnak) {
+            return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Konsultasi Gagal di Simpan']);
+        }
+    }
+
+    public function storeKonsultasiLansia(Lansia $lansia, Request $request)
+    {
+        Carbon::setLocale('id');
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
+        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
+
+        $konsultasiLansia = PemeriksaanLansia::create([
+            'id_posyandu' => $posyandu->id,
+            'id_pegawai' => $pegawai->id,
+            'id_lansia' => $lansia->id,
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'nama_pemeriksa' => $pegawai->nama_pegawai,
+            'nama_lansia' => $lansia->nama_lansia,
+            'usia_lansia' => $umur,
+            'diagnosa' => $request->diagnosa,
+            'pengobatan' => $request->pengobatan,
+            'keterangan' => $request->keterangan,
+            'jenis_pemeriksaan' => 'Konsultasi',
+            'tempat_pemeriksaan' => 'Virtual by Telegram',
+            'tanggal_pemeriksaan' => $today,
+        ]);
+
+        if ($konsultasiLansia) {
+            return redirect()->back()->with(['success' => 'Data Konsultasi Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Konsultasi Gagal di Simpan']);
+        }
     }
 }

@@ -50,4 +50,14 @@ class DataRiwayatKesehatanController extends Controller
     {
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu');
     }
+
+    public function kesehatanAnak(Anak $anak)
+    {
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-anak');
+    }
+
+    public function kesehatanLansia(Lansia $lansia)
+    {
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-lansia');
+    }
 }

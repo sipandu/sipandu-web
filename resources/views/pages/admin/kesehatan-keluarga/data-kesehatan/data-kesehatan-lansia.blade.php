@@ -1,15 +1,15 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Kesehatan Ibu')
+@section('title', 'Data Kesehatan Lansia')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Ibu</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Lansia</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Ibu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Lansia</li>
                 </ol>
             </nav>
         </div>
@@ -18,23 +18,23 @@
         <div class="row">
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Nama Ibu</span>
-                    <p>Nama ibu hamilnya</p>
-                    <span class="fw-bold">Nama Suami</span>
-                    <p>Nama suaminya ibu</p>
+                    <span class="fw-bold">Nama Lansia</span>
+                    <p>Nama lansiany</p>
+                    <span class="fw-bold">Nama Keluarga Dekat</span>
+                    <p>Nama keluarganya</p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Usia Ibu</span>
-                    <p>Usia Ibunya</p>
-                    <span class="fw-bold">Usia Kehamilan</span>
-                    <p>Usia kehamilan terbaru</p>
+                    <span class="fw-bold">Usia Lansia</span>
+                    <p>Usia lansianya</p>
+                    <span class="fw-bold">Kategori Lansia</span>
+                    <p>Pra Lansia</p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Berat Badan Rata-rata</span>
+                    <span class="fw-bold">Penyakit Diderita</span>
                     <p>50 Kg</p>
                     <span class="fw-bold">Indeks Masa Tubuh</span>
                     <p>Ideal</p>
@@ -43,19 +43,10 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div>
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Ibu</p>
+                            <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Lansia</p>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
@@ -72,42 +63,42 @@
                                     <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <span class="fw-bold">Usia Ibu :</span>
-                                            <p>50 Minggu</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Usia Kehamilan :</span>
-                                            <p>20 Sentimeter</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Lingkar Lengan :</span>
-                                            <p>80 Kilogram</p>
+                                            <span class="fw-bold">Usia :</span>
+                                            <p>50 Kilogram</p>
                                         </div>
                                         <div class="col-6">
                                             <span class="fw-bold">Berat Badan :</span>
-                                            <p>30 Sentimeter</p>
+                                            <p>120/80</p>
                                         </div>
                                     </div>
                                     <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tinggi Rahim :</span>
-                                            <p>130</p>
-                                        </div>
                                         <div class="col-6">
                                             <span class="fw-bold">Denyut Nadi :</span>
-                                            <p>80</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tekanan Darah :</span>
                                             <p>120/80</p>
                                         </div>
                                         <div class="col-6">
-                                            <span class="fw-bold">Detak Jantung Bayi :</span>
-                                            <p>21 Mei 2021</p>
+                                            <span class="fw-bold">Tekanan Darah :</span>
+                                            <p>50 Kilogram</p>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <span class="fw-bold">Suhu Tubuh :</span>
+                                            <p>15 Tahun</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold">Tinggi Lutut :</span>
+                                            <p>50 Minggu</p>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <span class="fw-bold">IMT :</span>
+                                            <p>Kemahilan ke-2</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold">MNA :</span>
+                                            <p>4 Tahun</p>
                                         </div>
                                     </div>
                                     <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>

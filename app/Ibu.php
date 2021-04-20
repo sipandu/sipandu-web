@@ -32,5 +32,8 @@ class Ibu extends Model
         return $this->belongsTo('App\Posyandu','id_posyandu');
     }
 
-
+    public function pemeriksaanIbu()
+    {
+        return $this->hasMany(PemeriksaanIbu::class,'id_ibu_hamil','id');
+    }
 }

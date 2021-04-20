@@ -42,45 +42,48 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#konsulAnak" role="button" aria-expanded="false" aria-controls="konsulAnak"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="konsulAnak">
-                                        <div class="row">
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
-                                                    <label for="keterangan">Hasil Konsultasi<span class="text-danger">*</span></label>
-                                                    @error('diagnosa')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                        <form action="{{ route('Tambah Konsultasi Anak', [$dataAnak->id]) }}">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil konsultasi"></textarea>
+                                                        <label for="keterangan">Hasil Konsultasi<span class="text-danger">*</span></label>
+                                                        @error('diagnosa')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
+                                                        <label for="pengobatan">Pengobatan</label>
+                                                        @error('pengobatan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan konsultasi"></textarea>
+                                                        <label for="keterangan">Keterangan Tambahan</label>
+                                                        @error('keterangan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button class="btn btn-block btn-success">Simpan Catatan Konsultasi</button>
                                                 </div>
                                             </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
-                                                    <label for="pengobatan">Pengobatan</label>
-                                                    @error('pengobatan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <div class="form-floating">
-                                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan konsultasi"></textarea>
-                                                    <label for="keterangan">Keterangan Tambahan</label>
-                                                    @error('keterangan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 my-2">
-                                                <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                <button class="btn btn-block btn-success">Simpan Catatan Konsultasi</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </li>
                             </ul>
@@ -346,4 +349,20 @@
             $('#admin-konsultasi').addClass('active');
         });
     </script>
+
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
+    @endif
+
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush
