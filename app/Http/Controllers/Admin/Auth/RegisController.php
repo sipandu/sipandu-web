@@ -102,10 +102,12 @@ class RegisController extends Controller
         $tgl = $tgl_lahir_eng[0];
         $tgl_lahir = $tahun.$bulan.$tgl;
 
-        $path ='/images/upload/KTP/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
+        // $path ='/images/upload/KTP/'.time().'-'.$request->file->getClientOriginalName();
+        // $imageName = time().'-'.$request->file->getClientOriginalName();
 
-        $request->file->move(public_path('images/upload/KTP'),$imageName);
+        // $request->file->move(public_path('images/upload/KTP'),$imageName);
+
+        
 
         $admin = Admin::create([
             'email' => $request->email,
@@ -123,6 +125,7 @@ class RegisController extends Controller
             'alamat' => $request->alamat,
             'jabatan' => $request->jabatan,
             'nomor_telepon' => $request->tlpn,
+            'status' => 'tidak tersedia',
             'username_telegram' => $request->telegram,
             'nik' => $request->nik,
             'file_ktp' => $path,

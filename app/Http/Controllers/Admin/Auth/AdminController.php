@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
@@ -17,6 +18,7 @@ use App\Anak;
 use App\Ibu;
 use App\Lansia;
 use App\KK;
+use App\Mover;
 
 class AdminController extends Controller
 {
@@ -30,12 +32,25 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
+    public function getImage($id)
+    {
+        $admin = Admin::find($id);
+        if(File::exists(storage_path($admin->profile_image))) {
+            return response()->file(
+                storage_path($admin->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
+
+    }
 
     public function profile(Request $request)
     {
         return view('pages/auth/admin/profile-admin');
     }
-
 
     public function showVerifyUser(Request $request)
     {
@@ -98,14 +113,11 @@ class AdminController extends Controller
             'file.mimes' => "Format gambar harus jpeg, png atau jpg",
         ]);
 
-        $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
-
-        $request->file->move(public_path('images/upload/Profile'),$imageName);
+        $filename = Mover::slugFile($request->file('file'), 'app/profile/pegawai/');
 
         $idAdmin = Auth::guard('admin')->user()->id;
         $admin = Admin::find($idAdmin);
-        $admin->profile_image = $path;
+        $admin->profile_image = $filename;
         $admin->save();
 
         return redirect()->back()->with(['success' => 'Foto profile anda berhasil di ubah']);
