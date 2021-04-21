@@ -12,6 +12,7 @@ use Auth;
 use App\Lansia;
 use App\Kabupaten;
 use App\Posyandu;
+use App\Kegiatan;
 
 class ApiUserDataController extends Controller
 {
@@ -79,6 +80,39 @@ class ApiUserDataController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'posyandu' => $posyandu,
+                'message' => 'success',
+            ]);
+        }
+    }
+
+    public function getPosyanduKegiatan(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        if($request->role == '0'){
+            $userdata = Anak::where('id_user', $idUser->id)->get()->first();
+            $posyandu = Posyandu::where('id', $userdata->id_posyandu)->get()->first();
+            $kegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->get();
+            return response()->json([
+                'status_code' => 200,
+                'kegiatan' => $kegiatan,
+                'message' => 'success',
+            ]);
+        }elseif($request->role == '1'){
+            $userdata = Ibu::where('id_user', $idUser->id)->get()->first();
+            $posyandu = Posyandu::where('id', $userdata->id_posyandu)->get()->first();
+            $kegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->get();
+            return response()->json([
+                'status_code' => 200,
+                'kegiatan' => $kegiatan,
+                'message' => 'success',
+            ]);
+        }elseif($request->role == '2'){
+            $userdata = Lansia::where('id_user', $idUser->id)->get()->first();
+            $posyandu = Posyandu::where('id', $userdata->id_posyandu)->get()->first();
+            $kegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->get();
+            return response()->json([
+                'status_code' => 200,
+                'kegiatan' => $kegiatan,
                 'message' => 'success',
             ]);
         }
