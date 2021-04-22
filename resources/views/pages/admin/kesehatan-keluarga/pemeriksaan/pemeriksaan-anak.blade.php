@@ -157,7 +157,7 @@
                                                 </div>
                                                 <div class="col-12 my-2">
                                                     <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                    <button type="submit" class="btn btn-block btn-success">Simpan Catatan Konsultasi</button>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Pemeriksaan Kesehatan</button>
                                                 </div>
                                             </div>
                                         </form>

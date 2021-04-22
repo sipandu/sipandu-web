@@ -160,7 +160,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-6 my-2">
-                                                    <label for="tgl_kembali">Tanggal Kembali</label>
+                                                    <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                         <div class="input-group-prepend">

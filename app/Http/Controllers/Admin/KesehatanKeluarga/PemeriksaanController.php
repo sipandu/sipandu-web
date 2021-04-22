@@ -86,36 +86,43 @@ class PemeriksaanController extends Controller
         Carbon::setLocale('id');
 
         $this->validate($request,[
-            'lingkar_lengan' => "required|numeric",
-            'berat_badan' => "required|numeric",
+            'lingkar_lengan' => "required|numeric|min:2",
+            'berat_badan' => "required|numeric|min:2",
             'usia_kandungan' => 'required|numeric|digits_between:1,40',
             'tekanan_darah' => 'required',
-            'denyut_nadi' => 'required|numeric',
-            'detak_jantung_bayi' => 'required|numeric',
-            'tinggi_rahim' => 'required|numeric',
-            'diagnosa' => 'required',
+            'denyut_nadi' => 'required|numeric|min:1',
+            'detak_jantung_bayi' => 'required|numeric|min:1',
+            'tinggi_rahim' => 'required|numeric|min:1',
+            'diagnosa' => 'required|min:5',
             'pengobatan' => 'nullable',
             'keterangan' => 'nullable',
-            'lokasiPemeriksaan' => 'required',
+            'lokasiPemeriksaan' => 'required|min:5',
             'tgl_kembali' => 'required|date',
         ],
         [
             'lingkar_lengan.required' => "Berat badan ibu hamil wajib diisi",
             'lingkar_lengan.numeric' => "Berat badan harus berupa angka",
-            'berat_badan.required' => "Lingkar lengan ibu hamil wajib diisi",
-            'berat_badan.numeric' => "Lingkar lengan harus berupa angka",
+            'lingkar_lengan.min' => "Berat badan kurang dari nilai minimum",
+            'berat_badan.required' => "Berat badan ibu hamil wajib diisi",
+            'berat_badan.numeric' => "Berat badan harus berupa angka",
+            'berat_badan.min' => "Berat badan ibu hamil kurang dari nilai minimum",
             'usia_kandungan.required' => "Usia kandungan ibu hamil wajib diisi",
             'usia_kandungan.numeric' => "Usia kandungan harus berupa angka",
             'usia_kandungan.digits_between' => "Rentan usia kandungan tidak sesuai",
             'tekanan_darah.required' => "Tekanan darah ibu hamil wajib diisi",
             'denyut_nadi.required' => "Denyut nadi ibu hamil wajib diisi",
             'denyut_nadi.numeric' => "Denyut nadi ibu hamil harus berupa angka",
+            'denyut_nadi.min' => "Denyut nadi ibu hamil kurang dari nilai minimum",
             'detak_jantung_bayi.required' => "Detak jantung janin wajib diisi",
             'detak_jantung_bayi.numeric' => "Detak jantung janin harus berupa angka",
+            'detak_jantung_bayi.numeric' => "Detak jantung janin kurang dari nilai minimum",
             'tinggi_rahim.required' => "Tinggi rahim wajib diisi",
             'tinggi_rahim.numeric' => "Tinggi rahin harus berupa angka",
+            'tinggi_rahim.min' => "Tinggi rahin kurang dari nilai minimum",
             'diagnosa.required' => "Diagnosa pemeriksaan ibu hamil wajib diisi",
+            'diagnosa.min' => "Diagnosa pemeriksaan ibu hamil terlalu singkat",
             'lokasiPemeriksaan.required' => "Tempat pemeriksaan ibu hamil wajib diisi",
+            'lokasiPemeriksaan.min' => "Nana tempat pemeriksaan ibu hamil terlalu singkat",
             'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
             'tgl_kembali.required' => "Tanggal pemeriksaan kembali harus berformat tanggal",
         ]);
@@ -173,6 +180,34 @@ class PemeriksaanController extends Controller
     {
         Carbon::setLocale('id');
 
+        $this->validate($request,[
+            'lingkar_kepala' => "required|numeric|min:2",
+            'berat_badan' => "required|numeric|min:2",
+            'tinggi_badan' => 'required|numeric|min:2',
+            'tgl_kembali' => 'required|date',
+            'lokasiPemeriksaan' => 'required|min:5',
+            'diagnosa' => 'required|min:5',
+            'pengobatan' => 'nullable',
+            'keterangan' => 'nullable',
+        ],
+        [
+            'lingkar_kepala.required' => "Lingkar kepala anak wajib diisi",
+            'lingkar_kepala.numeric' => "Lingkar kepala anak harus berupa angka",
+            'lingkar_kepala.min' => "Lingkar kepala anak kurang dari nilai minimum",
+            'berat_badan.required' => "berat badan anak hamil wajib diisi",
+            'berat_badan.numeric' => "berat badan anak harus berupa angka",
+            'berat_badan.min' => "Berat badan anak kurang dari nilai minimum",
+            'tinggi_badan.required' => "Tinggi badan anak wajib diisi",
+            'tinggi_badan.numeric' => "Tinggi badan anak harus berupa angka",
+            'tinggi_badan.min' => "Tinggi badan anak kurang dari nilai minimum",
+            'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
+            'tgl_kembali.required' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'lokasiPemeriksaan.required' => "Tempat pemeriksaan anak wajib diisi",
+            'lokasiPemeriksaan.min' => "Nama tempat pemeriksaan anak terlalu singkat",
+            'diagnosa.required' => "Diagnosa pemeriksaan anak wajib diisi",
+            'diagnosa.min' => "Diagnosa pemeriksaan anak terlalu singkat",
+        ]);
+
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
 
@@ -227,6 +262,41 @@ class PemeriksaanController extends Controller
     public function tambahPemeriksaanLansia(Lansia $lansia, Request $request)
     {
         Carbon::setLocale('id');
+
+        $this->validate($request,[
+            'berat_badan' => "required|numeric|min:2",
+            'suhu_tubuh' => "required|numeric|min:2",
+            'tinggi_lutut' => 'required|numeric|min:2',
+            'tinggi_badan' => 'required|numeric|min:2',
+            'tekanan_darah' => 'required',
+            'denyut_nadi' => 'required|numeric|min:2',
+            'lokasi_pemeriksaan' => 'required|min:5',
+            'tgl_kembali' => 'required|date',
+            'diagnosa' => 'required|min:5',
+            'pengobatan' => 'nullable',
+            'keterangan' => 'nullable',
+        ],
+        [
+            'berat_badan.required' => "Berat badan lansia wajib diisi",
+            'berat_badan.numeric' => "Berat badan harus berupa angka",
+            'berat_badan.min' => "Berat badan lansia kurang dari nilai minimum",
+            'suhu_tubuh.required' => "Suhu tubuh lansia wajib diisi",
+            'suhu_tubuh.numeric' => "Suhu tubuh harus berupa angka",
+            'suhu_tubuh.min' => "Suhu tubuh kurang dari nilai minimum",
+            'tinggi_lutut.required' => "Tinggi lutut lansia wajib diisi",
+            'tinggi_lutut.numeric' => "Tinggi lutut harus berupa angka",
+            'tinggi_lutut.min' => "Tinggi lutut lansia kurang dari nilai minimum",
+            'tekanan_darah.required' => "Tekanan darah lansia wajib diisi",
+            'denyut_nadi.required' => "Denyut nadi lansia wajib diisi",
+            'denyut_nadi.numeric' => "Denyut nadi lansia harus berupa angka",
+            'denyut_nadi.min' => "Denyut nadi lansia kurang dari nilai minimum",
+            'lokasiPemeriksaan.required' => "Tempat pemeriksaan lansia wajib diisi",
+            'lokasiPemeriksaan.min' => "Nana tempat pemeriksaan lansia terlalu singkat",
+            'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
+            'tgl_kembali.required' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'diagnosa.required' => "Diagnosa pemeriksaan lansia wajib diisi",
+            'diagnosa.min' => "Diagnosa pemeriksaan lansia terlalu singkat",
+        ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
