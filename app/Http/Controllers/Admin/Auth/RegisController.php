@@ -53,9 +53,9 @@ class RegisController extends Controller
             'file'=> 'required|image|mimes:jpeg,png,jpg',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'jabatan' => "required",
-            'tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
+            'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
             'lokasi_posyandu' => "required",
-            'telegram' => "max:25|unique:tb_pegawai,username_telegram",
+            'telegram' => "nullable|max:25|unique:tb_pegawai,username_telegram",
             'password' => 'required|min:8|confirmed',
         ],
         [
@@ -94,43 +94,41 @@ class RegisController extends Controller
             'password.confirmed' => "Konfirmasi password tidak sesuai",
         ]);
 
-        // Ubah format tanggal //
-        $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
-        $tahun = $tgl_lahir_eng[2];
-        $bulan = $tgl_lahir_eng[1];
-        $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.$bulan.$tgl;
-
-        // $path ='/images/upload/KTP/'.time().'-'.$request->file->getClientOriginalName();
-        // $imageName = time().'-'.$request->file->getClientOriginalName();
-
-        // $request->file->move(public_path('images/upload/KTP'),$imageName);
-
-        
-
-        $admin = Admin::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'profile_image' => '/images/upload/Profile/default.jpg',
-            'is_verified' => 1,
-        ]);
-
-        $pegawai = $admin->pegawai()->create([
-            'id_posyandu' => $request->lokasi_posyandu,
-            'nama_pegawai' => $request->name,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $tgl_lahir,
-            'jenis_kelamin' => $request->gender,
-            'alamat' => $request->alamat,
-            'jabatan' => $request->jabatan,
-            'nomor_telepon' => $request->tlpn,
-            'status' => 'tidak tersedia',
-            'username_telegram' => $request->telegram,
-            'nik' => $request->nik,
-            'file_ktp' => $path,
-        ]);
-        return redirect()->back()->with(['success' => 'Data akun '.$request->jabatan.' baru berhasil ditambahkan']);
+        $umur = Carbon::parse($request->tgl_lahir)->age;
+        if ($umur < 19) {
+            return redirect()->back()->with(['error' => 'Tidak dapat menambahkan akun']);
+        } else {
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_lahir;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_lahir = $tahun.$bulan.$tgl;        
+    
+            $admin = Admin::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => '/images/upload/Profile/default.jpg',
+                'is_verified' => 1,
+            ]);
+    
+            $pegawai = $admin->pegawai()->create([
+                'id_posyandu' => $request->lokasi_posyandu,
+                'nama_pegawai' => $request->name,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $tgl_lahir,
+                'jenis_kelamin' => $request->gender,
+                'alamat' => $request->alamat,
+                'jabatan' => $request->jabatan,
+                'nomor_telepon' => $request->tlpn,
+                'status' => 'tidak tersedia',
+                'username_telegram' => $request->telegram,
+                'nik' => $request->nik,
+                'file_ktp' => $path,
+            ]);
+            return redirect()->back()->with(['success' => 'Data akun '.$request->jabatan.' baru berhasil ditambahkan']);
+        }
     }
 
     public function storeUserIbu(Request $request)
@@ -187,100 +185,107 @@ class RegisController extends Controller
 
         ]);
 
-        // Ubah format tanggal //
-        $tgl_lahir_indo = $request->tgl_lahir_bumil;
-        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
-        $tahun = $tgl_lahir_eng[2];
-        $bulan = $tgl_lahir_eng[1];
-        $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.$bulan.$tgl;
-
-        $selectIdKK = KK::where('no_kk',$request->no_kk_bumil)->first();
-
-        if($selectIdKK != NULL){
-            $user = User::create([
-                'id_chat_tele' => NULL,
-                'role' => '1',
-                'id_kk' => $selectIdKK->id,
-                'email' => $request->email_bumil,
-                'username_tele' => $request->telegram_bumil,
-                'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/default.jpg",
-                'is_verified' => 1,
-            ]);
-
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
-
-            Ibu::create([
-                'id_posyandu' => $posyandu->id,
-                'id_user' => $user->id,
-                'nama_ibu_hamil' => $request->nama_bumil,
-                'nama_suami' => $request->nama_suami,
-                'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir,
-                'alamat' => $request->alamat_bumil,
-                'nomor_telepon' => $request->no_tlpn_bumil,
-                'NIK' => $request->nik_bumil,
-            ]);
-
-            if ($user && $ibu) {
-                # code...
-                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
-            } else {
-                # code...
-                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
-            }
+        $umur = Carbon::parse($request->tgl_lahir_bumil)->age;
+        if ($umur < 15) {
+            return redirect()->back()->with(['error' => 'Tidak dapat menambahkan akun']);
         } else {
-
-            $this->validate($request,[
-                'file_bumil'=> 'required|image|mimes:jpeg,png,jpg',
-            ],
-            [
-                'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK "
-            ]);
-
-            $path ='/images/upload/KK/'.time().'-'.$request->file_bumil->getClientOriginalName();
-            $imageName = time().'-'.$request->file_bumil->getClientOriginalName();
-
-            $request->file_bumil->move(public_path('images/upload/KK'),$imageName);
-            $kk = KK::create([
-                'no_kk' => $request->no_kk_bumil,
-                'file_kk' => $path,
-            ]);
-
-            $user = User::create([
-                'id_chat_tele' => NULL,
-                'role' => '1',
-                'id_kk' => $kk->id,
-                'email' => $request->email_bumil,
-                'password' => Hash::make($request->passwordBumil),
-                'profile_image' => "/images/upload/Profile/default.jpg",
-                'is_verified' => 1,
-            ]);
-
-            $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
-
-            $ibu = Ibu::create([
-                'id_posyandu' => $posyandu->id,
-                'id_user' => $user->id,
-                'nama_ibu_hamil' => $request->nama_bumil,
-                'nama_suami' => $request->nama_suami,
-                'tempat_lahir' => $request->tempat_lahir_bumil,
-                'tanggal_lahir' => $tgl_lahir,
-                'alamat' => $request->alamat_bumil,
-                'nomor_telepon' => $request->no_tlpn_bumil,
-                'username_telegram' => $request->telegram_bumil,
-                'NIK' => $request->nik_bumil,
-            ]);
-
-            if ($user && $ibu) {
-                # code...
-                return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_lahir_bumil;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_lahir = $tahun.$bulan.$tgl;
+    
+            $selectIdKK = KK::where('no_kk',$request->no_kk_bumil)->first();
+    
+            if($selectIdKK != NULL){
+                $user = User::create([
+                    'id_chat_tele' => NULL,
+                    'role' => '1',
+                    'id_kk' => $selectIdKK->id,
+                    'email' => $request->email_bumil,
+                    'username_tele' => $request->telegram_bumil,
+                    'password' => Hash::make($request->passwordBumil),
+                    'profile_image' => "/images/upload/Profile/default.jpg",
+                    'is_verified' => 1,
+                ]);
+    
+                $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+    
+                Ibu::create([
+                    'id_posyandu' => $posyandu->id,
+                    'id_user' => $user->id,
+                    'nama_ibu_hamil' => $request->nama_bumil,
+                    'nama_suami' => $request->nama_suami,
+                    'tempat_lahir' => $request->tempat_lahir_bumil,
+                    'tanggal_lahir' => $tgl_lahir,
+                    'alamat' => $request->alamat_bumil,
+                    'nomor_telepon' => $request->no_tlpn_bumil,
+                    'NIK' => $request->nik_bumil,
+                ]);
+    
+                if ($user && $ibu) {
+                    # code...
+                    return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+                } else {
+                    # code...
+                    return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+                }
             } else {
-                # code...
-                return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+    
+                $this->validate($request,[
+                    'file_bumil'=> 'required|image|mimes:jpeg,png,jpg',
+                ],
+                [
+                    'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK "
+                ]);
+    
+                $path ='/images/upload/KK/'.time().'-'.$request->file_bumil->getClientOriginalName();
+                $imageName = time().'-'.$request->file_bumil->getClientOriginalName();
+    
+                $request->file_bumil->move(public_path('images/upload/KK'),$imageName);
+                $kk = KK::create([
+                    'no_kk' => $request->no_kk_bumil,
+                    'file_kk' => $path,
+                ]);
+    
+                $user = User::create([
+                    'id_chat_tele' => NULL,
+                    'role' => '1',
+                    'id_kk' => $kk->id,
+                    'email' => $request->email_bumil,
+                    'password' => Hash::make($request->passwordBumil),
+                    'profile_image' => "/images/upload/Profile/default.jpg",
+                    'is_verified' => 1,
+                ]);
+    
+                $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
+    
+                $ibu = Ibu::create([
+                    'id_posyandu' => $posyandu->id,
+                    'id_user' => $user->id,
+                    'nama_ibu_hamil' => $request->nama_bumil,
+                    'nama_suami' => $request->nama_suami,
+                    'tempat_lahir' => $request->tempat_lahir_bumil,
+                    'tanggal_lahir' => $tgl_lahir,
+                    'alamat' => $request->alamat_bumil,
+                    'nomor_telepon' => $request->no_tlpn_bumil,
+                    'username_telegram' => $request->telegram_bumil,
+                    'NIK' => $request->nik_bumil,
+                ]);
+    
+                if ($user && $ibu) {
+                    # code...
+                    return redirect()->back()->with(['success' => 'Akun ibu hamil berhasil ditambahkan']);
+                } else {
+                    # code...
+                    return redirect()->back()->with(['failed' => 'Akun ibu hamil gagal ditambahkan']);
+                }
             }
         }
+        
+
     }
 
     public function storeUserAnak(Request $request)

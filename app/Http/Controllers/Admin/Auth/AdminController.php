@@ -41,7 +41,7 @@ class AdminController extends Controller
             );
         } else {
             return response()->file(
-                public_path('images/default-img.jpg')
+                public_path('images/sipandu-logo.png')
             );
         }
 

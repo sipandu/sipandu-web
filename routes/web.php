@@ -275,46 +275,46 @@ Route::get('/admin/informasi/persebaran-posyandu/home', function(){
 
 
 //Informasi Penting
-Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
+Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
+Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
+Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show');
+Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update');
+Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
+Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete');
 
 
 
 //Penyuluhan
-Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img')->middleware('cek:super admin,kader,admin,head admin,param5');
-Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
+Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create');
+Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store');
+Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show');
+Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
+Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
+Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
 
 
 
 //Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home');
+Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create');
+Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store');
+Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show');
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update');
+Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete');
+Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
 
 
 //Kegiatan
-Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete')->middleware('cek:param1,kader,admin,head admin,param5');
-Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
+Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create');
+Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
+Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show');
+Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
+Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
+Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
 
 
 
