@@ -214,9 +214,12 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#admin-konsultasi').addClass('active');
+            $('#list-admin-dashboard').removeClass('menu-open');
+            $('#list-kesehatan').addClass('menu-is-opening menu-open');
+            $('#kesehatan').addClass('active');
+            $('#konsultasi').addClass('active');
         });
-
+        
         $(function () {
             $("#tbIbu").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,

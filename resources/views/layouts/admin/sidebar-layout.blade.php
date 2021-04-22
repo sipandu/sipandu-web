@@ -200,37 +200,47 @@
                         </ul>
                     </li>
                 </li>
-                <li class="nav-item" id="menu-konsultasi">
+                {{-- <li class="nav-item" id="menu-konsultasi">
                     <a href="{{ route("Tambah Konsultasi") }}" id="admin-konsultasi" class="nav-link">
                         <i class="nav-icon fas fa-user-md"></i>
                         <p>Konsultasi</p>
                     </a>
-                </li>
-                <li class="nav nav-treeview">
-                    <li class="nav-item" id="list-kesehatan">
-                        <a href="#" class="nav-link" id="kesehatan">
-                            <i class="nav-icon fas fa-clipboard-list"></i>
-                            <p>
-                                Kesehatan Keluarga
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item" >
-                                <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
-                                    <i class="fas fa-medkit nav-icon"></i>
-                                    <p>Pemeriksaan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
-                                    <i class="fas fa-file-medical-alt nav-icon"></i>
-                                    <p>Data Kesehatan</p>
-                                </a>
-                            </li>
-                        </ul>
+                </li> --}}
+                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
+                    <li class="nav nav-treeview">
+                        <li class="nav-item" id="list-kesehatan">
+                            <a href="#" class="nav-link" id="kesehatan">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>
+                                    Kesehatan Keluarga
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ms-3">
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                    <li class="nav-item" >
+                                        <a href="{{ route("Tambah Konsultasi") }}" class="nav-link" id="konsultasi">
+                                            <i class="nav-icon fas fa-user-md"></i>
+                                            <p>Konsultasi</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                <li class="nav-item" >
+                                    <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
+                                        <i class="fas fa-medkit nav-icon"></i>
+                                        <p>Pemeriksaan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
+                                        <i class="fas fa-file-medical-alt nav-icon"></i>
+                                        <p>Data Kesehatan</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </li>
-                </li>
+                @endif
                 <li class="nav nav-treeview">
                     <li class="nav-item" id="list-imunisasi">
                         <a href="#" class="nav-link" id="imunisasi">
@@ -241,12 +251,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
-                                    <i class="fas fa-vials nav-icon"></i>
-                                    <p>Tambah Imunisasi</p>
-                                </a>
-                            </li>
+                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                                <li class="nav-item">
+                                    <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
+                                        <i class="fas fa-vials nav-icon"></i>
+                                        <p>Tambah Imunisasi</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
                                     <i class="fas fa-crutch nav-icon"></i>
@@ -266,12 +278,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
-                                    <i class="fas fa-pills nav-icon"></i>
-                                    <p>Tambah Vitamin</p>
-                                </a>
-                            </li>
+                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                                <li class="nav-item">
+                                    <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
+                                        <i class="fas fa-pills nav-icon"></i>
+                                        <p>Tambah Vitamin</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
                                     <i class="fas fa-capsules nav-icon"></i>
@@ -291,24 +305,30 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-                                    <i class="fas fa-exclamation nav-icon"></i>
-                                    <p>Informasi Penting</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
-                                    <i class="fas fa-bullhorn nav-icon"></i>
-                                    <p>Pengumuman</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
-                                    <i class="fas fa-chalkboard-teacher nav-icon"></i>
-                                    <p>Penyuluhan</p>
-                                </a>
-                            </li>
+                            @if (auth()->guard('admin')->user()->pegawai->jabatan != "tenaga kesehatan")
+                                <li class="nav-item">
+                                    <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
+                                        <i class="fas fa-exclamation nav-icon"></i>
+                                        <p>Informasi Penting</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin" || auth()->guard('admin')->user()->pegawai->jabatan == "admin" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
+                                <li class="nav-item">
+                                    <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
+                                        <i class="fas fa-bullhorn nav-icon"></i>
+                                        <p>Pengumuman</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (auth()->guard('admin')->user()->pegawai->jabatan != "tenaga kesehatan")
+                                <li class="nav-item">
+                                    <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
+                                        <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                                        <p>Penyuluhan</p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="{{ route("sig-posyandu.home")}}" id="sig-posyandu" class="nav-link">
                                     <i class="fas fa-map-marked-alt nav-icon"></i>
@@ -318,12 +338,14 @@
                         </ul>
                     </li>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="kegiatan">
-                        <i class="nav-icon fas fa-hospital-alt"></i>
-                        <p>Tambah Kegiatan</p>
-                    </a>
-                </li>
+                @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin" || auth()->guard('admin')->user()->pegawai->jabatan == "admin" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
+                    <li class="nav-item">
+                        <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="kegiatan">
+                            <i class="nav-icon fas fa-hospital-alt"></i>
+                            <p>Tambah Kegiatan</p>
+                        </a>
+                    </li>
+                @endif
                 <div class="dropdown-divider"></div>
                 <li class="nav-item">
                     <a href="" class="nav-link">

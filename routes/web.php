@@ -193,8 +193,8 @@ Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\Data
 
 //Konsultasi
 Route::get('nakes/konsultasi', 'Admin\KesehatanKeluarga\KonsultasiController@tambahKonsultasi')->name("Tambah Konsultasi")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-Route::get('nakes/konsultasi/ibu/{ibu}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiIbu')->name("Konsultasi Ibu")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::get('nakes/konsultasi/anak/{anak}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiAnak')->name("Konsultasi Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/konsultasi/ibu/{ibu}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiIbu')->name("Konsultasi Ibu")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+Route::get('nakes/konsultasi/anak/{anak}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiAnak')->name("Konsultasi Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 Route::get('nakes/konsultasi/lansia/{lansia}', 'Admin\KesehatanKeluarga\KonsultasiController@konsultasiLansia')->name("Konsultasi Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Tambah Konsultasi
@@ -205,51 +205,51 @@ Route::get('nakes/konsultasi-lansia/{lansia}', 'Admin\KesehatanKeluarga\Konsulta
 
 
 //Pemeriksaan
-Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 
 //Tambah Pemeriksaan
-Route::post('nakes/pemeriksaan-lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanLansia')->name("Tambah Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
-Route::post('nakes/pemeriksaan-ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanIbu')->name("Tambah Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param1,param2,param3,param4");
+Route::post('nakes/pemeriksaan-lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanLansia')->name("Tambah Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");;
+Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");;
+Route::post('nakes/pemeriksaan-ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanIbu')->name("Tambah Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");;
 
 //Pemberian Imunisasi
-Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiAnak')->name('Imunisasi Anak');
-Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiIbu')->name('Imunisasi Ibu');
-Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiLansia')->name('Imunisasi Lansia');
+Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiAnak')->name('Imunisasi Anak')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiIbu')->name('Imunisasi Ibu')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiLansia')->name('Imunisasi Lansia')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 
 //Pemberian Vitamin
-Route::post('nakes/pemeriksaan-anak/tambah-vitamin/{anak}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminAnak')->name('Vitamin Anak');
-Route::post('nakes/pemeriksaan-ibu/tambah-vitamin/{ibu}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminIbu')->name('Vitamin Ibu');
-Route::post('nakes/pemeriksaan-lansia/tambah-vitamin/{lansia}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminLansia')->name('Vitamin Lansia');
+Route::post('nakes/pemeriksaan-anak/tambah-vitamin/{anak}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminAnak')->name('Vitamin Anak')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::post('nakes/pemeriksaan-ibu/tambah-vitamin/{ibu}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminIbu')->name('Vitamin Ibu')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+Route::post('nakes/pemeriksaan-lansia/tambah-vitamin/{lansia}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminLansia')->name('Vitamin Lansia')->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 
 
 
 //Data & Riwayat Kesehatan
-Route::get('nakes/data-kesehatan', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@dataKesehatan')->name("Data Kesehatan")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/data-kesehatan/kesehatan-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbu')->name("Data Kesehatan Ibu")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/data-kesehatan/kesehatan-anak/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnak')->name("Data Kesehatan Anak")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanLansia')->name("Data Kesehatan Lansia")->middleware("cek:param1,super admin,admin,kader,tenaga kesehatan");
+Route::get('nakes/data-kesehatan', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@dataKesehatan')->name("Data Kesehatan")->middleware("cek:head admin,param2,admin,kader,tenaga kesehatan");
+Route::get('nakes/data-kesehatan/kesehatan-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbu')->name("Data Kesehatan Ibu")->middleware("cek:head admin,param2,admin,kader,tenaga kesehatan");
+Route::get('nakes/data-kesehatan/kesehatan-anak/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnak')->name("Data Kesehatan Anak")->middleware("cek:head admin,param2,admin,kader,tenaga kesehatan");
+Route::get('nakes/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanLansia')->name("Data Kesehatan Lansia")->middleware("cek:head admin,param2,admin,kader,tenaga kesehatan");
 
 
 
 //Imunisasi
-Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi");
-Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiController@storeImunisasi')->name("Store Imunisasi");
-Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi");
-Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi");
-Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi");
+Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
 
 
 
 //Vitamin
-Route::get('nakes/vitamin/tambah-vitamin', 'Admin\ImunisasiVitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin");
-Route::post('nakes/vitamin/tambah', 'Admin\ImunisasiVitamin\VitaminController@storeVitamin')->name("Store Vitamin");
-Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin");
-Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin");
-Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin");
+Route::get('nakes/vitamin/tambah-vitamin', 'Admin\ImunisasiVitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/vitamin/tambah', 'Admin\ImunisasiVitamin\VitaminController@storeVitamin')->name("Store Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 
 
 
@@ -267,57 +267,54 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
 
 
 
-//Informasi
-Route::get('/admin/informasi/informasi-penting/home', function(){
-    return view('pages.admin.informasi.informasi-penting');
-})->name('informasi-penting.home');
+//SIG Posyandu
 Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
-})->name('sig-posyandu.home');
+})->name('sig-posyandu.home')->middleware('cek:super admin,param2,param3,param4,param5');
 
 
 
 //Informasi Penting
-Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
-Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
-Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
-Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show');
-Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update');
-Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
-Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete');
+Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete')->middleware('cek:super admin,kader,admin,head admin,param5');
 
 
 
 //Penyuluhan
-Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
-Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create');
-Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store');
-Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show');
-Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
-Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
-Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
+Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img')->middleware('cek:super admin,kader,admin,head admin,param5');
+Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('cek:super admin,kader,admin,head admin,param5');
 
 
 
 //Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home');
-Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create');
-Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store');
-Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show');
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update');
-Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete');
-Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img')->middleware('cek:param1,kader,admin,head admin,param5');
 
 
 
 //Kegiatan
-Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
-Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create');
-Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
-Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show');
-Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
-Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
-Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
+Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete')->middleware('cek:param1,kader,admin,head admin,param5');
+Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware('cek:param1,kader,admin,head admin,param5');
 
 
 
@@ -325,23 +322,3 @@ Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->na
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');
 Route::get('/banjar/{id}', 'AjaxSearchLocation@banjar');
-
-
-
-// Route::get('/user', function () {
-//     return view('pages/user/dashboard');
-// });
-
-// Route::get('/test', 'User\Auth\RegisController@test');
-
-// Route::get('/user/account/new-user', function () {
-//     return view('pages/auth/user/new-anggota');
-// })->name("form.add.anggota.keluarga");
-
-// Route::get('/data-diri/bayi-balita', function () {
-//     return view('pages/auth/anak/data-diri-anak');
-// })->name("Data Diri Anak");
-
-// Route::get('/test', function () {
-//     return view('test');
-// });
