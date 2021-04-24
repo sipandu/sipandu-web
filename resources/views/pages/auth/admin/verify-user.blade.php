@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Verif Anggota Posyandu Seger Urip</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Verif Anggota Posyandu</h1>
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
@@ -88,19 +88,19 @@
                                                 <tbody>
                                                     @foreach ($ibu as $data)
                                                     <tr class="text-center align-middle my-auto">
-                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $loop->iteration }}</td>
                                                         <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ $data->nama_suami }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
                                                         <td class="text-center align-middle d-md-none">
                                                             <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
+                                                                <i class="far fa-check-square"></i>
                                                             </a>
                                                         </td>
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
-                                                                Detail
+                                                                <i class="far fa-check-square"></i>
+                                                                Konfirm
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -131,19 +131,19 @@
                                                 <tbody>
                                                     @foreach ($anak as $data)
                                                     <tr class="text-center align-middle my-auto">
-                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $loop->iteration }}</td>
                                                         <td class="align-middle">{{ $data->nama_anak }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ $data->nama_ibu }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
                                                         <td class="text-center align-middle d-md-none">
                                                             <a href="{{ route('detail.verify.anak', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
+                                                                <i class="far fa-check-square"></i>
                                                             </a>
                                                         </td>
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.anak', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
-                                                                Detail
+                                                                <i class="far fa-check-square"></i>
+                                                                Konfirm
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -174,19 +174,19 @@
                                                 <tbody>
                                                     @foreach ($ibu as $data)
                                                     <tr class="text-center align-middle my-auto">
-                                                        <td class="align-middle">{{ $loop->first }}</td>
+                                                        <td class="align-middle">{{ $loop->iteration }}</td>
                                                         <td class="align-middle">{{ $data->nama_lansia }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
                                                         <td class="align-middle d-none d-md-table-cell">{{ date('d-M-Y', strtotime($data->created_at)) }}</td>
                                                         <td class="text-center align-middle d-md-none">
                                                             <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
+                                                                <i class="far fa-check-square"></i>
                                                             </a>
                                                         </td>
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
-                                                                <i class="fas fa-edit"></i>
-                                                                Detail
+                                                                <i class="far fa-check-square"></i>
+                                                                Konfirm
                                                             </a>
                                                         </td>
                                                     </tr>

@@ -32,7 +32,7 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
-    public function getImage($id)
+    public function getProfileImage($id)
     {
         $admin = Admin::where('id', $id)->get()->first();
         if(File::exists(storage_path($admin->profile_image))) {
@@ -83,6 +83,41 @@ class AdminController extends Controller
 
         return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
     }
+
+    public function getKKImage($id)
+    {
+        $user = User::where('id', $id)->get()->first();
+        $kk = KK::where('id', $user->id_kk)->get()->first();
+
+        if( File::exists(storage_path($kk->file_kk)) ) {
+            return response()->file(
+                storage_path($kk->file_kk)
+            );
+        } else {
+            return response()->file(
+                public_path('images/forms-logo.jpg')
+            );
+        }
+
+        return redirect()->back();
+    }
+
+    // public function getAnakVerifyImage($id)
+    // {
+    //     $user = User::where('id', $id)->get()->first();
+
+    //     if(File::exists(storage_path($user->profile_image))) {
+    //         return response()->file(
+    //             storage_path($user->profile_image)
+    //         );
+    //     } else {
+    //         return response()->file(
+    //             public_path('images/forms-logo.jpg')
+    //         );
+    //     }
+
+    //     return redirect()->back();
+    // }
 
     public function detailVerifyAnak(Request $request, $id)
     {

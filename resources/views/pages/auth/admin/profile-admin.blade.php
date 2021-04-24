@@ -44,20 +44,27 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Jabatan</b>
-                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->jabatan}}</a>
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                    <a class="float-right text-decoration-none link-dark">Super Admin</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
+                                    <a class="float-right text-decoration-none link-dark">Head Admin</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
+                                    <a class="float-right text-decoration-none link-dark">Administrator</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                    <a class="float-right text-decoration-none link-dark">Kader Posyandu</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'nakes')
+                                    <a class="float-right text-decoration-none link-dark">Tenaga Kesehatan</a>
+                                @endif
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Tempat Tugas</b>
                                 <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
                                 @include('modal/admin/status-konsultasi')
                             </li>
-                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
-                                <li class="list-group-item">
-                                    <b class="fw-bold">Konsultasi</b>
-                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">{{Auth::guard('admin')->user()->pegawai->status}}</a>
-                                    @include('modal/admin/status-konsultasi')
-                                </li>
-                            @endif
                             @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Konsultasi</b>

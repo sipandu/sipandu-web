@@ -39,14 +39,13 @@
                         <li class="nav-item">
                             <a href="{{ route('profile.admin') }}" id="profile-admin" class="nav-link">
                                 <i class="nav-icon fas fa-id-badge"></i>
-                                <p>My Profile</p>
+                                <p>Profile Pribadi</p>
                             </a>
                         </li>
                         <li class="nav-item" id="list-account">
                             <a href="#" class="nav-link" id="list-account-link">
                                 <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Add Account
+                                <p>Tambah Akun
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -55,13 +54,13 @@
                                     <li class="nav-item">
                                         <a href="{{ route('Add Admin') }}" id="new-admin" class="nav-link">
                                             <i class="fas fa-user-shield nav-icon"></i>
-                                            <p>Add Admin</p>
+                                            <p>Tambah Admin</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                             <i class="fas fa-user-tag nav-icon"></i>
-                                            <p>Add Kader</p>
+                                            <p>Tambah Kader</p>
                                         </a>
                                     </li>
                                 @endif
@@ -89,13 +88,13 @@
                                     <li class="nav-item">
                                         <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                             <i class="fas fa-user-tag nav-icon"></i>
-                                            <p>Add Kader</p>
+                                            <p>Tambah Kader</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                             <i class="fas fa-user nav-icon"></i>
-                                            <p>Add User</p>
+                                            <p>Tambah Anggota</p>
                                         </a>
                                     </li>
                                 @endif
@@ -103,13 +102,13 @@
                                     <li class="nav-item">
                                         <a href="{{ route('Add Kader') }}" id="new-kader" class="nav-link">
                                             <i class="fas fa-user-tag nav-icon"></i>
-                                            <p>Add Kader</p>
+                                            <p>Tambah Kader</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                             <i class="fas fa-user nav-icon"></i>
-                                            <p>Add User</p>
+                                            <p>Tambah Anggota</p>
                                         </a>
                                     </li>
                                 @endif
@@ -117,7 +116,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('Add User') }}" id="new-user" class="nav-link">
                                             <i class="fas fa-user nav-icon"></i>
-                                            <p>Add User</p>
+                                            <p>Tambah Anggota</p>
                                         </a>
                                     </li>
                                 @endif
@@ -127,7 +126,7 @@
                             <li class="nav-item" id="list-data-user-verify">
                                 <a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
                                     <i class="nav-icon fas fa-user-check"></i>
-                                    <p>Verification User</p>
+                                    <p>Konfirmasi Anggota</p>
                                 </a>
                             </li>
                         @endif
@@ -200,12 +199,6 @@
                         </ul>
                     </li>
                 </li>
-                {{-- <li class="nav-item" id="menu-konsultasi">
-                    <a href="{{ route("Tambah Konsultasi") }}" id="admin-konsultasi" class="nav-link">
-                        <i class="nav-icon fas fa-user-md"></i>
-                        <p>Konsultasi</p>
-                    </a>
-                </li> --}}
                 @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
                     <li class="nav nav-treeview">
                         <li class="nav-item" id="list-kesehatan">
