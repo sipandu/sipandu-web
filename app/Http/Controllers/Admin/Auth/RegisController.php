@@ -30,16 +30,16 @@ class RegisController extends Controller
         return view('pages/auth/admin/new-admin',compact('posyandu'));
     }
 
-    public function formAddUser(Request $request)
-    {
-        $posyandu = Posyandu::all();
-        return view('pages/auth/admin/new-user', compact('posyandu'));
-    }
-
     public function formAddKader(Request $request)
     {
         $posyandu = Posyandu::all();
         return view('pages/auth/admin/new-kader',compact('posyandu'));
+    }
+
+    public function formAddUser(Request $request)
+    {
+        $posyandu = Posyandu::all();
+        return view('pages/auth/admin/new-user', compact('posyandu'));
     }
 
     public function storeAdminKader(Request $request)

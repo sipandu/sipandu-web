@@ -142,10 +142,10 @@
                                 <h5 class="mt-4 text-muted"><i class="fas fa-users-cog"></i> Jumlah Petugas</h5>
                                 <ul class="list-unstyled lh-sm">
                                     <li class="my-1">
-                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</a>
+                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</p>
                                     </li>
                                     <li class="my-1">
-                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</a>
+                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</p>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Berikutnya</h5>

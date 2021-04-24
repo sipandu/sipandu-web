@@ -84,38 +84,51 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 
 
 
-//Dashboard Admin
+//Admin
 Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
-    Route::get('/get-img/{id}', 'AdminController@getProfileImage')->name('profile.admin.get_img');
     Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
     
-    Route::get('/verify', 'AdminController@showVerifyUser')->name('show.verify')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    Route::get('/get-img/verify/{id}', 'AdminController@getKKImage')->name('verify.get_img');
-
-    Route::get('/verify/detail/anak/{id}', 'AdminController@detailVerifyAnak')->name('detail.verify.anak')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    Route::get('/verify/detail/lansia/{id}', 'AdminController@detailVerifyLansia')->name('detail.verify.lansia')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    Route::get('/verify/detail/ibu/{id}', 'AdminController@detailVerifyIbu')->name('detail.verify.ibu')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-
-    Route::post('/verify/terima', 'AdminController@terimaUser')->name('terima.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    Route::post('/verify/tolak', 'AdminController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    
+    Route::get('/get-img/{id}', 'AdminController@getProfileImage')->name('profile.admin.get_img');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
+});
 
-    Route::prefix('account')->group(function(){
-        Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test,param4,param5');
-        Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
-        Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin,param5');
-        Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
-        Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
-        Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
-        Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
-    });
+
+
+//Management Account
+Route::prefix('account')->namespace('Admin\Auth')->group(function(){
+    //Add Account
+    Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test,param4,param5');
+    Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
+    Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin,param5');
+
+    //Store Account
+    Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
+    Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
+    Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
+    Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
+
+    //Image Verify Users
+    Route::get('/verify', 'AccountController@showVerifyUser')->name('show.verify')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/get-img/verify/{id}', 'AccountController@getKKImage')->name('verify.get_img')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+
+    //Detail Verify Users
+    Route::get('/verify/detail/anak/{id}', 'AccountController@detailVerifyAnak')->name('detail.verify.anak')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/verify/detail/lansia/{id}', 'AccountController@detailVerifyLansia')->name('detail.verify.lansia')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::get('/verify/detail/ibu/{id}', 'AccountController@detailVerifyIbu')->name('detail.verify.ibu')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+
+    //Verify Users
+    Route::post('/verify/terima', 'AccountController@terimaUser')->name('terima.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::post('/verify/tolak', 'AccountController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    
+    //Change Role
+    Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
+    Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
 });
 
 
@@ -157,7 +170,6 @@ Route::post('/admin/posyandu/add', 'Admin\MasterData\MasterPosyanduController@st
 Route::get('/admin/posyandu/detail/{posyandu}', 'Admin\MasterData\MasterPosyanduController@detailPosyandu')->name("Detail Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
 Route::get('/admin/posyandu/edit/{posyandu}', 'Admin\MasterData\MasterPosyanduController@editPosyandu')->name("Edit Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
 Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\MasterPosyanduController@updatePosyandu')->name("Update Posyandu")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('/admin/posyandu/update-admin/', 'Admin\MasterData\MasterPosyanduController@updateAdminPosyandu')->name("Update Posyandu-Admin")->middleware("cek:super admin,param2,param3,param4,param5");
 
 
 

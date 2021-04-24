@@ -38,7 +38,7 @@
                                     @csrf
                                     <div class="modal-body p-3">
                                         <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputNama">Nama Posyandu<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -55,6 +55,8 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputBanjar">Banjar<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -72,6 +74,8 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputTelp">Nomor Telepon<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -89,7 +93,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-sm-12">
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputAlamat">Alamat<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -106,6 +110,8 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputLay">Koordinat Latitude<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -122,6 +128,8 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputLng">Koordinat Longitude<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
@@ -145,8 +153,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-danger" data-bs-dismiss="modal">Batal</a>
-                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                        <a href="{{ route('Detail Posyandu', [$posyandu->id]) }}" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Batal</a>
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">Simpan Perubahan</button>
                                     </div>
                                 </form>
                             @endforeach

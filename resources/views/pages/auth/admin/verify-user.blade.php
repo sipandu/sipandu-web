@@ -225,8 +225,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-data-user-verify').addClass('menu-open');
-            $('#list-admin-account').addClass('menu-open');
+            $('#list-management-account').addClass('menu-is-opening menu-open');
+            $('#management-account').addClass('active');
             $('#verify-user').addClass('active');
         });
 

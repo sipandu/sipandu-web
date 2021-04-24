@@ -16,14 +16,23 @@ class Lansia extends Model
     protected $fillable = [
         'id_posyandu',
         'id_user',
+        'NIK',
         'nama_lansia',
         'tempat_lahir',
         'tanggal_lahir',
-        'alamat',
-        'nomor_telepon',
-        'NIK',
-        'status',
         'jenis_kelamin',
+        'pekerjaan',
+        'status_perkawinan',
+        'pendidikan_terakhir',
+        'sumber_biaya_hidup',
+        'status',
+        'jumlah_anak',
+        'jumlah_cucu',
+        'jumlah_cicit',
+        'jumlah_keluarga_serumah',
+        'nomor_telepon',
+        'tempat_tinggal',
+        'alamat',
     ];
 
 

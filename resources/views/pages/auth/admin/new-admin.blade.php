@@ -366,12 +366,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-
-            $('#list-admin-account').addClass('menu-is-opening menu-open');
-            $('#list-admin-account-link').addClass('active');
-
-            $('#list-account').addClass('menu-is-opening menu-open');
-            $('#list-account-link').addClass('active');
+            $('#list-management-account').addClass('menu-is-opening menu-open');
+            $('#management-account').addClass('active');
             $('#new-admin').addClass('active');
         });
 
