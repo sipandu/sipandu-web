@@ -94,7 +94,7 @@
                                 <form action="{{route('edit.account')}}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
                                         <div class="col-sm-10 my-auto">
                                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
                                             @error('email')
@@ -171,30 +171,35 @@
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
                                     <div class="modal-body">
                                         <div class="form-group row">
-                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image</label>
+                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image<span class="text-danger">*</span></label>
                                             <div class="col-sm-9">
-                                                <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">
-                                                <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
-                                                @error('file')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                                <div class="custom-file">
+                                                    <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">
+                                                    <label class="custom-file-label" for="exampleInputFile">Pilih foto profile</label>
+                                                    @error('file')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="text-right mb-2">
+                                            <span class="text-danger">* Data Wajib diisi</span>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-12 text-end">
-                                                <button id="test" type="submit" class="btn btn-outline-success my-1">Simpan Foto Profile</button>
+                                                <button id="test" type="submit" class="btn btn-sm btn-outline-success my-1">Simpan Foto Profile</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="border border-bottom border-primary my-4"></div>
                                 <form action="{{route('edit.password')}}" class="form-horizontal" method="POST">
-                                    <label class="fs-4 fw-bold text-center d-grid">Ubah Password</label>
+                                    <label class="fs-4 fw-bold text-center d-grid mb-4">Ubah Password</label>
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama</label>
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Lama<span class="text-danger">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="password" name="password_lama" autocomplete="off" class="form-control @error('password_lama') is-invalid @enderror"  id="inputTelp" placeholder="Password Lama" autocomplete="off">
                                             @error('password_lama')
@@ -205,7 +210,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru</label>
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Password Baru<span class="text-danger">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="password" name="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror"   id="inputTelp" placeholder="Password Baru" autocomplete="off">
                                             @error('password')
@@ -215,8 +220,8 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru</label>
+                                    <div class="form-group row pb-0 mb-0">
+                                        <label for="inputTelp" class="col-sm-3 col-form-label">Konfirmasi Password Baru<span class="text-danger">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="password" name="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror" value="{{ old('password_confirmation') }}" id="inputTelp" placeholder="Konfirmasi Password" autocomplete="off">
                                             @error('password_confirmation')
@@ -226,9 +231,12 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="text-right mb-2">
+                                        <span class="text-danger">* Data Wajib diisi</span>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 text-end">
-                                            <button id="test" type="submit" class="btn btn-outline-success my-1">Simpan Password Baru</button>
+                                            <button id="test" type="submit" class="btn btn-sm btn-outline-success my-1">Simpan Password</button>
                                         </div>
                                     </div>
                                 </form>
@@ -275,22 +283,29 @@
         });
     </script>
 
-    @if($message = Session::get('success'))
-        <script>
-            $(document).ready(function(){
-                alertSuccess('{{$message}}');
-            });
-        </script>
+    @if($message = Session::get('failed'))
+    <script>
+        $(document).ready(function(){
+            alertDanger('{{$message}}');
+        });
+    </script>
     @endif
 
     @if($message = Session::get('error'))
-        <script>
-            $(document).ready(function(){
-                alertDanger('{{$message}}');
-            });
-        </script>
+    <script>
+        $(document).ready(function(){
+            alertError('{{$message}}');
+        });
+    </script>
     @endif
 
+    @if($message = Session::get('success'))
+    <script>
+        $(document).ready(function(){
+            alertSuccess('{{$message}}');
+        });
+    </script>
+    @endif
 @endpush
 
 
