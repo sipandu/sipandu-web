@@ -33,6 +33,40 @@ class DataAnggotaController extends Controller
         return view('pages/admin/master-data/data-anggota/data-anggota', compact('anak', 'ibu', 'lansia'));
     }
 
+    public function getImage($id)
+    {
+        $admin = Admin::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($admin->profile_image)) ) {
+            return response()->file(
+                storage_path($admin->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/sipandu-logo.png')
+            );
+        }
+
+        return redirect()->back();
+    }
+
+    public function getImageKK($id)
+    {
+        $pegawai = Pegawai::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($pegawai->file_ktp)) ) {
+            return response()->file(
+                storage_path($pegawai->file_ktp)
+            );
+        } else {
+            return response()->file(
+                public_path('images/forms-logo.jpg')
+            );
+        }
+
+        return redirect()->back();
+    }
+
     public function detailAnggotaIbu(Ibu $ibu)
     {
         $dataIbu = Ibu::where('id', $ibu->id)->first();
