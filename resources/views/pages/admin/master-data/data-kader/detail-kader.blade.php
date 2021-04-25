@@ -37,7 +37,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{$dataAdmin->profile_image}}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Admin', $dataAdmin->id ) }}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{$dataAdmin->pegawai->nama_pegawai}}</h3>
@@ -128,11 +128,7 @@
                                     <div class="card-body bg-light my-auto">
                                         <p class="fs-5 fw-bold my-auto">Scan KTP</p>
                                     </div>
-                                    @if ($dataAdmin->pegawai->file_ktp == NULL)
-                                        <p class="text-center text-danger my-auto">Anda Belum mengunggah Scan KTP!</p>
-                                    @else
-                                        <img src="{{ $dataAdmin->pegawai->file_ktp }}" class="card-img-buttom" alt="...">
-                                    @endif
+                                    <img src="{{ route('Get Image Data Kader KTP', $dataAdmin->pegawai->id ) }}" class="card-img-buttom" alt="...">
                                 </div>
                             </div>
                             @if (Auth::guard('admin')->user()->pegawai->jabatan != 'kader' && Auth::guard('admin')->user()->pegawai->jabatan != 'tenaga kesehatan')
