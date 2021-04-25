@@ -76,6 +76,7 @@ class PengumumanController extends Controller
         $pengumuman->pengumuman = $request->pengumuman;
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
+        $pengumuman->broadcastUpdatePengumumanToMember();
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
 
