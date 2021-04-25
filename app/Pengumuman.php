@@ -25,12 +25,12 @@ class Pengumuman extends Model
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_anak.id_posyandu', $this->id_posyandu)
             ->get();
-        $ibu_hamil = DB::table('tb_user')->join('tb_anak', 'tb_ibu_hamil.id_user', 'tb_user.id')
+        $ibu_hamil = DB::table('tb_user')->join('tb_ibu_hamil', 'tb_ibu_hamil.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_ibu_hamil.id_posyandu', $this->id_posyandu)
             ->get();
-        $lansia = DB::table('tb_user')->join('tb_anak', 'tb_lansia.id_user', 'tb_user.id')
+        $lansia = DB::table('tb_user')->join('tb_lansia', 'tb_lansia.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_lansia.id_posyandu', $this->id_posyandu)
@@ -66,12 +66,12 @@ class Pengumuman extends Model
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_anak.id_posyandu', $this->id_posyandu)
             ->get();
-        $ibu_hamil = DB::table('tb_user')->join('tb_anak', 'tb_ibu_hamil.id_user', 'tb_user.id')
+        $ibu_hamil = DB::table('tb_user')->join('tb_ibu_hamil', 'tb_ibu_hamil.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_ibu_hamil.id_posyandu', $this->id_posyandu)
             ->get();
-        $lansia = DB::table('tb_user')->join('tb_anak', 'tb_lansia.id_user', 'tb_user.id')
+        $lansia = DB::table('tb_user')->join('tb_lansia', 'tb_lansia.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
             ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_lansia.id_posyandu', $this->id_posyandu)
