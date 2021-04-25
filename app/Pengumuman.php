@@ -18,41 +18,81 @@ class Pengumuman extends Model
     public function broadcastPengumumanToMember()
     {
         $url_anak = 'https://sipandu-test-web.herokuapp.com/anak';
-        // $url_ibu_hamil = 'https://sipandu-test-web.herokuapp.com/ibu';
-        // $url_lansia = 'https://sipandu-test-web.herokuapp.com/lansia';
+        $url_ibu_hamil = 'https://sipandu-test-web.herokuapp.com/ibu';
+        $url_lansia = 'https://sipandu-test-web.herokuapp.com/lansia';
         $anak = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
-            ->where('tb_user.id_chat_tele, tb_user.email', '!=', NULL)
+            ->where('tb_user.id_chat_tele', '!=', NULL)
             ->where('tb_anak.id_posyandu', $this->id_posyandu)
             ->get();
-        dd($anak);
-        // $ibu_hamil = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
-        //     ->select('tb_user.id_chat_tele')
-        //     ->where('tb_user.id_chat_tele', '!=', NULL)
-        //     ->where('tb_anak.id_posyandu', $this->id_posyandu)
-        //     ->get();
-        // $lansia = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
-        //     ->select('tb_user.id_chat_tele')
-        //     ->where('tb_user.id_chat_tele', '!=', NULL)
-        //     ->where('tb_anak.id_posyandu', $this->id_posyandu)
-        //     ->get();
+        $ibu_hamil = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
+            ->select('tb_user.id_chat_tele')
+            ->where('tb_user.id_chat_tele', '!=', NULL)
+            ->where('tb_anak.id_posyandu', $this->id_posyandu)
+            ->get();
+        $lansia = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
+            ->select('tb_user.id_chat_tele')
+            ->where('tb_user.id_chat_tele', '!=', NULL)
+            ->where('tb_anak.id_posyandu', $this->id_posyandu)
+            ->get();
         $caption_anak = '[PENGUMUMAN BARU] '.$this->judul_pengumuman.PHP_EOL.$url_anak;
-        // $caption_bumil = '[PENGUMUMAN BARU] '.$this->judul_pengumuman.PHP_EOL.$url_ibu_hamil;
-        // $caption_lansia = '[PENGUMUMAN BARU] '.$this->judul_pengumuman.PHP_EOL.$url_lansia;
+        $caption_bumil = '[PENGUMUMAN BARU] '.$this->judul_pengumuman.PHP_EOL.$url_ibu_hamil;
+        $caption_lansia = '[PENGUMUMAN BARU] '.$this->judul_pengumuman.PHP_EOL.$url_lansia;
         foreach($anak as $item)
         {
             $this->sendInformationToUser($item->id_chat_tele, $caption_anak);
         }
 
-        // foreach($lansia as $item)
-        // {
-        //     $this->sendInformationToUser($item->id_chat_tele, $caption_lansia);
-        // }
+        foreach($lansia as $item)
+        {
+            $this->sendInformationToUser($item->id_chat_tele, $caption_lansia);
+        }
 
-        // foreach($ibu_hamil as $item)
-        // {
-        //     $this->sendInformationToUser($item->id_chat_tele, $caption_bumil);
-        // }
+        foreach($ibu_hamil as $item)
+        {
+            $this->sendInformationToUser($item->id_chat_tele, $caption_bumil);
+        }
+
+        return true;
+    }
+
+    public function broadcastUpdatePengumumanToMember()
+    {
+        $url_anak = 'https://sipandu-test-web.herokuapp.com/anak';
+        $url_ibu_hamil = 'https://sipandu-test-web.herokuapp.com/ibu';
+        $url_lansia = 'https://sipandu-test-web.herokuapp.com/lansia';
+        $anak = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
+            ->select('tb_user.id_chat_tele')
+            ->where('tb_user.id_chat_tele', '!=', NULL)
+            ->where('tb_anak.id_posyandu', $this->id_posyandu)
+            ->get();
+        $ibu_hamil = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
+            ->select('tb_user.id_chat_tele')
+            ->where('tb_user.id_chat_tele', '!=', NULL)
+            ->where('tb_anak.id_posyandu', $this->id_posyandu)
+            ->get();
+        $lansia = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
+            ->select('tb_user.id_chat_tele')
+            ->where('tb_user.id_chat_tele', '!=', NULL)
+            ->where('tb_anak.id_posyandu', $this->id_posyandu)
+            ->get();
+        $caption_anak = '[UPDATE PENGUMUMAN] '.$this->judul_pengumuman.PHP_EOL.$url_anak;
+        $caption_bumil = '[UPDATE PENGUMUMAN] '.$this->judul_pengumuman.PHP_EOL.$url_ibu_hamil;
+        $caption_lansia = '[UPDATE PENGUMUMAN] '.$this->judul_pengumuman.PHP_EOL.$url_lansia;
+        foreach($anak as $item)
+        {
+            $this->sendInformationToUser($item->id_chat_tele, $caption_anak);
+        }
+
+        foreach($lansia as $item)
+        {
+            $this->sendInformationToUser($item->id_chat_tele, $caption_lansia);
+        }
+
+        foreach($ibu_hamil as $item)
+        {
+            $this->sendInformationToUser($item->id_chat_tele, $caption_bumil);
+        }
 
         return true;
     }
@@ -61,12 +101,22 @@ class Pengumuman extends Model
     {
         $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
         $url = 'https://api.telegram.org/bot'.$token.'/sendPhoto';
-        $photo = 'https://sipandu-test-web.herokuapp.com/admin/pengumuman/get-img/'.$this->id;
+        $photo = 'https://sipandu-test-web.herokuapp.com/admin/informasi-penting/get-img/24';
         $response = Http::post($url, [
             'chat_id' => $id_chat,
             'photo' => $photo,
             'caption' => $caption
         ]);
 
+    }
+
+    public function testNoPhoto($id_chat)
+    {
+        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $url = 'https://api.telegram.org/bot'.$token.'/sendPhoto';
+        $response = Http::post($url, [
+            'chat_id' => $id_chat,
+            'test' => 'ini test',
+        ]);
     }
 }
