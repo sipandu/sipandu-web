@@ -36,7 +36,7 @@
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                             </button>
-        
+
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
                                     <li class="nav-item">
@@ -45,9 +45,9 @@
                                     <li class="nav-item" id="berita">
                                         <a class="text-decoration-none" id="menu-berita" href="#blog">Berita</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-penyuluhan" href="#penyuluhan">Penyuluhan</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-tentang" href="#about">Tentang</a>
                                     </li>
