@@ -110,7 +110,7 @@
                 </p>
             </div>
             <div class="text-center mt-4 mb-0">
-                <a href="/" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
+                <a href="/" class="nav-link link-dark">Smart Posyandu &copy {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}</a>
             </div>
         </div>
     </div>
@@ -153,12 +153,9 @@
             };
             document.addEventListener( "DOMContentLoaded", function() {
                 var checkbox = document.querySelector( "#show-hide" ),
-                    password = document.querySelector( "#password" ),
-                    form = document.querySelector( "#form" );
-                    // form.addEventListener( "submit", function( e ) {
-                    //     e.preventDefault();
-                    // }, false);
-                    var toggler = new showHide( checkbox, password );
+                password = document.querySelector( "#password" ),
+                form = document.querySelector( "#form" );
+                var toggler = new showHide( checkbox, password );
             });
         })();
     </script>

@@ -64,12 +64,12 @@
                                         </td>
                                         <td class="text-center align-middle d-md-none">
                                             <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-eye"></i>
                                             </a>
                                         </td>
                                         <td class="text-center align-middle d-none d-md-table-cell">
                                             <a href="{{route('Detail Posyandu', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-eye"></i>
                                                 Detail
                                             </a>
                                         </td>

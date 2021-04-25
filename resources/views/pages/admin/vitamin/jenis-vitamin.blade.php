@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Konsultasi')
+@section('title', 'Jenis Vitamin')
 
 @push('css')
     <!-- DataTables -->
@@ -11,62 +11,70 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Konsultasi</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Jenis Vitamin</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Smart Posyandu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Konsultasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Jenis Vitamin</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <div class="container-fluid p-0">
+    <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6 col-sm-6 my-auto">
-                                <h3 class="card-title my-auto">Daftar Annggota Posyandu</h3>
+                                <h3 class="card-title my-auto">Data Vitamin</h3>
                             </div>
                             <div class="col-6 col-sm-6 text-end">
-                                <a href="{{ route("Add Admin") }}" class="btn btn-success">
+                                <a href="{{ route("Tambah Vitamin") }}" class="btn btn-success">
                                     <i class="fa fa-plus"></i> Tambah
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        <table id="tbUser" class="table table-bordered table-hover">
-                            <thead class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Anggota</th>
-                                    <th class="d-none d-md-table-cell">Anggota</th>
-                                    <th class="d-md-none">Tindakan</th>
-                                    <th class="d-none d-md-table-cell">Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center align-middle my-auto">
-                                    <td class="align-middle">1</td>
-                                    <td class="align-middle">Nama</td>
-                                    <td class="align-middle d-none d-md-table-cell">Posyandu</td>
-                                    <td class="text-center align-middle d-md-none">
-                                        <a href="" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center align-middle d-none d-md-table-cell">
-                                        <a href="" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @if ($vitamin->count() > 0)
+                            <table id="tbVitamin" class="table table-bordered table-hover">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Vitamin</th>
+                                        <th class="d-none d-md-table-cell">Kategori</th>
+                                        <th>Penerima</th>
+                                        <th class="d-md-none">Tindakan</th>
+                                        <th class="d-none d-md-table-cell">Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($vitamin as $data)
+                                        <tr class="text-center align-middle my-auto">
+                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                            <td class="align-middle">{{ $data->nama_vitamin }}</td>
+                                            <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
+                                            <td class="align-middle">{{ $data->penerima }}</td>
+                                            <td class="text-center align-middle d-md-none">
+                                                <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
+                                                <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                    Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Data Imunisasi</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -91,17 +99,20 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#admin-konsultasi').addClass('active');
+            $('#list-admin-dashboard').removeClass('menu-open');
+            $('#list-vitamin').addClass('menu-is-opening menu-open');
+            $('#vitamin').addClass('active');
+            $('#jenis-vitamin').addClass('active');
         });
 
         $(function () {
-            $("#tbUser").DataTable({
+            $("#tbVitamin").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "emptyTable": "Tidak Terdapat Akun Ibu Hamil untuk Diverifikasi",
-                    "sSearchPlaceholder": "Cari data....",
+                    "emptyTable": "Tidak Terdapat Data Imunisasi",
+                    "sSearchPlaceholder": "Cari imunisasi....",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)",
                 },
@@ -116,3 +127,4 @@
         });
     </script>
 @endpush
+

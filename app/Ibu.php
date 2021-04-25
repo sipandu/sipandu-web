@@ -13,15 +13,21 @@ class Ibu extends Model
     protected $table = 'tb_ibu_hamil';
 
     protected $fillable = [
-        'id_posyandu',
         'id_user',
+        'id_posyandu',
+        'NIK',
         'nama_ibu_hamil',
         'nama_suami',
         'tempat_lahir',
         'tanggal_lahir',
-        'alamat',
+        'kehamilan_ke',
+        'jarak_anak_sebelumnya',
+        'pekerjaan_ibu',
+        'pekerjaan_suami',
+        'pendidikan_ibu',
+        'pendidikan_suami',
         'nomor_telepon',
-        'NIK',
+        'alamat',
     ];
 
     public function user(){
@@ -32,5 +38,8 @@ class Ibu extends Model
         return $this->belongsTo('App\Posyandu','id_posyandu');
     }
 
-
+    public function pemeriksaanIbu()
+    {
+        return $this->hasMany(PemeriksaanIbu::class,'id_ibu_hamil','id');
+    }
 }

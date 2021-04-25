@@ -48,6 +48,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\KK','id_kk');
     }
 
-
-
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany(PemberianImunisasi::class,'id_user','id');
+    }
+    
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_user','id');
+    }
 }

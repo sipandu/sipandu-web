@@ -31,8 +31,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                {{-- <img src="https://images.unsplash.com/photo-1613244470504-4d0a17ce71d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8aWQlMjBjYXJkfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-bottom" alt="..."> --}}
-                                <img src="{{$anak->kk->file_kk}}" class="card-img-bottom" alt="File KK anak">
+                                <img src="{{ route('verify.get_img', Auth::user()->id ) }}" class="card-img-bottom" alt="File KK Anak">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">
@@ -57,7 +56,7 @@
                                             <label for="banjar">Banjar</label>
                                         </div>
                                     </div>
-                                    <form method="POST" action="{{route('tolak.user')}}">
+                                    <form method="POST" action="{{route('tolak.user')}}" class="mb-2">
                                         @csrf
                                         <div class="col-12 p-0 m-0">
                                             <div class="form-floating mb-3">
@@ -72,19 +71,19 @@
                                             <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$anak->id}}">
                                         </div>
                                         <div class="col-12 text-start p-0 m-0">
-                                            <button class="float-right btn btn-danger btn-sm">Tolak dengan alasan</button>
+                                            <button class="btn btn-block btn-outline-danger btn-sm">Tolak dengan alasan</button>
                                         </div>
                                     </form>
                                     <div class="row p-0 m-0">
                                         <div class="col-sm-12 col-md-6 text-start float-lg-left">
-                                            <a href="{{route('show.verify')}}" class="btn btn-primary text-end">Kembali</a>
+                                            <a href="{{route('show.verify')}}" class="btn btn-outline-primary btn-sm">Kembali</a>
                                         </div>
                                         <div class="col-sm-12 col-md-6 my-auto">
                                             <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
                                                 @csrf
                                                 <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$anak->id}}">
                                                 <div class="text-end float-lg-right my-auto">
-                                                    <button class="btn btn-success btn-sm">Setujui</button>
+                                                    <button class="btn btn-outline-success btn-sm">Setujui</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -120,8 +119,8 @@
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-data-user-verify').addClass('menu-open');
-            $('#list-admin-account').addClass('menu-open');
+            $('#list-management-account').addClass('menu-is-opening menu-open');
+            $('#management-account').addClass('active');
             $('#verify-user').addClass('active');
         });
 

@@ -2,7 +2,6 @@
 
 namespace App;
 
-// <<<<<<< loginRegis
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,4 +40,28 @@ class Pegawai extends Authenticatable
         return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
     }
 
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany(PemberianImunisasi::class,'id_pegawai','id');
+    }
+    
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_pegawai','id');
+    }
+
+    public function pemeriksaanIbu()
+    {
+        return $this->hasMany(PemeriksaanIbu::class,'id_pegawai','id');
+    }
+
+    public function pemeriksaanAnak()
+    {
+        return $this->hasMany(PemeriksaanAnak::class,'id_pegawai','id');
+    }
+
+    public function pemeriksaanLansia()
+    {
+        return $this->hasMany(PemeriksaanLansia::class,'id_pegawai','id');
+    }
 }

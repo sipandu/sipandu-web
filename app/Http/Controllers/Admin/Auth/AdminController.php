@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
@@ -17,6 +18,7 @@ use App\Anak;
 use App\Ibu;
 use App\Lansia;
 use App\KK;
+use App\Mover;
 
 class AdminController extends Controller
 {
@@ -30,59 +32,26 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
+    public function getProfileImage($id)
+    {
+        $admin = Admin::where('id', $id)->get()->first();
+        if(File::exists(storage_path($admin->profile_image))) {
+            return response()->file(
+                storage_path($admin->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/sipandu-logo.png')
+            );
+        }
+
+        return redirect()->back();
+    }
 
     public function profile(Request $request)
     {
         return view('pages/auth/admin/profile-admin');
     }
-
-
-    public function showVerifyUser(Request $request)
-    {
-        $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
-
-        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
-            ->select('tb_ibu_hamil.*')
-            ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-        ->get();
-
-        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
-            ->select('tb_anak.*')
-            ->where('tb_anak.id_posyandu', $idPosyandu)
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-        ->get();
-
-        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
-            ->select('tb_lansia.*')
-            ->where('tb_lansia.id_posyandu', $idPosyandu)
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-        ->get();
-
-        return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
-    }
-
-    public function detailVerifyAnak(Request $request, $id)
-    {
-        $anak = User::find($id);
-        return view('pages/auth/admin/verifikasi/detail-verify-anak',compact('anak'));
-    }
-
-    public function detailVerifyLansia(Request $request, $id)
-    {
-        $lansia = User::find($id);
-        return view('pages/auth/admin/verifikasi/detail-verify-lansia',compact('lansia'));
-    }
-
-    public function detailVerifyIbu(Request $request, $id)
-    {
-        $ibu = User::find($id);
-        return view('pages/auth/admin/verifikasi/detail-verify-bumil', compact('ibu'));
-    }
-
 
     public function profileUpdate(Request $request)
     {
@@ -95,186 +64,69 @@ class AdminController extends Controller
             'file.mimes' => "Format gambar harus jpeg, png atau jpg",
         ]);
 
-        $path ='/images/upload/Profile/'.time().'-'.$request->file->getClientOriginalName();
-        $imageName = time().'-'.$request->file->getClientOriginalName();
-
-        $request->file->move(public_path('images/upload/Profile'),$imageName);
-
         $idAdmin = Auth::guard('admin')->user()->id;
-        $admin = Admin::find($idAdmin);
-        $admin->profile_image = $path;
-        $admin->save();
+        $dataAdmin = Admin::where('id', $idAdmin)->get()->first();
 
-        return redirect()->back()->with(['success' => 'Foto profile anda berhasil di ubah']);
+        if($request->file('file') != null){
+            File::delete(storage_path($dataAdmin->profile_image));
+            $filename = Mover::slugFile($request->file('file'), 'app/profile/pegawai/');
+            $admin = Admin::find($idAdmin);
+            $admin->profile_image = $filename;
+            $admin->save();
+        } else {
+            $filename = Mover::slugFile($request->file('file'), 'app/profile/pegawai/');
+            $admin = Admin::find($idAdmin);
+            $admin->profile_image = $filename;
+            $admin->save();
+        }
+
+
+
+        if ($filename && $admin) {
+            return redirect()->back()->with(['success' => 'Foto profile anda berhasil di ubah']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Foto profile anda gagal di ubah']);
+        }
     }
 
     public function accountUpdate(Request $request)
     {
-        if (Auth::guard('admin')->user()->email == $request->email) {
-            if (Auth::guard('admin')->user()->pegawai->username_telegram == $request->telegram) {
-                if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
-                    $this->validate($request, [
-                        'email' => "required|email",
-                        'telegram' => "required|max:25",
-                        'no_tlpn' => "required|numeric",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                } else {
-                    $this->validate($request, [
-                        'email' => "required|email",
-                        'telegram' => "required|max:25",
-                        'no_tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                }
-            } else {
-                if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
-                    $this->validate($request, [
-                        'email' => "required|email",
-                        'telegram' => "required|max:25|unique:tb_pegawai,username_telegram",
-                        'no_tlpn' => "required|numeric",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                } else {
-                    $this->validate($request, [
-                        'email' => "required|email",
-                        'telegram' => "required|max:25|unique:tb_pegawai,username_telegram",
-                        'no_tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                }
-            }
+        $this->validate($request, [
+            'email' => "required|email",
+            'telegram' => "nullable|max:25|unique:tb_admin,username_tele",
+            'no_tlpn' => "nullable|numeric|unique:tb_admin|nomor_telepon",
+        ]
+        ,[
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan format email yang sesuai",
+            'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
+            'telegram.unique' => "Username Telegram sudah pernah digunakan",
+            'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
+            'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
+            'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
+        ]);
+
+        if ($request->telegram == NULL) {
+            $pegawai = Pegawai::update([
+                'status' => 'tidak tersedia'
+            ]);
         } else {
-            if (Auth::guard('admin')->user()->pegawai->username_telegram == $request->telegram) {
-                if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
-                    $this->validate($request, [
-                        'email' => "required|email|unique:tb_admin,email",
-                        'telegram' => "required|max:25",
-                        'no_tlpn' => "required|numeric",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'email.unique' => "Email sudah pernah digunakan",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                } else {
-                    $this->validate($request, [
-                        'email' => "required|email|unique:tb_admin,email",
-                        'telegram' => "required|max:25",
-                        'no_tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'email.unique' => "Email sudah pernah digunakan",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                }
-            } else {
-                if (Auth::guard('admin')->user()->pegawai->nomor_telepon == $request->no_tlpn) {
-                    $this->validate($request, [
-                        'email' => "required|email|unique:tb_admin,email",
-                        'telegram' => "required|max:25|unique:tb_pegawai,username_telegram",
-                        'no_tlpn' => "required|numeric",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'email.unique' => "Email sudah pernah digunakan",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                } else {
-                    $this->validate($request, [
-                        'email' => "required|email|unique:tb_admin,email",
-                        'telegram' => "required|max:25|unique:tb_pegawai,username_telegram",
-                        'no_tlpn' => "required|numeric|unique:tb_pegawai,nomor_telepon",
-                    ]
-                    ,[
-                        'email.required' => "Email wajib diisi",
-                        'email.email' => "Masukan format email yang sesuai",
-                        'email.unique' => "Email sudah pernah digunakan",
-                        'telegram.required' => "Username Telegram wajib diisi",
-                        'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
-                        'telegram.unique' => "Username Telegram sudah pernah digunakan",
-                        'no_tlpn.required' => "Nomor telepon wajib diisi",
-                        'no_tlpn.numeric' => "Nomor telepon harus berupa angka",
-                        'no_tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
-                        'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
-                    ]);
-                }
-            }
+            $idAdmin = Auth::guard('admin')->user()->id;
+            $admin = Admin::find($idAdmin);
+            $admin->email = $request->email;
+            $admin->save();
+    
+            $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
+            $pegawai->username_telegram = $request->telegram;
+            $pegawai->nomor_telepon = $request->no_tlpn;
+            $pegawai->save();
         }
 
-        $idAdmin = Auth::guard('admin')->user()->id;
-        $admin = Admin::find($idAdmin);
-        $admin->email = $request->email;
-        $admin->save();
-
-        $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
-        $pegawai->username_telegram = $request->telegram;
-        $pegawai->nomor_telepon = $request->no_tlpn;
-        $pegawai->save();
-
-        return redirect()->back()->with(['success' => 'Perubahan data akun anda berhasil disimpan']);
+        if ($admin && $pegawai) {
+            return redirect()->back()->with(['success' => 'Data akun anda berhasil disimpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data akun anda gagal disimpan']);
+        }
     }
 
     public function passwordUpdate(Request $request)
@@ -301,56 +153,4 @@ class AdminController extends Controller
             return redirect()->back()->with(['error' => 'Password lama anda tidak sesuai']);
         }
     }
-
-    public function terimaUser(Request $request)
-    {
-        $user = User::find($request->iduser);
-        $user->is_verified = 1;
-        Mail::to($user->email)->send(new NotificationAccUser($user));
-
-        $user->save();
-        return redirect()->route('show.verify');
-
-    }
-
-    public function tolakUser(Request $request)
-    {
-        $this->validate($request, [
-            'keterangan' => "required|regex:/^[a-z .,0-9]+$/i|min:5",
-        ],
-        [
-            'keterangan.required' => "Silahkan berikan keterangan",
-            'keterangan.regex' => "Format pemberian keterangan tidak sesuai",
-            'keterangan.min' => "Keterangan yang diberikan minimal berjumlah 5 karakter",
-
-        ]);
-
-        $user = User::find($request->iduser);
-        $user->is_verified = 0;
-        $user->keterangan = $request->keterangan;
-        $user->save();
-
-        Mail::to($user->email)->send(new NotificationRjctUser($user));
-
-        return redirect()->route('show.verify');
-    }
-
-
-    public function updateStatus(Request $request)
-    {
-        $this->validate($request, [
-            'customRadio' => "required",
-        ],
-        [
-            'customRadio.required' => "Pilihlah Custom Status Anda",
-        ]);
-
-        $idAdmin = Auth::guard('admin')->user()->id;
-        $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
-        $pegawai->status = $request->customRadio;
-        $pegawai->save();
-
-        return redirect()->back()->with(['success' => 'Status Berhasil Di Ubah']);
-    }
-
 }

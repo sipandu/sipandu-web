@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-// <<<<<<< loginRegis
 use Illuminate\Notifications\Notifiable;
 
 class Posyandu extends Model
@@ -60,24 +59,28 @@ class Posyandu extends Model
         return $this->belongsTo(Desa::class, 'id_desa', 'id');
     }
 
-    // public function posyandu()
-    // {
-    //     return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
-    // }
+    public function pemberianImunisasi()
+    {
+        return $this->hasMany(PemberianImunisasi::class,'id_posyandu','id');
+    }
 
+    public function pemberianVitamin()
+    {
+        return $this->hasMany(PemberianVitamin::class,'id_posyandu','id');
+    }
 
+    public function pemeriksaanIbu()
+    {
+        return $this->hasMany(PemeriksaanIbu::class,'id_posyandu','id');
+    }
 
+    public function pemeriksaanAnak()
+    {
+        return $this->hasMany(PemeriksaanAnak::class,'id_posyandu','id');
+    }
 
-// =======
-
-// class Posyandu extends Model
-// {
-//     protected $table = 'tb_posyandu';
-
-//     protected $fillable = [
-//         'id_desa', 'id_admin', 'id_chat_group_tele', 'telegram_group_invite', 'nama_posyandu', 'alamat', 'nomor_telepon', 'banjar', 'latitude', 'longitude'
-//     ];
-
-
-// >>>>>>> main
+    public function pemeriksaanLansia()
+    {
+        return $this->hasMany(PemeriksaanLansia::class,'id_posyandu','id');
+    }
 }
