@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\MasterData;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Mover;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
@@ -27,6 +29,40 @@ class DataAdminController extends Controller
         $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orWhere('jabatan', 'super admin')->get();
 
         return view('pages/admin/master-data/data-admin/data-admin', compact('admin', 'adminAll'));
+    }
+
+    public function getImage($id)
+    {
+        $admin = Admin::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($admin->profile_image)) ) {
+            return response()->file(
+                storage_path($admin->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/sipandu-logo.png')
+            );
+        }
+
+        return redirect()->back();
+    }
+
+    public function getImageKTP($id)
+    {
+        $pegawai = Pegawai::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($pegawai->file_ktp)) ) {
+            return response()->file(
+                storage_path($pegawai->file_ktp)
+            );
+        } else {
+            return response()->file(
+                public_path('images/forms-logo.jpg')
+            );
+        }
+
+        return redirect()->back();
     }
 
     public function detailAdmin(Pegawai $pegawai)
@@ -85,25 +121,32 @@ class DataAdminController extends Controller
             ]);
         }
 
-        // Ubah format tanggal //
-        $tgl_lahir_indo = $request->tgl_lahir;
-        $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
-        $tahun = $tgl_lahir_eng[2];
-        $bulan = $tgl_lahir_eng[1];
-        $tgl = $tgl_lahir_eng[0];
-        $tgl_lahir = $tahun.$bulan.$tgl;
-        
-        $updateAdmin = Pegawai::where('id', $pegawai->id)->update([
-            'nama_pegawai' => $request->nama,
-            'nik' => $request->nik,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $tgl_lahir,
-        ]);
-        
-        if ($updateAdmin) {
-            return redirect()->back()->with(['success' => 'Data profile admin berhasil diubah']);
+        $umur = Carbon::parse($request->tgl_lahir)->age;
+
+        if ($umur < 19) {
+            return redirect()->back()->with(['error' => 'Posyandu Baru Gagal Ditambahkan']);
         } else {
-            return redirect()->back()->with(['failed' => 'Data profile admin gagal diubah']);
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_lahir;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_lahir = $tahun.$bulan.$tgl;
+            
+            $updateAdmin = Pegawai::where('id', $pegawai->id)->update([
+                'nama_pegawai' => $request->nama,
+                'nik' => $request->nik,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $tgl_lahir,
+            ]);
+            
+            if ($updateAdmin) {
+                return redirect()->back()->with(['success' => 'Data profile admin berhasil diubah']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data profile admin gagal diubah']);
+            }
         }
+
     }
 }

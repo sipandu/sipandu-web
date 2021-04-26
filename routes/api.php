@@ -33,6 +33,7 @@ Route::prefix('mobileuser')->group(function(){
 
     Route::get('/get-posyandu', 'User\Auth\Api\GetData@dataPosyandu')->middleware('auth:sanctum');
     Route::post('/get-posyandu-bolong', 'User\Auth\Api\ApiUserDataController@getPosyandu');
+    Route::post('/get-posyandu-kegiatan', 'User\Auth\Api\ApiUserDataController@getPosyanduKegiatan');
 
     Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
 
@@ -46,6 +47,7 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
 
     Route::get('/get-informasi-home', 'User\Auth\Api\ApiBlogController@getInformasiHome');
+    Route::post('/get-informasi', 'User\Auth\Api\ApiBlogController@getInformasi');
     Route::post('/get-image', 'User\Auth\Api\ApiBlogController@getImage');
 });
 

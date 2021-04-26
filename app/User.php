@@ -22,9 +22,15 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_image',
+        'golongan_darah',
+        'agama',
+        'tanggungan',
+        'no_jkn',
+        'masa_berlaku',
+        'fasker_rujukan',
         'is_verified',
-        'otp_token',
         'keterangan',
+        'otp_token',
     ];
 
 

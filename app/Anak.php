@@ -15,16 +15,20 @@ class Anak extends Authenticatable
     protected $fillable = [
         'id_posyandu',
         'id_user',
-        'nama_anak',
+        'NIK',
         'nama_ayah',
         'nama_ibu',
+        'nama_anak',
         'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
         'anak_ke',
-        'alamat',
+        'pendidikan_ibu',
+        'pendidikan_ayah',
+        'pekerjaan_ibu',
+        'pekerjaan_ayah',
         'nomor_telepon',
-        'NIK',
+        'alamat',
     ];
 
     public function user(){

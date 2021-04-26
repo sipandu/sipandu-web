@@ -37,7 +37,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ $dataUser->profile_image}}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataUser->id ) }}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{ $dataUser->lansia->nama_lansia }}</h3>
@@ -45,11 +45,22 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Status Keluarga</b>
-                                <a class="float-right text-decoration-none link-dark">Anak</a>
+                                <a class="float-right text-decoration-none link-dark">Lansia</a>
                             </li>
+                            @if ( $dataUser->lansia->jenis_kelamin == 'laki laki')
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Jenis Kelamin</b>
+                                    <a class="float-right text-decoration-none link-dark">Laki-laki</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Jenis Kelamin</b>
+                                    <a class="float-right text-decoration-none link-dark">Perempuan</a>
+                                </li>
+                            @endif
                             <li class="list-group-item">
-                                <b class="fw-bold">Lokasi Posyandu</b>
-                                <a class="float-right text-decoration-none link-dark">{{ $dataUser->lansia->posyandu->nama_posyandu}}</a>
+                                <b class="fw-bold">Usia</b>
+                                <a class="float-right text-decoration-none link-dark">{{ $umur }} Tahun</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
@@ -64,7 +75,8 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#ubahProfile" data-toggle="tab">Ubah Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Informasi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#ubahData" data-toggle="tab">Ubah Data</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -96,7 +108,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             @if ($dataUser->lansia->nomor_telepon == NULL)
-                                                <input type="text" class="form-control" id="floatingInput" value="Nomor telepon belum dimasukan" disabled readonly>
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
                                             @else
                                                 <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->nomor_telepon }}" disabled readonly>
                                             @endif
@@ -116,12 +128,170 @@
                                 </div>
                                 <div class="card shadow-none">
                                     <div class="card-body bg-light my-auto">
-                                        <p class="fs-5 fw-bold my-auto">Scan KTP</p>
+                                        <p class="fs-5 fw-bold my-auto">Scan Kartu Keluarga</p>
                                     </div>
-                                    <img src="{{ $dataUser->kk->file_kk }}" class="card-img-buttom" alt="{{ $dataUser->kk->no_kk }}">
+                                    <img src="{{ route('Get Image Data Anggota KK', $dataUser->id_kk ) }}" class="card-img-buttom" alt="{{ $dataUser->kk->no_kk }}">
                                 </div>
                             </div>
-                            <div class="tab-pane" id="ubahProfile">
+                            <div class="tab-pane" id="info">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->pendidikan_terakhir == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->pendidikan_terakhir }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Pendidikan Terakhir</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->pekerjaan == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->pekerjaan }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Pekerjaan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->status_perkawinan == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->status_perkawinan }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Status Perkawinan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->sumber_biaya_hidup == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->sumber_biaya_hidup }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Sumber Biaya Hidup</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->jumlah_keluarga_serumah == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->jumlah_keluarga_serumah }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Jumlah Keluarga Serumah</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->jumlah_anak == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->jumlah_anak }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Jumlah Anak</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->jumlah_cucu == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->jumlah_cucu }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Jumlah Cucu</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->lansia->jumlah_cicit == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->lansia->jumlah_cicit }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Jumlah Cicit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @if ($dataUser->lansia->tempat_tinggal == NULL)
+                                        <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" value="{{ $dataUser->lansia->tempat_tinggal }}" disabled readonly>
+                                    @endif
+                                    <label for="floatingInput">Tempat Tinggal</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @if ($dataUser->lansia->alamat == NULL)
+                                        <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" value="{{ $dataUser->lansia->alamat }}" disabled readonly>
+                                    @endif
+                                    <label for="floatingInput">Alamat</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->agama == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{    $dataUser->agama }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Agama</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->tanggungan == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ $dataUser->tanggungan }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Tanggungan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->no_jkn == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{   $dataUser->no_jkn }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Nomor JKN</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-floating mb-3">
+                                            @if ($dataUser->masa_berlaku == NULL)
+                                                <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" value="{{ date('d-M-Y', strtotime($dataUser->masa_berlaku)) }}" disabled readonly>
+                                            @endif
+                                            <label for="floatingInput">Masa Berlaku</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @if ($dataUser->fasker_rujukan == NULL)
+                                        <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" value="{{ $dataUser->fasker_rujukan }}" disabled readonly>
+                                    @endif
+                                    <label for="floatingInput">Faskes Rujukan</label>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ubahData">
                                 <form action="{{ route('Update Anggota Lansia', [$dataUser->lansia->id]) }}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-floating mb-3">
@@ -168,6 +338,296 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    @if ( $dataUser->lansia->pendidikan_terakhir == NULL )
+                                                        <select name="pendidikan_terakhir" class="form-select @error('pendidikan_terakhir') is-invalid @enderror" id="pendidikan_terakhir">
+                                                            <option selected disabled>Pendidikan Terakhir* ...</option>
+                                                            <option value="SD">Sekolah Dasar</option>
+                                                            <option value="SMP">Sekolah Menengah Pertama</option>
+                                                            <option value="SMA">Sekolah Menengah Atas</option>
+                                                            <option value="SMK">Sekolah Menengah Kejuruan</option>
+                                                            <option value="SLTA">SLTA</option>
+                                                            <option value="Diploma">Diploma</option>
+                                                            <option value="S1">Strata Satu</option>
+                                                            <option value="S2">Strata Dua</option>
+                                                            <option value="S3">Strata Tiga</option>
+                                                            <option value="Tidak Bersekolah">Tidak Bersekolah</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ( $dataUser->lansia->pendidikan_terakhir != NULL )
+                                                        <select name="pendidikan_terakhir" class="form-select @error('pendidikan_terakhir') is-invalid @enderror" id="pendidikan_terakhir">
+                                                            <option selected value="{{ $dataUser->lansia->pendidikan_terakhir }}">{{ $dataUser->lansia->pendidikan_terakhir }}</option>
+                                                            <option value="SD">Sekolah Dasar</option>
+                                                            <option value="SMP">Sekolah Menengah Pertama</option>
+                                                            <option value="SMA">Sekolah Menengah Atas</option>
+                                                            <option value="SMK">Sekolah Menengah Kejuruan</option>
+                                                            <option value="SLTA">SLTA</option>
+                                                            <option value="Diploma">Diploma</option>
+                                                            <option value="S1">Strata Satu</option>
+                                                            <option value="S2">Strata Dua</option>
+                                                            <option value="S3">Strata Tiga</option>
+                                                            <option value="Tidak Bersekolah">Tidak Bersekolah</option>
+                                                        </select>
+                                                    @endif
+                                                    @error('pendidikan_terakhir')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="input-group mb-3">
+                                                @if ( $dataUser->lansia->pekerjaan == NULL )
+                                                    <select name="pekerjaan" class="form-select @error('pekerjaan') is-invalid @enderror" id="pekerjaan">
+                                                        <option selected disabled>Pekerjaan Terakhir* ...</option>
+                                                        <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                                        <option value="PNS">PNS</option>
+                                                        <option value="Guru">Guru</option>
+                                                        <option value="TNI">TNI</option>
+                                                        <option value="Polri">Polri</option>
+                                                        <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+                                                        <option value="Pemilik Usaha">Pemilik Usaha</option>
+                                                        <option value="Dosen">Dosen</option>
+                                                        <option value="Petani">Petani</option>
+                                                        <option value="Lain-lain">Lain-lain</option>
+                                                    </select>
+                                                @endif
+                                                @if ( $dataUser->lansia->pekerjaan != NULL )
+                                                    <select name="pekerjaan" class="form-select @error('pekerjaan') is-invalid @enderror" id="pekerjaan">
+                                                        <option selected value="{{ $dataUser->lansia->pekerjaan }}">{{ $dataUser->lansia->pekerjaan }}</option>
+                                                        <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                                        <option value="PNS">PNS</option>
+                                                        <option value="Guru">Guru</option>
+                                                        <option value="TNI">TNI</option>
+                                                        <option value="Polri">Polri</option>
+                                                        <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+                                                        <option value="Pemilik Usaha">Pemilik Usaha</option>
+                                                        <option value="Dosen">Dosen</option>
+                                                        <option value="Petani">Petani</option>
+                                                        <option value="Lain-lain">Lain-lain</option>
+                                                    </select>
+                                                @endif
+                                                @error('pekerjaan')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    @if ( $dataUser->lansia->status_perkawinan == NULL )
+                                                        <select name="status_perkawinan" class="form-select @error('status_perkawinan') is-invalid @enderror" id="status_perkawinan">
+                                                            <option selected disabled>Pilih Status Perkawinan* ...</option>
+                                                            <option value="Menikah/Kawin">Menikah/Kawin</option>
+                                                            <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
+                                                            <option value="Janda">Janda</option>
+                                                            <option value="Duda">Duda</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ( $dataUser->lansia->status_perkawinan != NULL )
+                                                        <select name="status_perkawinan" class="form-select @error('status_perkawinan') is-invalid @enderror" id="status_perkawinan">
+                                                            <option selected value="{{ $dataUser->lansia->status_perkawinan }}">{{ $dataUser->lansia->status_perkawinan }}</option>
+                                                            <option value="Menikah/Kawin">Menikah/Kawin</option>
+                                                            <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
+                                                            <option value="Janda">Janda</option>
+                                                            <option value="Duda">Duda</option>
+                                                        </select>
+                                                    @endif
+                                                    @error('status_perkawinan')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control @error('jumlah_anak') is-invalid @enderror" name="jumlah_anak" value="{{ old('jumlah_anak', $dataUser->lansia->jumlah_anak) }}" placeholder="Jumlah Anak*">
+                                                    @error('jumlah_anak')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    @if ( $dataUser->lansia->sumber_biaya_hidup == NULL )
+                                                        <select name="sumber_biaya_hidup" class="form-select @error('sumber_biaya_hidup') is-invalid @enderror" id="sumber_biaya_hidup">
+                                                            <option selected disabled>Sumber Biaya Hidup* ...</option>
+                                                            <option value="Uang Pensiunan">Uang Pensiunan</option>
+                                                            <option value="Ditanggung Anak">Ditanggung Anak</option>
+                                                            <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
+                                                            <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
+                                                            <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
+                                                            <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ( $dataUser->lansia->sumber_biaya_hidup != NULL )
+                                                        <select name="sumber_biaya_hidup" class="form-select @error('sumber_biaya_hidup') is-invalid @enderror" id="sumber_biaya_hidup">
+                                                            <option selected value="{{ $dataUser->lansia->sumber_biaya_hidup }}">{{ $dataUser->lansia->sumber_biaya_hidup }}</option>
+                                                            <option value="Uang Pensiunan">Uang Pensiunan</option>
+                                                            <option value="Ditanggung Anak">Ditanggung Anak</option>
+                                                            <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
+                                                            <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
+                                                            <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
+                                                            <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
+                                                        </select>
+                                                    @endif
+                                                    @error('sumber_biaya_hidup')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control @error('jumlah_keluarga_serumah') is-invalid @enderror" name="jumlah_keluarga_serumah" value="{{ old('jumlah_keluarga_serumah', $dataUser->lansia->jumlah_keluarga_serumah) }}" placeholder="Jumlah Keluarga Serumah*">
+                                                    @error('jumlah_keluarga_serumah')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control @error('jumlah_cucu') is-invalid @enderror" name="jumlah_cucu" value="{{ old('jumlah_cucu', $dataUser->lansia->jumlah_cucu) }}" placeholder="Jumlah Cucu Kandung*">
+                                                    @error('jumlah_cucu')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control @error('jumlah_cicit') is-invalid @enderror" name="jumlah_cicit" value="{{ old('jumlah_cicit', $dataUser->lansia->jumlah_cicit) }}" placeholder="Jumlah Cicit Kandung*">
+                                                    @error('jumlah_cicit')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    @if ( $dataUser->tanggungan == NULL )
+                                                        <select name="tanggungan" class="form-select @error('tanggungan') is-invalid @enderror" id="tanggungan">
+                                                            <option selected disabled>Pilih tanggungan* ...</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ( $dataUser->tanggungan == 'Dengan Tanggungan' )
+                                                        <select name="tanggungan" class="form-select @error('tanggungan') is-invalid @enderror" id="tanggungan">
+                                                            <option selected value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ( $dataUser->tanggungan == 'Tanpa Tanggungan' )
+                                                        <select name="tanggungan" class="form-select @error('tanggungan') is-invalid @enderror" id="tanggungan">
+                                                            <option selected value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                        </select>
+                                                    @endif
+                                                    @error('tanggungan')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-floating mb-3">
+                                                @if ($dataUser->no_jkn == NULL && $dataUser->tanggungan == NULL)
+                                                    <input type="text" name="no_jkn" class="form-control @error('no_jkn') is-invalid @enderror" id="no_jkn" placeholder="Nomor JKN">
+                                                    <label for="no_jkn">Nomor JKN<span class="text-danger">*</span></label>
+                                                @else
+                                                    @if ( $dataUser->no_jkn == NULL)
+                                                        <input type="text" name="no_jkn" class="form-control @error('no_jkn') is-invalid @enderror" id="no_jkn" value="{{ old('no_jkn', $dataUser->no_jkn) }}" placeholder="Nomor JKN">
+                                                        <label for="no_jkn">Nomor JKN</label>
+                                                    @else
+                                                        <input type="text" name="no_jkn" class="form-control @error('no_jkn') is-invalid @enderror" id="no_jkn" value="{{ old('no_jkn', $dataUser->no_jkn) }}" placeholder="Nomor JKN">
+                                                        <label for="no_jkn">Nomor JKN<span class="text-danger">*</span></label>
+                                                    @endif
+                                                @endif
+                                                @error('no_jkn')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-floating">
+                                                    @if ($dataUser->no_jkn == NULL && $dataUser->tanggungan == NULL)
+                                                        <input type="text" name="masa_berlaku" autocomplete="off" class="form-control @error('masa_berlaku') is-invalid @enderror" id="masa_berlaku" placeholder="Masa berlaku JKN" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <label for="masa_berlaku">Masa Berlaku<span class="text-danger">*</span></label>
+                                                    @else
+                                                        @if ($dataUser->no_jkn == NULL)
+                                                            <input type="text" name="masa_berlaku" autocomplete="off" class="form-control @error('masa_berlaku') is-invalid @enderror" id="masa_berlaku" placeholder="Masa berlaku JKN" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <label for="masa_berlaku">Masa Berlaku</label>
+                                                        @else
+                                                            <input type="text" name="masa_berlaku" autocomplete="off" class="form-control @error('masa_berlaku') is-invalid @enderror" value="{{ old('masa_berlaku', date('d-m-Y', strtotime($dataUser->masa_berlaku)) ) }}" id="masa_berlaku" placeholder="Masa berlaku JKN" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                            <label for="masa_berlaku">Masa Berlaku<span class="text-danger">*</span></label>
+                                                        @endif
+                                                    @endif
+                                                    @error('masa_berlaku')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="faskes_rujukan" class="form-control @error('faskes_rujukan') is-invalid @enderror" id="faskes_rujukan" value="{{ old('faskes_rujukan', $dataUser->faskes_rujukan) }}" placeholder="Fasker rujukan">
+                                        <label for="faskes_rujukan">Faskes Rujukan<span class="text-danger">*</span></label>
+                                        @error('faskes_rujukan')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group row m-0 p-0">
+                                        <div class="col-sm-12 text-end">
+                                            <p class="text-danger">* Data Wajib Diisi</p>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12 d-grid">
                                             <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
@@ -184,6 +644,11 @@
 @endsection
 
 @push('js')
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
     <script>
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
@@ -191,20 +656,44 @@
             $('#management-posyandu').addClass('active');
             $('#data-anggota').addClass('active');
         });
+
+        // Custom Input Date
+        $(function () {
+            bsCustomFileInput.init();
+
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+
+            $('[data-mask]').inputmask()
+        })
     </script>
+    
     @if($message = Session::get('failed'))
-    <script>
-        $(document).ready(function(){
-            alertDanger('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertDanger('{{$message}}');
+            });
+        </script>
+    @endif
+
+    @if($message = Session::get('error'))
+        <script>
+            $(document).ready(function(){
+                alertError('{{$message}}');
+            });
+        </script>
     @endif
 
     @if($message = Session::get('success'))
-    <script>
-        $(document).ready(function(){
-            alertSuccess('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
     @endif
 @endpush

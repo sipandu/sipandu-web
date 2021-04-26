@@ -66,12 +66,22 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    Setting Penyuluhan
+                                    Setting Pengumuman
                                 </h4>
                             </div>
                             <div class="card-body">
+                                {{-- <div class="form-group">
+                                    <label for="">Tanggal Pengumuman</label>
+                                    <input type="date" class="form-control @error('tanggal_pengumuman') is-invalid @enderror" value="{{ old('tanggal_pengumuman') }}"
+                                     name="tanggal_pengumuman" id="">
+                                    @error('tanggal_pengumuman')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> --}}
                                 <div class="form-group">
-                                    <label for="">Gambar Penyuluhan</label>
+                                    <label for="">Gambar Pengumuman</label>
                                     <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
                                     <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
                                     @error('image')
