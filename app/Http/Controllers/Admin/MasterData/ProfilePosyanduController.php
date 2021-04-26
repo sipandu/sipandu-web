@@ -72,7 +72,7 @@ class ProfilePosyanduController extends Controller
             ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
 
-        return view("pages/admin/master-data/profile-posyandu", compact('headAdmin', 'kecamatan', 'kabupaten', 'cntAdmin', 'cntKader', 'cntNakes', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'ibu', 'anak', 'lansia'));
+        return view("pages/admin/master-data/profile-posyandu/profile-posyandu", compact('headAdmin', 'kecamatan', 'kabupaten', 'cntAdmin', 'cntKader', 'cntNakes', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'ibu', 'anak', 'lansia'));
     }
 
     public function editProfilePosyandu(Posyandu $posyandu)
@@ -85,7 +85,7 @@ class ProfilePosyanduController extends Controller
             $q->where('jabatan', 'admin')->orWhere('jabatan', 'tenaga kesehatan');
         })->get();
 
-        return view("pages/admin/master-data/edit-profile-posyandu", compact('dataPosyandu', 'pegawai'));
+        return view("pages/admin/master-data/profile-posyandu/edit-profile-posyandu", compact('dataPosyandu', 'pegawai'));
     }
 
     public function updateProfilePosyandu(Posyandu $posyandu, Request $request)

@@ -166,10 +166,7 @@
                                     @endif
                                 </ul>
                                 <div class="text-center mt-5 mb-5">
-                                    @if ((Auth::guard('admin')->user()->pegawai->jabatan != 'head admin') && (Auth::guard('admin')->user()->pegawai->jabatan != 'admin'))
-                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    @else
-                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
+                                    @if ((Auth::guard('admin')->user()->pegawai->jabatan == 'head admin') && (Auth::guard('admin')->user()->pegawai->jabatan == 'admin'))
                                         <a href="{{ route('Edit Profile Posyandu', [Auth::guard('admin')->user()->pegawai->id_posyandu]) }}" class="btn btn-sm btn-warning">Edit</a>
                                     @endif
                                 </div>

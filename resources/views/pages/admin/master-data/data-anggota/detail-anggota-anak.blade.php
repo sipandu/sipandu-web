@@ -66,6 +66,10 @@
                                 </li>
                             @endif
                             <li class="list-group-item">
+                                <b class="fw-bold">Usia</b>
+                                <a class="float-right text-decoration-none link-dark">{{ $umur }} Tahun</a>
+                            </li>
+                            <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
                                 <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataUser->created_at)) }}</a>
                             </li>

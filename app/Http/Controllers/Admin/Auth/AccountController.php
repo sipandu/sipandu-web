@@ -52,7 +52,7 @@ class AccountController extends Controller
             ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
 
-        return view('pages/auth/admin/verify-user',compact('anak','ibu','lansia'));
+        return view('pages/auth/admin/verifikasi/verify-user',compact('anak','ibu','lansia'));
     }
 
     public function getKKImage($id)

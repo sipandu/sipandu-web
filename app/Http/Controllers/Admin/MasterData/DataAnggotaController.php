@@ -73,25 +73,28 @@ class DataAnggotaController extends Controller
     public function detailAnggotaIbu(Ibu $ibu)
     {
         $dataIbu = Ibu::where('id', $ibu->id)->first();
+        $umur = Carbon::parse($dataIbu->tanggal_lahir)->age;
         $dataUser = User::where('id', $dataIbu->id_user)->first();
 
-        return view('pages/admin/master-data/data-anggota/detail-anggota-ibu', compact('dataUser'));
+        return view('pages/admin/master-data/data-anggota/detail-anggota-ibu', compact('dataUser', 'umur'));
     }
 
     public function detailAnggotaAnak(Anak $anak)
     {
         $dataAnak = Anak::where('id', $anak->id)->first();
+        $umur = Carbon::parse($dataAnak->tanggal_lahir)->age;
         $dataUser = User::where('id', $dataAnak->id_user)->first();
 
-        return view('pages/admin/master-data/data-anggota/detail-anggota-anak', compact('dataUser'));
+        return view('pages/admin/master-data/data-anggota/detail-anggota-anak', compact('dataUser', 'ibu'));
     }
 
     public function detailAnggotaLansia(Lansia $lansia)
     {
         $dataLansia = Lansia::where('id', $lansia->id)->first();
+        $umur = Carbon::parse($dataLansia->tanggal_lahir)->age;
         $dataUser = User::where('id', $dataLansia->id_user)->first();
 
-        return view('pages/admin/master-data/data-anggota/detail-anggota-lansia', compact('dataUser'));
+        return view('pages/admin/master-data/data-anggota/detail-anggota-lansia', compact('dataUser', 'umur'));
     }
 
     public function updateAnggotaIbu(Request $request, Ibu $ibu)

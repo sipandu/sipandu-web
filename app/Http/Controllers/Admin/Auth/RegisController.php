@@ -27,19 +27,19 @@ class RegisController extends Controller
     public function formAddAdmin(Request $request)
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/new-admin',compact('posyandu'));
+        return view('pages/auth/admin/manajemen-akun/new-admin',compact('posyandu'));
     }
 
     public function formAddKader(Request $request)
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/new-kader',compact('posyandu'));
+        return view('pages/auth/admin/manajemen-akun/new-kader',compact('posyandu'));
     }
 
     public function formAddUser(Request $request)
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/new-user', compact('posyandu'));
+        return view('pages/auth/admin/manajemen-akun/new-user', compact('posyandu'));
     }
 
     public function storeAdminKader(Request $request)
