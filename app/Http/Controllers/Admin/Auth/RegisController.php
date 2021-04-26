@@ -137,7 +137,6 @@ class RegisController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data akun gagal ditambahkan']);
             }
-            
         }
     }
 

@@ -105,9 +105,9 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="inputLay">Koordinat Latitude<span class="text-danger">*</span></label>
+                                            <label for="lat">Koordinat Latitude<span class="text-danger">*</span></label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="inputLat" value="{{ old('nik', $posyandu->latitude) }}" placeholder="Masukan koordinat Latitude posyandu">
+                                                <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="lat" value="{{ old('lat', $posyandu->latitude) }}" placeholder="Masukan koordinat Latitude posyandu">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-map-marker-alt"></span>
@@ -123,9 +123,9 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="inputLng">Koordinat Longitude<span class="text-danger">*</span></label>
+                                            <label for="lng">Koordinat Longitude<span class="text-danger">*</span></label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="inputLng" value="{{ old('nik', $posyandu->longitude) }}" placeholder="Masukan koordinat Longitude posyandu">
+                                                <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="lng" value="{{ old('lng', $posyandu->longitude) }}" placeholder="Masukan koordinat Longitude posyandu">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-map-marker-alt"></span>

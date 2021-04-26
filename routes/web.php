@@ -200,6 +200,8 @@ Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderCon
 
 //CRUD Data Anggota
 Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/get-img/data-anggota/{id}', 'Admin\MasterData\DataAnggotaController@getImage')->name('Get Image Data Anggota')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::get('/get-img/data-anggota/kk/{id}', 'Admin\MasterData\DataAnggotaController@getImageKK')->name('Get Image Data Anggota KK')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
 Route::get('/admin/data-anggota/detail/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@detailAnggotaIbu')->name("Detail Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 Route::post('/admin/data-anggota/update/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@updateAnggotaIbu')->name("Update Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");

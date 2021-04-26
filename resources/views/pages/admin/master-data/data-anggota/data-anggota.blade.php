@@ -40,7 +40,7 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Anak</th>
+                                                <th>Nama Ibu</th>
                                                 <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
