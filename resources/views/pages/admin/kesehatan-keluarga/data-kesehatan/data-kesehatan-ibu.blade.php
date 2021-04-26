@@ -45,11 +45,11 @@
             <div class="col-12">
                 <div class="card">
                     <div>
-                    @if($js_berat[0] != null)
+                    @if($js_berat != null || $js_berat[0] != 0)
                         <canvas id="myChart"></canvas>
                     @else
                         <li class="list-group-item">
-                            <p class="text-center fs-5 fw-bold mt-3">Data Tidak Grafik Tersedia</p>
+                            <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
                         </li>
                     @endif
                     </div>
