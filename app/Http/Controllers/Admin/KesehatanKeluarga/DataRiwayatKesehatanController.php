@@ -51,8 +51,9 @@ class DataRiwayatKesehatanController extends Controller
     public function kesehatanIbu(Ibu $ibu)
     {
         $dataAwal = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->first();
-        $beratAwal = $dataAwal->berat_badan;
-        $dataPemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->get();
+        if($dataAwal != null){
+            $beratAwal = $dataAwal->berat_badan;
+            $dataPemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->get();
         // dd($dataAwal->berat_badan);
         $perubahanBerat[] = 0;
         $minggu[] = $dataAwal->usia_kandungan;
@@ -70,6 +71,12 @@ class DataRiwayatKesehatanController extends Controller
         }
         $js_minggu = json_encode($minggu);
         $js_berat = json_encode($perubahanBerat);
+        }else{
+            $js_minggu = null;
+            $js_berat = null;
+        }
+        
+        
         // dd($js_minggu, $js_berat);
         // dd($perubahanBerat);
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu', compact('js_minggu', 'js_berat'));

@@ -45,7 +45,13 @@
             <div class="col-12">
                 <div class="card">
                     <div>
+                    @if($js_berat[0] != null)
                         <canvas id="myChart"></canvas>
+                    @else
+                        <li class="list-group-item">
+                            <p class="text-center fs-5 fw-bold mt-3">Data Tidak Grafik Tersedia</p>
+                        </li>
+                    @endif
                     </div>
                 </div>
             </div>
@@ -309,14 +315,15 @@
                     x: {
                         display: true,
                         title: {
-                            display: true
+                            display: true,
+                            text: 'Minggu ke-',
                         },  
                     },
                     y: {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Berat (kg)'
+                            text: 'Berat (kg)',
                         },
                         suggestedMin: 0,
                         suggestedMax: 23,
