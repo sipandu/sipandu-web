@@ -53,19 +53,26 @@ class DataRiwayatKesehatanController extends Controller
         $dataAwal = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->first();
         $beratAwal = $dataAwal->berat_badan;
         $dataPemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->get();
-        $awal[] = null;
-        $menengah[] = null;
-        $menengah2[] = null;
-        $akhir[] = null;
+        // dd($dataAwal->berat_badan);
+        $perubahanBerat[] = 0;
+        $minggu[] = $dataAwal->usia_kandungan;
+        $i = 1;
         foreach($dataPemeriksaan as $d){
-            if($d->usia_kandungan < 18.5 ){
-                array_push($awal, $d->berat_badan);
-            }elseif($d->usia_kandungan > 10.5 and $d->usia_kandungan < 24.9 ){
-
+            if($i == 1){
+                $i += 1 ;
+                continue;
+            }else{
+                $minusBerat = $d->berat_badan - $dataAwal->berat_badan;
+                // dd($minusBerat);
+                array_push($perubahanBerat, $minusBerat);
+                array_push($minggu, $d->usia_kandungan);
             }
         }
-        // dd($dataPemeriksaan[0]->berat_badan);
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu');
+        $js_minggu = json_encode($minggu);
+        $js_berat = json_encode($perubahanBerat);
+        // dd($js_minggu, $js_berat);
+        // dd($perubahanBerat);
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu', compact('js_minggu', 'js_berat'));
     }
 
     public function kesehatanAnak(Anak $anak)

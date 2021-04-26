@@ -252,19 +252,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+    
     // const DATA_COUNT = 12;
-    const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
-    // for (let i = 0; i < DATA_COUNT; ++i) {
-    //     labels.push(i.toString());
-    // }
-    const datapoints = [0, 0.25, 0.4, 0.55, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.6, 3.2, 3.8, 4.2, 4.8, 5.4, 6, 6.6, 7.2, 7.8, 8.4, 9, 9.6, 10.2, 10.8, 11.4, 12, 12.6, 13.2, 13.8, 14.4, 15, 15.6, 16.2, 16.8, 17.4, 18];
+    // const labels[];
+    // // for (let i = 0; i < DATA_COUNT; ++i) {
+    // //     labels.push(i.toString());
+    // // }
+    // const datapoints[];
+
+    // array_push(datapoints, );
+    // array_push(labels,);
+    // const datapoints = [0, 0.25, 0.4, 0.55, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.6, 3.2, 3.8, 4.2, 4.8, 5.4, 6, 6.6, 7.2, 7.8, 8.4, 9, 9.6, 10.2, 10.8, 11.4, 12, 12.6, 13.2, 13.8, 14.4, 15, 15.6, 16.2, 16.8, 17.4, 18];
     const data = {
-        labels: labels,
-        data: datapoints,
+        labels: JSON.parse("{{$js_minggu}}"),
+        data: JSON.parse("{{$js_berat}}") ,
         datasets: [
             {
-                label: 'Cubic interpolation (monotone)',
-                data: datapoints,
+                label: 'Perubahan Berat Badan',
+                data: JSON.parse("{{$js_berat}}"),
                 borderColor: '#111111',
                 fill: false,
                 // cubicInterpolationMode: 'monotone',
@@ -311,7 +316,7 @@
                         display: true,
                         title: {
                             display: true,
-                            text: 'Value'
+                            text: 'Berat (kg)'
                         },
                         suggestedMin: 0,
                         suggestedMax: 23,
