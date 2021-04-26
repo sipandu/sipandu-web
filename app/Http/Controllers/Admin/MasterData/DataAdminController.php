@@ -25,8 +25,8 @@ class DataAdminController extends Controller
     
     public function listAdmin()
     {
-        $admin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'admin')->get();
-        $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orWhere('jabatan', 'super admin')->get();
+        $admin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'admin')->orderBy('id', 'desc')->get();
+        $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orWhere('jabatan', 'super admin')->orderBy('id', 'desc')->get();
 
         return view('pages/admin/master-data/data-admin/data-admin', compact('admin', 'adminAll'));
     }

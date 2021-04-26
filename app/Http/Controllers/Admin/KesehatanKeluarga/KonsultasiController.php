@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin\KesehatanKeluarga;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Mover;
 use Carbon\Carbon;
 use App\User;
 use App\Anak;
@@ -14,6 +16,10 @@ use App\Posyandu;
 use App\PemeriksaanIbu;
 use App\PemeriksaanAnak;
 use App\PemeriksaanLansia;
+use App\PemberianImunisasi;
+use App\PemberianVitamin;
+use App\Alergi;
+use App\Persalinan;
 
 class KonsultasiController extends Controller
 {
@@ -51,6 +57,23 @@ class KonsultasiController extends Controller
         return view('pages/admin/kesehatan-keluarga/konsultasi/tambah-konsul', compact('ibu', 'anak', 'lansia'));
     }
 
+    public function getImage($id)
+    {
+        $user = User::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($user->profile_image)) ) {
+            return response()->file(
+                storage_path($user->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/sipandu-logo.png')
+            );
+        }
+
+        return redirect()->back();
+    }
+
     public function konsultasiIbu(Ibu $ibu)
     {
         $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
@@ -61,8 +84,26 @@ class KonsultasiController extends Controller
     public function konsultasiAnak(Anak $anak)
     {
         $dataAnak = Anak::where('id', $anak->id)->get()->first();
+        $dataUser = User::where('id', $anak->id_user)->get()->first();
 
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak', compact('dataAnak'));
+        $today = Carbon::now()->setTimezone('GMT+8');
+        // $age = Carbon::parse($dataAnak->tanggal_lahir)->age;
+        $umur = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%y Tahun');
+        $umurBayi = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%m Bulan');
+
+        if ($umur > 0) {
+            $usia = $umur;
+        } else {
+            $usia = $umurBayi;
+        }    
+
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $dataUser->id)->get();
+        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
+
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan'));
     }
 
     public function konsultasiLansia(Lansia $lansia)

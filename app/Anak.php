@@ -44,4 +44,8 @@ class Anak extends Authenticatable
         return $this->hasMany(PemeriksaanAnak::class,'id_anak','id');
     }
 
+    public function persalinan()
+    {
+        return $this->hasMany(Persalinan::class,'id_anak','id');
+    }
 }

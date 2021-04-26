@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\KesehatanKeluarga;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Mover;
 use Carbon\Carbon;
 use App\User;
 use App\Anak;
@@ -12,11 +14,14 @@ use App\Ibu;
 use App\Lansia;
 use App\Imunisasi;
 use App\Vitamin;
-use App\PemberianImunisasi;
 use App\Posyandu;
 use App\PemeriksaanIbu;
 use App\PemeriksaanAnak;
 use App\PemeriksaanLansia;
+use App\PemberianImunisasi;
+use App\PemberianVitamin;
+use App\Alergi;
+use App\Persalinan;
 
 class PemeriksaanController extends Controller
 {
@@ -54,6 +59,23 @@ class PemeriksaanController extends Controller
         return view('pages/admin/kesehatan-keluarga/pemeriksaan/tambah-pemeriksaan', compact('ibu', 'anak', 'lansia') );
     }
 
+    public function getImage($id)
+    {
+        $user = User::where('id', $id)->get()->first();
+
+        if( File::exists(storage_path($user->profile_image)) ) {
+            return response()->file(
+                storage_path($user->profile_image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/sipandu-logo.png')
+            );
+        }
+
+        return redirect()->back();
+    }
+
     public function pemeriksaanIbu(Ibu $ibu)
     {
         $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
@@ -66,10 +88,28 @@ class PemeriksaanController extends Controller
     public function pemeriksaanAnak(Anak $anak)
     {
         $dataAnak = Anak::where('id', $anak->id)->get()->first();
-        $imunisasi = Imunisasi::where('penerima', 'Anak')->get();
-        $vitamin = Vitamin::where('penerima', 'Anak')->get();
+        $dataUser = User::where('id', $anak->id_user)->get()->first();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'imunisasi', 'vitamin'));
+        $today = Carbon::now()->setTimezone('GMT+8');
+        // $age = Carbon::parse($dataAnak->tanggal_lahir)->age;
+        $umur = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%y Tahun');
+        $umurBayi = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%m Bulan');
+
+        if ($umur > 0) {
+            $usia = $umur;
+        } else {
+            $usia = $umurBayi;
+        }
+
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $jenisImunisasi = Imunisasi::where('penerima', 'Anak')->get();
+        $jenisVitamin = Vitamin::where('penerima', 'Anak')->get();
+        $alergi = Alergi::where('id_user', $dataUser->id)->get();
+        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
+
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi'));
     }
 
     public function pemeriksaanLansia(Lansia $lansia)
@@ -142,6 +182,8 @@ class PemeriksaanController extends Controller
 
         $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
 
+        $berat_badan = $request->berat_badan/100;
+
         if ($tanggal_kembali <= $today) {
             return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk ibu hamil tidak sesuai']);
         } else {
@@ -153,7 +195,7 @@ class PemeriksaanController extends Controller
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
                 'lingkar_lengan' => $request->lingkar_lengan,
-                'berat_badan' => $request->berat_badan,
+                'berat_badan' => $berat_badan,
                 'usia_kandungan' => $request->usia_kandungan,
                 'tekanan_darah' => $request->tekanan_darah,
                 'denyut_nadi_ibu' => $request->denyut_nadi,
@@ -173,6 +215,41 @@ class PemeriksaanController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
             }
+        }
+    }
+
+    public function tambahKelahiranAnak(Anak $anak, Request $request)
+    {
+        $this->validate($request,[
+            'nama_ibu' => "required|min:2|max:50",
+            'berat_lahir' => "required|numeric|min:2",
+            'persalinan' => 'required',
+            'penolong_persalinan' => 'required',
+        ],
+        [
+            'nama_ibu.required' => "Nama ibu wajib diisi",
+            'nama_ibu.min' => "Nama ibu minimal berjumlah 2 huruf",
+            'nama_ibu.max' => "Nama ibu maksimal berjumlah 50 huruf",
+            'berat_lahir.required' => "Berat lahir anak wajib diisi",
+            'berat_lahir.numeric' => "Berat lahir anak harus berupa angka",
+            'berat_lahir.min' => "Berat lahir anak kurang dari nilai minimum",
+            'persalinan.required' => "Jenis persalinan wajib diisi",
+            'penolong_persalinan.required' => "Penolong persalinan wajib diisi",
+        ]);
+
+        $persalinan = Persalinan::create([
+            'id_anak' => $anak->id,
+            'nama_ibu' => $request->nama_ibu,
+            'berat_lahir' => $request->berat_lahir,
+            'persalinan' => $request->persalinan,
+            'penolong_persalinan' => $request->penolong_persalinan,
+            'komplikasi' => $request->komplikasi,
+        ]);
+
+        if ($persalinan) {
+            return redirect()->back()->with(['success' => 'Data Kelahiran Anak Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
         }
     }
 
@@ -227,8 +304,18 @@ class PemeriksaanController extends Controller
         if ($tanggal_kembali <= $today) {
             return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk anak tidak sesuai']);
         } else {
-            $tb = $request->tinggi_badan / 100;
-            $imt = $request->berat_badan / $tb;
+            $day = Carbon::now()->setTimezone('GMT+8');
+            $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
+            $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($day)->format('%m');
+
+            if ($umurBayi <= 6) {
+                $imtAnak = $persalinan->berat_lahir + ($umurBayi*600);
+            } elseif ($umurBayi>6 && $umurBayi<=12) {
+                $imtAnak = $persalinan->berat_lahir + ($umurBayi*500);
+            } elseif ($umurBayi > 12) {
+                $usiaBayi = $umurBayi/12;
+                $imtAnak = ( 2*($usiaBayi) ) + 8;
+            }
 
             $pemeriksaanAnak = PemeriksaanAnak::create([
                 'id_posyandu' => $posyandu->id,
@@ -244,7 +331,7 @@ class PemeriksaanController extends Controller
                 'diagnosa' => $request->diagnosa,
                 'pengobatan' => $request->pengobatan,
                 'keterangan' => $request->keterangan,
-                'IMT' => $imt,
+                'IMT' => $imtAnak,
                 'jenis_pemeriksaan' => 'Pemeriksaan',
                 'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
                 'tanggal_pemeriksaan' => $today,

@@ -84,13 +84,15 @@
                                             <div class="form-group">
                                                 <label for="inputTelp">Scan KK<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="file" name="file_bumil" class="custom-file-input form-control @error('file_bumil') is-invalid @enderror" id="inputTelp" autocomplete="off">
-                                                    @error('file_bumil')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                    <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" name="file_bumil" class="custom-file-input form-control @error('file_bumil') is-invalid @enderror" id="inputTelp" autocomplete="off">
+                                                        @error('file_bumil')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
