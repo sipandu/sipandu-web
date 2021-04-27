@@ -20,6 +20,7 @@ use App\PemberianImunisasi;
 use App\PemberianVitamin;
 use App\Alergi;
 use App\Persalinan;
+use App\PenyakitBawaan;
 
 class KonsultasiController extends Controller
 {
@@ -77,8 +78,25 @@ class KonsultasiController extends Controller
     public function konsultasiIbu(Ibu $ibu)
     {
         $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
+        $dataUser = User::where('id', $ibu->id_user)->get()->first();
 
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu', compact('dataIbu'));
+        $today = Carbon::now()->setTimezone('GMT+8');
+        $umur = Carbon::parse($dataIbu->tanggal_lahir)->diff($today)->format('%y Tahun');
+
+        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
+        if ($pemeriksaan->count() > 0) {
+            $usia_kandungan = Carbon::parse($pemeriksaan->usia_kandungan)->diff($today)->format('%m');
+        } else {
+            $usia_kandungan = '0';
+        }
+
+        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->limit(5)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $dataUser->id)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $dataUser->id)->get();
+
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan'));
     }
 
     public function konsultasiAnak(Anak $anak)
@@ -128,6 +146,7 @@ class KonsultasiController extends Controller
             'nama_posyandu' => $posyandu->nama_posyandu,
             'nama_pemeriksa' => $pegawai->nama_pegawai,
             'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
+            'usia_kehamilan' => $request->usia_kehamilan,
             'diagnosa' => $request->diagnosa,
             'pengobatan' => $request->pengobatan,
             'keterangan' => $request->keterangan,

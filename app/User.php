@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Alergi::class,'id_user','id');
     }
+
+    public function penyakitBawaan()
+    {
+        return $this->hasMany(PenyakitBawaan::class,'id_user','id');
+    }
 }
