@@ -9,8 +9,10 @@ class Persalinan extends Model
     protected $table = 'tb_riwayat_persalinan';
 
     protected $fillable = [
-        'id_ibu_hamil',
         'id_anak',
+        'id_ibu_hamil',
+        'nama_anak',
+        'nama_ibu',
         'berat_lahir',
         'persalinan',
         'penolong_persalinan',
@@ -21,5 +23,10 @@ class Persalinan extends Model
     public function anak()
     {
         return $this->belongsTo(User::class,'id_anak','id');
+    }
+
+    public function ibu()
+    {
+        return $this->belongsTo(User::class,'id_ibu_hamil','id');
     }
 }

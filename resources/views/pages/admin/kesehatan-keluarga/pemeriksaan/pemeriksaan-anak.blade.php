@@ -176,30 +176,25 @@
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-6 my-2">
-                                                            <label for="nama_ibu">Nama Ibu<span class="text-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                <input type="text" name="nama_ibu" autocomplete="off" class="form-control @error('nama_ibu') is-invalid @enderror" id="nama_ibu" value="{{ old('nama_ibu') }}" placeholder="LK Anak">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-circle-notch"></span>
-                                                                    </div>
+                                                            <label for="nama_ibu" class="form-label">Nama Ibu<span class="text-danger">*</span></label>
+                                                            <input class="form-control @error('berat_lahir') is-invalid @enderror" list="dataIbu" id="nama_ibu" name="nama_ibu" placeholder="Cari nama ibu...">
+                                                            <datalist id="dataIbu">
+                                                                @foreach ($ibu as $data)
+                                                                    <option value="{{ $data->nama_ibu_hamil }},{{ $data->NIK }}">
+                                                                @endforeach
+                                                                <option value="1">
+                                                                <option value="2">
+                                                            </datalist>
+                                                            @error('nama_ibu')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
                                                                 </div>
-                                                                @error('nama_ibu')
-                                                                    <div class="invalid-feedback text-start">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label for="berat_lahir">Berat Lahir Bayi<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" name="berat_lahir" autocomplete="off" class="form-control @error('berat_lahir') is-invalid @enderror" id="berat_lahir" value="{{ old('berat_lahir') }}" placeholder="LK Anak">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-circle-notch"></span>
-                                                                    </div>
-                                                                </div>
                                                                 @error('berat_lahir')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -243,12 +238,12 @@
                                                         <div class="col-12 my-2">
                                                             <div class="form-floating mb-3">
                                                                 <textarea type="text" name="komplikasi" class="form-control @error('komplikasi') is-invalid @enderror" id="komplikasi" placeholder="Komplikasi kelahiran">{{ old('komplikasi') }}</textarea>
-                                                                <label for="komplikasi">Komplikasi<span class="text-danger">*</span></label>
                                                                 @error('komplikasi')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
                                                                     </div>
                                                                 @enderror
+                                                                <label for="komplikasi">Komplikasi</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 my-2">
@@ -389,12 +384,12 @@
                                                                 <i class="fas fa-calendar-check"></i>
                                                             </span>
                                                         </div>
-                                                        @error('tgl_kembali_imunisasi')
-                                                            <div class="invalid-feedback text-start">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
                                                     </div>
+                                                    @error('tgl_kembali_imunisasi')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating">
@@ -506,12 +501,56 @@
                                         </form>
                                     </div>
                                 </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Data Alergi Anak</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahAlergi" role="button" aria-expanded="false" aria-controls="tambahAlergi"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahAlergi">
+                                        <form action="{{ route('Tambah Alergi Anak', [$dataAnak->id]) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control @error('nama_alergi') is-invalid @enderror" value="{{ old('nama_alergi') }}" id="nama_alergi" name="nama_alergi" placeholder="Masukan alergi anak">
+                                                        <label for="nama_alergi">Nama Alergi<span class="text-danger">*</span></label>
+                                                        @error('nama_alergi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <select class="form-select @error('kategori') is-invalid @enderror" id="kategori" name="kategori" aria-label="Floating label select example">
+                                                            <option selected disabled>Pilih Kategori Alergi</option>
+                                                            <option value="Alergi Obat">Alergi Obat</option>
+                                                            <option value="Alergi Makanan">Alergi Makanan</option>
+                                                            <option value="Alergi Lain">Alergi Lain</option>
+                                                        </select>
+                                                        @error('kategori')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                        <label for="kategori">Works with selects<span class="text-danger">*</span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Data Alergi</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Konsultasi Anak</p>
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Anak</p>
                                 </li>
                                 @if ($pemeriksaan->count() > 0)
                                     @foreach ($pemeriksaan as $data)
@@ -737,6 +776,52 @@
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
+                                            <div class="col-6 my-auto"><span class="fw-bold">Kelahiran</span></div>
+                                            @if ($persalinan != NULL)
+                                                <div class="col-6 text-end my-auto"><span>{{ $persalinan->persalinan }}</span></div>
+                                            @else
+                                                <div class="col-6 text-end my-auto"><span>Belum ditambahkan</span></div>
+                                            @endif
+                                        </div>
+                                    </li>
+                                    @if ($alergi->where('kategori', 'Alergi Makanan')->count() > 0)
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-7 my-auto"><span class="fw-bold">Alergi Makanan</span></div>
+                                                <div class="col-5 text-end my-auto">
+                                                    @foreach ($alergi->where('kategori', 'Alergi Makanan') as $data)
+                                                        <span>{{ $data->nama_alergi }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if ($alergi->where('kategori', 'Alergi Obat')->count() > 0)
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-7 my-auto"><span class="fw-bold">Alergi Obat</span></div>
+                                                <div class="col-5 text-end my-auto">
+                                                    @foreach ($alergi->where('kategori', 'Alergi Obat') as $data)
+                                                        <span>{{ $data->nama_alergi }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if ($alergi->where('kategori', 'Alergi Lain')->count() > 0)
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-7 my-auto"><span class="fw-bold">Alergi Lain</span></div>
+                                                <div class="col-5 text-end my-auto">
+                                                    @foreach ($alergi->where('kategori', 'Alergi Lain') as $data)
+                                                        <span>{{ $data->nama_alergi }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    <li class="list-group-item">
+                                        <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
                                             @if ($dataAnak->user->golongan_darah != NULL)
                                                 <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->golongan_darah }}</span></div>
@@ -745,25 +830,13 @@
                                             @endif
                                         </div>
                                     </li>
-                                    @if ($alergi->count() > 0)
-                                        <li class="list-group-item">
-                                            <div class="row">
-                                                <div class="col-7 my-auto"><span class="fw-bold">Alergi {{ $alergi->kategori }}</span></div>
-                                                <div class="col-5 text-end my-auto">
-                                                    @foreach ($alergi as $data)
-                                                        <span>{{ $data->jenis_alergi }}</span>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endif
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-6 my-auto"><span class="fw-bold">Kelahiran</span></div>
-                                            @if ($persalinan != NULL)
-                                                <div class="col-6 text-end my-auto"><span>{{ $persalinan->persalinan }}</span></div>
+                                            <div class="col-7 my-auto"><span class="fw-bold">Faskes Rujukan</span></div>
+                                            @if ($dataAnak->user->faskes_rujukan != NULL)
+                                                <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->faskes_rujukan }}</span></div>
                                             @else
-                                                <div class="col-6 text-end my-auto"><span>Belum ditambahkan</span></div>
+                                                <div class="col-5 text-end my-auto"><span>Belum ditambahkan</span></div>
                                             @endif
                                         </div>
                                     </li>

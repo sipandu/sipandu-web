@@ -83,12 +83,12 @@ class KonsultasiController extends Controller
         $today = Carbon::now()->setTimezone('GMT+8');
         $umur = Carbon::parse($dataIbu->tanggal_lahir)->diff($today)->format('%y Tahun');
 
-        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
-        if ($pemeriksaan->count() > 0) {
-            $usia_kandungan = Carbon::parse($pemeriksaan->usia_kandungan)->diff($today)->format('%m');
-        } else {
-            $usia_kandungan = '0';
-        }
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
+        // if ($pemeriksaan->count() > 0) {
+        //     $usia_kandungan = Carbon::parse($pemeriksaan->usia_kandungan)->diff($today)->format('%m');
+        // } else {
+            $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
+        // }
 
         $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->limit(5)->get();
         $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
@@ -146,7 +146,7 @@ class KonsultasiController extends Controller
             'nama_posyandu' => $posyandu->nama_posyandu,
             'nama_pemeriksa' => $pegawai->nama_pegawai,
             'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
-            'usia_kehamilan' => $request->usia_kehamilan,
+            'usia_kandungan' => $request->usia_kehamilan,
             'diagnosa' => $request->diagnosa,
             'pengobatan' => $request->pengobatan,
             'keterangan' => $request->keterangan,

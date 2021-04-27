@@ -47,9 +47,9 @@
                                             <div class="row">
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="faskes_rujukan" class="form-control @error('faskes_rujukan') is-invalid @enderror" id="faskes_rujukan" value="{{ old('faskes_rujukan') }}" placeholder="Fasker rujukan">
-                                                        <label for="faskes_rujukan">Faskes Rujukan<span class="text-danger">*</span></label>
-                                                        @error('faskes_rujukan')
+                                                        <input type="text" name="usia_kehamilan" class="form-control @error('usia_kehamilan') is-invalid @enderror" id="usia_kehamilan" value="{{ old('usia_kehamilan') }}" placeholder="Usia Kehamilan dalam minggu">
+                                                        <label for="usia_kehamilan">Usia Kehamilan<span class="text-danger">*</span></label>
+                                                        @error('usia_kehamilan')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
                                                             </div>
@@ -304,7 +304,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-6 my-auto"><span class="fw-bold">Suami</span></div>
-                                            <div class="col-6 text-end"><span>Nama Bapaknya Hadi</span></div>
+                                            <div class="col-6 text-end"><span>{{ $dataIbu->nama_suami }}</span></div>
                                         </div>
                                     </li>
                                     {{-- <li class="list-group-item">

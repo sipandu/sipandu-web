@@ -10,7 +10,7 @@ class Alergi extends Model
 
     protected $fillable = [
         'id_user',
-        'jenis_alergi',
+        'nama_alergi',
         'kategori',
     ];
 
