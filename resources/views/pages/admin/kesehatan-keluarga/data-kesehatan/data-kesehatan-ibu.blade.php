@@ -45,7 +45,7 @@
             <div class="col-12">
                 <div class="card">
                     <div>
-                    @if($js_berat != null || $js_berat[0] != 0)
+                    @if($js_berat != null)
                         <canvas id="myChart"></canvas>
                     @else
                         <li class="list-group-item">
