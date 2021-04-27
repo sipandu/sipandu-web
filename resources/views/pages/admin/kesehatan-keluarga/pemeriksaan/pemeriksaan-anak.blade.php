@@ -738,7 +738,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
-                                            @if ($data->user->golongan_darah != NULL)
+                                            @if ($dataAnak->user->golongan_darah != NULL)
                                                 <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->golongan_darah }}</span></div>
                                             @else
                                                 <div class="col-5 text-end my-auto"><span>-</span></div>
