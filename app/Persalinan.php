@@ -13,6 +13,7 @@ class Persalinan extends Model
         'id_ibu_hamil',
         'nama_anak',
         'nama_ibu',
+        'tanggal_lahir',
         'berat_lahir',
         'persalinan',
         'penolong_persalinan',

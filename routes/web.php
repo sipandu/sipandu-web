@@ -234,11 +234,10 @@ Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanCo
 Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 
-//Tambah Kelahiran Anak
+//Tambah Data Kesehatan User Tambahan
+Route::post('nakes/tambah-alergi/{user}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahAlergi')->name("Tambah Alergi")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 Route::post('nakes/pemeriksaan-anak/data-kelahiran/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahKelahiranAnak')->name("Tambah Data Kelahiran Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-
-//Tambah Alergi Anak
-Route::post('nakes/alergi-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahAlergiAnak')->name("Tambah Alergi Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+Route::post('nakes/pemeriksaan-ibu/data-kelahiran/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPersalinanIbu')->name("Tambah Data Persalinan")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Tambah Pemeriksaan
 Route::get('/get-img/data-anggota/pemeriksaan/{id}', 'Admin\KesehatanKeluarga\PemeriksaanController@getImage')->name('Get Image Anggota Pemeriksaan')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");

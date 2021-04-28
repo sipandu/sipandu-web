@@ -182,8 +182,6 @@
                                                                 @foreach ($ibu as $data)
                                                                     <option value="{{ $data->nama_ibu_hamil }},{{ $data->NIK }}">
                                                                 @endforeach
-                                                                <option value="1">
-                                                                <option value="2">
                                                             </datalist>
                                                             @error('nama_ibu')
                                                                 <div class="invalid-feedback text-start">
@@ -507,12 +505,12 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahAlergi" role="button" aria-expanded="false" aria-controls="tambahAlergi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahAlergi">
-                                        <form action="{{ route('Tambah Alergi Anak', [$dataAnak->id]) }}" method="POST">
+                                        <form action="{{ route('Tambah Alergi', [$dataAnak->id_user]) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control @error('nama_alergi') is-invalid @enderror" value="{{ old('nama_alergi') }}" id="nama_alergi" name="nama_alergi" placeholder="Masukan alergi anak">
+                                                        <input type="text" class="form-control @error('nama_alergi') is-invalid @enderror" value="{{ old('nama_alergi') }}" id="nama_alergi" name="nama_alergi" placeholder="Masukan nama alergi">
                                                         <label for="nama_alergi">Nama Alergi<span class="text-danger">*</span></label>
                                                         @error('nama_alergi')
                                                             <div class="invalid-feedback text-start">

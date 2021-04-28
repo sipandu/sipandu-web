@@ -80,41 +80,42 @@ class PemeriksaanController extends Controller
 
     public function pemeriksaanIbu(Ibu $ibu)
     {
-        $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
-        $dataUser = User::where('id', $ibu->id_user)->get()->first();
-
-        $umur = Carbon::parse($dataAnak->tanggal_lahir)->age;
-
-        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
-
+        $umur = Carbon::parse($ibu->tanggal_lahir)->age;
+        
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get()->first();
         if ($pemeriksaanIbu != NULL) {
             $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
         } else {
             $usia_kandungan = '0';
         }
-
-        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->limit(5)->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $dataUser->id)->get();
+        
+        $dataIbu = $ibu;
+        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
+        $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
         $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->get();
         $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $dataUser->id)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->limit(5)->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan', 'jenisImunisasi', 'jenisVitamin'));
+        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+            ->select('tb_anak.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_anak.nama_anak', 'asc')
+        ->get();
+
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan', 'jenisImunisasi', 'jenisVitamin', 'anak', 'persalinan'));
     }
 
     public function pemeriksaanAnak(Anak $anak)
     {
-        $today = Carbon::now()->setTimezone('GMT+8');
-
-        $dataAnak = Anak::where('id', $anak->id)->get()->first();
-        $dataUser = User::where('id', $anak->id_user)->get()->first();
-
-        $umur = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%y');
-        $umurBayi = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%m');
-        $umurLahirBayi = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%d');
-
+        $today = Carbon::now()->setTimezone('GMT+8');        
+        $umur = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%y');
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
         if ($umur > 0) {
             $usia = $umur.' Tahun';
         } else {
@@ -124,13 +125,14 @@ class PemeriksaanController extends Controller
                 $usia = $umurBayi.' Bulan';
             }
         }
-
-        $alergi = Alergi::where('id_user', $dataUser->id)->get();
+        
+        $dataAnak = $anak;
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
         $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
         $jenisImunisasi = Imunisasi::where('penerima', 'Anak')->get();
         $jenisVitamin = Vitamin::where('penerima', 'Anak')->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
 
         $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
@@ -150,32 +152,6 @@ class PemeriksaanController extends Controller
         $vitamin = Vitamin::where('penerima', 'Lansia')->get();
 
         return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-lansia', compact('dataLansia', 'imunisasi', 'vitamin'));
-    }
-
-    public function tambahAlergiAnak(Anak $anak, Request $request)
-    {
-        $this->validate($request,[
-            'nama_alergi' => "required|min:2|max:50",
-            'kategori' => "required",
-        ],
-        [
-            'nama_alergi.required' => "Nama alergi anak wajib diisi",
-            'nama_alergi.numeric' => "Nama alergi minimal berjumlah 2 huruf",
-            'nama_alergi.numeric' => "Nama alergi maksimal berjumlah 50 huruf",
-            'kategori.required' => "Kategori alergi wajib dipilih",
-        ]);
-
-        $alergi = Alergi::create([
-            'id_user' => $anak->id_user,
-            'nama_alergi' => $request->nama_alergi,
-            'kategori' => $request->kategori,
-        ]);
-
-        if ($alergi) {
-            return redirect()->back()->with(['success' => 'Data Alergi Anak Berhasil di Simpan']);
-        } else {
-            return redirect()->back()->with(['failed' => 'Data Alergi Anak Gagal di Simpan']);
-        }
     }
 
     public function tambahPemeriksaanIbu(Ibu $ibu, Request $request)
@@ -460,6 +436,127 @@ class PemeriksaanController extends Controller
         }
     }
 
+    public function tambahPersalinanIbu(Ibu $ibu, Request $request)
+    {
+        $this->validate($request,[
+            'nama_anak' => "required|min:2|max:50",
+            'berat_lahir' => "required|numeric|min:2",
+            'tanggal_persalinan' => "required|date",
+            'persalinan' => 'required',
+            'penolong_persalinan' => 'required',
+        ],
+        [
+            'nama_anak.required' => "Nama anak wajib diisi",
+            'nama_anak.min' => "Nama anak minimal berjumlah 2 huruf",
+            'nama_anak.max' => "Nama anak maksimal berjumlah 50 huruf",
+            'berat_lahir.required' => "Berat lahir anak wajib diisi",
+            'berat_lahir.numeric' => "Berat lahir anak harus berupa angka",
+            'berat_lahir.min' => "Berat lahir anak kurang dari nilai minimum",
+            'tanggal_persalinan.required' => "Tanggal persalinan wajib diisi",
+            'tanggal_persalinan.required' => "Tanggal persalinan harus berformat tanggal",
+            'persalinan.required' => "Jenis persalinan wajib diisi",
+            'penolong_persalinan.required' => "Penolong persalinan wajib diisi",
+        ]);
+
+        $today = Carbon::now()->setTimezone('GMT+8');
+
+        // Exploded Nama Anak
+        $namaAnak = $request->nama_anak;
+        $nama_anak = explode(",", $namaAnak);
+
+        if (count($nama_anak) > 1) {
+            $nama = $nama_anak[0];
+            $nik = $nama_anak[1];
+
+            $dataAnak = Anak::where('NIK', $nik)->get()->first();
+
+            $persalinan = Persalinan::create([
+                'id_anak' => $dataAnak->id,
+                'id_ibu_hamil' => $ibu->id,
+                'nama_anak' => $dataAnak->nama_anak,
+                'nama_ibu' => $ibu->nama_ibu_hamil,
+                'berat_lahir' => $request->berat_lahir,
+                'tanggal_lahir' => $dataAnak->tanggal_lahir,
+                'persalinan' => $request->persalinan,
+                'penolong_persalinan' => $request->penolong_persalinan,
+                'komplikasi' => $request->komplikasi,
+            ]);
+
+            $persalinanTerakhir = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
+            $jarakKehamilan = Carbon::parse($persalinan->tanggal_lahir)->diff($today)->format('%y');
+
+            if (count($persalinanTerakhir) > 0) {
+                $jumlahKehamilan = count($persalinanTerakhir) + 1;
+            } else {
+                $jumlahKehamilan = 1;
+            }
+
+            if ($jarakKehamilan > 0) {
+                $bumil = Ibu::where('id', $ibu->id)->update([
+                    'kehamilan_ke' => $jarakKehamilan,
+                    'jarak_anak_sebelumnya' => $jarakKehamilan,
+                ]);
+            } else {
+                $bumil = Ibu::where('id', $ibu->id)->update([
+                    'kehamilan_ke' => $jarakKehamilan,
+                ]);
+            }
+            
+            if ($persalinan && $jarakKehamilan) {
+                return redirect()->back()->with(['success' => 'Data Persalinan Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Persalinan Gagal di Simpan']);
+            }
+        } else {
+            $nama = $nama_anak[0];
+
+            // Ubah format tanggal //
+            $tgl_kotor = $request->tanggal_persalinan;
+            $tgl_bersih = explode("-", $tgl_kotor);
+            $tahun = $tgl_bersih[2];
+            $bulan = $tgl_bersih[1];
+            $tgl = $tgl_bersih[0];
+            $tgl_persalinan = $tahun.$bulan.$tgl;
+
+            $persalinan = Persalinan::create([
+                'id_ibu_hamil' => $ibu->id,
+                'nama_ibu' => $ibu->nama_ibu_hamil,
+                'nama_anak' => $nama,
+                'berat_lahir' => $request->berat_lahir,
+                'tanggal_lahir' => $tgl_persalinan,
+                'persalinan' => $request->persalinan,
+                'penolong_persalinan' => $request->penolong_persalinan,
+                'komplikasi' => $request->komplikasi,
+            ]);
+    
+            $persalinanTerakhir = Persalinan::where('id_ibu_hamil', $ibu->id)->orderBy('tanggal_lahir', 'desc')->get();
+            $jarakKehamilan = Carbon::parse($persalinan->tanggal_lahir)->diff($today)->format('%y');
+
+            if (count($persalinanTerakhir) > 0) {
+                $jumlahKehamilan = count($persalinanTerakhir) + 1;
+            } else {
+                $jumlahKehamilan = 1;
+            }
+
+            if ($jarakKehamilan > 0) {
+                $bumil = Ibu::where('id', $ibu->id)->update([
+                    'kehamilan_ke' => $jarakKehamilan,
+                    'jarak_anak_sebelumnya' => $jarakKehamilan,
+                ]);
+            } else {
+                $bumil = Ibu::where('id', $ibu->id)->update([
+                    'kehamilan_ke' => $jarakKehamilan,
+                ]);
+            }
+            
+            if ($persalinan && $jarakKehamilan) {
+                return redirect()->back()->with(['success' => 'Data Persalinan Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Persalinan Gagal di Simpan']);
+            }
+        }
+    }
+
     public function tambahKelahiranAnak(Anak $anak, Request $request)
     {
         $this->validate($request,[
@@ -523,6 +620,32 @@ class PemeriksaanController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
             }
+        }
+    }
+
+    public function tambahAlergi(User $user, Request $request)
+    {
+        $this->validate($request,[
+            'nama_alergi' => "required|min:2|max:50",
+            'kategori' => "required",
+        ],
+        [
+            'nama_alergi.required' => "Nama alergi wajib diisi",
+            'nama_alergi.numeric' => "Nama alergi minimal berjumlah 2 huruf",
+            'nama_alergi.numeric' => "Nama alergi maksimal berjumlah 50 huruf",
+            'kategori.required' => "Kategori alergi wajib dipilih",
+        ]);
+
+        $alergi = Alergi::create([
+            'id_user' => $user->id,
+            'nama_alergi' => $request->nama_alergi,
+            'kategori' => $request->kategori,
+        ]);
+
+        if ($alergi) {
+            return redirect()->back()->with(['success' => 'Data Alergi Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Alergi Gagal di Simpan']);
         }
     }
 }
