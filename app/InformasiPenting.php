@@ -38,6 +38,7 @@ class InformasiPenting extends Model
         {
             $caption = '[UPDATE] '.$this->judul_informasi.PHP_EOL.$this->getLink();
             $this->sendInformationToUser($item->id_chat_tele, $caption, $this->id);
+            sleep(2);
         }
 
         return true;
