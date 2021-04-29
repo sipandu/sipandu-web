@@ -12,4 +12,8 @@ class Pengumuman extends Model
     {
         return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');
     }
+
+    public function getUrlImage() {
+        return url('/admin/pengumuman/get-img/'.$this->id);
+    }
 }

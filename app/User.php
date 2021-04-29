@@ -52,9 +52,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(PemberianImunisasi::class,'id_user','id');
     }
-    
+
     public function pemberianVitamin()
     {
         return $this->hasMany(PemberianVitamin::class,'id_user','id');
+    }
+
+    public function getUrlImage() {
+
+        $informasi = InformasiPenting::find($id);
+
+        if(File::exists(storage_path($informasi->image))) {
+            return response()->file(
+                storage_path($informasi->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
+
+        return url('/admin/pengumuman/get-img/'.$this->id);
     }
 }
