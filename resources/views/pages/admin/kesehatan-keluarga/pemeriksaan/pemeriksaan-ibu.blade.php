@@ -49,7 +49,7 @@
                                             <div class="row">
                                                 <div class="col-12 my-2">
                                                     <label for="nama_anak" class="form-label">Nama Anak<span class="text-danger">*</span></label>
-                                                    <input class="form-control @error('berat_lahir') is-invalid @enderror" list="dataAnak" id="nama_anak" name="nama_anak" placeholder="Cari nama anak...">
+                                                    <input class="form-control @error('nama_anak') is-invalid @enderror" list="dataAnak" id="nama_anak" name="nama_anak" placeholder="Cari nama anak...">
                                                     <datalist id="dataAnak">
                                                         @foreach ($anak as $data)
                                                             <option value="{{ $data->nama_anak }},{{ $data->NIK }}">
@@ -81,6 +81,11 @@
                                                     <label for="berat_lahir">Berat Lahir Bayi<span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <input type="text" name="berat_lahir" autocomplete="off" class="form-control @error('berat_lahir') is-invalid @enderror" id="berat_lahir" value="{{ old('berat_lahir') }}" placeholder="LK Anak">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-weight"></span>
+                                                            </div>
+                                                        </div>
                                                         @error('berat_lahir')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
@@ -568,7 +573,7 @@
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Konsultasi Ibu</p>
+                                    <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Ibu</p>
                                 </li>
                                 @if ($pemeriksaan->count() > 0)
                                     @foreach ($pemeriksaan as $data)
@@ -581,7 +586,7 @@
                                                 <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
                                                     <div class="card card-body">
                                                         <span class="fw-bold">Usia Kehamilan :</span>
-                                                        <p>{{ $usia_kandungan }} Bulan</p>
+                                                        <p>{{ $usia_kandungan }} Minggu</p>
                                                         <span class="fw-bold">Hasil Pemeriksaan :</span>
                                                         <p>{{ $data->diagnosa }}</p>
                                                         <span class="fw-bold">Pengobatan :</span>
@@ -660,7 +665,7 @@
                                     @endforeach
                                 @else
                                     <li class="list-group-item my-auto">
-                                        <p class="text-center my-auto">Belum Pernah Melakukan Imunisasi</p>
+                                        <p class="text-center my-auto">Belum Pernah Melakukan Pemeriksaan</p>
                                     </li>
                                 @endif
                             </ul>
@@ -859,6 +864,16 @@
                                             </div>
                                         </li>
                                     @endif
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 my-auto"><span class="fw-bold">Tanggungan</span></div>
+                                            @if ($dataIbu->user->tanggungan != NULL)
+                                                <div class="col-5 text-end my-auto"><span>{{ $dataIbu->user->tanggungan }}</span></div>
+                                            @else
+                                                <div class="col-5 text-end my-auto"><span>Belum ditambahkan</span></div>
+                                            @endif
+                                        </div>
+                                    </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Faskes Rujukan</span></div>

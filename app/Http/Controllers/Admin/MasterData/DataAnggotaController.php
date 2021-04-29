@@ -120,6 +120,7 @@ class DataAnggotaController extends Controller
                 'tgl_lahir' => "required|date",
                 'alamat' => "required|min:5",
                 'tanggungan' => "required",
+                'goldar' => "nullable|min:1|max:2",
                 'faskes_rujukan' => "required|min:3",
             ],
             [
@@ -139,6 +140,8 @@ class DataAnggotaController extends Controller
                 'alamat.required' => "Alamat tempat tinggal wajib diisi",
                 'alamat.min' => "Penulisan alamat tempat tinggal miniminal berjumlah 5 karakter",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);
@@ -150,6 +153,7 @@ class DataAnggotaController extends Controller
                 'tgl_lahir' => "required|date",
                 'alamat' => "required|min:5",
                 'tanggungan' => "required",
+                'goldar' => "nullable|min:1|max:2",
                 'faskes_rujukan' => "required|min:3",
             ],
             [
@@ -169,6 +173,8 @@ class DataAnggotaController extends Controller
                 'alamat.required' => "Alamat tempat tinggal wajib diisi",
                 'alamat.min' => "Penulisan alamat tempat tinggal miniminal berjumlah 5 karakter",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);
@@ -222,6 +228,7 @@ class DataAnggotaController extends Controller
                         'tanggungan' => $request->tanggungan,
                         'no_jkn' => $request->no_jkn,
                         'masa_berlaku' => $masa_berlaku,
+                        'golongan_darah' => $request->goldar,
                         'faskes_rujukan' => $request->faskes_rujukan,
                     ]);
                     
@@ -256,6 +263,7 @@ class DataAnggotaController extends Controller
                 
                 $updateUser = User::where('id', $ibu->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'golongan_darah' => $request->goldar,
                     'faskes_rujukan' => $request->faskes_rujukan,
                 ]);
                 

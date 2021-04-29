@@ -77,22 +77,33 @@ class KonsultasiController extends Controller
 
     public function konsultasiIbu(Ibu $ibu)
     {
-        $dataIbu = Ibu::where('id', $ibu->id)->get()->first();
-        $dataUser = User::where('id', $ibu->id_user)->get()->first();
+        $dataIbu = $ibu;
+        $umur = Carbon::parse($ibu->tanggal_lahir)->age;
 
-        $today = Carbon::now()->setTimezone('GMT+8');
-        $umur = Carbon::parse($dataIbu->tanggal_lahir)->diff($today)->format('%y Tahun');
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get()->first();
+        if ($pemeriksaanIbu != NULL) {
+            $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
+        } else {
+            $usia_kandungan = '0';
+        }
 
-        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
-        $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
+        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
+        $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
 
-        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->limit(5)->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $dataUser->id)->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $dataUser->id)->get();
+        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+            ->select('tb_anak.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_anak.nama_anak', 'asc')
+        ->get();
 
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan'));
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan', 'alergi', 'persalinan', 'anak'));
     }
 
     public function konsultasiAnak(Anak $anak)
