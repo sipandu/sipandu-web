@@ -90,7 +90,46 @@ class DataRiwayatKesehatanController extends Controller
 
     public function kesehatanAnak(Anak $anak)
     {
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-anak');
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->tinggi_badan);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            // dd($dataAwal->berat_badan);
+            $beratBadan[] = $dataAwal->berat_badan;
+            $tinggiBadan[] = $dataAwal->tinggi_badan;
+            $usia[] = $dataAwal->usia_anak;
+            $lingkarKepala[] = $dataAwal->lingkar_kepala;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    // dd($minusBerat);
+                    array_push($beratBadan, $d->berat_badan);
+                    array_push($tinggiBadan, $d->tinggi_badan);
+                    array_push($usia, $d->usia_anak);
+                    array_push($lingkarKepala, $d->lingkar_kepala);
+                }
+            }
+            $js_tinggi = json_encode($tinggiBadan);
+            $js_berat = json_encode($beratBadan);
+            $js_usia = json_encode($usia);
+            $js_lingkar = json_encode($lingkarKepala);
+            }else{
+                $js_tinggi = null;
+                $js_berat = null;
+                $js_usia = null;
+                $js_lingkar = null;    
+            }
+        }else{
+            $js_tinggi = null;
+            $js_berat = null;
+            $js_usia = null;
+            $js_lingkar = null;
+        }
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-anak', compact('js_berat', 'js_tinggi', 'js_lingkar', 'js_usia'));
     }
 
     public function kesehatanLansia(Lansia $lansia)
