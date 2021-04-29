@@ -7,12 +7,16 @@ use App\InformasiPenting;
 use Illuminate\Http\Request;
 use App\Mover;
 
-class ApiBlogController extends Controller
+class ApiInformasiController extends Controller
 {
     //
     public function getInformasiHome()
     {
-        $informasi = InformasiPenting::orderby('created_at', 'desc')->limit(3)->get()->map(function($item){
+        $informasi = InformasiPenting::orderby('created_at', 'desc')->limit(5)->get()->map(function($item){
+            $item->foto = $item->getUrlImage();
+            return $item;
+        });
+        $informasiPopuler = InformasiPenting::orderby('dilihat', 'desc')->limit(3)->get()->map(function($item){
             $item->foto = $item->getUrlImage();
             return $item;
         });
@@ -20,6 +24,7 @@ class ApiBlogController extends Controller
         return response()->json([
             'status_code' => 200,
             'informasi' => $informasi,
+            'informasi_populer' => $informasiPopuler,
             'message' => 'success',
         ]);
 
@@ -36,6 +41,7 @@ class ApiBlogController extends Controller
         */
 
         if ($request->flag == 0) {
+            $informasiList = InformasiPenting::paginate(5);
             $informasi = InformasiPenting::orderby('created_at', 'desc')->get()->map(function($item){
                 $item->foto = $item->getUrlImage();
                 return $item;
