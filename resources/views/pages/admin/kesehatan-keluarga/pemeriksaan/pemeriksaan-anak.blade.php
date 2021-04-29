@@ -532,7 +532,7 @@
                                                                 {{ $message }}
                                                             </div>
                                                         @enderror
-                                                        <label for="kategori">Works with selects<span class="text-danger">*</span></label>
+                                                        <label for="kategori">Kategori Alergi<span class="text-danger">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 my-2">
@@ -696,7 +696,7 @@
                                                 <div class="row text-center">
                                                     <div class="col-6">
                                                         <span class="fw-bold">Jenis Vitamin :</span>
-                                                        <p>{{ $data->vitamin->nama_vitamin }}</p>
+                                                        <p>{{ $data->nama_vitamin }}</p>
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -839,7 +839,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Anak</a>
+                                <a href="{{ route('Detail Anggota Anak', $dataAnak->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Anak</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
                             </div>
                         </div>

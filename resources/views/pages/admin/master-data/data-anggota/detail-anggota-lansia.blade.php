@@ -73,10 +73,11 @@
             <div class="col-md-7">
                 <div class="card card-primary card-outline">
                     <div class="card-header p-2">
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills justify-content-center">
                             <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
                             <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Informasi</a></li>
                             <li class="nav-item"><a class="nav-link" href="#ubahData" data-toggle="tab">Ubah Data</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#pj" data-toggle="tab">Penanggung Jawab</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -295,8 +296,8 @@
                                 <form action="{{ route('Update Anggota Lansia', [$dataUser->lansia->id]) }}" method="POST" class="form-horizontal">
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $dataUser->lansia->nama_lansia) }}" placeholder="Nama Lengkap Lansia">
-                                        <label for="floatingInput">Nama Lengkap<span class="text-danger">*</span></label>
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama_lansia" value="{{ old('nama', $dataUser->lansia->nama_lansia) }}" placeholder="Nama Lengkap Lansia">
+                                        <label for="nama_lansia">Nama Lengkap<span class="text-danger">*</span></label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -304,8 +305,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $dataUser->lansia->NIK) }}" placeholder="NIK Lansia">
-                                        <label for="floatingInput">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik" value="{{ old('nik', $dataUser->lansia->NIK) }}" placeholder="NIK Lansia">
+                                        <label for="nik">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
                                         @error('nik')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -315,8 +316,8 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataUser->lansia->tempat_lahir) }}" placeholder="Tempat Lahir Lansia">
-                                                <label for="floatingInput">Tampat Lahir<span class="text-danger">*</span></label>
+                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" value="{{ old('tempat_lahir', $dataUser->lansia->tempat_lahir) }}" placeholder="Tempat Lahir Lansia">
+                                                <label for="tempat_lahir">Tempat Lahir<span class="text-danger">*</span></label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -327,8 +328,8 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataUser->lansia->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                    <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old('tgl_lahir', date('d-m-Y', strtotime($dataUser->lansia->tanggal_lahir))) }}" id="tgl_lahir" placeholder="Tanggal Lahir Lansia" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <label for="tgl_lahir">Tanggal Lahir<span class="text-danger">*</span></label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -635,6 +636,197 @@
                                     </div>
                                 </form>
                             </div>
+                            @if ($pj != NULL)
+                                <div class="tab-pane" id="pj">
+                                    <form action="{{ route('Update Pj Lansia', $pj->id) }}" method="POST" class="form-horizontal">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama_pj" value="{{ old('nama', $pj->nama) }}" placeholder="Nama lengkap penanggung jawab lansia">
+                                            <label for="nama_pj">Nama Lengkap<span class="text-danger">*</span></label>
+                                            @error('nama')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
+                                                <option value="{{ $dataKabupaten->id_kabupaten }}" selected>{{ $dataKabupaten->nama_kabupaten }}</option>
+                                                @foreach ($kabupaten as $k)
+                                                    <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('kabupaten')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
+                                                <option value="{{ $dataKecamatan->id_kecamatan }}" selected>{{ $dataKecamatan->nama_kecamatan }}</option>
+                                            </select>
+                                            @error('kecamatan')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example">
+                                                <option value="{{ $pj->id_desa }}" selected>{{ $pj->desa->nama_desa }}</option>
+                                            </select>
+                                            @error('kecamatan')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="desa">Pilih Desa<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" aria-label="Floating label select example">
+                                                <option value="{{ $pj->hubungan_keluarga }}" selected>{{ $pj->hubungan_keluarga }}</option>
+                                                <option value="Anak">Anak</option>
+                                                <option value="Cucu">Cucu</option>
+                                                <option value="Cicit">Cicit</option>
+                                                <option value="Keponakan">Keponakan</option>
+                                                <option value="Saudara/Kerabat">Saudara/Kerabat</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="status">Hubungan Keluarga<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp', $pj->nomor_telepon) }}" placeholder="Nomor telepon penanggung jawab lansia">
+                                            <label for="no_telp">Nomor Telepon<span class="text-danger">*</span></label>
+                                            @error('no_telp')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal">{{ old('alamat', $pj->alamat) }}</textarea>
+                                            <label for="alamat">Alamat<span class="text-danger">*</span></label>
+                                            @error('alamat')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group row m-0 p-0">
+                                            <div class="col-sm-12 text-end">
+                                                <p class="text-danger">* Data Wajib Diisi</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 d-grid">
+                                                <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="tab-pane" id="pj">
+                                    <form action="{{ route('Tambah Pj Lansia', $dataUser->lansia->id) }}" method="POST" class="form-horizontal">
+                                        @csrf
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama_pj" value="{{ old('nama') }}" placeholder="Nama lengkap penanggung jawab lansia">
+                                            <label for="nama_pj">Nama Lengkap<span class="text-danger">*</span></label>
+                                            @error('nama')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
+                                                <option disabled selected>Silakan pilih Kabupaten</option>
+                                                @foreach ($kabupaten as $k)
+                                                    <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('kabupaten')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
+                                                <option disabled selected>Pilih Kabupaten terlebih dahulu</option>
+                                            </select>
+                                            @error('kecamatan')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example">
+                                                <option disabled selected>Pilih Kecamatan terlebih dahulu</option>
+                                            </select>
+                                            @error('kecamatan')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="desa">Pilih Desa<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" aria-label="Floating label select example">
+                                                <option selected disabled>Pilih hubungan keluarga</option>
+                                                <option value="Anak">Anak</option>
+                                                <option value="Cucu">Cucu</option>
+                                                <option value="Cicit">Cicit</option>
+                                                <option value="Keponakan">Keponakan</option>
+                                                <option value="Saudara/Kerabat">Saudara/Kerabat</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <label for="status">Hubungan Keluarga<span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" placeholder="Nomor telepon penanggung jawab lansia">
+                                            <label for="no_telp">Nomor Telepon<span class="text-danger">*</span></label>
+                                            @error('no_telp')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal">{{ old('alamat') }}</textarea>
+                                            <label for="alamat">Alamat<span class="text-danger">*</span></label>
+                                            @error('alamat')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group row m-0 p-0">
+                                            <div class="col-sm-12 text-end">
+                                                <p class="text-danger">* Data Wajib Diisi</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 d-grid">
+                                                <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -648,6 +840,8 @@
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
     <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -655,6 +849,46 @@
             $('#list-management-posyandu').addClass('menu-is-opening menu-open');
             $('#management-posyandu').addClass('active');
             $('#data-anggota').addClass('active');
+
+            // Kabupaten to Kecamatan AJAX //
+            $('#kabupaten').on('change', function () {
+                let id = $(this).val();
+                $('#kecamatan').empty().append(`<option disabled selected>Silakan pilih Kabupaten</option>`);
+                $('#kecamatan').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/kecamatan/' + id,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append(`<option value="0" disabled selected>Select Kecamatan</option>`);
+                        response.forEach(element => {
+                            $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
+                        });
+                    }
+                });
+            });
+
+            // Kecamatan to Desa AJAX //
+            $('#kecamatan').on('change', function () {
+                let idDesa = $(this).val();
+                $('#desa').empty();
+                $('#desa').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/desa/' + idDesa,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#desa').empty();
+                        $('#desa').append(`<option value="0" disabled selected>Select Desa/Kelurahan</option>`);
+                        response.forEach(element => {
+                            $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
+                        });
+                    }
+                });
+            });
         });
 
         // Custom Input Date

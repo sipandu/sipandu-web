@@ -211,6 +211,8 @@ Route::post('/admin/data-anggota/update/anak/{anak}', 'Admin\MasterData\DataAngg
 
 Route::get('/admin/data-anggota/detail/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@detailAnggotaLansia')->name("Detail Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@updateAnggotaLansia')->name("Update Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::post('/admin/data-anggota/pj/tambah/{lansia}', 'Admin\MasterData\DataAnggotaController@tambahPjLansia')->name("Tambah Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+Route::post('/admin/data-anggota/pj/update/{pjLansia}', 'Admin\MasterData\DataAnggotaController@updatePjLansia')->name("Update Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
 
 
@@ -236,8 +238,13 @@ Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\Pemerik
 
 //Tambah Data Kesehatan User Tambahan
 Route::post('nakes/tambah-alergi/{user}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahAlergi')->name("Tambah Alergi")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+Route::post('nakes/pemeriksaan-user/penyakit-bawaan/{user}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPenyakitBawaan')->name("Tambah Penyakit Bawaan")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+
 Route::post('nakes/pemeriksaan-anak/data-kelahiran/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahKelahiranAnak')->name("Tambah Data Kelahiran Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+
 Route::post('nakes/pemeriksaan-ibu/data-kelahiran/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPersalinanIbu')->name("Tambah Data Persalinan")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+
+Route::post('nakes/pemeriksaan-lansia/riwayat_penyakit/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahRiwayatPenyakit')->name("Tambah Riwayat Penyakit")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Tambah Pemeriksaan
 Route::get('/get-img/data-anggota/pemeriksaan/{id}', 'Admin\KesehatanKeluarga\PemeriksaanController@getImage')->name('Get Image Anggota Pemeriksaan')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");

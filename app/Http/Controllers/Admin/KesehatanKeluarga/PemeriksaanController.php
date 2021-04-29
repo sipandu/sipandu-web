@@ -24,6 +24,8 @@ use App\PemberianVitamin;
 use App\Alergi;
 use App\Persalinan;
 use App\PenyakitBawaan;
+use App\RiwayatPenyakit;
+use App\PjLansia;
 
 class PemeriksaanController extends Controller
 {
@@ -90,13 +92,13 @@ class PemeriksaanController extends Controller
         }
         
         $dataIbu = $ibu;
-        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
-        $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
         $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->get();
         $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->get();
         $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
+        $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
         $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->limit(5)->get();
 
         $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
@@ -116,6 +118,15 @@ class PemeriksaanController extends Controller
         $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
         $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
         
+        $dataAnak = $anak;
+        $jenisImunisasi = Imunisasi::where('penerima', 'Anak')->get();
+        $jenisVitamin = Vitamin::where('penerima', 'Anak')->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
+
         if ($umur > 0) {
             $usia = $umur.' Tahun';
         } else {
@@ -125,15 +136,6 @@ class PemeriksaanController extends Controller
                 $usia = $umurBayi.' Bulan';
             }
         }
-        
-        $dataAnak = $anak;
-        $alergi = Alergi::where('id_user', $anak->id_user)->get();
-        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
-        $jenisImunisasi = Imunisasi::where('penerima', 'Anak')->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Anak')->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
 
         $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
             ->select('tb_ibu_hamil.*')
@@ -146,12 +148,20 @@ class PemeriksaanController extends Controller
     }
 
     public function pemeriksaanLansia(Lansia $lansia)
-    {
-        $dataLansia = Lansia::where('id', $lansia->id)->get()->first();
-        $imunisasi = Imunisasi::where('penerima', 'Lansia')->get();
-        $vitamin = Vitamin::where('penerima', 'Lansia')->get();
+    {   
+        $dataLansia = $lansia;
+        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
+        $pj = PjLansia::where('id_lansia', $lansia->id)->first();
+        $jenisImunisasi = Imunisasi::where('penerima', 'Lansia')->get();
+        $jenisVitamin = Vitamin::where('penerima', 'Lansia')->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $lansia->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $lansia->id_user)->get();
+        $riwayatPenyakit = RiwayatPenyakit::where('id_lansia', $lansia->id)->get();
+        $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->orderBy('id', 'desc')->limit(5)->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-lansia', compact('dataLansia', 'imunisasi', 'vitamin'));
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-lansia', compact('dataLansia', 'imunisasi', 'vitamin', 'umur', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'pj', 'pemeriksaan', 'jenisImunisasi', 'jenisVitamin'));
     }
 
     public function tambahPemeriksaanIbu(Ibu $ibu, Request $request)
@@ -371,6 +381,9 @@ class PemeriksaanController extends Controller
             'tinggi_lutut.required' => "Tinggi lutut lansia wajib diisi",
             'tinggi_lutut.numeric' => "Tinggi lutut harus berupa angka",
             'tinggi_lutut.min' => "Tinggi lutut lansia kurang dari nilai minimum",
+            'tinggi_badan.required' => "Tinggi badan lansia wajib diisi",
+            'tinggi_badan.numeric' => "Tinggi badan harus berupa angka",
+            'tinggi_badan.min' => "Tinggi badan lansia kurang dari nilai minimum",
             'tekanan_darah.required' => "Tekanan darah lansia wajib diisi",
             'denyut_nadi.required' => "Denyut nadi lansia wajib diisi",
             'denyut_nadi.numeric' => "Denyut nadi lansia harus berupa angka",
@@ -415,6 +428,7 @@ class PemeriksaanController extends Controller
                 'usia_lansia' => $umur,
                 'berat_badan' => $request->berat_badan,
                 'tinggi_lutut' => $request->tinggi_lutut,
+                'tinggi_badan' => $request->tinggi_badan,
                 'tekanan_darah' => $request->tekanan_darah,
                 'suhu_tubuh' => $request->suhu_tubuh,
                 'denyut_nadi' => $request->denyut_nadi,
@@ -631,8 +645,8 @@ class PemeriksaanController extends Controller
         ],
         [
             'nama_alergi.required' => "Nama alergi wajib diisi",
-            'nama_alergi.numeric' => "Nama alergi minimal berjumlah 2 huruf",
-            'nama_alergi.numeric' => "Nama alergi maksimal berjumlah 50 huruf",
+            'nama_alergi.min' => "Nama alergi minimal berjumlah 2 huruf",
+            'nama_alergi.max' => "Nama alergi maksimal berjumlah 50 huruf",
             'kategori.required' => "Kategori alergi wajib dipilih",
         ]);
 
@@ -646,6 +660,55 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with(['success' => 'Data Alergi Berhasil di Simpan']);
         } else {
             return redirect()->back()->with(['failed' => 'Data Alergi Gagal di Simpan']);
+        }
+    }
+
+    public function tambahPenyakitBawaan(User $user, Request $request)
+    {
+        $this->validate($request,[
+            'nama_penyakit' => "required|min:3|max:50",
+        ],
+        [
+            'nama_penyakit.required' => "Nama penyakit bawaan wajib diisi",
+            'nama_penyakit.min' => "Nama penyakit bawaan minimal berjumlah 3 huruf",
+            'nama_penyakit.max' => "Nama penyakit bawaan maksimal berjumlah 50 huruf",
+        ]);
+
+        $penyakitBawaan = PenyakitBawaan::create([
+            'id_user' => $user->id,
+            'nama_penyakit' => $request->nama_penyakit,
+        ]);
+
+        if ($penyakitBawaan) {
+            return redirect()->back()->with(['success' => 'Data Penyakit Bawaan Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Penyakit Bawaan Gagal di Simpan']);
+        }
+    }
+
+    public function tambahRiwayatPenyakit(Lansia $lansia, Request $request)
+    {
+        $this->validate($request,[
+            'nama_penyakit' => "required|min:2|max:50",
+            'status' => "required",
+        ],
+        [
+            'nama_penyakit.required' => "Nama penyakit wajib diisi",
+            'nama_penyakit.min' => "Nama penyakit minimal berjumlah 2 huruf",
+            'nama_penyakit.max' => "Nama penyakit maksimal berjumlah 50 huruf",
+            'status.required' => "Status penyakit wajib dipilih",
+        ]);
+
+        $riwayatPenyakit = RiwayatPenyakit::create([
+            'id_lansia' => $lansia->id,
+            'nama_penyakit' => $request->nama_penyakit,
+            'status' => $request->status,
+        ]);
+
+        if ($riwayatPenyakit) {
+            return redirect()->back()->with(['success' => 'Data Riwayat Penyakit Lansia Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Riwayat Penyakit Lansia Gagal di Simpan']);
         }
     }
 }

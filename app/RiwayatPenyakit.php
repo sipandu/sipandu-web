@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PenyakitBawaan extends Model
+class RiwayatPenyakit extends Model
 {
-    protected $table = 'tb_penyakit_bawaan';
+    protected $table = 'tb_riwayat_penyakit_lansia';
 
     protected $fillable = [
-        'id_user',
+        'id_lansia',
         'nama_penyakit',
+        'status',
     ];
 
     public function user()

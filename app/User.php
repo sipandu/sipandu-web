@@ -73,4 +73,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(PenyakitBawaan::class,'id_user','id');
     }
+
+    public function riwayatPenyakit()
+    {
+        return $this->hasMany(RiwayatPenyakit::class,'id_user','id');
+    }
+
+    public function pjLansia()
+    {
+        return $this->hasMany(PjLansia::class,'id_user','id');
+    }
 }

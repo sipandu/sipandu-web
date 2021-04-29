@@ -84,11 +84,7 @@ class KonsultasiController extends Controller
         $umur = Carbon::parse($dataIbu->tanggal_lahir)->diff($today)->format('%y Tahun');
 
         $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->get()->first();
-        // if ($pemeriksaan->count() > 0) {
-        //     $usia_kandungan = Carbon::parse($pemeriksaan->usia_kandungan)->diff($today)->format('%m');
-        // } else {
-            $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
-        // }
+        $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
 
         $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $dataIbu->id)->orderBy('id', 'desc')->limit(5)->get();
         $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();

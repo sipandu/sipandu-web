@@ -19,6 +19,7 @@ use App\Ibu;
 use App\Anak;
 use App\Lansia;
 use App\KK;
+use App\PjLansia;
 
 class DataAnggotaController extends Controller
 {
@@ -85,16 +86,26 @@ class DataAnggotaController extends Controller
         $umur = Carbon::parse($dataAnak->tanggal_lahir)->age;
         $dataUser = User::where('id', $dataAnak->id_user)->first();
 
-        return view('pages/admin/master-data/data-anggota/detail-anggota-anak', compact('dataUser', 'ibu'));
+        return view('pages/admin/master-data/data-anggota/detail-anggota-anak', compact('dataUser', 'umur'));
     }
 
     public function detailAnggotaLansia(Lansia $lansia)
     {
-        $dataLansia = Lansia::where('id', $lansia->id)->first();
-        $umur = Carbon::parse($dataLansia->tanggal_lahir)->age;
-        $dataUser = User::where('id', $dataLansia->id_user)->first();
+        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
+        $dataUser = User::where('id', $lansia->id_user)->first();
+        $kabupaten = Kabupaten::get();
 
-        return view('pages/admin/master-data/data-anggota/detail-anggota-lansia', compact('dataUser', 'umur'));
+        $pj = PjLansia::where('id_lansia', $lansia->id)->get()->first();
+
+        if ($pj != NULL) {
+            $dataDesa = Desa::where('id', $pj->id_desa)->first();
+            $dataKecamatan = Kecamatan::where('id', $dataDesa->id_kecamatan)->first();
+            $dataKabupaten = Kabupaten::where('id', $dataKecamatan->id_kabupaten)->first();
+    
+            return view('pages/admin/master-data/data-anggota/detail-anggota-lansia', compact('dataUser', 'umur', 'kabupaten', 'pj', 'dataKecamatan', 'dataKabupaten'));
+        } else {
+            return view('pages/admin/master-data/data-anggota/detail-anggota-lansia', compact('dataUser', 'umur', 'kabupaten', 'pj'));
+        }
     }
 
     public function updateAnggotaIbu(Request $request, Ibu $ibu)
@@ -648,6 +659,83 @@ class DataAnggotaController extends Controller
                     return redirect()->back()->with(['failed' => 'Data profile lansia gagal diubah']);
                 }
             }
+        }
+    }
+
+    public function tambahPjLansia(Lansia $lansia, Request $request)
+    {
+        $this->validate($request,[
+            'nama' => "required|min:3|max:50",
+            'desa' => "required",
+            'status' => "required",
+            'no_telp' => "required|numeric|digits_between:12,15",
+            'alamat' => "required|min:5",
+        ],
+        [
+            'nama.required' => "Nama penanggung jawab lansia wajib diisi",
+            'nama.min' => "Nama penanggung jawab lansia minimal berjumlah 3 huruf",
+            'nama.max' => "Nama penanggung jawab lansia maksimal berjumlah 50 huruf",
+            'desa.required' => "Kolom Desa wajib diisi",
+            'status.required' => "Kolom Hubungan keluarga wajib diisi",
+            'no_telp.required' => "Nomor telepon penanggung jawab lansia wajib diisi",
+            'no_telp.numeric' => "Nomor telepon penanggung jawab lansia harus berupa angka",
+            'no_telp.digits_between' => "Nomor telepon harus berjumlah antara 12 hingga 15 karakter",
+            'alamat.required' => "Alamat penanggung jawab lansia wajib diisi",
+            'alamat.min' => "Alamat penanggung jawab lansia terlalu singkat",
+        ]);
+
+        $pj = PjLansia::create([
+            'id_lansia' => $lansia->id,
+            'id_desa' => $request->desa,
+            'nama' => $request->nama,
+            'hubungan_keluarga' => $request->status,
+            'nomor_telepon' => $request->no_telp,
+            'alamat' => $request->alamat,
+        ]);
+
+        if ($pj) {
+            return redirect()->back()->with(['success' => 'Data Penanggung Jawab Lansia Berhasil di Simpan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Penanggung Jawab Lansia Gagal di Simpan']);
+        }
+    }
+
+    public function updatePjLansia(PjLansia $pjLansia, Request $request)
+    {
+        $this->validate($request,[
+            'nama' => "required|min:3|max:50",
+            'desa' => "required",
+            'status' => "required",
+            'no_telp' => "required|numeric|digits_between:12,15",
+            'no_telp' => "required|numeric|digits_between:12,15",
+            'alamat' => "required|min:5",
+        ],
+        [
+            'nama.required' => "Nama penanggung jawab lansia wajib diisi",
+            'nama.min' => "Nama penanggung jawab lansia minimal berjumlah 3 huruf",
+            'nama.max' => "Nama penanggung jawab lansia maksimal berjumlah 50 huruf",
+            'desa.required' => "Kolom Desa wajib diisi",
+            'status.required' => "Kolom Hubungan keluarga wajib diisi",
+            'no_telp.required' => "Nomor telepon penanggung jawab lansia wajib diisi",
+            'no_telp.numeric' => "Nomor telepon penanggung jawab lansia harus berupa angka",
+            'no_telp.digits_between' => "Nomor telepon harus berjumlah antara 12 hingga 15 karakter",
+            'alamat.required' => "Alamat penanggung jawab lansia wajib diisi",
+            'alamat.min' => "Alamat penanggung jawab lansia terlalu singkat",
+        ]);
+
+        $pj = PjLansia::where('id', $pjLansia->id)->update([
+            'id_lansia' => $pjLansia->id_lansia,
+            'id_desa' => $request->desa,
+            'nama' => $request->nama,
+            'hubungan_keluarga' => $request->status,
+            'nomor_telepon' => $request->no_telp,
+            'alamat' => $request->alamat,
+        ]);
+
+        if ($pj) {
+            return redirect()->back()->with(['success' => 'Data Penanggung Jawab Lansia Berhasil di Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Penanggung Jawab Lansia Gagal di Diperbaharui']);
         }
     }
 }

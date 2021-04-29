@@ -698,7 +698,7 @@
                                                 <div class="row text-center">
                                                     <div class="col-6">
                                                         <span class="fw-bold">Jenis Vitamin :</span>
-                                                        <p>{{ $data->vitamin->nama_vitamin }}</p>
+                                                        <p>{{ $data->nama_vitamin }}</p>
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -842,7 +842,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Bumil</a>
+                                <a href="{{ route('Detail Anggota Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Bumil</a>
                                 <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
                             </div>
                         </div>

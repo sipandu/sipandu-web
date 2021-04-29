@@ -73,7 +73,7 @@
             <div class="col-md-7">
                 <div class="card card-primary card-outline">
                     <div class="card-header p-2">
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills justify-content-center">
                             <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
                             <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Informasi</a></li>
                             <li class="nav-item"><a class="nav-link" href="#ubahData" data-toggle="tab">Ubah Data</a></li>
