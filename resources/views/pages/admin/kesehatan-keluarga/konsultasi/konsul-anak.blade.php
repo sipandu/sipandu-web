@@ -36,7 +36,7 @@
                     <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if ($persalinan->count < 1)
+                                @if ($persalinan == NULL)
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Data Kelahiran Anak</p></div>
