@@ -751,11 +751,11 @@
                                         <li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-7 my-auto"><span class="fw-bold">Penyakit Bawaan</span></div>
-                                                @foreach ($penyakitBawaan as $data)
-                                                    <div class="col-5 text-end my-auto">
-                                                        <span>{{ $data->jenis_penyakit }}</span>
-                                                    </div>
-                                                @endforeach
+                                                <div class="col-5 text-end my-auto">
+                                                    @foreach ($penyakitBawaan as $data)
+                                                        <span>{{ $data->nama_penyakit }}</span>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </li>
                                     @endif

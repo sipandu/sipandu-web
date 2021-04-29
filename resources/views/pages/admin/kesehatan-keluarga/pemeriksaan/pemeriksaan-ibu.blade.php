@@ -535,6 +535,34 @@
                                         </form>
                                     </div>
                                 </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Penyakit Bawaan Ibu</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPenyakitBawaan" role="button" aria-expanded="false" aria-controls="tambahPenyakitBawaan"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahPenyakitBawaan">
+                                        <form action="{{ route('Tambah Penyakit Bawaan', $dataIbu->id_user) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control @error('nama_penyakit') is-invalid @enderror" value="{{ old('nama_penyakit') }}" id="nama_penyakit" name="nama_penyakit" placeholder="Masukan penyakit bawaan">
+                                                        <label for="nama_penyakit">Nama Penyakit<span class="text-danger">*</span></label>
+                                                        @error('nama_penyakit')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button type="submit" class="btn btn-block btn-success">Simpan Penyakit Bawaan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="card card-primary card-outline">
@@ -823,11 +851,11 @@
                                         <li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-7 my-auto"><span class="fw-bold">Penyakit Bawaan</span></div>
-                                                @foreach ($penyakitBawaan as $data)
-                                                    <div class="col-5 text-end my-auto">
-                                                        <span>{{ $data->jenis_penyakit }}</span>
-                                                    </div>
-                                                @endforeach
+                                                <div class="col-5 text-end my-auto">
+                                                    @foreach ($penyakitBawaan as $data)
+                                                        <span>{{ $data->nama_penyakit }}. </span>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </li>
                                     @endif
