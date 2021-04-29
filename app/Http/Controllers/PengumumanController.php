@@ -45,6 +45,8 @@ class PengumumanController extends Controller
         $pengumuman->image = $filename;
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
+
+        $pengumuman->broadcastPengumumanToMember();
         return redirect()->route('pengumuman.home')->with(['success' => 'Data Berhasil Disimpan']);
     }
 
@@ -74,6 +76,7 @@ class PengumumanController extends Controller
         $pengumuman->pengumuman = $request->pengumuman;
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
+        $pengumuman->broadcastUpdatePengumumanToMember();
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
 
@@ -88,8 +91,15 @@ class PengumumanController extends Controller
     public function getImage($id)
     {
         $pengumuman = Pengumuman::find($id);
-        return response()->file(
-            storage_path($pengumuman->image)
-        );
+
+        if(File::exists(storage_path($pengumuman->image))) {
+            return response()->file(
+                storage_path($pengumuman->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
     }
 }

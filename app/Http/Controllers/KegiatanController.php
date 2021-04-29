@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Kegiatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
 {
     public function index()
     {
-        $kegiatan = Kegiatan::where('start_at', '>=', date('Y-m-d'))
+        $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
             ->orderby('start_at', 'asc')->get();
         return view('pages.admin.kegiatan.home', compact('kegiatan'));
     }
@@ -22,6 +23,7 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $kegiatan = new Kegiatan();
+        $kegiatan->id_posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
         $kegiatan->nama_kegiatan = $request->nama_kegiatan;
         $kegiatan->tempat = $request->tempat;
         $kegiatan->start_at = $request->start_at;

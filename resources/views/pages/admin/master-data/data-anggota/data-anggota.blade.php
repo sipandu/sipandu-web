@@ -40,7 +40,7 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Anak</th>
+                                                <th>Nama Ibu</th>
                                                 <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
@@ -54,12 +54,12 @@
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Detail Anggota Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                         </a>
                                                     </td>
                                                     <td class="text-center align-middle d-none d-md-table-cell">
                                                         <a href="{{route('Detail Anggota Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                             Detail
                                                         </a>
                                                     </td>
@@ -100,12 +100,12 @@
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                         </a>
                                                     </td>
                                                     <td class="text-center align-middle d-none d-md-table-cell">
                                                         <a href="{{route('Detail Anggota Anak', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                             Detail
                                                         </a>
                                                     </td>
@@ -148,12 +148,12 @@
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                         </a>
                                                     </td>
                                                     <td class="text-center align-middle d-none d-md-table-cell">
                                                         <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="fas fa-eye"></i>
                                                             Detail
                                                         </a>
                                                     </td>

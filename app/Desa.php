@@ -25,4 +25,9 @@ class Desa extends Model
     {
         return $this->belongsTo('App\kecamatan');
     }
+
+    public function pjLansia()
+    {
+        return $this->hasMany(PjLansia::class,'id_desa','id');
+    }
 }

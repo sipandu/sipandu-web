@@ -59,7 +59,7 @@
             </div>
         </div>
     </section>
-    <section class="we-do-section pt-150" id="penyuluhan">
+    {{-- <section class="we-do-section pt-150" id="penyuluhan">
         <div class="shape shape-1">
             <img src="index-template/img/shapes/shape-1.svg" alt="">
         </div>
@@ -91,7 +91,7 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- Fitur Start --}}
         @include('layouts/index/fitur-layout')
