@@ -58,12 +58,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(PemberianImunisasi::class,'id_user','id');
     }
-
+    
     public function pemberianVitamin()
     {
         return $this->hasMany(PemberianVitamin::class,'id_user','id');
     }
-  
+
     public function alergi()
     {
         return $this->hasMany(Alergi::class,'id_user','id');
