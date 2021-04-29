@@ -92,9 +92,7 @@ class KonsultasiController extends Controller
         $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
         $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
 
         $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
             ->select('tb_anak.*')
@@ -112,23 +110,29 @@ class KonsultasiController extends Controller
         $dataUser = User::where('id', $anak->id_user)->get()->first();
 
         $today = Carbon::now()->setTimezone('GMT+8');
-        // $age = Carbon::parse($dataAnak->tanggal_lahir)->age;
-        $umur = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%y Tahun');
-        $umurBayi = Carbon::parse($dataAnak->tanggal_lahir)->diff($today)->format('%m Bulan');
+        $umur = $age = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m Bulan');
 
         if ($umur > 0) {
             $usia = $umur;
         } else {
             $usia = $umurBayi;
-        }    
+        }
 
+        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            ->select('tb_ibu_hamil.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
+        ->get();
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $dataUser->id)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $dataUser->id)->get();
-        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
+        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->first();
 
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan'));
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'ibu'));
     }
 
     public function konsultasiLansia(Lansia $lansia)

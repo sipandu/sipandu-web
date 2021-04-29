@@ -430,7 +430,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <div class="image mx-auto d-block rounded">
-                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Pemeriksaan', $dataIbu->user->id ) }}" alt="..." width="150" height="150">
+                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Konsultasi', $dataIbu->user->id ) }}" alt="..." width="150" height="150">
                                     </div>
                                 </div>
                                 <h3 class="profile-username text-center mt-3">{{ $dataIbu->nama_ibu_hamil }}</h3>
