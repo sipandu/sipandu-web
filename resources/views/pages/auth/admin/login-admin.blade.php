@@ -21,7 +21,6 @@
 
 </head>
 <body class="hold-transition login-page">
-
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
@@ -106,7 +105,7 @@
                 </p>
             </div>
             <div class="text-center mt-4 mb-0">
-                <a class="nav-link link-dark">Smart Posyandu &copy 2021</a>
+                <a class="nav-link link-dark">Smart Posyandu &copy {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}</a>
             </div>
         </div>
     </div>
@@ -149,12 +148,9 @@
             };
             document.addEventListener( "DOMContentLoaded", function() {
                 var checkbox = document.querySelector( "#show-hide" ),
-                    password = document.querySelector( "#password" ),
-                    form = document.querySelector( "#form" );
-                    // form.addEventListener( "submit", function( e ) {
-                    //     e.preventDefault();
-                    // }, false);
-                    var toggler = new showHide( checkbox, password );
+                password = document.querySelector( "#password" ),
+                form = document.querySelector( "#form" );
+                var toggler = new showHide( checkbox, password );
             });
         })();
     </script>

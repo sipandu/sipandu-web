@@ -33,7 +33,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Ibu Hamil</span>
-                                                <span class="info-box-number text-center text-muted mb-0">180</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $ibu->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -41,7 +41,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Anak</span>
-                                                <span class="info-box-number text-center text-muted mb-0">555</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $anak->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Lansia</span>
-                                                <span class="info-box-number text-center text-muted mb-0">1041</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $lansia->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -104,9 +104,16 @@
                                         </li>
                                     @else
                                         @foreach ($headAdmin as $admin)
-                                            <li>
-                                                <a href="{{ route("Detail Admin", [$admin->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
-                                            </li>
+                                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
+                                                <li>
+                                                    <a href="{{ route("Detail Admin", [$admin->id])}}" class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</a>
+                                                </li>
+                                            @endif
+                                            @if (Auth::guard('admin')->user()->pegawai->jabatan != 'head admin')
+                                                <li>
+                                                    <p class="btn-link text-secondary text-decoration-none">{{ $admin->nama_pegawai }}</p>
+                                                </li>
+                                            @endif
                                         @endforeach
                                     @endif
                                 </ul>
@@ -135,15 +142,15 @@
                                     @endif
                                 </ul>
                                 <h5 class="mt-3 text-muted"><i class="fas fa-users"></i> Jumlah Petugas</h5>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled lh-sm">
                                     <li>
-                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none">{{ $cntAdmin->count() }} Administrator</a>
+                                        <a class="btn-link text-secondary text-decoration-none lh-sm">{{ $cntAdmin->count() }} Administrator</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntKader->count() }} Kader</a>
+                                        <a class="btn-link text-secondary text-decoration-none lh-sm">{{ $cntKader->count() }} Kader</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
+                                        <a class="btn-link text-secondary text-decoration-none lh-sm">{{ $cntNakes->count() }} Tenaga Kesehatan</a>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Selanjutnya</h5>
@@ -156,14 +163,10 @@
                                         @endforeach
                                     @else
                                         <p href="" class="btn-link text-secondary text-decoration-none"><i class="fas fa-long-arrow-alt-right"></i> Tidak Terdapat Kegiatan</p>
-                                        
                                     @endif
                                 </ul>
                                 <div class="text-center mt-5 mb-5">
-                                    @if ((Auth::guard('admin')->user()->pegawai->jabatan != 'head admin') && (Auth::guard('admin')->user()->pegawai->jabatan != 'admin'))
-                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    @else
-                                        <a href="{{ route('Admin Home') }}" class="btn btn-sm btn-primary">Kembali</a>
+                                    @if ((Auth::guard('admin')->user()->pegawai->jabatan == 'head admin') && (Auth::guard('admin')->user()->pegawai->jabatan == 'admin'))
                                         <a href="{{ route('Edit Profile Posyandu', [Auth::guard('admin')->user()->pegawai->id_posyandu]) }}" class="btn btn-sm btn-warning">Edit</a>
                                     @endif
                                 </div>

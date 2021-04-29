@@ -9,6 +9,8 @@ use App\User;
 use App\Anak;
 use App\Ibu;
 use App\Lansia;
+use App\PemeriksaanIbu;
+use App\PemeriksaanAnak;
 
 class DataRiwayatKesehatanController extends Controller
 {
@@ -48,7 +50,42 @@ class DataRiwayatKesehatanController extends Controller
 
     public function kesehatanIbu(Ibu $ibu)
     {
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu');
+        $dataAwal = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->first();
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->usia_kandungan != null){
+                $beratAwal = $dataAwal->berat_badan;
+                $dataPemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->get();
+            // dd($dataAwal->berat_badan);
+            $perubahanBerat[] = 0;
+            $minggu[] = $dataAwal->usia_kandungan;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    $minusBerat = $d->berat_badan - $dataAwal->berat_badan;
+                    // dd($minusBerat);
+                    array_push($perubahanBerat, $minusBerat);
+                    array_push($minggu, $d->usia_kandungan);
+                }
+            }
+            $js_minggu = json_encode($minggu);
+            $js_berat = json_encode($perubahanBerat);
+            }else{
+                $js_minggu = null;
+                $js_berat = null;
+            }
+        }else{
+            $js_minggu = null;
+            $js_berat = null;
+        }
+        
+        
+        
+        // dd($js_minggu, $js_berat);
+        // dd($perubahanBerat);
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu', compact('js_minggu', 'js_berat'));
     }
 
     public function kesehatanAnak(Anak $anak)

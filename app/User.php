@@ -22,9 +22,15 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_image',
+        'golongan_darah',
+        'agama',
+        'tanggungan',
+        'no_jkn',
+        'masa_berlaku',
+        'fasker_rujukan',
         'is_verified',
-        'otp_token',
         'keterangan',
+        'otp_token',
     ];
 
 
@@ -52,26 +58,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(PemberianImunisasi::class,'id_user','id');
     }
-
+    
     public function pemberianVitamin()
     {
         return $this->hasMany(PemberianVitamin::class,'id_user','id');
     }
 
-    public function getUrlImage() {
+    public function alergi()
+    {
+        return $this->hasMany(Alergi::class,'id_user','id');
+    }
 
-        $informasi = InformasiPenting::find($id);
+    public function penyakitBawaan()
+    {
+        return $this->hasMany(PenyakitBawaan::class,'id_user','id');
+    }
 
-        if(File::exists(storage_path($informasi->image))) {
-            return response()->file(
-                storage_path($informasi->image)
-            );
-        } else {
-            return response()->file(
-                public_path('images/default-img.jpg')
-            );
-        }
+    public function riwayatPenyakit()
+    {
+        return $this->hasMany(RiwayatPenyakit::class,'id_user','id');
+    }
 
-        return url('/admin/pengumuman/get-img/'.$this->id);
+    public function pjLansia()
+    {
+        return $this->hasMany(PjLansia::class,'id_user','id');
     }
 }

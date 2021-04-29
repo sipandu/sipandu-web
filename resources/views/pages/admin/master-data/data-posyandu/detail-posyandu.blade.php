@@ -34,7 +34,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Ibu Hamil</span>
-                                                <span class="info-box-number text-center text-muted mb-0">180</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $ibu->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Anak</span>
-                                                <span class="info-box-number text-center text-muted mb-0">555</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $anak->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Lansia</span>
-                                                <span class="info-box-number text-center text-muted mb-0">1041</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $lansia->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -142,10 +142,10 @@
                                 <h5 class="mt-4 text-muted"><i class="fas fa-users-cog"></i> Jumlah Petugas</h5>
                                 <ul class="list-unstyled lh-sm">
                                     <li class="my-1">
-                                        <a href="{{ route('Data Admin') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</a>
+                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</p>
                                     </li>
                                     <li class="my-1">
-                                        <a href="{{ route('Data Kader') }}" class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</a>
+                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</p>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Berikutnya</h5>
