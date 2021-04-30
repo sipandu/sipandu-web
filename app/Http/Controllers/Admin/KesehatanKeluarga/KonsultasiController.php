@@ -21,6 +21,8 @@ use App\PemberianVitamin;
 use App\Alergi;
 use App\Persalinan;
 use App\PenyakitBawaan;
+use App\RiwayatPenyakit;
+use App\PjLansia;
 
 class KonsultasiController extends Controller
 {
@@ -137,9 +139,17 @@ class KonsultasiController extends Controller
 
     public function konsultasiLansia(Lansia $lansia)
     {
-        $dataLansia = Lansia::where('id', $lansia->id)->get()->first();
+        $dataLansia = $lansia;
+        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
+        $pj = PjLansia::where('id_lansia', $lansia->id)->first();
+        $imunisasi = PemberianImunisasi::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $vitamin = PemberianVitamin::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
+        $alergi = Alergi::where('id_user', $lansia->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $lansia->id_user)->get();
+        $riwayatPenyakit = RiwayatPenyakit::where('id_lansia', $lansia->id)->get();
+        $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->orderBy('id', 'desc')->limit(5)->get();
 
-        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-lansia', compact('dataLansia'));
+        return view('pages/admin/kesehatan-keluarga/konsultasi/konsul-lansia', compact('dataLansia', 'imunisasi', 'vitamin', 'umur', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'pj', 'pemeriksaan'));
     }
 
     public function storeKonsultasiIbu(Ibu $ibu, Request $request)

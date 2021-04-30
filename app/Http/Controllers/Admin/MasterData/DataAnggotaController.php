@@ -303,11 +303,11 @@ class DataAnggotaController extends Controller
                 'tempat_lahir.max' => "Penulisan tempat lahir maksimal berjumlah 50 karakter",
                 'tgl_lahir.required' => "Tanggal lahir anak wajib diisi",
                 'tgl_lahir.date' => "Tanggal lahir harus berupa tanggal",
-                'goldar.min' => "Golongan darah terlalu singkat",
-                'goldar.max' => "Golongan darah terlalu panjang",
                 'alamat.required' => "Alamat tempat tinggal wajib diisi",
                 'alamat.min' => "Penulisan alamat tempat tinggal miniminal berjumlah 5 karakter",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);  
@@ -336,11 +336,11 @@ class DataAnggotaController extends Controller
                 'tempat_lahir.max' => "Penulisan tempat lahir maksimal berjumlah 50 karakter",
                 'tgl_lahir.required' => "Tanggal lahir anak wajib diisi",
                 'tgl_lahir.date' => "Tanggal lahir harus berupa tanggal",
-                'goldar.min' => "Golongan darah terlalu singkat",
-                'goldar.max' => "Golongan darah terlalu panjang",
                 'alamat.required' => "Alamat tempat tinggal wajib diisi",
                 'alamat.min' => "Penulisan alamat tempat tinggal miniminal berjumlah 5 karakter",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);
@@ -458,12 +458,13 @@ class DataAnggotaController extends Controller
                 'pekerjaan' => "required",
                 'status_perkawinan' => "required",
                 'sumber_biaya_hidup' => "required",
-                'jumlah_keluarga_serumah' => "required|numeric|min:1",
-                'jumlah_anak' => "required|numeric|min:1|max:3",
-                'jumlah_cucu' => "required|numeric|min:1|max:3",
-                'jumlah_cicit' => "required|numeric|min:1|max:3",
+                'jumlah_keluarga_serumah' => "required|numeric|digits_between:1,3",
+                'jumlah_anak' => "required|numeric|digits_between:1,3",
+                'jumlah_cucu' => "required|numeric|digits_between:1,3",
+                'jumlah_cicit' => "required|numeric|digits_between:1,3",
                 'tanggungan' => "required",
-                'faskes_rujukan' => "required|max:3",
+                'goldar' => "nullable|min:1|max:2",
+                'faskes_rujukan' => "required|min:3",
             ],
             [
                 'nama.required' => "Nama lansia wajib diisi",
@@ -496,6 +497,8 @@ class DataAnggotaController extends Controller
                 'jumlah_cicit.min' => "Jumlah cicit kandung kurang dari nilai minimum",
                 'jumlah_cicit.max' => "Jumlah cicit kandung melebihi dari nilai maksimum",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);  
@@ -516,7 +519,10 @@ class DataAnggotaController extends Controller
                 'jumlah_cucu' => "required",
                 'jumlah_cicit' => "required",
                 'tanggungan' => "required|exists:tb_user,tanggungan",
-                'faskes_rujukan' => "required|max:3",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
+                'goldar' => "nullable|min:1|max:2",
+                'faskes_rujukan' => "required|min:3",
             ],
             [
                 'nama.required' => "Nama ibu wajib diisi",
@@ -553,6 +559,8 @@ class DataAnggotaController extends Controller
                 'jumlah_cicit.min' => "Jumlah cicit kandung kurang dari nilai minimum",
                 'jumlah_cicit.max' => "Jumlah cicit kandung melebihi dari nilai maksimum",
                 'tanggungan.required' => "Status tanggungan wajib diisi",
+                'goldar.min' => "Golongan darah terlalu singkat",
+                'goldar.max' => "Golongan darah terlalu panjang",
                 'faskes_rujukan.required' => "Faskes rujukan wajib diisi",
                 'faskes_rujukan.min' => "Penulisan faskes rujukan miniminal berjumlah 3 karakter",
             ]);
@@ -616,6 +624,7 @@ class DataAnggotaController extends Controller
 
                 $updateUser = User::where('id', $lansia->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'golongan_darah' => $request->goldar,
                     'no_jkn' => $request->no_jkn,
                     'masa_berlaku' => $masa_berlaku,
                     'faskes_rujukan' => $request->faskes_rujukan,
@@ -666,6 +675,7 @@ class DataAnggotaController extends Controller
 
                 $updateUser = User::where('id', $lansia->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'golongan_darah' => $request->goldar,
                     'faskes_rujukan' => $request->faskes_rujukan,
                 ]);
                 
