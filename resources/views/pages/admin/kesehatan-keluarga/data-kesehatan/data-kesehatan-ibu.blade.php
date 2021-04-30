@@ -157,13 +157,13 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" value="{{ $vitamin->count() }} Kali" disabled readonly>
-                                    <label for="konsultasi">Vitamin</label>
+                                    <label for="konsultasi">Pemberian Vitamin</label>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" value="{{ $imunisasi->count() }} Kali" disabled readonly>
-                                    <label for="pemeriksaan">Imunisasai</label>
+                                    <label for="pemeriksaan">Pemberian Imunisasai</label>
                                 </div>
                             </div>
                         </div>
@@ -171,13 +171,13 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" value="{{ $pemeriksaan->where('jenis_pemeriksaan', 'Konsultasi')->count() }} Kali" disabled readonly>
-                                    <label for="konsultasi">Konsultasi</label>
+                                    <label for="konsultasi">Jumlah Konsultasi</label>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" value="{{ $pemeriksaan->where('jenis_pemeriksaan', 'Pemeriksaan')->count() }} Kali" disabled readonly>
-                                    <label for="pemeriksaan">Pemeriksaan</label>
+                                    <label for="pemeriksaan">Jumlah Pemeriksaan</label>
                                 </div>
                             </div>
                         </div>
