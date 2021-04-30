@@ -153,7 +153,7 @@
                                     <p>Konfirmasi Anggota</p>
                                 </a>
                             </li>
-                        @endif
+                            @endif
                         </ul>
                     </li>
                 </li>
@@ -208,7 +208,7 @@
                         </ul>
                     </li>
                 </li>
-                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
+                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
                     <li class="nav nav-treeview">
                         <li class="nav-item" id="list-kesehatan">
                             <a href="#" class="nav-link" id="kesehatan">
@@ -219,14 +219,12 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview ms-3">
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
-                                    <li class="nav-item" >
-                                        <a href="{{ route("Tambah Konsultasi") }}" class="nav-link" id="konsultasi">
-                                            <i class="nav-icon fas fa-user-md"></i>
-                                            <p>Konsultasi</p>
-                                        </a>
-                                    </li>
-                                @endif
+                                <li class="nav-item" >
+                                    <a href="{{ route("Tambah Konsultasi") }}" class="nav-link" id="konsultasi">
+                                        <i class="nav-icon fas fa-user-md"></i>
+                                        <p>Konsultasi</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item" >
                                     <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
                                         <i class="fas fa-medkit nav-icon"></i>
