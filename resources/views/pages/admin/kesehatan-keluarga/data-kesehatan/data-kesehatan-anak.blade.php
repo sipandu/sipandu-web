@@ -50,40 +50,64 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @if($js_berat != null || $js_tinggi != null)
                     <div>
                         <canvas id="bb_tb"></canvas>
                     </div>
+                    @else 
+                        <li class="list-group-item">
+                            <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
+                        </li>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @if($js_berat != null || $js_usia != null)
                     <div>
                         <canvas id="bb_umur"></canvas>
                     </div>
+                    @else 
+                        <li class="list-group-item">
+                            <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
+                        </li>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @if($js_tinggi != null || $js_usia != null)
                     <div>
                         <canvas id="tb_umur"></canvas>
                     </div>
+                    @else 
+                        <li class="list-group-item">
+                            <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
+                        </li>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @if($js_lingkar != null || $js_usia != null)
                     <div>
                         <canvas id="lila"></canvas>
                     </div>
+                    @else 
+                        <li class="list-group-item">
+                            <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
+                        </li>
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div>
@@ -91,7 +115,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary card-outline">
@@ -274,30 +298,86 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
-        const datapoints = [0, 0.25, 0.4, 0.55, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.6, 3.2, 3.8, 4.2, 4.8, 5.4, 6, 6.6, 7.2, 7.8, 8.4, 9, 9.6, 10.2, 10.8, 11.4, 12, 12.6, 13.2, 13.8, 14.4, 15, 15.6, 16.2, 16.8, 17.4, 18];
-        const data = {
-            labels: labels,
-            data: datapoints,
+        // const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
+        // const datapoints = [0, 0.25, 0.4, 0.55, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.6, 3.2, 3.8, 4.2, 4.8, 5.4, 6, 6.6, 7.2, 7.8, 8.4, 9, 9.6, 10.2, 10.8, 11.4, 12, 12.6, 13.2, 13.8, 14.4, 15, 15.6, 16.2, 16.8, 17.4, 18];
+        const tinggi = JSON.parse("{{$js_tinggi}}");
+        const berat = JSON.parse("{{$js_berat}}");
+        const umur = JSON.parse("{{$js_usia}}");
+        const lingkar = JSON.parse("{{$js_lingkar}}");
+        const datatingber = {
+            labels: tinggi,
+            data: berat,
             datasets: [
                 {
-                    label: 'Cubic interpolation (monotone)',
-                    data: datapoints,
+                    label: 'Data Berat Berdasarkan Tinggi Badan',
+                    data: berat,
                     borderColor: '#111111',
                     fill: false,
                 },
             ]
         };
 
-        const config = {
+        const databerum = {
+            labels: berat,
+            data: umur,
+            datasets: [
+                {
+                    label: 'Umur',
+                    data: umur,
+                    borderColor: '#111111',
+                    fill: false,
+                },
+            ]
+        };
+
+        const datatingmur = {
+            labels: tinggi,
+            data: umur,
+            datasets: [
+                {
+                    label: 'Umur',
+                    data: umur,
+                    borderColor: '#111111',
+                    fill: false,
+                },
+            ]
+        };
+
+        const datalingkar = {
+            labels: lingkar,
+            data: umur,
+            datasets: [
+                {
+                    label: 'Umur',
+                    data: umur,
+                    borderColor: '#111111',
+                    fill: false,
+                },
+            ]
+        };
+
+        // const datatingber = {
+        //     labels: tinggi,
+        //     data: berat,
+        //     datasets: [
+        //         {
+        //             label: 'Data Berat Berdasarkan Tinggi Badan',
+        //             data: berat,
+        //             borderColor: '#111111',
+        //             fill: false,
+        //         },
+        //     ]
+        // };
+
+        const config1 = {
             type: 'line',
-            data: data,
+            data: datatingber,
             options: {
                 responsive: true,
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Grafik Peningkatan Berat Badan'
+                        text: 'Grafik Peningkatan Berat Badan Berdasarkan Tinggi Badan Anak'
                     },
                 },
                 interaction: {
@@ -307,14 +387,123 @@
                     x: {
                         display: true,
                         title: {
-                            display: true
+                            display: true,
+                            text: 'Tinggi Badan'
                         },  
                     },
                     y: {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Value'
+                            text: 'Berat Badan'
+                        },
+                        // suggestedMin: -1,
+                        // suggestedMax: 23,
+                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                    }
+                }
+            },
+        };
+
+        const config2 = {
+            type: 'line',
+            data: databerum,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafik Peningkatan Berat Badan Berdasarkan Usia Anak'
+                    },
+                },
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Berat Badan'
+                        },  
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Usia'
+                        },
+                        // suggestedMin: -1,
+                        // suggestedMax: 23,
+                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                    }
+                }
+            },
+        };
+
+        const config3 = {
+            type: 'line',
+            data: datatingmur,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafik Peningkatan Tinggi Badan Berdasarkan Usia Anak'
+                    },
+                },
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Tinggi Badan'
+                        },  
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Usia'
+                        },
+                        // suggestedMin: -1,
+                        // suggestedMax: 23,
+                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                    }
+                }
+            },
+        };
+
+        const config4 = {
+            type: 'line',
+            data: datalingkar,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafik pertumbuhan Lingkar Kepala Berdasarkan Usia Anak'
+                    },
+                },
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Lingkar Kepala'
+                        },  
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Usia'
                         },
                         // suggestedMin: -1,
                         // suggestedMax: 23,
@@ -326,28 +515,28 @@
         
         var bb_tb = new Chart(
             document.getElementById('bb_tb'),
-            config
+            config1
         );
         
         var bb_umur = new Chart(
             document.getElementById('bb_umur'),
-            config
+            config2
         );
 
         var tb_umur = new Chart(
             document.getElementById('tb_umur'),
-            config
+            config3
         );
 
         var lila = new Chart(
             document.getElementById('lila'),
-            config
+            config4
         );
 
-        var kms = new Chart(
-            document.getElementById('kms'),
-            config
-        );
+        // var kms = new Chart(
+        //     document.getElementById('kms'),
+        //     config
+        // );
     </script>
   
 @endpush

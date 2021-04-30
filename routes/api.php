@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/test', function (Request $request){
 });
 
 Route::prefix('mobileuser')->group(function(){
+    // auth
     Route::post('/Login', 'User\Auth\Api\ApiLoginController@login');
     Route::get('/Logout', 'User\Auth\Api\ApiLoginController@logout')->middleware('auth:sanctum');
     Route::post('/register', 'User\Auth\Api\ApiRegisterController@firstRegis');
@@ -31,24 +32,32 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/register-ibu', 'User\Auth\Api\ApiRegisterController@storeIbu');
     Route::post('/register-lansia', 'User\Auth\Api\ApiRegisterController@storeLansia');
 
-    Route::get('/get-posyandu', 'User\Auth\Api\GetData@dataPosyandu')->middleware('auth:sanctum');
-    Route::post('/get-posyandu-bolong', 'User\Auth\Api\ApiUserDataController@getPosyandu');
-    Route::post('/get-posyandu-kegiatan', 'User\Auth\Api\ApiUserDataController@getPosyanduKegiatan');
-
-    Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
-
-    Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
-    Route::post('/user/get-user-ibu', 'User\Auth\Api\ApiUserDataController@getUserIbu');
-    Route::post('/user/get-user-lansia', 'User\Auth\Api\ApiUserDataController@getUserLansia');
-
+    // regist tahap 2 stuff
     Route::get('/regist-data-posyandu', 'User\Auth\Api\ApiRegisterController@getAllPosyandu');
     Route::post('/register-data-anak', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataAnak');
     Route::post('/register-data-ibu', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataIbu');
     Route::post('/register-data-lansia', 'User\Auth\Api\ApiRegisterDataDiriController@storeDataLansia');
 
-    Route::get('/get-informasi-home', 'User\Auth\Api\ApiBlogController@getInformasiHome');
-    Route::post('/get-informasi', 'User\Auth\Api\ApiBlogController@getInformasi');
-    Route::post('/get-image', 'User\Auth\Api\ApiBlogController@getImage');
+    // posyandu data stuff
+    Route::get('/get-posyandu', 'User\Auth\Api\GetData@dataPosyandu')->middleware('auth:sanctum');
+    Route::post('/get-posyandu-bolong', 'User\Auth\Api\ApiPosyanduDataController@getPosyandu');
+    Route::post('/get-posyandu-kegiatan', 'User\Auth\Api\ApiPosyanduDataController@getPosyanduKegiatan');
+    Route::post('/get-posyandu-nakes', 'User\Auth\Api\ApiPosyanduDataController@getTenagaKesehatanPosyandu');
+    Route::post('/get-posyandu-pengumuman', 'User\Auth\Api\ApiPosyanduDataController@getPengumuman');
+
+    //user data stuff
+    Route::post('/user/get-user-anak', 'User\Auth\Api\ApiUserDataController@getUserAnak');
+    Route::post('/user/get-user-ibu', 'User\Auth\Api\ApiUserDataController@getUserIbu');
+    Route::post('/user/get-user-lansia', 'User\Auth\Api\ApiUserDataController@getUserLansia');
+
+    // informasi stuff
+    Route::get('/get-informasi-home', 'User\Auth\Api\ApiInformasiController@getInformasiHome');
+    Route::post('/get-informasi', 'User\Auth\Api\ApiInformasiController@getInformasi');
+    Route::post('/get-image', 'User\Auth\Api\ApiInformasiController@getImage');
+
+
+    // other
+    Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
 });
 
 
