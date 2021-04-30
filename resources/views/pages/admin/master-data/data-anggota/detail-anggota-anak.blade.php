@@ -311,7 +311,7 @@
                                         @enderror
                                     </div>
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group mb-3">
                                                     @if ( $dataUser->tanggungan == NULL )
@@ -339,6 +339,16 @@
                                                         </div>
                                                     @enderror
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" name="goldar" autocomplete="off" class="form-control @error('goldar') is-invalid @enderror" id="goldar" value="{{ old('goldar', $dataUser->golongan_darah ) }}" placeholder="Golongan Darah">
+                                                @error('goldar')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
