@@ -18,190 +18,269 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline card-primary p-3">
-                    <p class="text-center fs-5">Tambah Jenis Vitamin Baru</p>
-                    <form action="{{ route('Update Vitamin', [$vitamin->id]) }}" method="POST">
-                    @csrf
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6 my-2">
-                                <label for="nama_vitamin">Nama Vitamin<span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('nama_vitamin') is-invalid @enderror" id="nama_vitamin" name="nama_vitamin" value="{{ old('nama_vitamin', $vitamin->nama_vitamin) }}" placeholder="Nama Vitamin">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-syringe"></span>
+                    @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                        <form action="{{ route('Update Vitamin', [$vitamin->id]) }}" method="POST">
+                        @csrf
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="nama_vitamin">Nama Vitamin<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control @error('nama_vitamin') is-invalid @enderror" id="nama_vitamin" name="nama_vitamin" value="{{ old('nama_vitamin', $vitamin->nama_vitamin) }}" placeholder="Nama Vitamin">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-syringe"></span>
+                                            </div>
+                                        </div>
+                                        @error('nama_vitamin')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="usia_pemberian">Usia Pemberian<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian', $vitamin->usia_pemberian) }}" placeholder="Usia pemberian">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-calendar-check"></span>
+                                            </div>
+                                        </div>
+                                        @error('usia_pemberian')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="perulangan">Frekuensi Perulangan<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan', $vitamin->perulangan) }}" placeholder="Frekuensi perulangan">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-redo-alt"></span>
+                                            </div>
+                                        </div>
+                                        @error('perulangan')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <label for="status">Status<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                                                    @if ($vitamin->status == 'Wajib')
+                                                        <option value="{{ old('status', $vitamin->status) }}" selected>{{ old('status', $vitamin->status) }}</option>
+                                                        <option value="Tidak Wajib">Tidak Wajib</option>
+                                                    @endif
+                                                    @if ($vitamin->status == 'Tidak Wajib')
+                                                        <option value="{{ old('status', $vitamin->status) }}" selected>{{ old('status', $vitamin->status) }}</option>
+                                                        <option value="Wajib">Wajib</option>
+                                                    @endif
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-tablets"></span>
+                                                    </div>
+                                                </div>
+                                                @error('status')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <label for="penerima">Penerima<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" id="penerima">                                                
+                                                    @if ($vitamin->penerima == 'Ibu Hamil')
+                                                        @if (old('penerima'))
+                                                            @if (old('penerima') == 'Ibu Hamil')
+                                                                <option selected value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Anak')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option selected value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Lansia')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option selected value="Lansia">Lansia</option>
+                                                            @endif
+                                                        @else
+                                                            <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
+                                                            <option value="Anak">Anak</option>
+                                                            <option value="Lansia">Lansia</option>
+                                                        @endif
+                                                    @endif
+                                                    @if ($vitamin->penerima == 'Anak')
+                                                        @if (old('penerima'))
+                                                            @if (old('penerima') == 'Ibu Hamil')
+                                                                <option selected value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Anak')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option selected value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Lansia')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option selected value="Lansia">Lansia</option>
+                                                            @endif
+                                                        @else
+                                                            <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
+                                                            <option value="Anak">Ibu Hamil</option>
+                                                            <option value="Lansia">Lansia</option>
+                                                        @endif
+                                                    @endif
+                                                    @if ($vitamin->penerima == 'Lansia')
+                                                        @if (old('penerima'))
+                                                            @if (old('penerima') == 'Ibu Hamil')
+                                                                <option selected value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Anak')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option selected value="Anak">Anak</option>
+                                                                <option value="Lansia">Lansia</option>
+                                                            @endif
+                                                            @if (old('penerima') == 'Lansia')
+                                                                <option value="Ibu Hamil">Ibu Hamil</option>
+                                                                <option value="Anak">Anak</option>
+                                                                <option selected value="Lansia">Lansia</option>
+                                                            @endif
+                                                        @else
+                                                            <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
+                                                            <option value="Anak">Ibu Hamil</option>
+                                                            <option value="Lansia">Anak</option>
+                                                        @endif
+                                                    @endif
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-tag"></span>
+                                                    </div>
+                                                </div>
+                                                @error('penerima')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('nama_vitamin')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                </div>
+                                <div class="col-12 my-2">
+                                    <div class="form-floating">
+                                        <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">{{ old('keterangan', $vitamin->deskripsi) }}</textarea>
+                                        <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
+                                        @error('keterangan')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12 my-2">
+                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                    <button type="submit" class="btn btn-block btn-outline-success">Simpan Data Vitamin</button>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 my-2">
-                                <label for="usia_pemberian">Usia Pemberian<span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian', $vitamin->usia_pemberian) }}" placeholder="Usia pemberian">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-calendar-check"></span>
+                        </form>
+                    @else
+                        <form action="">
+                        @csrf
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="nama_vitamin">Nama Vitamin<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control" id="nama_vitamin" name="nama_vitamin" value="{{ $vitamin->nama_vitamin }}" placeholder="Nama Vitamin" disabled readonly>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-syringe"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('usia_pemberian')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6 my-2">
-                                <label for="perulangan">Frekuensi Perulangan<span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan', $vitamin->perulangan) }}" placeholder="Frekuensi perulangan">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-redo-alt"></span>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="usia_pemberian">Usia Pemberian<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control" id="usia_pemberian" name="usia_pemberian" value="{{ $vitamin->usia_pemberian }}" placeholder="Usia pemberian" disabled readonly>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-calendar-check"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('perulangan')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6 my-2">
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-                                        <label for="status">Status<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
-                                                @if ($vitamin->status == 'Wajib')
-                                                    <option value="{{ old('status', $vitamin->status) }}" selected>{{ old('status', $vitamin->status) }}</option>
-                                                    <option value="Tidak Wajib">Tidak Wajib</option>
-                                                @endif
-                                                @if ($vitamin->status == 'Tidak Wajib')
-                                                    <option value="{{ old('status', $vitamin->status) }}" selected>{{ old('status', $vitamin->status) }}</option>
-                                                    <option value="Wajib">Wajib</option>
-                                                @endif
-                                            </select>
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-tablets"></span>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <label for="perulangan">Frekuensi Perulangan<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control" id="perulangan" name="perulangan" value="{{ $vitamin->perulangan }}" placeholder="Frekuensi perulangan" disabled readonly>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-redo-alt"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 my-2">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <label for="status">Status<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <select name="status" class="form-control" id="status" disabled>
+                                                    <option selected disabled>{{ $vitamin->status }}</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-tablets"></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            @error('status')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <label for="penerima">Penerima<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" id="penerima">                                                
-                                                @if ($vitamin->penerima == 'Ibu Hamil')
-                                                    @if (old('penerima'))
-                                                        @if (old('penerima') == 'Ibu Hamil')
-                                                            <option selected value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Anak')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option selected value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Lansia')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option selected value="Lansia">Lansia</option>
-                                                        @endif
-                                                    @else
-                                                        <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
-                                                        <option value="Anak">Anak</option>
-                                                        <option value="Lansia">Lansia</option>
-                                                    @endif
-                                                @endif
-                                                @if ($vitamin->penerima == 'Anak')
-                                                    @if (old('penerima'))
-                                                        @if (old('penerima') == 'Ibu Hamil')
-                                                            <option selected value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Anak')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option selected value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Lansia')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option selected value="Lansia">Lansia</option>
-                                                        @endif
-                                                    @else
-                                                        <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
-                                                        <option value="Anak">Ibu Hamil</option>
-                                                        <option value="Lansia">Lansia</option>
-                                                    @endif
-                                                @endif
-                                                @if ($vitamin->penerima == 'Lansia')
-                                                    @if (old('penerima'))
-                                                        @if (old('penerima') == 'Ibu Hamil')
-                                                            <option selected value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Anak')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option selected value="Anak">Anak</option>
-                                                            <option value="Lansia">Lansia</option>
-                                                        @endif
-                                                        @if (old('penerima') == 'Lansia')
-                                                            <option value="Ibu Hamil">Ibu Hamil</option>
-                                                            <option value="Anak">Anak</option>
-                                                            <option selected value="Lansia">Lansia</option>
-                                                        @endif
-                                                    @else
-                                                        <option value="{{ old('penerima', $vitamin->penerima) }}" selected>{{ old('penerima', $vitamin->penerima) }}</option>
-                                                        <option value="Anak">Ibu Hamil</option>
-                                                        <option value="Lansia">Anak</option>
-                                                    @endif
-                                                @endif
-                                            </select>
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-tag"></span>
+                                        <div class="col-12 col-md-6">
+                                            <label for="penerima">Penerima<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <select name="penerima" class="form-control" id="penerima" disabled>
+                                                    <option selected disabled>{{ $vitamin->penerima }}</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-tag"></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            @error('penerima')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12 my-2">
-                                <div class="form-floating">
-                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">{{ old('keterangan', $vitamin->deskripsi) }}</textarea>
-                                    <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
-                                    @error('keterangan')
-                                        <div class="invalid-feedback text-start">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                <div class="col-12 my-2">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="keterangan" placeholder="Masukan keterangan tambahan" disabled readonly>{{ $vitamin->deskripsi }}</textarea>
+                                        <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-12 my-2">
+                                    <a href="{{ route('Jenis Vitamin') }}" class="btn btn-block btn-outline-success">Jenis Vitamin</a>
                                 </div>
                             </div>
-                            <div class="col-12 my-2">
-                                <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                <button type="submit" class="btn btn-block btn-outline-success">Simpan Data Vitamin</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

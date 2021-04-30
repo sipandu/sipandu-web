@@ -31,9 +31,11 @@
                                 <h3 class="card-title my-auto">Data Vitamin</h3>
                             </div>
                             <div class="col-6 col-sm-6 text-end">
-                                <a href="{{ route("Tambah Vitamin") }}" class="btn btn-success">
-                                    <i class="fa fa-plus"></i> Tambah
-                                </a>
+                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                                    <a href="{{ route("Tambah Vitamin") }}" class="btn btn-success">
+                                        <i class="fa fa-plus"></i> Tambah
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -59,12 +61,12 @@
                                             <td class="align-middle">{{ $data->penerima }}</td>
                                             <td class="text-center align-middle d-md-none">
                                                 <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center align-middle d-none d-md-table-cell">
                                                 <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-eye"></i>
                                                     Detail
                                                 </a>
                                             </td>
@@ -111,8 +113,8 @@
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "emptyTable": "Tidak Terdapat Data Imunisasi",
-                    "sSearchPlaceholder": "Cari imunisasi....",
+                    "emptyTable": "Tidak Terdapat Data Vitamin",
+                    "sSearchPlaceholder": "Cari Vitamin....",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)",
                 },
