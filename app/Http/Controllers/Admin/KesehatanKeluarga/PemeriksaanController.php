@@ -84,7 +84,7 @@ class PemeriksaanController extends Controller
     {
         $umur = Carbon::parse($ibu->tanggal_lahir)->age;
         
-        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get()->first();
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->first();
         if ($pemeriksaanIbu != NULL) {
             $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
         } else {
@@ -124,8 +124,8 @@ class PemeriksaanController extends Controller
         $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $alergi = Alergi::where('id_user', $anak->id_user)->get();
-        $persalinan = Persalinan::where('id_anak', $dataAnak->id)->get()->first();
-        $pemeriksaan = PemeriksaanAnak::where('id_anak', $dataAnak->id)->orderBy('id', 'desc')->limit(5)->get();
+        $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
 
         if ($umur > 0) {
             $usia = $umur.' Tahun';

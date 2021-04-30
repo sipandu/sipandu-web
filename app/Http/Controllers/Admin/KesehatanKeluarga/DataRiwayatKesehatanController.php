@@ -5,12 +5,21 @@ namespace App\Http\Controllers\Admin\KesehatanKeluarga;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\User;
 use App\Anak;
 use App\Ibu;
 use App\Lansia;
 use App\PemeriksaanIbu;
 use App\PemeriksaanAnak;
+use App\PemeriksaanLansia;
+use App\PemberianImunisasi;
+use App\PemberianVitamin;
+use App\Alergi;
+use App\Persalinan;
+use App\PenyakitBawaan;
+use App\RiwayatPenyakit;
+use App\PjLansia;
 
 class DataRiwayatKesehatanController extends Controller
 {
@@ -50,6 +59,17 @@ class DataRiwayatKesehatanController extends Controller
 
     public function kesehatanIbu(Ibu $ibu)
     {
+        $dataIbu = $ibu;
+
+        $umur = Carbon::parse($ibu->tanggal_lahir)->age;
+
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get()->first();
+        if ($pemeriksaanIbu != NULL) {
+            $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
+        } else {
+            $usia_kandungan = '0';
+        }
+
         $dataAwal = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->first();
         if($dataAwal != null){
             if($dataAwal->berat_badan != null || $dataAwal->usia_kandungan != null){
@@ -80,18 +100,28 @@ class DataRiwayatKesehatanController extends Controller
             $js_minggu = null;
             $js_berat = null;
         }
-        
-        
-        
-        // dd($js_minggu, $js_berat);
-        // dd($perubahanBerat);
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu', compact('js_minggu', 'js_berat'));
+
+        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-ibu', compact('js_minggu', 'js_berat', 'dataIbu', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia_kandungan', 'alergi', 'penyakitBawaan', 'dataKesehatan'));
     }
 
     public function kesehatanAnak(Anak $anak)
     {
+        $today = Carbon::now()->setTimezone('GMT+8'); 
+        $dataAnak = $anak;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
         $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->first();
-        // dd($dataAwal->tinggi_badan);
         if($dataAwal != null){
             if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
                 $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
@@ -129,11 +159,45 @@ class DataRiwayatKesehatanController extends Controller
             $js_usia = null;
             $js_lingkar = null;
         }
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-anak', compact('js_berat', 'js_tinggi', 'js_lingkar', 'js_usia'));
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        if ($umur > 0) {
+            $usia = $umur.' Tahun';
+        } else {
+            if ($umur < 1) {
+                $usia= $umurLahirBayi.' Hari';
+            } else {
+                $usia = $umurBayi.' Bulan';
+            }
+        }
+
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-anak', compact('js_berat', 'js_tinggi', 'js_lingkar', 'js_usia', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
     }
 
     public function kesehatanLansia(Lansia $lansia)
     {
-        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-lansia');
+        $dataLansia = $lansia;
+        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
+
+        $alergi = Alergi::where('id_user', $lansia->id_user)->get();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $lansia->id_user)->get();
+        $riwayatPenyakit = RiwayatPenyakit::where('id_lansia', $lansia->id)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        $pj = PjLansia::where('id_lansia', $lansia->id)->first();
+
+        return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-lansia', compact('dataLansia', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'pj', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'dataKesehatan'));
     }
 }

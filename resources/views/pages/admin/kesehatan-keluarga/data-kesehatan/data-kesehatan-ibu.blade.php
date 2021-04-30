@@ -2,6 +2,21 @@
 
 @section('title', 'Data Kesehatan Ibu')
 
+@push('css')
+    <style>
+        .image {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+        }
+        .image img {
+            object-fit: cover;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Ibu</h1>
@@ -16,28 +31,244 @@
     </div>
     <div class="container-fluid px-0">
         <div class="row">
-            <div class="col-4">
-                <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Nama Ibu</span>
-                    <p>Nama ibu hamilnya</p>
-                    <span class="fw-bold">Nama Suami</span>
-                    <p>Nama suaminya ibu</p>
+            <div class="col-md-5">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <div class="image mx-auto d-block rounded">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataIbu->id_user) }}" alt="..." width="150" height="150">
+                            </div>
+                        </div>
+                        <h3 class="profile-username text-center">{{ $dataIbu->nama_ibu_hamil }}</h3>
+                        <p class="text-muted text-center">{{ $dataIbu->user->email }}</p>
+                        <ul class="list-group list-group-unbordered mb-1">
+                            <li class="list-group-item">
+                                <b class="fw-bold">Usia</b>
+                                <a class="float-right text-decoration-none link-dark">{{ $umur }} Tahun</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b class="fw-bold">Usia Kandungan</b>
+                                <a class="float-right text-decoration-none link-dark">{{ $usia_kandungan }} Minggu</a>
+                            </li>
+                            @if ($dataIbu->user->golongan_darah == NULL)
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Golongan Darah</b>
+                                    <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Golongan Darah</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->golongan_darah }}</a>
+                                </li>
+                            @endif
+                            @if ($dataIbu->user->nomor_telepon == NULL)
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Nomor Telepon</b>
+                                    <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Nomor Telpon</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->nomor_telepon }}</a>
+                                </li>
+                            @endif
+                            @if ($dataIbu->user->telegram == NULL)
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Telegram</b>
+                                    <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Telegram</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->username_tele }}</a>
+                                </li>
+                            @endif
+                            @if ($dataIbu->user->tanggungan == NULL)
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Tanggungan</b>
+                                    <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Tanggungan</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->tanggungan }}</a>
+                                </li>
+                            @endif
+                            @if ($dataIbu->user->tanggungan == 'Dengan Tanggungan')
+                                <li class="list-group-item">
+                                    <b class="fw-bold">No JKN</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->no_jkn }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Masa Berlaku</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ date('d M Y', strtotime($dataIbu->user->masa_berlaku)) }}</a>
+                                </li>
+                            @endif
+                            @if ($dataIbu->user->faskes_rujukan == NULL)
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Faskes Rujukan</b>
+                                    <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b class="fw-bold">Faskes Rujukan</b>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->faskes_rujukan }}</a>
+                                </li>
+                            @endif
+                        </ul>
+                        <a href="{{ route('Detail Anggota Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Ibu Hamil</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Usia Ibu</span>
-                    <p>Usia Ibunya</p>
-                    <span class="fw-bold">Usia Kehamilan</span>
-                    <p>Usia kehamilan terbaru</p>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card card-primary card-outline p-3">
-                    <span class="fw-bold">Berat Badan Rata-rata</span>
-                    <p>50 Kg</p>
-                    <span class="fw-bold">Indeks Masa Tubuh</span>
-                    <p>Ideal</p>
+            <div class="col-md-7">
+                <div class="card card-primary card-outline">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-floating mb-3 mt-3">
+                                    <input type="text" class="form-control" value="{{ $dataIbu->nama_ibu_hamil }}" disabled readonly>
+                                    <label for="floatingInput">Nama Ibu</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" value="{{ $dataIbu->nama_suami }}" disabled readonly>
+                                    <label for="floatingInput">Nama Suami</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="alergi" placeholder="Masukan lokasi pemeriksaan" disabled readonly>@if ($alergi->count() > 0)@foreach ($alergi as $data){{ $data->nama_alergi }}. @endforeach @else{{'Belum ditambahkan'}}@endif
+                                    </textarea>
+                                    <label for="alergi">Alergi</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="penyakitBawaan" placeholder="Masukan lokasi pemeriksaan" disabled readonly>@if ($penyakitBawaan->count() > 0)@foreach ($penyakitBawaan as $data){{ $data->nama_penyakit }}. @endforeach @else{{'Belum ditambahkan'}}@endif
+                                    </textarea>
+                                    <label for="penyakitBawaan">Penyakit Bawaan</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" value="{{ $vitamin->count() }} Kali" disabled readonly>
+                                    <label for="konsultasi">Vitamin</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" value="{{ $imunisasi->count() }} Kali" disabled readonly>
+                                    <label for="pemeriksaan">Imunisasai</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" value="{{ $pemeriksaan->where('jenis_pemeriksaan', 'Konsultasi')->count() }} Kali" disabled readonly>
+                                    <label for="konsultasi">Konsultasi</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" value="{{ $pemeriksaan->where('jenis_pemeriksaan', 'Pemeriksaan')->count() }} Kali" disabled readonly>
+                                    <label for="pemeriksaan">Pemeriksaan</label>
+                                </div>
+                            </div>
+                        </div>
+                        @if ($dataKesehatan != NULL)
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->lingkar_lengan }} Sentimeter" disabled readonly>
+                                        <label for="konsultasi">Lingkar Lengan</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->berat_badan }} Kilogram" disabled readonly>
+                                        <label for="pemeriksaan">Berat Badan</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->denyut_nadi }}" disabled readonly>
+                                        <label for="konsultasi">Denyut Nadi</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->tekanan_darah }}" disabled readonly>
+                                        <label for="pemeriksaan">Tekanan Darah</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->tinggi_rahim }} Sentimeter" disabled readonly>
+                                        <label for="konsultasi">Tinggi Rahim</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->detak_jantung_bayi }}" disabled readonly>
+                                        <label for="pemeriksaan">Detak Jantung Bayi</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <label for="konsultasi">Lingkar Lengan</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <label for="pemeriksaan">Berat Badan</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <label for="konsultasi">Denyut Nadi</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <label for="pemeriksaan">Tekanan Darah</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <label for="konsultasi">Tinggi Rahim</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <label for="pemeriksaan">Detak Jantung Bayi</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,79 +294,99 @@
                         <li class="list-group-item">
                             <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Ibu</p>
                         </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Pemeriksaan 12 Mar 2020 | Oleh Dr. Andre</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#mar12-2020" role="button" aria-expanded="false" aria-controls="mar12-2020"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="mar12-2020">
-                                <div class="card card-body">
-                                    <span class="fw-bold">Hasil Pemeriksaan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                    <span class="fw-bold">Pengobatan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                    <span class="fw-bold">Keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Usia Ibu :</span>
-                                            <p>50 Minggu</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Usia Kehamilan :</span>
-                                            <p>20 Sentimeter</p>
-                                        </div>
+                        @if ($pemeriksaan->count() > 0)
+                            @foreach ($pemeriksaan as $data)
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{ $data->jenis_pemeriksaan }} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->pegawai->nama_pegawai}}</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#pemeriksaan{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="pemeriksaan{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Lingkar Lengan :</span>
-                                            <p>80 Kilogram</p>
+                                    @if ($data->jenis_pemeriksaan == 'Konsultasi')
+                                        <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
+                                            <div class="card card-body">
+                                                <span class="fw-bold">Usia Kehamilan :</span>
+                                                <p>{{ $usia_kandungan }} Minggu</p>
+                                                <span class="fw-bold">Hasil Pemeriksaan :</span>
+                                                <p>{{ $data->diagnosa }}</p>
+                                                <span class="fw-bold">Pengobatan :</span>
+                                                <p>{{ $data->pengobatan }}</p>
+                                                <span class="fw-bold">Keterangan Tambahan :</span>
+                                                <p>{{ $data->keterangan }}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Berat Badan :</span>
-                                            <p>30 Sentimeter</p>
+                                    @endif
+                                    @if ($data->jenis_pemeriksaan == 'Pemeriksaan')
+                                        <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
+                                            <div class="card card-body">
+                                                <span class="fw-bold">Hasil Pemeriksaan :</span>
+                                                <p>{{ $data->diagnosa }}</p>
+                                                <span class="fw-bold">Pengobatan :</span>
+                                                @if ($data->pengobatan != NULL)
+                                                    <p>{{ $data->pengobatan }}</p>
+                                                @else
+                                                    <p>-</p>
+                                                @endif
+                                                <span class="fw-bold">Keterangan Tambahan :</span>
+                                                @if ($data->keterangan != NULL)
+                                                    <p>{{ $data->keterangan }}</p>
+                                                @else
+                                                    <p>-</p>
+                                                @endif
+                                                <div class="row text-center">
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Usia Ibu :</span>
+                                                        <p>{{ $umur }}</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Usia Kehamilan :</span>
+                                                        <p>{{ $usia_kandungan }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Lingkar Lengan :</span>
+                                                        <p>{{ $data->lingkar_lengan }} Sentimeter</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Berat Badan :</span>
+                                                        <p>{{ $data->berat_badan }} Kilogram</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Tinggi Rahim :</span>
+                                                        <p>{{ $data->tinggi_rahim }} Sentimeter</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Denyut Nadi :</span>
+                                                        <p>{{ $data->denyut_nadi }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center">
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Tekanan Darah :</span>
+                                                        <p>{{ $data->tekanan_darah }}</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <span class="fw-bold">Detak Jantung Bayi :</span>
+                                                        <p>{{ $data->detak_jantung_bayi }}</p>
+                                                    </div>
+                                                </div>
+                                                @if ($data->tanggal_kembali != NULL)
+                                                    <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</span></span>
+                                                @else
+                                                    <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">-</span></span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tinggi Rahim :</span>
-                                            <p>130</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Denyut Nadi :</span>
-                                            <p>80</p>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-6">
-                                            <span class="fw-bold">Tekanan Darah :</span>
-                                            <p>120/80</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <span class="fw-bold">Detak Jantung Bayi :</span>
-                                            <p>21 Mei 2021</p>
-                                        </div>
-                                    </div>
-                                    <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Konsultasi 10 Mar 2020 | Oleh Dr. Made Ayu</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#mar10-2020" role="button" aria-expanded="false" aria-controls="mar10-2020"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="mar10-2020">
-                                <div class="card card-body">
-                                    <span class="fw-bold">Hasil Pemeriksaan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                    <span class="fw-bold">Pengobatan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                    <span class="fw-bold">Keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                </div>
-                            </div>
-                        </li>
+                                    @endif
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="list-group-item my-auto">
+                                <p class="text-center my-auto">Belum Pernah Melakukan Pemeriksaan</p>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="card card-primary card-outline">
@@ -143,50 +394,44 @@
                         <li class="list-group-item">
                             <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Imunisasi</p>
                         </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi1" role="button" aria-expanded="false" aria-controls="imunisasi1"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="imunisasi1">
-                                <div class="row text-center">
-                                    <div class="col-6">
-                                        <span class="fw-bold">Jenis Umunisasi :</span>
-                                        <p>50 Minggu</p>
+                        @if ($imunisasi->count() > 0)
+                            @foreach ($imunisasi as $data)
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="imunisasi{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
-                                    <div class="col-6">
-                                        <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                        <p>30 Jun 2021</p>
+                                    <div class="collapse my-3" id="imunisasi{{ $loop->iteration }}">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Umunisasi :</span>
+                                                <p>{{ $data->imunisasi->nama_imunisasi }}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                @if ($data->tanggal_kembali != NULL)
+                                                    <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
+                                                @else
+                                                    <p>-</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            @if ($data->keterangan != NULL)
+                                                <p>{{ $data->keterangan }}</p>
+                                            @else
+                                                <p>-</p>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card card-body">
-                                    <span class="fw-bold">keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi 12 Mar 2020 | Oleh Dr. Andre</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi2" role="button" aria-expanded="false" aria-controls="imunisasi2"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="imunisasi2">
-                                <div class="row text-center">
-                                    <div class="col-6">
-                                        <span class="fw-bold">Jenis Umunisasi :</span>
-                                        <p>50 Minggu</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                        <p>30 Jun 2021</p>
-                                    </div>
-                                </div>
-                                <div class="card card-body">
-                                    <span class="fw-bold">keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="list-group-item my-auto">
+                                <p class="text-center my-auto">Belum Pernah Melakukan Imunisasi</p>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="card card-primary card-outline">
@@ -194,50 +439,44 @@
                         <li class="list-group-item">
                             <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemberian Vitamin</p>
                         </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin1" role="button" aria-expanded="false" aria-controls="vitamin1"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="vitamin1">
-                                <div class="row text-center">
-                                    <div class="col-6">
-                                        <span class="fw-bold">Jenis Vitamin :</span>
-                                        <p>50 Minggu</p>
+                        @if ($vitamin->count() > 0)
+                            @foreach ($vitamin as $data)
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="vitamin{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
-                                    <div class="col-6">
-                                        <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                        <p>30 Jun 2021</p>
+                                    <div class="collapse my-3" id="vitamin{{ $loop->iteration }}">
+                                        <div class="row text-center">
+                                            <div class="col-6">
+                                                <span class="fw-bold">Jenis Vitamin :</span>
+                                                <p>{{ $data->nama_vitamin }}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold">Pemberian Selanjutnya :</span>
+                                                @if ($data->tanggal_kembali != NULL)
+                                                    <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
+                                                @else
+                                                    <p>-</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="card card-body">
+                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            @if ($data->keterangan != NULL)
+                                                <p>{{ $data->keterangan }}</p>
+                                            @else
+                                                <p>-</p>    
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card card-body">
-                                    <span class="fw-bold">keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin 12 Mar 2020 | Oleh Dr. Andre</p></div>
-                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin2" role="button" aria-expanded="false" aria-controls="vitamin2"><i class="fas fa-plus-circle"></i></a></div>
-                            </div>
-                            <div class="collapse my-3" id="vitamin2">
-                                <div class="row text-center">
-                                    <div class="col-6">
-                                        <span class="fw-bold">Jenis Vitamin :</span>
-                                        <p>50 Minggu</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                        <p>30 Jun 2021</p>
-                                    </div>
-                                </div>
-                                <div class="card card-body">
-                                    <span class="fw-bold">keterangan Tambahan :</span>
-                                    <p>Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="list-group-item my-auto">
+                                <p class="text-center my-auto">Belum Pernah Menerima Vitamin</p>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
