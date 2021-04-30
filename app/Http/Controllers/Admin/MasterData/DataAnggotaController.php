@@ -419,28 +419,24 @@ class DataAnggotaController extends Controller
             if ($umur >= 6) {
                 return redirect()->back()->with(['error' => 'Perubahan akun anak tidak dapat dilakukan']);
             } else {
-                if ($tgl_masa_berlaku <= $today) {
-                    return redirect()->back()->with(['error' => 'Penambahan JKN tidak dapat dilakukan']);
+                $updateAnak = Anak::where('id', $anak->id)->update([
+                    'nama_anak' => $request->nama,
+                    'NIK' => $request->nik,
+                    'tempat_lahir' => $request->tempat_lahir,
+                    'tanggal_lahir' => $tgl_lahir,
+                    'alamat' => $request->alamat,
+                ]);
+
+                $updateUser = User::where('id', $anak->id_user)->update([
+                    'tanggungan' => $request->tanggungan,
+                    'golongan_darah' => $request->goldar,
+                    'faskes_rujukan' => $request->faskes_rujukan,
+                ]);
+                
+                if ($updateAnak && $updateUser) {
+                    return redirect()->back()->with(['success' => 'Data profile anak berhasil diubah']);
                 } else {
-                    $updateAnak = Anak::where('id', $anak->id)->update([
-                        'nama_anak' => $request->nama,
-                        'NIK' => $request->nik,
-                        'tempat_lahir' => $request->tempat_lahir,
-                        'tanggal_lahir' => $tgl_lahir,
-                        'alamat' => $request->alamat,
-                    ]);
-    
-                    $updateUser = User::where('id', $anak->id_user)->update([
-                        'tanggungan' => $request->tanggungan,
-                        'golongan_darah' => $request->goldar,
-                        'faskes_rujukan' => $request->faskes_rujukan,
-                    ]);
-                    
-                    if ($updateAnak && $updateUser) {
-                        return redirect()->back()->with(['success' => 'Data profile anak berhasil diubah']);
-                    } else {
-                        return redirect()->back()->with(['failed' => 'Data profile anak gagal diubah']);
-                    }
+                    return redirect()->back()->with(['failed' => 'Data profile anak gagal diubah']);
                 }
             }
         }

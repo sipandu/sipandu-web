@@ -569,13 +569,55 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="input-group">
-                                                <input type="text" name="goldar" autocomplete="off" class="form-control @error('goldar') is-invalid @enderror" id="goldar" value="{{ old('goldar', $dataUser->golongan_darah ) }}" placeholder="Golongan Darah">
-                                                @error('goldar')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    @if ($dataUser->golongan_darah == NULL)
+                                                        <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                            <option selected disabled>Pilih golongan darah ...</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ($dataUser->golongan_darah == 'A')
+                                                        <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                            <option selected value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ($dataUser->golongan_darah == 'B')
+                                                        <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                            <option selected value="B">B</option>
+                                                            <option value="A">A</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ($dataUser->golongan_darah == 'AB')
+                                                        <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                            <option selected value="AB">AB</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="O">O</option>
+                                                        </select>
+                                                    @endif
+                                                    @if ($dataUser->golongan_darah == 'O')
+                                                        <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                            <option selected value="O">O</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                        </select>
+                                                    @endif
+                                                    @error('goldar')
+                                                        <div class="invalid-feedback text-start">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
