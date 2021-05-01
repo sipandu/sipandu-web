@@ -27,7 +27,7 @@ class User extends Authenticatable
         'tanggungan',
         'no_jkn',
         'masa_berlaku',
-        'fasker_rujukan',
+        'faskes_rujukan',
         'is_verified',
         'keterangan',
         'otp_token',

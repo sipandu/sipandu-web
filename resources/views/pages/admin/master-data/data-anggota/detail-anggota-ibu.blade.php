@@ -192,7 +192,7 @@
                                             @if ($dataUser->agama == NULL)
                                                 <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
                                             @else
-                                                <input type="text" class="form-control" value="{{    $dataUser->agama }}" disabled readonly>
+                                                <input type="text" class="form-control" value="{{ $dataUser->agama }}" disabled readonly>
                                             @endif
                                             <label for="floatingInput">Agama</label>
                                         </div>
