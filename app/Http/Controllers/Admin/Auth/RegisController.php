@@ -58,7 +58,7 @@ class RegisController extends Controller
             'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
             'lokasi_posyandu' => "required",
             'telegram' => "nullable|max:25|unique:tb_pegawai,username_telegram",
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
         ],
         [
             'name.required' => "Nama lengkap wajib diisi",
@@ -93,7 +93,6 @@ class RegisController extends Controller
             'telegram.unique' => "Username Telegram pernah digunakan",
             'password.required' => "Password wajib diisi",
             'password.min' => "Password minimal 8 karakter",
-            'password.confirmed' => "Konfirmasi password tidak sesuai",
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir)->age;
