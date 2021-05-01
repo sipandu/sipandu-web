@@ -100,7 +100,7 @@
                                                 <div class="form-group">
                                                     <label>Kabupaten/Kota<span class="text-danger">*</span></label>
                                                     <select id="kabupaten" name="kabupaten" class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" style="width: 100%;">
-                                                        <option value="#" disabled selected>Pilih Kabupaten/Kota</option>
+                                                        <option selected disabled>Pilih Kabupaten/Kota</option>
                                                         @foreach ($kabupaten as $k)
                                                             <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
                                                         @endforeach
@@ -116,6 +116,7 @@
                                                 <div class="form-group">
                                                     <label for="inputKecamatan">Kecamatan<span class="text-danger">*</span></label>
                                                     <select id="kecamatan" name="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" style="width: 100%;">
+                                                        <option selected disabled>Pilih Kecamatan</option>
                                                     </select>
                                                     @error('kecamatan')
                                                         <div class="invalid-feedback text-start">
@@ -128,6 +129,7 @@
                                                 <div class="form-group">
                                                     <label>Desa/Kelurahan<span class="text-danger">*</span></label>
                                                     <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" style="width: 100%;">
+                                                        <option selected disabled>Pilih Desa/Kelurahan</option>
                                                     </select>
                                                     @error('desa')
                                                         <div class="invalid-feedback text-start">
@@ -425,7 +427,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Password<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
-                                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Masukan Password" autocomplete="off">
+                                                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Masukan Password" autocomplete="off">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-lock"></span>

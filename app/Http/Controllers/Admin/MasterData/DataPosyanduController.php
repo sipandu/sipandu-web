@@ -20,7 +20,7 @@ use App\Ibu;
 use App\Anak;
 use App\Lansia;
 
-class MasterPosyanduController extends Controller
+class DataPosyanduController extends Controller
 {
     public function __construct()
     {
