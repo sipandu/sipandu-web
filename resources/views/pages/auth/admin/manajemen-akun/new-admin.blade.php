@@ -75,9 +75,15 @@
                                                     <label for="gender">Jenis Kelamin<span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}">
-                                                            <option selected disabled>Pilih jenis kelamin....</option>
-                                                            <option value="Laki-laki">Laki-laki</option>
-                                                            <option value="Perempuan">Perempuan</option>
+                                                            @if (old('gender'))
+                                                                <option selected value="{{ old('gender') }}">{{ old('gender') }}</option>
+                                                                <option value="Laki-laki">Laki-laki</option>
+                                                                <option value="Perempuan">Perempuan</option>
+                                                            @else
+                                                                <option selected disabled>Pilih jenis kelamin....</option>
+                                                                <option value="Laki-laki">Laki-laki</option>
+                                                                <option value="Perempuan">Perempuan</option>
+                                                            @endif
                                                         </select>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
@@ -252,16 +258,22 @@
                                                             <div class="input-group mb-3">
                                                                 @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
                                                                     <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                        <option selected disabled>Pilih jabatan....</option>
-                                                                        <option value="super admin">Super Admin</option>
-                                                                        <option value="head admin">Head Admin</option>
-                                                                        <option value="admin">Admin</option>
+                                                                        @if ( old('jabatan') )
+                                                                            <option selected disabled>Pilih jabatan....</option>
+                                                                            <option value="super admin">Super Admin</option>
+                                                                            <option value="head admin">Head Admin</option>
+                                                                            <option value="admin">Admin</option>
+                                                                        @else
+                                                                            <option selected disabled>Pilih jabatan....</option>
+                                                                            <option value="super admin">Super Admin</option>
+                                                                            <option value="head admin">Head Admin</option>
+                                                                            <option value="admin">Admin</option>        
+                                                                        @endif
                                                                     </select>
-                                                                    @endif
+                                                                @endif
                                                                 @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
                                                                     <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                        <option selected disabled>Pilih jabatan....</option>
-                                                                        <option value="admin">Admin</option>
+                                                                        <option selected value="admin">Admin</option>
                                                                     </select>
                                                                 @endif
                                                                 <div class="input-group-append">
@@ -283,10 +295,17 @@
                                                             <div class="input-group mb-3">
                                                                 <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
                                                                     @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
-                                                                        <option selected disabled>Pilih Lokasi Posyandu ....</option>
-                                                                        @foreach ($posyandu as $p)
-                                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                        @endforeach
+                                                                        @if ( old('lokasi_posyandu') )
+                                                                            <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
+                                                                            @foreach ($posyandu as $p)
+                                                                                <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <option selected disabled>Pilih Lokasi Posyandu ....</option>
+                                                                            @foreach ($posyandu as $p)
+                                                                                <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                                            @endforeach
+                                                                        @endif
                                                                     @else
                                                                         <option selected value="{{auth()->guard('admin')->user()->pegawai->id_posyandu}}">{{auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</option>
                                                                     @endif

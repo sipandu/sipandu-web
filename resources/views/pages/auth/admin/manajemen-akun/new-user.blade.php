@@ -184,13 +184,23 @@
                                                 <label for="agama_bumil">Agama<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="agama_bumil" class="form-control @error('agama_bumil') is-invalid @enderror" value="{{ old('agama_bumil') }}" id="agama_bumil">
-                                                        <option selected disabled>Pilih agama....</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Budha">Budha</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Katolik">Kristen Katolik</option>
-                                                        <option value="Protestan">Kristen Protestan</option>
-                                                        <option value="Konghucu">Konghucu</option>
+                                                        @if ( old('agama_bumil') )
+                                                            <option selected value="{{ old('agama_bumil') }}">{{ old('agama_bumil') }}</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @else
+                                                            <option selected disabled>Pilih agama....</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -210,11 +220,19 @@
                                                 <label for="goldar_bumil">Golongan Darah</label>
                                                 <div class="input-group">
                                                     <select name="goldar_bumil" class="form-control @error('goldar_bumil') is-invalid @enderror" value="{{ old('goldar_bumil') }}" id="goldar_bumil">
-                                                        <option selected disabled>Golongan darah ...</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        <option value="AB">AB</option>
-                                                        <option value="O">O</option>
+                                                        @if ( old('goldar_bumil') )
+                                                            <option selected value="{{ old('goldar_bumil') }}">{{ old('goldar_bumil') }}</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @else
+                                                            <option selected disabled>Golongan darah ...</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -236,9 +254,15 @@
                                                 <label for="tanggungan_bumil">Tanggungan<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="tanggungan_bumil" class="form-control @error('tanggungan_bumil') is-invalid @enderror" value="{{ old('tanggungan_bumil') }}" id="tanggungan_bumil">
-                                                        <option selected disabled>Tanggungan ibu....</option>
-                                                        <option value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                        <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @if ( old('tanggungan_bumil') )
+                                                            <option selected value="{{ old('tanggungan_bumil') }}">{{ old('tanggungan_bumil') }}</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @else
+                                                            <option selected disabled>Tanggungan ibu....</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -544,9 +568,15 @@
                                                 <label for="gender_anak">Jenis Kelamin<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="gender_anak" class="form-control @error('gender_anak') is-invalid @enderror" value="{{ old('gender_anak') }}" id="gender_anak">
-                                                        <option selected disabled>Pilih jenis kelamin....</option>
-                                                        <option value="1">Laki-laki</option>
-                                                        <option value="2">Perempuan</option>
+                                                        @if ( old('gender_anak') )
+                                                            <option selected value="{{ old('gender_anak') }}">{{ old('gender_anak') }}</option>
+                                                            <option value="laki-laki">Laki-laki</option>
+                                                            <option value="perempuan">Perempuan</option>
+                                                        @else
+                                                            <option selected disabled>Pilih jenis kelamin....</option>
+                                                            <option value="laki-laki">Laki-laki</option>
+                                                            <option value="perempuan">Perempuan</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -584,13 +614,23 @@
                                                 <label for="agama_anak">Agama<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="agama_anak" class="form-control @error('agama_anak') is-invalid @enderror" value="{{ old('agama_anak') }}" id="agama_anak">
-                                                        <option selected disabled>Pilih agama....</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Budha">Budha</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Katolik">Kristen Katolik</option>
-                                                        <option value="Protestan">Kristen Protestan</option>
-                                                        <option value="Konghucu">Konghucu</option>
+                                                        @if ( old('agama_anak') )
+                                                            <option selected value="{{ old('agama_anak') }}">{{ old('agama_anak') }}</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @else
+                                                            <option selected disabled>Pilih agama....</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -610,11 +650,19 @@
                                                 <label for="goldar_anak">Golongan Darah</label>
                                                 <div class="input-group">
                                                     <select name="goldar_anak" class="form-control @error('goldar_anak') is-invalid @enderror" value="{{ old('goldar_anak') }}" id="goldar_anak">
-                                                        <option selected disabled>Golongan darah ...</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        <option value="AB">AB</option>
-                                                        <option value="O">O</option>
+                                                        @if ( old('goldar_anak') )
+                                                            <option selected value="{{ old('goldar_anak') }}">{{ old('goldar_anak') }}</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @else
+                                                            <option selected disabled>Golongan darah ...</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -674,9 +722,15 @@
                                                 <label for="tanggungan_anak">Tanggungan<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="tanggungan_anak" class="form-control @error('tanggungan_anak') is-invalid @enderror" value="{{ old('tanggungan_anak') }}" id="tanggungan_anak">
-                                                        <option selected disabled>Tanggungan anak....</option>
-                                                        <option value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                        <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @if ( old('tanggungan_anak') )
+                                                            <option selected value="{{ old('tanggungan_anak') }}">{{ old('tanggungan_anak') }}</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @else
+                                                            <option selected disabled>Tanggungan anak....</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -982,9 +1036,15 @@
                                                 <label for="gender_lansia">Jenis Kelamin<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="gender_lansia" class="form-control @error('gender_lansia') is-invalid @enderror" value="{{ old('gender_lansia') }}" id="gender_lansia">
-                                                        <option selected disabled>Pilih jenis kelamin....</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
+                                                        @if ( old('gender_lansia') )
+                                                            <option selected value="{{ old('gender_lansia') }}">{{ old('gender_lansia') }}</option>
+                                                            <option value="laki-laki">Laki-laki</option>
+                                                            <option value="perempuan">Perempuan</option>
+                                                        @else
+                                                            <option selected disabled>Pilih jenis kelamin....</option>
+                                                            <option value="laki-laki">Laki-laki</option>
+                                                            <option value="perempuan">Perempuan</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -1003,11 +1063,18 @@
                                             <div class="form-group">
                                                 <label for="status_lansia">Status Lansia<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <select name="status_lansia" autocomplete="off" class="form-control @error('status_lansia') is-invalid @enderror" id="status_lansia" value="{{ old('status_lansia') }}" id="inputGroupSelect02">
-                                                        <option selected disabled>Pilih status lansia....</option>
-                                                        <option value="Pra Lansia">Pra Lansia</option>
-                                                        <option value="Lansia">Lansia</option>
-                                                        <option value="Lansia Beresiko">Lansia Beresiko</option>
+                                                    <select name="status_lansia" autocomplete="off" class="form-control @error('status_lansia') is-invalid @enderror" id="status_lansia" value="{{ old('status_lansia') }}" id="status_lansia">
+                                                        @if ( old('status_lansia') )
+                                                            <option selected value="{{ old('status_lansia') }}">{{ old('status_lansia') }}</option>
+                                                            <option value="Pra Lansia">Pra Lansia</option>
+                                                            <option value="Lansia">Lansia</option>
+                                                            <option value="Lansia Beresiko">Lansia Beresiko</option>
+                                                        @else
+                                                            <option selected disabled>Pilih status lansia....</option>
+                                                            <option value="Pra Lansia">Pra Lansia</option>
+                                                            <option value="Lansia">Lansia</option>
+                                                            <option value="Lansia Beresiko">Lansia Beresiko</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -1027,13 +1094,23 @@
                                                 <label for="agama_lansia">Agama<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="agama_lansia" class="form-control @error('agama_lansia') is-invalid @enderror" value="{{ old('agama_lansia') }}" id="agama_lansia">
-                                                        <option selected disabled>Pilih agama....</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Budha">Budha</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Katolik">Kristen Katolik</option>
-                                                        <option value="Protestan">Kristen Protestan</option>
-                                                        <option value="Konghucu">Konghucu</option>
+                                                        @if ( old('agama_lansia') )
+                                                            <option selected value="{{ old('agama_lansia') }}">{{ old('agama_lansia') }}</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @else
+                                                            <option selected disabled>Pilih agama....</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Budha">Budha</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Katolik">Kristen Katolik</option>
+                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Konghucu">Konghucu</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -1053,11 +1130,19 @@
                                                 <label for="goldar_lansia">Golongan Darah</label>
                                                 <div class="input-group">
                                                     <select name="goldar_lansia" class="form-control @error('goldar_lansia') is-invalid @enderror" value="{{ old('goldar_lansia') }}" id="goldar_lansia">
-                                                        <option selected disabled>Golongan darah ...</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                        <option value="AB">AB</option>
-                                                        <option value="O">O</option>
+                                                        @if ( old('goldar_lansia') )
+                                                            <option selected value="{{ old('goldar_lansia') }}">{{ old('goldar_lansia') }}</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @else
+                                                            <option selected disabled>Golongan darah ...</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
@@ -1079,9 +1164,15 @@
                                                 <label for="tanggungan_lansia">Tanggungan<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="tanggungan_lansia" class="form-control @error('tanggungan_lansia') is-invalid @enderror" value="{{ old('tanggungan_lansia') }}" id="tanggungan_lansia">
-                                                        <option selected disabled>Tanggungan lansia....</option>
-                                                        <option value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                        <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @if ( old(' tanggungan_lansia') )
+                                                            <option selected value="{{ old('tanggungan_lansia') }}">{{ old('tanggungan_lansia') }}</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @else
+                                                            <option selected disabled>Tanggungan lansia....</option>
+                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        @endif
                                                     </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
