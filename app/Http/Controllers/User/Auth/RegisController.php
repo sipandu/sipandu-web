@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\User\Auth;
+
+use App\Admin;
 use App\KK;
 use App\User;
 use App\Anak;
@@ -8,9 +10,13 @@ use App\Ibu;
 use App\Lansia;
 use App\Kabupaten;
 use App\Http\Controllers\Controller;
+use App\Mover;
+use App\Posyandu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use File;
+use Illuminate\Support\Facades\Http;
 
 class RegisController extends Controller
 {
@@ -111,6 +117,36 @@ class RegisController extends Controller
                 'nama_anak' => $request->nama,
             ]);
 
+            $posyandu = Posyandu::find($request->banjar);
+
+            $kk = KK::find($request->idKK);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+
+            foreach ($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Posyandu (Anak) : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
+
             return redirect()->route('landing.verif');
 
         }else{
@@ -123,14 +159,12 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
 
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -147,6 +181,34 @@ class RegisController extends Controller
                 'id_posyandu' => $request->banjar,
                 'nama_anak' => $request->nama,
             ]);
+
+            $posyandu = Posyandu::find($request->banjar);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+
+            foreach($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Posyandu (Anak) : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
 
             return redirect()->route('landing.verif');
         }
@@ -197,6 +259,35 @@ class RegisController extends Controller
                 'nama_ibu_hamil' => $request->nama,
             ]);
 
+            $posyandu = Posyandu::find($request->banjar);
+
+            $kk = KK::find($request->idKK);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+
+            foreach ($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Posyandu (Ibu Hamil) : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
             return redirect()->route('landing.verif');
         }else{
             $this->validate($request,[
@@ -208,14 +299,11 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
-
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -232,6 +320,34 @@ class RegisController extends Controller
                 'id_posyandu' => $request->banjar,
                 'nama_ibu_hamil' => $request->nama,
             ]);
+
+            $posyandu = Posyandu::find($request->banjar);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+
+            foreach($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Posyandu (Ibu Hamil) : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
 
             return redirect()->route('landing.verif');
         }
@@ -282,6 +398,36 @@ class RegisController extends Controller
                 'nama_lansia' => $request->nama,
             ]);
 
+            $posyandu = Posyandu::find($request->banjar);
+
+            $kk = KK::find($request->idKK);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+            //{"inline_keyboard": [[{"text": "button text...", "url": "https://google.com"}]]}
+            foreach($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Lansia Posyandu : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
+
             return redirect()->route('landing.verif');
         } else {
             $this->validate($request,[
@@ -293,14 +439,11 @@ class RegisController extends Controller
                 'file.mimes' => "Format gambar yang sesuai hanya jpeg, png, dan jpg"
             ]);
 
-            $path ='/images/upload/KK/'.time().'-'.$request->file->getClientOriginalName();
-            $imageName = time().'-'.$request->file->getClientOriginalName();
-
-            $request->file->move(public_path('images/upload/KK'),$imageName);
+            $filename = Mover::slugFile($request->file('file'), 'app/kk/');
 
             $kk = KK::create([
                 'no_kk' =>  $request->noKK,
-                'file_kk' => $path,
+                'file_kk' => $filename,
             ]);
 
             // $user = new User;
@@ -313,12 +456,74 @@ class RegisController extends Controller
                 'is_verified' => 0,
             ]);
 
+
             $lansia = $user->lansia()->create([
                 'id_posyandu' => $request->banjar,
                 'nama_lansia' => $request->nama,
             ]);
 
+            $posyandu = Posyandu::find($request->banjar);
+
+            $admin = Admin::join('tb_pegawai', 'tb_admin.id', 'tb_pegawai.id_admin')
+                ->select('tb_admin.id_chat_tele')
+                ->where('tb_admin.id_chat_tele', '!=', NULL)
+                ->where('tb_pegawai.id_posyandu', $request->banjar)
+                ->where('tb_pegawai.jabatan', '!=', 'super admin')
+                ->where('tb_pegawai.jabatan', '!=', 'disactive')
+                ->get();
+            //{"inline_keyboard": [[{"text": "button text...", "url": "https://google.com"}]]}
+            foreach($admin as $item) {
+                $keyboard = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Verifikasi', 'callback_data' => '/verify_anggota '.$user->id],
+                            ['text' => 'Tolak Verifikasi', 'callback_data' => '/dont_verify_anggota '.$user->id]
+                        ]
+                    ]
+                ];
+                $encodedKeyboard = json_encode($keyboard);
+                $caption = 'Identitas Calon Anggota Posyandu (Lansia) : '.PHP_EOL.
+                            'No KK : '.$kk->no_kk.PHP_EOL.
+                            'Nama Calon : '.$request->nama.PHP_EOL.
+                            'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.
+                            'Banjar : '.$posyandu->banjar;
+                $this->sendVerificationTele($item->id_chat_tele, $caption, $encodedKeyboard);
+            }
+
             return redirect()->route('landing.verif');
+        }
+    }
+
+    public function sendVerificationTele($id_chat, $caption, $keyboard)
+    {
+        $token = '1137522342:AAEj3X4Obbi-uV8QGzkvcvpzjo6HKENKfX4';
+        $url_img = 'https://api.telegram.org/bot'.$token.'/sendPhoto';
+        $url_text = 'https://api.telegram.org/bot'.$token.'/sendMessage';
+        $photo = 'https://sipandu-test-web.herokuapp.com/admin/informasi-penting/get-img/4';
+        $response = Http::post($url_img, [
+            'chat_id' => $id_chat,
+            'photo' => $photo,
+            'caption' => $caption
+        ]);
+        sleep(2);
+        $response = Http::post($url_text, [
+            'chat_id' => $id_chat,
+            'text' => 'Pilih Tindakan :',
+            'reply_markup' => $keyboard
+        ]);
+    }
+
+    public function showKKFile($no_kk)
+    {
+        $kk = KK::where('no_kk', $no_kk)->first();
+        if(File::exists(storage_path($kk->file_kk))) {
+            return response()->file(
+                storage_path($kk->file_kk)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
         }
     }
 }

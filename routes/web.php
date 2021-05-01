@@ -89,7 +89,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
     Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    
+
     Route::get('/get-img/{id}', 'AdminController@getProfileImage')->name('profile.admin.get_img');
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
@@ -125,7 +125,7 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Verify Users
     Route::post('/verify/terima', 'AccountController@terimaUser')->name('terima.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
     Route::post('/verify/tolak', 'AccountController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    
+
     //Change Role
     Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
     Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
@@ -308,6 +308,8 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
 Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
 })->name('sig-posyandu.home')->middleware('cek:super admin,param2,param3,param4,param5');
+
+Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
 
 

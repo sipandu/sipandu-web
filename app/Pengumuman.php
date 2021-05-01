@@ -82,16 +82,19 @@ class Pengumuman extends Model
         foreach($anak as $item)
         {
             $this->sendInformationToUser($item->id_chat_tele, $caption_anak);
+            sleep(2);
         }
 
         foreach($lansia as $item)
         {
             $this->sendInformationToUser($item->id_chat_tele, $caption_lansia);
+            sleep(2);
         }
 
         foreach($ibu_hamil as $item)
         {
             $this->sendInformationToUser($item->id_chat_tele, $caption_bumil);
+            sleep(2);
         }
 
         return true;
