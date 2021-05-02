@@ -22,6 +22,14 @@ class KegiatanController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_kegiatan' => 'required|min:2',
+            'tempat' => 'required|min:2',
+            'deskripsi' => 'required|min:2',
+            'start_at' => 'required',
+            'end_at' => 'required',
+        ]);
+
         $kegiatan = new Kegiatan();
         $kegiatan->id_posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
         $kegiatan->nama_kegiatan = $request->nama_kegiatan;
@@ -42,6 +50,14 @@ class KegiatanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_kegiatan' => 'required|min:2',
+            'tempat' => 'required|min:2',
+            'deskripsi' => 'required|min:2',
+            'start_at' => 'required',
+            'end_at' => 'required',
+        ]);
+
         $kegiatan = Kegiatan::find($id);
         $kegiatan->nama_kegiatan = $request->nama_kegiatan;
         $kegiatan->tempat = $request->tempat;
@@ -50,7 +66,7 @@ class KegiatanController extends Controller
         $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->save();
 
-        $kegiatan->sendMessageRalat();
+        $kegiatan->broadcastKegiatanUpdate();
 
         return redirect()->back()->with(['success' => 'Data Berhasil Diupdate']);
     }
@@ -58,7 +74,9 @@ class KegiatanController extends Controller
     public function delete(Request $request)
     {
         $kegiatan = Kegiatan::find($request->id);
-        $kegiatan->sendMessageCancel($request->alasan);
+        $kegiatan->alasan_cancel = $request->alasan;
+        $kegiatan->save();
+        $kegiatan->broadcastKegiatanCancel($request->alasan);
         $kegiatan->delete();
         return redirect()->back()->with(['success' => 'Data Berhasil Dihapus']);
     }
@@ -66,7 +84,7 @@ class KegiatanController extends Controller
     public function broadcast($id)
     {
         $kegiatan = Kegiatan::find($id);
-        $success = $kegiatan->sendMessage();
+        $success = $kegiatan->broadcastKegiatanBaru();
         if($success){
             return response()->json(['success' => true]);
         }else{
