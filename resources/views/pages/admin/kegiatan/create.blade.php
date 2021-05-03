@@ -33,15 +33,31 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Lokasi Kegiatan</label>
-                                    <input type="text" name="tempat" class="form-control" placeholder="Masukkan Temapt Kegiatan" id="">
+                                    <input type="text" name="tempat" class="form-control @error('tempat') is-invalid @enderror"
+                                    value="{{ old('tempat') }}" placeholder="Masukkan Tempat Kegiatan" id="">
+                                    @error('tempat')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tanggal Mulai</label>
-                                    <input type="date" name="start_at" class="form-control" id="">
+                                    <input type="date" name="start_at" class="form-control @error('start_at') is-invalid @enderror" value="{{ old('start_at') }}" id="">
+                                    @error('start_at')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tanggal Berakhir</label>
-                                    <input type="date" name="end_at" class="form-control" id="">
+                                    <input type="date" name="end_at" class="form-control @error('end_at') is-invalid @enderror" value="{{ old('end_at') }}" id="">
+                                    @error('end_at')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 {{-- <div class="form-group">
                                     <label for="">Gambar Penyuluhan</label>
@@ -61,7 +77,12 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Nama Kegiatan</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Penyuluhan" name="nama_kegiatan" id="">
+                                    <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Penyuluhan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
+                                    @error('nama_kegiatan')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 {{-- <div class="form-group">
                                     <label for="">Topik</label>
@@ -69,7 +90,12 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="ckeditor" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10"></textarea>
+                                    <textarea name="deskripsi" class="ckeditor @error('deskripsi') is-invalid @enderror" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ old('deskripsi') }}</textarea>
+                                    @error('deskripsi')
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-6">

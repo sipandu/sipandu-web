@@ -355,6 +355,16 @@ Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('k
 Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
 Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
 
+//Riwayat Kegiatan
+Route::get('/admin/riwayat-kegiatan/home', 'RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');
+Route::get('/admin/riwayat-kegiatan/home/{id}', 'RiwayatKegiatanController@show')->name('riwayat_kegiatan.show');
+Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/create/{id}', 'RiwayatKegiatanController@createDokumentasi')->name('dokumentasi.create');
+Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/show/{id}', 'RiwayatKegiatanController@showDokumentasi')->name('dokumentasi.show');
+Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/store', 'RiwayatKegiatanController@storeDokumentasi')->name('dokumentasi.store');
+Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/update/{id}', 'RiwayatKegiatanController@updateDokumentasi')->name('dokumentasi.update');
+Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/delete', 'RiwayatKegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
+Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/get-img/{id}', 'RiwayatKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
+
 
 
 // Ajax Dependent Select

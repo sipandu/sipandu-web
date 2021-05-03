@@ -375,6 +375,12 @@
                     </li>
                 @endif
                 <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p>Riwayat Kegiatan</p>
+                    </a>
+                </li>
                 <li class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
