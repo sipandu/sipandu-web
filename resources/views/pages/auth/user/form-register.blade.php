@@ -244,7 +244,7 @@
     {{-- Untuk Search Kabupaten dan dll --}}
     <script>
         $(document).ready(function(){
-            // Kabupaten AJAX //
+            // Kabupaten to Kecamatan AJAX //
             $('#kabupaten').on('change', function () {
                 let id = $(this).val();
                 $('#kecamatan').empty();
@@ -264,7 +264,7 @@
                 });
             });
 
-            // Kecamatan AJAX //
+            // Kecamatan to Desa AJAX //
             $('#kecamatan').on('change', function () {
                 let idDesa = $(this).val();
                 $('#desa').empty();
@@ -303,8 +303,6 @@
                     }
                 });
             });
-
-
         });
     </script>
 

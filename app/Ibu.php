@@ -42,4 +42,9 @@ class Ibu extends Model
     {
         return $this->hasMany(PemeriksaanIbu::class,'id_ibu_hamil','id');
     }
+
+    public function persalinan()
+    {
+        return $this->hasMany(Persalinan::class,'id_ibu_hamil','id');
+    }
 }

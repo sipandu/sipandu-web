@@ -122,4 +122,8 @@ class Pengumuman extends Model
             'test' => 'ini test',
         ]);
     }
+
+    public function getUrlImage() {
+        return url('/admin/pengumuman/get-img/'.$this->id);
+    }
 }

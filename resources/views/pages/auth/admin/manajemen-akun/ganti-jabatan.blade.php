@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="modal-footer text-end">
-                            <button type="submit" class="btn btn-sm btn-outline-primary">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-sm btn-outline-success">Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>

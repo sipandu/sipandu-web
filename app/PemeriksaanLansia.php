@@ -18,6 +18,7 @@ class PemeriksaanLansia extends Model
         'berat_badan',
         'usia_lansia',
         'tinggi_lutut',
+        'tinggi_badan',
         'tekanan_darah',
         'suhu_tubuh',
         'denyut_nadi',

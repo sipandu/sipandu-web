@@ -80,8 +80,6 @@ class AdminController extends Controller
             $admin->save();
         }
 
-
-
         if ($filename && $admin) {
             return redirect()->back()->with(['success' => 'Foto profile anda berhasil di ubah']);
         } else {

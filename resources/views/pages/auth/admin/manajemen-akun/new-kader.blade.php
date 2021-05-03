@@ -75,11 +75,19 @@
                                             <div class="form-group">
                                                 <label for="gender">Jenis Kelamin<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
-                                                    <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}">
-                                                        <option selected disabled>Pilih jenis kelamin....</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
-                                                    </select>
+                                                    @if ( old('gender') )
+                                                        <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}">
+                                                            <option selected value="{{ old('gender') }}">{{ old('gender') }}</option>
+                                                            <option value="Laki-laki">Laki-laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    @else
+                                                        <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}">
+                                                            <option selected disabled>Pilih jenis kelamin....</option>
+                                                            <option value="Laki-laki">Laki-laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    @endif
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-venus-mars"></span>
@@ -211,53 +219,6 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
-                                                <div class="input-group mb-3">
-                                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
-                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                            <option selected disabled>Pilih jabatan....</option>
-                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                        </select>
-                                                    @else
-                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                            <option selected disabled>Pilih jabatan....</option>
-                                                            <option value="kader">Kader</option>
-                                                            <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                        </select>
-                                                    @endif
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-venus-mars"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('jabatan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
-                                                <div class="input-group mb-3">
-                                                    <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%" >
-                                                        <option selected disabled>Pilih Lokasi Posyandu ....</option>
-                                                        @foreach ($posyandu as $p)
-                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}, {{ $p->desa->nama_desa }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('lokasi_posyandu')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
                                                 <label for="tlpn">Nomor Telp</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="tlpn" id="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
@@ -293,34 +254,86 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
+                                                        <div class="input-group mb-3">
+                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                                                                <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
+                                                                    @if ( old('jabatan') )
+                                                                        <option selected value="{{ old('jabatan') }}">{{ old('jabatan') }}</option>
+                                                                        <option value="super admin">Super Admin</option>
+                                                                        <option value="head admin">Head Admin</option>
+                                                                        <option value="admin">Admin</option>
+                                                                    @else
+                                                                        <option selected disabled>Pilih jabatan....</option>
+                                                                        <option value="super admin">Super Admin</option>
+                                                                        <option value="head admin">Head Admin</option>
+                                                                        <option value="admin">Admin</option>
+                                                                    @endif
+                                                                </select>
+                                                            @endif
+                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
+                                                                <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
+                                                                    <option selected value="admin">Admin</option>
+                                                                </select>
+                                                            @endif
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-user-cog"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('jabatan')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
+                                                                @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                                                    @if ( old('lokasi_posyandu') )
+                                                                        <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
+                                                                        @foreach ($posyandu as $p)
+                                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <option selected disabled>Pilih Lokasi Posyandu ....</option>
+                                                                        @foreach ($posyandu as $p)
+                                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                @else
+                                                                    <option selected value="{{auth()->guard('admin')->user()->pegawai->id_posyandu}}">{{auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</option>
+                                                                @endif
+                                                            </select>
+                                                            @error('lokasi_posyandu')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="password">Password<span class="text-danger">*</span></label>
                                                 <div class="input-group mb-3">
-                                                    <input type="password" name="password" id="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan Password">
+                                                    <input type="text" name="password" id="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
                                                         </div>
                                                     </div>
                                                     @error('password')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="password_confirmation">Konfirmasi Password<span class="text-danger">*</span></label>
-                                                <div class="input-group mb-3">
-                                                    <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" class="form-control @error('password_confirmation') is-invalid @enderror"   placeholder="Masukan kembali Password">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-lock"></span>
-                                                        </div>
-                                                    </div>
-                                                    @error('password_confirmation')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>

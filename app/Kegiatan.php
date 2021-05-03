@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class Kegiatan extends Model
 {
     use SoftDeletes;
@@ -179,5 +180,29 @@ class Kegiatan extends Model
             'text' => $text,
         ]);
 
+    }
+
+    public function determineKegiatanStatus()
+    {
+        /*
+            0 -> belum berjalan
+            1 -> sedang berjalan
+            2 -> sudah berjalan
+        */
+        Carbon::setLocale('id');
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $kegiatan = Kegiatan::where('id', $this->id)->get()->first();
+
+        if ($kegiatan->end_at > $today) {
+            if($kegiatan->start_at > $today) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+        else {
+            return 2;
+        }
     }
 }

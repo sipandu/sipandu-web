@@ -22,9 +22,15 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_image',
+        'golongan_darah',
+        'agama',
+        'tanggungan',
+        'no_jkn',
+        'masa_berlaku',
+        'faskes_rujukan',
         'is_verified',
-        'otp_token',
         'keterangan',
+        'otp_token',
     ];
 
 
@@ -56,5 +62,25 @@ class User extends Authenticatable
     public function pemberianVitamin()
     {
         return $this->hasMany(PemberianVitamin::class,'id_user','id');
+    }
+
+    public function alergi()
+    {
+        return $this->hasMany(Alergi::class,'id_user','id');
+    }
+
+    public function penyakitBawaan()
+    {
+        return $this->hasMany(PenyakitBawaan::class,'id_user','id');
+    }
+
+    public function riwayatPenyakit()
+    {
+        return $this->hasMany(RiwayatPenyakit::class,'id_user','id');
+    }
+
+    public function pjLansia()
+    {
+        return $this->hasMany(PjLansia::class,'id_user','id');
     }
 }

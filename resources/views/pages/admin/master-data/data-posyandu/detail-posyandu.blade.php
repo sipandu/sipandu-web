@@ -34,7 +34,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Ibu Hamil</span>
-                                                <span class="info-box-number text-center text-muted mb-0">180</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $ibu->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Anak</span>
-                                                <span class="info-box-number text-center text-muted mb-0">555</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $anak->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                                         <div class="info-box bg-light">
                                             <div class="info-box-content">
                                                 <span class="info-box-text text-center text-muted">Jumlah Lansia</span>
-                                                <span class="info-box-number text-center text-muted mb-0">1041</span>
+                                                <span class="info-box-number text-center text-muted mb-0">{{ $lansia->count() }}</span>
                                             </div>
                                         </div>
                                     </div>
