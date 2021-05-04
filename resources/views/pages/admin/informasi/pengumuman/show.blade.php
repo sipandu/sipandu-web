@@ -8,86 +8,85 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Edit Pengumuman</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('informasi_penting.home') }}"></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $pengumuman->judul_pengumuman }}</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('pengumuman.home') }}">Pengumuman</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Pengumuman</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <form action="{{ route('pengumuman.update', $pengumuman->id) }}" enctype="multipart/form-data" method="POST">
-                @csrf
-                <div class="form-row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Konten Pengumuman
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Judul</label>
-                                    <input type="text" value="{{ $pengumuman->judul_pengumuman }}" class="form-control @error('judul_pengumuman') is-invalid @enderror"
-                                    placeholder="Masukkan Judul Pengumuman" name="judul_pengumuman" id="">
-                                    @error('judul_pengumuman')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <form action="{{ route('pengumuman.update', $pengumuman->id) }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Konten Pengumuman
+                                    </h4>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Kontent</label>
-                                    <textarea name="pengumuman" class="ckeditor @error('pengumuman') is-invalid @enderror" id="content" placeholder="Masukkan Konten" cols="30" rows="10">{!! $pengumuman->pengumuman !!}</textarea>
-                                    @error('pengumuman')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="{{ route('pengumuman.home') }}" class="btn btn-danger">Kembali</a>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Judul</label>
+                                        <input type="text" value="{{ $pengumuman->judul_pengumuman }}" class="form-control @error('judul_pengumuman') is-invalid @enderror"
+                                        placeholder="Masukkan Judul Pengumuman" name="judul_pengumuman" id="">
+                                        @error('judul_pengumuman')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                    <div class="form-group">
+                                        <label for="">Kontent</label>
+                                        <textarea name="pengumuman" class="ckeditor @error('pengumuman') is-invalid @enderror" id="content" placeholder="Masukkan Konten" cols="30" rows="10">{!! $pengumuman->pengumuman !!}</textarea>
+                                        @error('pengumuman')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{{ route('pengumuman.home') }}" class="btn btn-danger">Kembali</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Setting Pengumuman
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Gambar Penyuluhan</label>
+                                        <img id="img-preview" src="{{ route('pengumuman.get_img', $pengumuman->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
+                                        <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
+                                        @error('image')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Setting Pengumuman
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Gambar Penyuluhan</label>
-                                    <img id="img-preview" src="{{ route('pengumuman.get_img', $pengumuman->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
-                                    @error('image')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-          <!-- /.row -->
+                </form>
+            </div>
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </div>
 @endsection
 
 @push('js')

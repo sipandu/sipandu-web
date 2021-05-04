@@ -22,7 +22,7 @@
                 <form action="{{ route('informasi_penting.update', $informasi->id) }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-row">
-                        <div class="col-8">
+                        <div class="col-md-8 col-sm-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">
@@ -119,6 +119,7 @@
               });
           });
         });
+
         $('#input-file').on('change', function(){
             var filedata = this.files[0];
             var imgtype = filedata.type;
