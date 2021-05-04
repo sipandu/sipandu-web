@@ -54,4 +54,18 @@ class ApiUserDataController extends Controller
             'lansia' => $lansia
         ]);
     }
+
+    public function getUserKeluarga(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        $anak = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->get();
+        $bumil = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->get();
+        $lansia = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->get();
+        return response()->json([
+            'status_code' => 200,
+            'user_with_anak' => $anak,
+            'user_with_ibu' => $bumil,
+            'user_with_lansia' => $lansia
+        ]);
+    }
 }
