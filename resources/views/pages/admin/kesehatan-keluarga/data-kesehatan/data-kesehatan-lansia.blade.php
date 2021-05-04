@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{ $dataLansia->nama_lansia }}</h3>
-                        <p class="text-muted text-center">Emailnya</p>
+                        <p class="text-muted text-center">{{ $dataLansia->user->email }}</p>
                         <ul class="list-group list-group-unbordered mb-1">
                             <li class="list-group-item">
                                 <b class="fw-bold">Usia</b>

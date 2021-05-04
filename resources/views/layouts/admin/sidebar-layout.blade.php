@@ -352,17 +352,11 @@
                                 <li class="nav-item">
                                     <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="tambah-kegiatan">
                                         <i class="nav-icon fas fa-notes-medical"></i>
-                                        <p>Tambah Kegiatan</p>
+                                        <p>Kegiatan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link" id="detail-kegiatan">
-                                        <i class="fas fa-file-medical nav-icon"></i>
-                                        <p>Detail Kegiatan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
                                         <i class="nav-icon fas fa-history"></i>
                                         <p>Riwayat Kegiatan</p>
                                     </a>
@@ -370,17 +364,8 @@
                             </ul>
                         </li>
                     </li>
-                    <li class="nav-item">
-                        
-                    </li>
                 @endif
                 <div class="dropdown-divider"></div>
-                <li class="nav-item">
-                    <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
-                        <i class="nav-icon fas fa-history"></i>
-                        <p>Riwayat Kegiatan</p>
-                    </a>
-                </li>
                 <li class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
