@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 class PenyuluhanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function index()
     {
         $penyuluhan = Penyuluhan::where('id_posyandu', 4)->orderby('tanggal', 'desc')->get();

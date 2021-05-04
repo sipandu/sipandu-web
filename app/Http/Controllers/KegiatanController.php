@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function index()
     {
         $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
