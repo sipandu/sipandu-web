@@ -20,34 +20,39 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
+    <div class="container-fluid px-0">
+        <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Dokumentasi Kegiatan</h5>
-                        <a href="{{ route('dokumentasi.create', $kegiatan->id) }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Tambah</a>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6 my-auto">
+                                <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive-md">
                         <table id="data" class="table table-bordered table-hover">
                             <thead>
-                              <tr>
-                                <th style="text-align: center">No</th>
-                                <th>Foto</th>
-                                <th>Deskripsi</th>
-                                <th style="text-align: center">Action</th>
-                              </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Foto</th>
+                                    <th>Deskripsi</th>
+                                    <th>Tindakan</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach($dokumentasi_kegiatan as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td class="text-center">
+                                    <tr class="text-center">
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle">
                                             <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
                                         </td>
-                                        <td>{{ $item->deskripsi }}</td>
-                                        <td class="text-center">
+                                        <td class="align-middle">{{ $item->deskripsi }}</td>
+                                        <td class="align-middle">
                                             <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
                                         </td>
@@ -56,23 +61,18 @@
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th style="text-align: center">No</th>
+                                <th>No</th>
                                 <th>Foto</th>
                                 <th>Deskripsi</th>
-                                <th style="text-align: center">Action</th>
+                                <th>Tindakan</th>
                               </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </div>
 <form id="form-delete" action="{{ route('dokumentasi.delete') }}" method="POST">
     @csrf
     <input type="hidden" name="id" id="id-delete">
@@ -86,16 +86,33 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    
     <script>
+        $(document).ready(function(){
+          $('#list-admin-dashboard').removeClass('menu-open');
+          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+          $('#kegiatan').addClass('active');
+          $('#riwayat-kegiatan').addClass('active');
+        });
+
         $(function () {
             $('#data').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari: ",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "emptyTable": "Tidak Terdapat Data Dokumentasi Kegiatan",
+                    "sSearchPlaceholder": "Cari dokumentasi kegiatan....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
+                },
+                "language": {
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                }
             });
         });
 
@@ -112,17 +129,13 @@
                 }
             });
         }
-
-        $(document).ready(function(){
-            $('#riwayat-kegiatan').addClass('active');
-        });
-
     </script>
+
     @if($message = Session::get('success'))
-    <script>
-        $(document).ready(function(){
-            alertSuccess('{{$message}}');
-        });
-    </script>
-@endif
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
+    @endif
 @endpush

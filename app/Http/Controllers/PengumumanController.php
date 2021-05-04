@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use File;
 
 class PengumumanController extends Controller
-{
+{    
     public function index()
     {
         $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();

@@ -19,103 +19,100 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3 class="card-title">Data Kegiatan</h3>
-                        </div>
-                        <div class="col-6">
-                            <a class="btn btn-success float-right" href="{{ route('kegiatan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="data" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th style="text-align: center">No</th>
-                        <th>Nama Kegiatan</th>
-                        <th>Tempat</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Berakhir</th>
-                        <th style="text-align: center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($kegiatan as $item)
-                            <tr>
-                                <td style="text-align: center">{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama_kegiatan }}</td>
-                                <td>{{ $item->tempat }}</td>
-                                <td>{{ $item->start_at }}</td>
-                                <td>{{ $item->end_at }}</td>
-                                <td style="text-align: center">
-                                    <a href="{{ route('kegiatan.show', $item->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-primary btn-sm" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteKegiatan('{{ $item->nama_kegiatan }}', '{{ $item->id }}')"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>No</th>
-                        <th>Nama Kegiatan</th>
-                        <th>Tempat</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Berakhir</th>
-                        <th>Action</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <!-- /.card-body -->
+    <div class="container-fluid px-0">
+      <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                  <div class="row">
+                      <div class="col-6 my-auto">
+                          <h3 class="card-title my-auto">Data Kegiatan</h3>
+                      </div>
+                      <div class="col-6">
+                          <a class="btn btn-success float-right" href="{{ route('kegiatan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                      </div>
+                  </div>
               </div>
-              <!-- /.card -->
+              <!-- /.card-header -->
+              <div class="card-body table-responsive-md">
+                <table id="data" class="table table-bordered table-hover">
+                  <thead>
+                    <tr class="text-center">
+                      <th>No</th>
+                      <th>Nama Kegiatan</th>
+                      <th>Tempat</th>
+                      <th>Tgl Mulai</th>
+                      <th>Tgl Berakhir</th>
+                      <th>Tindakan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($kegiatan as $item)
+                          <tr class="text-center">
+                              <td class="align-middle">{{ $loop->iteration }}</td>
+                              <td class="align-middle">{{ $item->nama_kegiatan }}</td>
+                              <td class="align-middle">{{ $item->tempat }}</td>
+                              <td class="align-middle">{{ date('d M Y', strtotime($item->start_at)) }}</td>
+                              <td class="align-middle">{{ date('d M Y', strtotime($item->end_at)) }}</td>
+                              <td class="align-middle">
+                                  <a href="{{ route('kegiatan.show', $item->id) }}" class="btn btn-warning btn-sm my-1">
+                                    <i class="fas fa-edit"></i>
+                                  </a>
+                                  <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
+                                  <button class="btn btn-danger btn-sm my-1" onclick="deleteKegiatan('{{ $item->nama_kegiatan }}', '{{ $item->id }}')"><i class="fas fa-trash"></i></button>
+                              </td>
+                          </tr>
+                      @endforeach
+                  </tbody>
+                  <tfoot>
+                    <tr class="text-center">
+                      <th>No</th>
+                      <th>Nama Kegiatan</th>
+                      <th>Tempat</th>
+                      <th>Tgl Mulai</th>
+                      <th>Tgl Berakhir</th>
+                      <th>Tindakan</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
+      </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-delete-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-delete-label">Batalkan Kegiatan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <!-- /.container-fluid -->
-      </section>
-    <!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-delete-label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-delete-label">Batalkan Kegiatan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('kegiatan.delete') }}" method="POST">
-          @csrf
-          <input type="hidden" name="id" id="id-delete">
-          <div class="form-group">
-            <label for="">Nama Kegiatan</label>
-            <input type="text" class="form-control" name="" id="nama-kegiatan" readonly>
-          </div>
-          <div class="form-group">
-            <label for="">Pesan Pembatalan</label>
-            <textarea name="alasan" class="form-control" id="" cols="30" rows="10"></textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Hapus</button>
-      </form>
+        <div class="modal-body">
+          <form action="{{ route('kegiatan.delete') }}" method="POST">
+            @csrf
+            <input type="hidden" name="id" id="id-delete">
+            <div class="form-group">
+              <label for="">Nama Kegiatan</label>
+              <input type="text" class="form-control" name="" id="nama-kegiatan" readonly>
+            </div>
+            <div class="form-group">
+              <label for="">Pesan Pembatalan</label>
+              <textarea name="alasan" class="form-control" id="" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Hapus</button>
+        </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 @endsection
 
 @push('js')
@@ -125,18 +122,36 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+
     <script>
+        $(document).ready(function(){
+          $('#list-admin-dashboard').removeClass('menu-open');
+          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+          $('#kegiatan').addClass('active');
+          $('#tambah-kegiatan').addClass('active');
+        });
+
         $(function () {
             $('#data').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+              "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari: ",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "emptyTable": "Tidak Terdapat Data Kegiatan Posyandu",
+                    "sSearchPlaceholder": "Cari kegiatan posyandu....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
+                },
+                "language": {
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                }
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
+
         function broadcastMessage(id){
             swal({
                 title: 'Anda yakin ingin membroadcast kegiatan?',
@@ -155,6 +170,7 @@
           $('#nama-kegiatan').val(nama);
           $('#delete-modal').modal('show');
         }
+
         function broadcast(id){
           var url = '/admin/kegiatan/broadcast/'+id;
           $.ajax({
@@ -171,11 +187,8 @@
             }
           })
         }
-        $(document).ready(function(){
-            $('#kegiatan').addClass('active');
-        });
-
     </script>
+    
     @if($message = Session::get('success'))
         <script>
             $(document).ready(function(){
@@ -183,4 +196,5 @@
             });
         </script>
     @endif
+
 @endpush

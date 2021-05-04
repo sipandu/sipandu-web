@@ -124,6 +124,6 @@ class Pengumuman extends Model
     }
 
     public function getUrlImage() {
-        return url('/admin/pengumuman/get-img/'.$this->id);
+        return url('/api/mobileuser/get-pengumuman-img/'.$this->id);
     }
 }
