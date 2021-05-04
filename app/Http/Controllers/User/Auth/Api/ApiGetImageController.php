@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth\Api;
 
 use App\InformasiPenting;
+use App\Pengumuman;
 use Illuminate\Http\Request;
 use App\Mover;
 use Illuminate\Support\Str;
