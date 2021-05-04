@@ -304,23 +304,21 @@ Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
 
 
 
+//Informasi Penting
+Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
+Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+
 //SIG Posyandu
 Route::get('/admin/informasi/persebaran-posyandu/home', function(){
     return view('pages.admin.informasi.sig-posyandu');
-})->name('sig-posyandu.home')->middleware('cek:super admin,param2,param3,param4,param5');
+})->name('sig-posyandu.home')->middleware('auth:admin');
 
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
-
-
-
-//Informasi Penting
-Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home');
-Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create');
-Route::post('/admin/informasi-penting/store', 'InformasiPentingController@store')->name('informasi_penting.store');
-Route::get('/admin/informasi-penting/show/{id}', 'InformasiPentingController@show')->name('informasi_penting.show');
-Route::post('/admin/informasi-penting/update/{id}', 'InformasiPentingController@update')->name('informasi_penting.update');
-Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@getImage')->name('informasi_penting.get_img');
-Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete');
 
 
 

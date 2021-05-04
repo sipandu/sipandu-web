@@ -1,8 +1,6 @@
 @extends('layouts/admin/admin-layout')
-@section('title', 'Tambah Informasi Penting')
-@push('css')
 
-@endpush
+@section('title', 'Tambah Informasi Penting')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -18,77 +16,77 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <form action="{{ route('informasi_penting.store') }}" enctype="multipart/form-data" method="POST">
-                @csrf
-                <div class="form-row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Konten Informasi Penting
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Judul</label>
-                                    <input type="text" class="form-control @error('judul_informasi') is-invalid @enderror" value="{{ old('judul_informasi') }}"
-                                    placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
-                                    @error('judul_informasi')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <form action="{{ route('informasi_penting.store') }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Konten Informasi Penting
+                                    </h4>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Kontent</label>
-                                    <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content"
-                                    placeholder="Masukkan Konten" cols="30" rows="10">{!! old('informasi') !!}</textarea>
-                                    @error('informasi')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="{{ route('informasi_penting.home') }}" class="btn btn-danger">Kembali</a>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Judul</label>
+                                        <input type="text" class="form-control @error('judul_informasi') is-invalid @enderror" value="{{ old('judul_informasi') }}"
+                                        placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
+                                        @error('judul_informasi')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                    <div class="form-group">
+                                        <label for="">Kontent</label>
+                                        <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content"
+                                        placeholder="Masukkan Konten" cols="30" rows="10">{!! old('informasi') !!}</textarea>
+                                        @error('informasi')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{{ route('informasi_penting.home') }}" class="btn btn-danger">Kembali</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Setting Penyuluhan
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Gambar Penyuluhan</label>
+                                        <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
+                                        <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
+                                        @error('image')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Setting Penyuluhan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Gambar Penyuluhan</label>
-                                    <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
-                                    @error('image')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-          <!-- /.row -->
+                </form>
+            </div>
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </div>
 @endsection
 
 @push('js')
