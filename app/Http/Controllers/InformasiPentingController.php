@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class InformasiPentingController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:admin');
-    // }
-    
     public function index()
     {
         if(Auth::guard('admin')->user()->pegawai->jabatan == 'super admin') {

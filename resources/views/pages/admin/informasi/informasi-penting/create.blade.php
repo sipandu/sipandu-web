@@ -6,11 +6,10 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Tambah Informasi Penting</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
-                    <li class="breadcrumb-item">Informasi</li>
-                    <li class="breadcrumb-item active" aria-current="page">Tambah Informasi Penting</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Informasi Penting</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Informasi</li>
                 </ol>
             </nav>
         </div>
@@ -22,7 +21,7 @@
                 <form action="{{ route('informasi_penting.store') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-row">
-                        <div class="col-8">
+                        <div class="col-sm-12 col-md-8">
                             <div class="card">
                                 <div class="card-header my-auto">
                                     <h4 class="card-title my-auto">
@@ -61,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="card">
                                 <div class="card-header my-auto">
                                     <h4 class="card-title my-auto">

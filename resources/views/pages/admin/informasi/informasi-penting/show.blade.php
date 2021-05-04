@@ -6,11 +6,10 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Edit Informasi Penting</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('informasi_penting.home') }}"></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $informasi->judul_informasi }}</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Informasi Penting</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Informasi</li>
                 </ol>
             </nav>
         </div>
@@ -24,8 +23,8 @@
                     <div class="form-row">
                         <div class="col-md-8 col-sm-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
                                         Konten Informasi Penting
                                     </h4>
                                 </div>
@@ -62,8 +61,8 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
                                         Setting Penyuluhan
                                     </h4>
                                 </div>

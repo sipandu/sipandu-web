@@ -12,10 +12,9 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Manajemen Informasi Penting</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
-                    <li class="breadcrumb-item">Informasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Informasi Penting</li>
                 </ol>
             </nav>
@@ -50,10 +49,10 @@
                       <tbody>
                           @foreach ($informasi as $item)
                               <tr class="text-center">
-                                  <th class="align-middle">{{ $loop->iteration }}</th>
-                                  <th class="align-middle">{{ $item->judul_informasi }}</th>
-                                  <th class="align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
-                                  <th class="align-middle">
+                                  <th class="fw-normal align-middle">{{ $loop->iteration }}</th>
+                                  <th class="fw-normal align-middle">{{ $item->judul_informasi }}</th>
+                                  <th class="fw-normal align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
+                                  <th class="fw-normal align-middle">
                                       <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
                                       <button class="btn btn-danger btn-sm" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
                                   </th class="align-middle">
