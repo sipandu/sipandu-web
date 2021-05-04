@@ -345,13 +345,13 @@ Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->n
 
 
 //Kegiatan
-Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home');
-Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create');
-Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
-Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show');
-Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
-Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete');
-Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast');
+Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('/admin/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('/admin/kegiatan/show/{id}', 'KegiatanController@show')->name('kegiatan.show')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('/admin/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('/admin/kegiatan/delete', 'KegiatanController@delete')->name('kegiatan.delete')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('/admin/kegiatan/broadcast/{id}', 'KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("cek:param1,head admin,admin,kader,param5");
 
 //Riwayat Kegiatan
 Route::get('/admin/riwayat-kegiatan/home', 'RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');
