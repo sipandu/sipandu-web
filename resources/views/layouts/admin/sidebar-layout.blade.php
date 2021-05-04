@@ -340,7 +340,7 @@
                 </li>
                 @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin" || auth()->guard('admin')->user()->pegawai->jabatan == "admin" || auth()->guard('admin')->user()->pegawai->jabatan == "kader")
                     <li class="nav nav-treeview">
-                        <li class="nav-item" id="kegiatan_posyandu">
+                        <li class="nav-item" id="kegiatan-posyandu">
                             <a href="#" class="nav-link" id="kegiatan">
                                 <i class="nav-icon fas fa-briefcase-medical"></i>
                                 <p>
