@@ -16,7 +16,7 @@ class InformasiPenting extends Model
 
 
     public function getUrlImage() {
-        return url('/admin/informasi-penting/get-img/'.$this->id);
+        return url('/api/mobileuser/get-informasi-img/'.$this->id);
     }
 
     public function broadcastToAllUser()
