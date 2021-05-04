@@ -29,9 +29,11 @@
                             <div class="col-6 my-auto">
                                 <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
                             </div>
-                            <div class="col-6">
-                                <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
-                            </div>
+                            @if(Auth::guard('admin')->pegawai->jabatan != 'tenaga kesehatan')
+                                <div class="col-6">
+                                    <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
@@ -41,7 +43,9 @@
                                     <th>No</th>
                                     <th>Foto</th>
                                     <th>Deskripsi</th>
-                                    <th>Tindakan</th>
+                                    @if(Auth::guard('admin')->pegawai->jabatan != 'tenaga kesehatan')
+                                        <th>Tindakan</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,10 +56,12 @@
                                             <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
                                         </td>
                                         <td class="align-middle">{{ $item->deskripsi }}</td>
-                                        <td class="align-middle">
-                                            <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
-                                        </td>
+                                        @if(Auth::guard('admin')->pegawai->jabatan != 'tenaga kesehatan')
+                                            <td class="align-middle">
+                                                <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                                                <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -86,7 +92,7 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-    
+
     <script>
         $(document).ready(function(){
           $('#list-admin-dashboard').removeClass('menu-open');
