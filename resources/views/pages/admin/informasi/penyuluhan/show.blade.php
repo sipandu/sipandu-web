@@ -19,106 +19,106 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <form action="{{ route('penyuluhan.update', $penyuluhan->id) }}" enctype="multipart/form-data" method="POST">
-                @csrf
-                <div class="form-row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Konten Penyuluhan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Nama Penyuluhan</label>
-                                    <input type="text" class="form-control  @error('nama_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->nama_penyuluhan }}"
-                                    placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
-                                    @error('nama_penyuluhan')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <form action="{{ route('penyuluhan.update', $penyuluhan->id) }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-8">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Konten Penyuluhan
+                                    </h4>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Topik</label>
-                                    <input type="text" class="form-control  @error('topik_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->topik_penyuluhan }}"
-                                    placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
-                                    @error('topik_penyuluhan')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="ckeditor  @error('deskripsi') is-invalid @enderror" id=""
-                                    placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ $penyuluhan->deskripsi }}</textarea>
-                                    @error('deskripsi')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="{{ route('penyuluhan.home') }}" class="btn btn-danger">Kembali</a>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Nama Penyuluhan</label>
+                                        <input type="text" class="form-control  @error('nama_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->nama_penyuluhan }}"
+                                        placeholder="Masukkan Nama Penyuluhan" name="nama_penyuluhan" id="">
+                                        @error('nama_penyuluhan')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                    <div class="form-group">
+                                        <label for="">Topik</label>
+                                        <input type="text" class="form-control  @error('topik_penyuluhan') is-invalid @enderror" value="{{ $penyuluhan->topik_penyuluhan }}"
+                                        placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
+                                        @error('topik_penyuluhan')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Kontent</label>
+                                        <textarea name="deskripsi" class="ckeditor  @error('deskripsi') is-invalid @enderror" id=""
+                                        placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ $penyuluhan->deskripsi }}</textarea>
+                                        @error('deskripsi')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{{ route('penyuluhan.home') }}" class="btn btn-danger">Kembali</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card">
+                                <div class="card-header my-auto">
+                                    <h4 class="card-title my-auto">
+                                        Setting Penyuluhan
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Lokasi Penyuluhan</label>
+                                        <input type="text" name="lokasi" class="form-control  @error('lokasi') is-invalid @enderror" value="{{ $penyuluhan->lokasi }}"
+                                        placeholder="Masukkan Lokasi Penyuluhan" id="">
+                                        @error('lokasi')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Tanggal Penyuluhan</label>
+                                        <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" id="">
+                                        @error('nama_penyuluhan')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Gambar Penyuluhan</label>
+                                        <img id="img-preview" src="{{ route('penyuluhan.get_img', $penyuluhan->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
+                                        <input id="input-file" type="file" name="image" value="" class="form-control-file  @error('image') is-invalid @enderror" id="">
+                                        @error('image')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Setting Penyuluhan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Lokasi Penyuluhan</label>
-                                    <input type="text" name="lokasi" class="form-control  @error('lokasi') is-invalid @enderror" value="{{ $penyuluhan->lokasi }}"
-                                    placeholder="Masukkan Lokasi Penyuluhan" id="">
-                                    @error('lokasi')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Tanggal Penyuluhan</label>
-                                    <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" id="">
-                                    @error('nama_penyuluhan')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Gambar Penyuluhan</label>
-                                    <img id="img-preview" src="{{ route('penyuluhan.get_img', $penyuluhan->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input id="input-file" type="file" name="image" value="" class="form-control-file  @error('image') is-invalid @enderror" id="">
-                                    @error('image')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-          <!-- /.row -->
+                </form>
+            </div>
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </div>=
 @endsection
 
 @push('js')

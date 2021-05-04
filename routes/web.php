@@ -323,13 +323,13 @@ Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')-
 
 
 //Penyuluhan
-Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home');
-Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create');
-Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store');
-Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show');
-Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update');
+Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
-Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete');
+Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 
 
 
