@@ -334,12 +334,12 @@ Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('pe
 
 
 //Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home');
-Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create');
-Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store');
-Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show');
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update');
-Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete');
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
+Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
+Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware('auth:admin')->middleware("cek:super admparam1 admin,admin,kader,param5");
+Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
 Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
 
