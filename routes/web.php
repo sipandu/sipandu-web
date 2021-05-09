@@ -288,21 +288,38 @@ Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminControl
 Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 
-
-
-//Riwayat Kesehatan Anggota Keluarga User
-Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
-    Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
-    Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
-    Route::get('/lansia', 'RiwayatKeluargaController@keluargaLansia')->name('Keluarga Lansia');
-    Route::prefix('riwayat')->group(function(){
-        Route::get('/detail/anak', 'RiwayatKeluargaController@riwayatKeluargaAnak')->name('Riwayat Keluarga Anak');
-        Route::get('/detail/ibu', 'RiwayatKeluargaController@riwayatKeluargaIbu')->name('Riwayat Keluarga Ibu');
-        Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
+//Laporan
+Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
+  
+    Route::get('/laporan/kegiatan' , 'LaporanController@laporankegiatan')->name('laporan.kegiatan');
+    Route::get('/laporan/bulanan' , 'LaporanController@laporanbulanan')->name('laporan.bulanan');
+    Route::get('/laporan/tahunan' , 'LaporanController@laporantahunan')->name('laporan.tahunan');
+  
+    // Ajax Laporan
+    Route::prefix('ajax')->group( function () {
+      Route::post('/laporan/kegiatan' , 'LaporanController@ajaxchartkegiatan');
+      Route::post('/laporan/bulanan' , 'LaporanController@ajaxchartbulanan');
+      Route::post('/laporan/tahunan' , 'LaporanController@ajaxcharttahunan');
+      Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
+      Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
+      Route::get('/filter/l/{type}' , 'LaporanController@filter');
     });
-});
-
-
+  
+  });
+  
+  // File Update ----
+  //Riwayat Kesehatan Anggota Keluarga User
+  Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
+      Route::get('/anak', 'RiwayatKeluargaController@keluargaAnak')->name('Keluarga Anak');
+      Route::get('/ibu', 'RiwayatKeluargaController@keluargaIbu')->name('Keluarga Ibu');
+      Route::get('/lansia', 'RiwayatKeluargaController@keluargaLansia')->name('Keluarga Lansia');
+      Route::prefix('riwayat')->group(function(){
+          Route::get('/detail/anak', 'RiwayatKeluargaController@riwayatKeluargaAnak')->name('Riwayat Keluarga Anak');
+          Route::get('/detail/ibu', 'RiwayatKeluargaController@riwayatKeluargaIbu')->name('Riwayat Keluarga Ibu');
+          Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
+      });
+  });
+  // ------
 
 //Informasi Penting
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
