@@ -92,7 +92,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" value="{{ $dataAdmin->pegawai->tempat_lahir}}" disabled readonly>
-                                            <label for="floatingInput">Tampat Lahir</label>
+                                            <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -158,7 +158,7 @@
                                                 <div class="col-sm-12 col-md-6">
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $dataAdmin->pegawai->tempat_lahir) }}" placeholder="Tempat Lahir Kader">
-                                                        <label for="floatingInput">Tampat Lahir<span class="text-danger">*</span></label>
+                                                        <label for="floatingInput">Tempat Lahir<span class="text-danger">*</span></label>
                                                         @error('tempat_lahir')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}

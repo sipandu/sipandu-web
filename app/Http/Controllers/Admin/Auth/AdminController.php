@@ -32,9 +32,11 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
-    public function getProfileImage($id)
-    {
-        $admin = Admin::where('id', $id)->get()->first();
+    public function getProfileImage()
+    { 
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $admin = Admin::where('id', $idAdmin)->get()->first();
+        
         if(File::exists(storage_path($admin->profile_image))) {
             return response()->file(
                 storage_path($admin->profile_image)
@@ -92,7 +94,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'email' => "required|email",
             'telegram' => "nullable|max:25|unique:tb_admin,username_tele",
-            'no_tlpn' => "nullable|numeric|unique:tb_admin|nomor_telepon",
+            'no_tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon",
         ]
         ,[
             'email.required' => "Email wajib diisi",

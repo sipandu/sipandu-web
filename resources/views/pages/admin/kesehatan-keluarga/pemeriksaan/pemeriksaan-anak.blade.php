@@ -54,8 +54,8 @@
                                                             <div class="input-group">
                                                                 <input type="text" name="lingkar_kepala" autocomplete="off" class="form-control @error('lingkar_kepala') is-invalid @enderror" id="lingkar_kepala" value="{{ old('lingkar_kepala') }}" placeholder="LK Anak">
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-circle-notch"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Cm
                                                                     </div>
                                                                 </div>
                                                                 @error('lingkar_kepala')
@@ -70,8 +70,8 @@
                                                             <div class="input-group">
                                                                 <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat Anak">
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-weight"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Gram
                                                                     </div>
                                                                 </div>
                                                                 @error('berat_badan')
@@ -86,8 +86,8 @@
                                                             <div class="input-group">
                                                                 <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi Anak">
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-ruler-vertical"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Cm
                                                                     </div>
                                                                 </div>
                                                                 @error('tinggi_badan')
@@ -116,7 +116,10 @@
                                                         <div class="col-12 my-2">
                                                             <div class="form-floating">
                                                                 <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan"></textarea>
-                                                                <label for="lokasiPemeriksaan">Lokasi Pemeriksaan<span class="text-danger">*</span></label>
+                                                                <label for="lokasiPemeriksaan">
+                                                                    Lokasi Pemeriksaan
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
                                                                 @error('lokasiPemeriksaan')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -259,15 +262,14 @@
                                             </div>
                                             <div class="collapse my-3" id="tambahPemeriksaan">
                                                 <form>
-                                                    @csrf
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label>Lingkar Kepala</label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" disabled readonly>
+                                                                <input type="text" class="form-control" placeholder="LK Anak" disabled readonly>
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-circle-notch"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Cm
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -277,8 +279,8 @@
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" placeholder="Berat Anak" disabled readonly>
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-weight"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Gram
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -288,8 +290,8 @@
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" placeholder="Tinggi Anak" disabled readonly>
                                                                 <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-ruler-vertical"></span>
+                                                                    <div class="input-group-text fw-bold">
+                                                                        Cm
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -308,7 +310,7 @@
                                                         <div class="col-12 my-2">
                                                             <div class="form-floating">
                                                                 <textarea class="form-control" placeholder="Masukan lokasi pemeriksaan" disabled readonly></textarea>
-                                                                <label>Lokasi Pemeriksaan></label>
+                                                                <label>Lokasi Pemeriksaan</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 my-2">
@@ -456,7 +458,7 @@
                                                 <div class="col-sm-12 col-md-6 my-2">
                                                     <label for="tgl_kembali_vitamin">Tanggal Kembali</label>
                                                     <div class="input-group">
-                                                        <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <input type="text" name="tgl_kembali_vitamin" autocomplete="off" class="form-control @error('tgl_kembali_vitamin') is-invalid @enderror" id="tgl_kembali_vitamin" value="{{ old('tgl_kembali_vitamin') }}"  placeholder="Tanggal pemberian vitamin kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
                                                                 <i class="fas fa-calendar-check"></i>
@@ -472,7 +474,7 @@
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating">
                                                         <textarea name="lokasiVitamin" class="form-control @error('lokasiVitamin') is-invalid @enderror" id="lokasiVitamin" placeholder="Masukan lokasi pemberian"></textarea>
-                                                        <label for="lokasiVitamin">Lokasi Vitamin<span class="text-danger">*</span></label>
+                                                        <label for="lokasiVitamin">Lokasi Pemberian Vitamin<span class="text-danger">*</span></label>
                                                         @error('lokasiVitamin')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
@@ -663,7 +665,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else
@@ -696,7 +698,7 @@
                                                 <div class="row text-center">
                                                     <div class="col-6">
                                                         <span class="fw-bold">Jenis Vitamin :</span>
-                                                        <p>{{ $data->nama_vitamin }}</p>
+                                                        <p>{{ $data->vitamin->nama_vitamin }}</p>
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -708,7 +710,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else

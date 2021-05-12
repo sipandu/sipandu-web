@@ -30,9 +30,29 @@ class DataAnggotaController extends Controller
     
     public function listAnggota()
     {
-        $anak = Anak::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
-        $ibu = Ibu::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
-        $lansia = Lansia::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+        ->select('tb_ibu_hamil.*')
+        ->where('tb_ibu_hamil.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+        ->where('tb_user.is_verified', 1)
+        ->where('tb_user.keterangan', NULL)
+        ->orderBy('tb_ibu_hamil.created_at', 'desc')
+    ->get();
+
+    $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+        ->select('tb_anak.*')
+        ->where('tb_anak.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+        ->where('tb_user.is_verified', 1)
+        ->where('tb_user.keterangan', NULL)
+        ->orderBy('tb_anak.created_at', 'desc')
+    ->get();
+
+    $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+        ->select('tb_lansia.*')
+        ->where('tb_lansia.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+        ->where('tb_user.is_verified', 1)
+        ->where('tb_user.keterangan', NULL)
+        ->orderBy('tb_lansia.created_at', 'desc')
+    ->get();
 
         return view('pages/admin/master-data/data-anggota/data-anggota', compact('anak', 'ibu', 'lansia'));
     }
@@ -263,6 +283,8 @@ class DataAnggotaController extends Controller
                 
                 $updateUser = User::where('id', $ibu->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'no_jkn' => NULL,
+                    'masa_berlaku' => NULL,
                     'golongan_darah' => $request->goldar,
                     'faskes_rujukan' => $request->faskes_rujukan,
                 ]);
@@ -429,6 +451,8 @@ class DataAnggotaController extends Controller
 
                 $updateUser = User::where('id', $anak->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'no_jkn' => NULL,
+                    'masa_berlaku' => NULL,
                     'golongan_darah' => $request->goldar,
                     'faskes_rujukan' => $request->faskes_rujukan,
                 ]);
@@ -671,6 +695,8 @@ class DataAnggotaController extends Controller
 
                 $updateUser = User::where('id', $lansia->id_user)->update([
                     'tanggungan' => $request->tanggungan,
+                    'no_jkn' => NULL,
+                    'masa_berlaku' => NULL,
                     'golongan_darah' => $request->goldar,
                     'faskes_rujukan' => $request->faskes_rujukan,
                 ]);

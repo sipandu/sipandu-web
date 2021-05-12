@@ -100,7 +100,7 @@
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.ibu', [$data->user->id]) }}" class="btn btn-warning btn-sm">
                                                                 <i class="far fa-check-square"></i>
-                                                                Konfirm
+                                                                Verifikasi
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -109,7 +109,7 @@
                                             </table>
                                         </div>
                                     @else
-                                        <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Anak untuk Diverifikasi</p>
+                                        <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Akun Ibu Hamil untuk Diverifikasi</p>
                                     @endif
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.anak', [$data->user->id]) }}" class="btn btn-warning btn-sm">
                                                                 <i class="far fa-check-square"></i>
-                                                                Konfirm
+                                                                Verifikasi
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -172,7 +172,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($ibu as $data)
+                                                    @foreach ($lansia as $data)
                                                     <tr class="text-center align-middle my-auto">
                                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                                         <td class="align-middle">{{ $data->nama_lansia }}</td>
@@ -186,7 +186,7 @@
                                                         <td class="text-center align-middle d-none d-md-table-cell">
                                                             <a href="{{ route('detail.verify.lansia', [$data->user->id]) }}" class="btn btn-warning btn-sm">
                                                                 <i class="far fa-check-square"></i>
-                                                                Konfirm
+                                                                Verifikasi
                                                             </a>
                                                         </td>
                                                     </tr>

@@ -62,10 +62,7 @@
                                                 <div class="post">
                                                     <a href="" class="card-title text-decoration-none lh-1 fw-bold">{{ $kegiatan->nama_kegiatan }}</a>
                                                     <p class="card-text lh-1"><small class="text-muted">{{ $kegiatan->tempat }} {{ date('d-M-y', strtotime($kegiatan->start_at)) }} sampai {{ date('d-M-y', strtotime($kegiatan->end_at)) }}</small></p>
-                                                    <p>{{ $kegiatan->deskripsi }}</p>
-                                                    <p>
-                                                        <a href="#" class="link-black text-sm text-decoration-none"><i class="fas fa-link mr-1"></i> Lihat detail</a>
-                                                    </p>
+                                                    <p>{!! $kegiatan->deskripsi !!}</p>
                                                 </div>
                                             @endforeach
                                         @else
@@ -81,9 +78,7 @@
                                                 <div class="post">
                                                     <p href="" class="card-title text-decoration-none lh-1 fw-bold">{{ $kegiatan->nama_kegiatan }}</p>
                                                     <p class="card-text lh-1"><small class="text-muted">{{ $kegiatan->tempat }} Berakhir pada {{ date('d-M-y', strtotime($kegiatan->end_at)) }}</small></p>
-                                                    <p>{{ $kegiatan->deskripsi }}<p>
-                                                        <a href="#" class="link-black text-sm text-decoration-none"><i class="fas fa-link mr-1"></i> Lihat detail</a>
-                                                    </p>
+                                                    <p>{!! $kegiatan->deskripsi !!}<p>
                                                 </div>
                                             @endforeach
                                         @else

@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <img src="{{ route('verify.get_img', Auth::user()->id ) }}" class="card-img-bottom" alt="File KK Ibu">
+                                <img src="{{ route('verify.get_img', $ibu->id_kk ) }}" class="card-img-bottom" alt="File KK Ibu">
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="row">

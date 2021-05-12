@@ -88,11 +88,11 @@ Route::prefix('register')->namespace('User\Auth')->group(function() {
 Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::get('/', 'AdminController@index')->name('Admin Home');
     Route::get('/profile', 'AdminController@profile')->name('profile.admin');
-    Route::post('/status/update', 'AdminController@updateStatus')->name('edit.status.admin')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
+    Route::post('/status/update', 'AccountController@updateStatus')->name('edit.status.admin')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
 
-    Route::get('/get-img/{id}', 'AdminController@getProfileImage')->name('profile.admin.get_img');
+    Route::get('/get-img', 'AdminController@getProfileImage')->name('profile.admin.get_img');
     Route::prefix('edit')->group(function(){
-        Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile');
+        Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile.admin');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
@@ -182,8 +182,8 @@ Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\Profi
 
 //CRUD Data Admin
 Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
-Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,param4,param5");
-Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,param4,param5");
+Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
 Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
 
@@ -191,8 +191,8 @@ Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminCon
 
 //CRUD Data Kader
 Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,param4,param5");
-Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,param4,param5");
+Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
 

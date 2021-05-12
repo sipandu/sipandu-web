@@ -54,7 +54,7 @@
                                     <a class="float-right text-decoration-none link-dark">Anak ke-{{ $dataUser->anak->anak_ke }}</a>
                                 </li>
                             @endif
-                            @if ( $dataUser->anak->jenis_kelamin == 'laki laki')
+                            @if ( $dataUser->anak->jenis_kelamin == 'laki-laki')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Jenis Kelamin</b>
                                     <a class="float-right text-decoration-none link-dark">Laki-laki</a>
@@ -101,7 +101,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->tempat_lahir }}" disabled readonly>
-                                            <label for="floatingInput">Tampat Lahir</label>
+                                            <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -238,10 +238,10 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    @if ($dataUser->fasker_rujukan == NULL)
+                                    @if ($dataUser->faskes_rujukan == NULL)
                                         <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
                                     @else
-                                        <input type="text" class="form-control" value="{{ $dataUser->fasker_rujukan }}" disabled readonly>
+                                        <input type="text" class="form-control" value="{{ $dataUser->faskes_rujukan }}" disabled readonly>
                                     @endif
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>

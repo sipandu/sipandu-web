@@ -559,10 +559,10 @@ class RegisController extends Controller
             'passwordLansia' => 'required|min:8|max:50',
         ],
         [
-            'no_kk_lansia.required' => "Nomor KK Lansia wajib diisi",
+            'no_kk_lansia.required' => "Nomor KK lansia wajib diisi",
             'no_kk_lansia.numeric' => "Nomor KK harus berupa angka",
             'no_kk_lansia.digits' => "Nomor KK harus berjumlah 16 karakter",
-            'nama_lansia.required' => "Nama Lansia wajib diisi",
+            'nama_lansia.required' => "Nama lansia wajib diisi",
             'nama_lansia.regex' => "Format nama lansia tidak sesuai",
             'nama_lansia.min' => "Nama lansia minimal berjumlah 2 karakter",
             'nama_lansia.max' => "Nama lansia maksimal 50 karakter",
@@ -602,7 +602,7 @@ class RegisController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_lansia)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai()->id_posyandu)->first();
+        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         if ($request->tanggungan_lansia == 'Dengan Tanggungan') {
             $this->validate($request,[

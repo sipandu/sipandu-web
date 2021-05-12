@@ -19,8 +19,7 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="">sipandu</a></li>
-                    <li class="breadcrumb-item">Informasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Persebaran Posyandu</li>
                 </ol>
             </nav>

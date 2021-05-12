@@ -27,13 +27,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6 col-sm-6 my-auto">
+                            <div class="col-12 my-auto">
                                 <h3 class="card-title my-auto">Data Kader Posyandu</h3>
-                            </div>
-                            <div class="col-6 col-sm-6 text-end">
-                                <a href="{{ route("Add Kader") }}" class="btn btn-success">
-                                    <i class="fa fa-plus"></i> Tambah
-                                </a>
                             </div>
                         </div>
                     </div>

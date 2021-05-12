@@ -47,7 +47,7 @@
                                 <b class="fw-bold">Status Keluarga</b>
                                 <a class="float-right text-decoration-none link-dark">Lansia</a>
                             </li>
-                            @if ( $dataUser->lansia->jenis_kelamin == 'laki laki')
+                            @if ( $dataUser->lansia->jenis_kelamin == 'laki-laki')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Jenis Kelamin</b>
                                     <a class="float-right text-decoration-none link-dark">Laki-laki</a>
@@ -95,7 +95,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->tempat_lahir }}" disabled readonly>
-                                            <label for="floatingInput">Tampat Lahir</label>
+                                            <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -284,10 +284,10 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    @if ($dataUser->fasker_rujukan == NULL)
+                                    @if ($dataUser->faskes_rujukan == NULL)
                                         <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
                                     @else
-                                        <input type="text" class="form-control" value="{{ $dataUser->fasker_rujukan }}" disabled readonly>
+                                        <input type="text" class="form-control" value="{{ $dataUser->faskes_rujukan }}" disabled readonly>
                                     @endif
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>
@@ -708,29 +708,19 @@
                                                     <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('kabupaten')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                             <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
                                                 <option value="{{ $dataKecamatan->id_kecamatan }}" selected>{{ $dataKecamatan->nama_kecamatan }}</option>
                                             </select>
-                                            @error('kecamatan')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                             <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example">
                                                 <option value="{{ $pj->id_desa }}" selected>{{ $pj->desa->nama_desa }}</option>
                                             </select>
-                                            @error('kecamatan')
+                                            @error('desa')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>

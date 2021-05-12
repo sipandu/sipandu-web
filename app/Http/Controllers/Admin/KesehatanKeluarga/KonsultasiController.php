@@ -154,6 +154,19 @@ class KonsultasiController extends Controller
 
     public function storeKonsultasiIbu(Ibu $ibu, Request $request)
     {
+        $this->validate($request,[
+            'usia_kehamilan' => "required|min:1|max:2",
+            'diagnosa' => "required",
+            'pengobatan' => "nullable",
+            'keterangan' => "nullable|numeric|digits_between:12,15",
+        ],
+        [
+            'usia_kehamilan.required' => "Usia kehamilan wajib diisi",
+            'usia_kehamilan.min' => "Usia kehamilan kurang dari nilai minimum",
+            'usia_kehamilan.max' => "Usia kehamilan melebihi batas maksimum",
+            'diagnosa.required' => "Hasil pemeriksaan wajib diisi",
+        ]);
+
         Carbon::setLocale('id');
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
@@ -185,6 +198,15 @@ class KonsultasiController extends Controller
 
     public function storeKonsultasiAnak(Anak $anak, Request $request)
     {
+        $this->validate($request,[
+            'diagnosa' => "required",
+            'pengobatan' => "nullable",
+            'keterangan' => "nullable|numeric|digits_between:12,15",
+        ],
+        [
+            'diagnosa.required' => "Hasil pemeriksaan wajib diisi",
+        ]);
+
         Carbon::setLocale('id');
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
@@ -217,6 +239,15 @@ class KonsultasiController extends Controller
 
     public function storeKonsultasiLansia(Lansia $lansia, Request $request)
     {
+        $this->validate($request,[
+            'diagnosa' => "required",
+            'pengobatan' => "nullable",
+            'keterangan' => "nullable|numeric|digits_between:12,15",
+        ],
+        [
+            'diagnosa.required' => "Hasil pemeriksaan wajib diisi",
+        ]);
+
         Carbon::setLocale('id');
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
