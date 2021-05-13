@@ -56,12 +56,13 @@ class AdminController extends Controller
     public function profileUpdate(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|image|mimes:jpeg,png,jpg',
+            'file' => 'required|image|mimes:jpeg,png,jpg|size:5000',
         ],
         [
             'file.required' => "Silahkan masukan foto profile",
             'file.image' => "Gambar harus berupa foto",
             'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+            'file.size' => "Gambar maksimal berukuran 5 Mb",
         ]);
 
         $idAdmin = Auth::guard('admin')->user()->id;

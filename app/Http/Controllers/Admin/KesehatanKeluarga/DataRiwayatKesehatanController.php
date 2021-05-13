@@ -85,7 +85,6 @@ class DataRiwayatKesehatanController extends Controller
                     continue;
                 }else{
                     $minusBerat = $d->berat_badan - $dataAwal->berat_badan;
-                    // dd($minusBerat);
                     array_push($perubahanBerat, $minusBerat);
                     array_push($minggu, $d->usia_kandungan);
                 }
@@ -125,7 +124,6 @@ class DataRiwayatKesehatanController extends Controller
         if($dataAwal != null){
             if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
                 $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
-            // dd($dataAwal->berat_badan);
             $beratBadan[] = $dataAwal->berat_badan;
             $tinggiBadan[] = $dataAwal->tinggi_badan;
             $usia[] = $dataAwal->usia_anak;
@@ -136,7 +134,6 @@ class DataRiwayatKesehatanController extends Controller
                     $i += 1 ;
                     continue;
                 }else{
-                    // dd($minusBerat);
                     array_push($beratBadan, $d->berat_badan);
                     array_push($tinggiBadan, $d->tinggi_badan);
                     array_push($usia, $d->usia_anak);

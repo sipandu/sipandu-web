@@ -755,7 +755,6 @@ class DataAnggotaController extends Controller
             'desa' => "required",
             'status' => "required",
             'no_telp' => "required|numeric|digits_between:12,15",
-            'no_telp' => "required|numeric|digits_between:12,15",
             'alamat' => "required|min:5",
         ],
         [

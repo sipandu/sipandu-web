@@ -44,7 +44,6 @@ class RegisController extends Controller
 
     public function storeAdminKader(Request $request)
     {
-        // return($request);
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
             'email' => "required|email|unique:tb_admin,email",
@@ -52,7 +51,7 @@ class RegisController extends Controller
             'tgl_lahir' => "required|date",
             'gender' => "required",
             'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
-            'file'=> 'required|image|mimes:jpeg,png,jpg',
+            'file'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'jabatan' => "required",
             'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
@@ -81,6 +80,8 @@ class RegisController extends Controller
             'nik.digits' => "NIK harus berjumlah 16 karakter",
             'file.required' => "Upload Scan KTP Wajib diisi",
             'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
+            'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+            'file.size' => "Gambar maksimal berukuran 5 Mb",
             'alamat.required' => "Alamat wajib diisi",
             'alamat.regex' => "Format alamat tidak sesuai",
             'jabatan.required' => "Jabatan wajib diiisi",
@@ -278,10 +279,13 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_bumil'=> 'required|image|mimes:jpeg,png,jpg',
+                    'file_bumil'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
                 ],
                 [
                     'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK "
+                    'file.image' => "File yang diunggah harus berupa gambar",
+                    'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+                    'file.size' => "Gambar maksimal berukuran 5 Mb",
                 ]);
     
                 $filename = Mover::slugFile($request->file('file_bumil'), 'app/files/kk/bumil/');
@@ -482,10 +486,13 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_anak'=> 'required|image|mimes:jpeg,png,jpg',
+                    'file_anak'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
                 ],
                 [
                     'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK"
+                    'file.image' => "File yang diunggah harus berupa gambar",
+                    'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+                    'file.size' => "Gambar maksimal berukuran 5 Mb",
                 ]);
 
                 $filename = Mover::slugFile($request->file('file_anak'), 'app/files/kk/anak/');
@@ -674,10 +681,13 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_lansia'=> 'required|image|mimes:jpeg,png,jpg',
+                    'file_lansia'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
                 ],
                 [
                     'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK"
+                    'file.image' => "File yang diunggah harus berupa gambar",
+                    'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+                    'file.size' => "Gambar maksimal berukuran 5 Mb",
                 ]);
 
                 $filename = Mover::slugFile($request->file('file_lansia'), 'app/files/kk/lansia/');
