@@ -103,9 +103,9 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 //Management Account
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
-    Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,test,param4,param5');
+    Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
-    Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin, kader,admin,head admin,param5');
+    Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin,kader,admin,head admin,param5');
 
     //Store Account
     Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
@@ -351,11 +351,11 @@ Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('pe
 
 
 //Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
 Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
 Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
 Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware('auth:admin')->middleware("cek:super admparam1 admin,admin,kader,param5");
+Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
 Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
 Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 

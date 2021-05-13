@@ -46,8 +46,6 @@ class AdminController extends Controller
                 public_path('images/sipandu-logo.png')
             );
         }
-
-        return redirect()->back();
     }
 
     public function profile(Request $request)

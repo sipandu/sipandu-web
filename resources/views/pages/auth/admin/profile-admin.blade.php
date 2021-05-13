@@ -31,6 +31,11 @@
     </div>
     <div class="container-fluid">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger text-center" role="alert">
+                    <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                </div>
+            @endif
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
