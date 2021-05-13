@@ -34,6 +34,11 @@
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
+                @if ($persalinan == NULL)
+                    <div class="alert alert-primary text-center fs-5 fw-bold" role="alert">
+                        <span>Silakan isi data kehiran anak terlebih dahulu untuk mulai melakukan pemeriksaan</span>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
