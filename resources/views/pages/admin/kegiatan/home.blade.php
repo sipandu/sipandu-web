@@ -64,16 +64,6 @@
                           </tr>
                       @endforeach
                   </tbody>
-                  <tfoot>
-                    <tr class="text-center">
-                      <th>No</th>
-                      <th>Nama Kegiatan</th>
-                      <th>Tempat</th>
-                      <th>Tgl Mulai</th>
-                      <th>Tgl Berakhir</th>
-                      <th>Tindakan</th>
-                    </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

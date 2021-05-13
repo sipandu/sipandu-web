@@ -57,16 +57,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                      <tr class="text-center">
-                                        <th>No</th>
-                                        <th>Nama Kegiatan</th>
-                                        <th>Tempat</th>
-                                        <th>Tgl Mulai</th>
-                                        <th>Tgl Berakhir</th>
-                                        <th>Action</th>
-                                      </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <div class="tab-pane" id="cancel-kegiatan">
@@ -93,16 +83,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                      <tr class="text-center">
-                                        <th>No</th>
-                                        <th>Nama Kegiatan</th>
-                                        <th>Tempat</th>
-                                        <th>Tgl Mulai</th>
-                                        <th>Tgl Berakhir</th>
-                                        <th>Alasan</th>
-                                      </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

@@ -66,16 +66,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="text-center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Admnistrator</th>
-                                        <th class="d-none d-md-table-cell">Jabatan</th>
-                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
-                                        <th class="d-md-none">Tindakan</th>
-                                        <th class="d-none d-md-table-cell">Tindakan</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         @endif
                         @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
@@ -111,16 +101,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="text-center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Admnistrator</th>
-                                        <th>Jabatan</th>
-                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
-                                        <th class="d-md-none">Tindakan</th>
-                                        <th class="d-none d-md-table-cell">Tindakan</th>
-                                    </tr>
-                                </tfoot>
                             </table>  
                         @endif
                     </div>
