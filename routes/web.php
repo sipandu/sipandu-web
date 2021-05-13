@@ -275,7 +275,7 @@ Route::get('nakes/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKel
 //Imunisasi
 Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
 Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,head admin,adminm,kader,tenaga kesehatan");
+Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
 
