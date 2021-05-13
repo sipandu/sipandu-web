@@ -104,16 +104,23 @@ class AdminController extends Controller
             'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
         ]);
 
+        $idAdmin = Auth::guard('admin')->user()->id;
+
         if ($request->telegram == NULL) {
-            $pegawai = Pegawai::update([
-                'status' => 'tidak tersedia'
-            ]);
-        } else {
-            $idAdmin = Auth::guard('admin')->user()->id;
             $admin = Admin::find($idAdmin);
             $admin->email = $request->email;
             $admin->save();
-    
+
+            $pegawai = Pegawai::where('id_admin', $idAdmin)->update([
+                'status' => 'tidak tersedia',
+                'username_telegram' => $request->telegram,
+                'nomor_telepon' => $request->no_tlpn
+            ]);
+        } else {
+            $admin = Admin::find($idAdmin);
+            $admin->email = $request->email;
+            $admin->save();
+            
             $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
             $pegawai->username_telegram = $request->telegram;
             $pegawai->nomor_telepon = $request->no_tlpn;

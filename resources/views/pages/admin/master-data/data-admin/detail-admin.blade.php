@@ -34,6 +34,11 @@
     </div>
     <div class="container-fluid px-0">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger text-center" role="alert">
+                    <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                </div>
+            @endif
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
@@ -130,7 +135,7 @@
                                     <div class="card-body bg-light my-auto">
                                         <p class="fs-5 fw-bold my-auto">Scan KTP</p>
                                     </div>
-                                    <img src="{{ route('Get Image Data Admin KTP', $dataAdmin->id ) }}" class="card-img-buttom" alt="...">
+                                    <img src="{{ route('Get Image Data Admin KTP', $dataAdmin->pegawai->id ) }}" class="card-img-buttom" alt="...">
                                 </div>
                             </div>
                             @if (Auth::guard('admin')->user()->pegawai->jabatan != $dataAdmin->pegawai->jabatan)

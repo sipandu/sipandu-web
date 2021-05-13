@@ -47,7 +47,7 @@ class RegisController extends Controller
         // return($request);
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
-            'email' => "email|unique:tb_admin,email",
+            'email' => "required|email|unique:tb_admin,email",
             'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3|max:50",
             'tgl_lahir' => "required|date",
             'gender' => "required",
