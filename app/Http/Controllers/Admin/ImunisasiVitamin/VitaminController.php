@@ -49,7 +49,7 @@ class VitaminController extends Controller
             'perulangan.max' => "Penulisan perulangan Vitamin maksimal berjumlah 50 karakter",
             'keterangan.required' => "Deskripsi Vitamin wajib diisi",
             'status.required' => "Status Vitamin wajib diisi",
-            'penerima.required' => "Pemerima Vitamin wajib diisi",
+            'penerima.required' => "Penerima Vitamin wajib diisi",
         ]);
 
         if ($request->status == "Wajib" || $request->status == "Tidak Wajib") {
@@ -117,7 +117,7 @@ class VitaminController extends Controller
                 'perulangan.max' => "Penulisan perulangan Vitamin maksimal berjumlah 50 karakter",
                 'keterangan.required' => "Deskripsi Vitamin wajib diisi",
                 'status.required' => "Status Vitamin wajib diisi",
-                'penerima.required' => "Pemerima Vitamin wajib diisi",
+                'penerima.required' => "Penerima Vitamin wajib diisi",
             ]);
 
             if ($request->status == "Wajib" || $request->status == "Tidak Wajib") {
@@ -166,7 +166,7 @@ class VitaminController extends Controller
                 'perulangan.max' => "Penulisan perulangan Vitamin maksimal berjumlah 50 karakter",
                 'keterangan.required' => "Deskripsi Vitamin wajib diisi",
                 'status.required' => "Status Vitamin wajib diisi",
-                'penerima.required' => "Pemerima Vitamin wajib diisi",
+                'penerima.required' => "Penerima Vitamin wajib diisi",
             ]);
 
             if ($request->status == "Wajib" || $request->status == "Tidak Wajib") {
