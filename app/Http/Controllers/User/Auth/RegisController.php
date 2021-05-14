@@ -420,7 +420,8 @@ class RegisController extends Controller
                     ]
                 ];
                 $encodedKeyboard = json_encode($keyboard);
-                $caption = 'Identitas Calon Anggota Lansia Posyandu : '.PHP_EOL.
+                $caption =  '[ANGGOTA BARU]'.PHP_EOL.PHP_EOL.
+                            'Identitas Calon Anggota Lansia Posyandu : '.PHP_EOL.
                             'No KK : '.$kk->no_kk.PHP_EOL.
                             'Nama Calon : '.$request->nama.PHP_EOL.
                             'Posyandu : '.$posyandu->nama_posyandu.PHP_EOL.

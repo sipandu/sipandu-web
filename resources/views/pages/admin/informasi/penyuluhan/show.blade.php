@@ -94,8 +94,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tanggal Penyuluhan</label>
-                                        <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" id="">
-                                        @error('nama_penyuluhan')
+                                        <input type="date" name="tanggal" value="{{ $penyuluhan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal-penyuluhan">
+                                        @error('tanggal')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -104,8 +104,8 @@
                                     <div class="form-group">
                                         <label for="">Gambar Penyuluhan</label>
                                         <img id="img-preview" src="{{ route('penyuluhan.get_img', $penyuluhan->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
-                                        <input id="input-file" type="file" name="image" value="" class="form-control-file  @error('image') is-invalid @enderror" id="">
-                                        @error('image')
+                                        <input id="input-file" type="file" name="gambar" value="" class="form-control-file  @error('gambar') is-invalid @enderror" id="">
+                                        @error('gambar')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -157,6 +157,28 @@
                 postData.append('file', this.files[0]);
             }
         });
+        var myDate = document.querySelector('#tanggal-penyuluhan');
+        myDate.onkeypress = function (evt) {
+            var _evt = evt || windows.event;
+            var keyCode = _evt.keyCode || _evt.charCode;
+            var sKey = String.fromCharCode(keyCode);
+
+            var text = this.value;
+            var res = text.substring(0, 3);
+            var res2 = text.substring(0,2);
+            var res3  = text.substring(0,1);
+            if(res === "000" || res2 === "00" || res3 ==="0"){
+                return true;
+            }else{
+                if (text.length >= 9) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+        };
     </script>
     @if($message = Session::get('success'))
         <script>

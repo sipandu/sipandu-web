@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 class PenyuluhanController extends Controller
-{    
+{
     public function index()
     {
         $penyuluhan = Penyuluhan::where('id_posyandu', 4)->orderby('tanggal', 'desc')->get();
@@ -30,12 +30,12 @@ class PenyuluhanController extends Controller
             'lokasi' => 'required|min:2',
             'tanggal' => 'required',
             'topik_penyuluhan' => 'required|min:2',
-            'image' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
+            'gambar' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
         ]);
 
         $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
 
-        $filename = Mover::slugFile($request->file('image'), 'app/informasi/penyuluhan/');
+        $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/penyuluhan/');
         $penyuluhan = new Penyuluhan();
         $penyuluhan->id_posyandu = $pegawai->posyandu->id;
         $penyuluhan->nama_penyuluhan = $request->nama_penyuluhan;
@@ -65,14 +65,14 @@ class PenyuluhanController extends Controller
             'lokasi' => 'required|min:2',
             'tanggal' => 'required',
             'topik_penyuluhan' => 'required|min:2',
-            'image' => 'max:2000|mimes:png,jpg,svg,jpeg',
+            'gambar' => 'max:2000|mimes:png,jpg,svg,jpeg',
         ]);
 
         $penyuluhan = Penyuluhan::find($id);
 
-        if($request->file('image') != null){
+        if($request->file('gambar') != null){
             File::delete(storage_path($penyuluhan->image));
-            $filename = Mover::slugFile($request->file('image'), 'app/informasi/penyuluhan/');
+            $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/penyuluhan/');
             $penyuluhan->image = $filename;
         }
 

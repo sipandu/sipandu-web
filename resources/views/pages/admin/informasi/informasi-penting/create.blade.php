@@ -64,15 +64,15 @@
                             <div class="card">
                                 <div class="card-header my-auto">
                                     <h4 class="card-title my-auto">
-                                        Setting Penyuluhan
+                                        Setting Informasi Penting
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Gambar Penyuluhan</label>
+                                        <label for="">Gambar Informasi</label>
                                         <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                        <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
-                                        @error('image')
+                                        <input type="file" id="input-file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" id="">
+                                        @error('gambar')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -89,7 +89,7 @@
 @endsection
 
 @push('js')
-<script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function () {
           $('.ckeditor').each(function(e){
@@ -144,4 +144,9 @@
                     console.error( error );
             } );
     </script>
+    @if($message = Session::get('success'))
+        <script>
+            alertSuccess('{{ $message }}');
+        </script>
+    @endif
 @endpush

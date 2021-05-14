@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tanggal Penyuluhan</label>
-                                        <input type="date" name="tanggal" class="form-control  @error('lokasi') is-invalid @enderror" value="{{ old('tanggal') }}" id="">
+                                        <input type="date" name="tanggal" maxlength="10" class="form-control  @error('tanggal') is-invalid @enderror" value="{{ old('tanggal') }}" id="tanggal-penyuluhan">
                                         @error('tanggal')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -103,8 +103,8 @@
                                     <div class="form-group">
                                         <label for="">Gambar Penyuluhan</label>
                                         <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                        <input type="file" id="input-file" name="image" class="form-control-file  @error('lokasi') is-invalid @enderror" id="">
-                                        @error('image')
+                                        <input type="file" id="input-file" name="gambar" class="form-control-file  @error('gambar') is-invalid @enderror" id="">
+                                        @error('gambar')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -138,6 +138,31 @@
               });
           });
         });
+        // $('#tanggal-penyuluhan').on('change', function(){
+        //     alert($(this).val().length);
+        // });
+        var myDate = document.querySelector('#tanggal-penyuluhan');
+        myDate.onkeypress = function (evt) {
+            var _evt = evt || windows.event;
+            var keyCode = _evt.keyCode || _evt.charCode;
+            var sKey = String.fromCharCode(keyCode);
+
+            var text = this.value;
+            var res = text.substring(0, 3);
+            var res2 = text.substring(0,2);
+            var res3  = text.substring(0,1);
+            if(res === "000" || res2 === "00" || res3 ==="0"){
+                return true;
+            }else{
+                if (text.length >= 9) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+        };
         $('#input-file').on('change', function(){
             var filedata = this.files[0];
             var imgtype = filedata.type;
@@ -157,4 +182,9 @@
             }
         });
     </script>
+    @if($message = Session::get('success'))
+        <script>
+            alertSuccess('{{ $message }}');
+        </script>
+    @endif
 @endpush
