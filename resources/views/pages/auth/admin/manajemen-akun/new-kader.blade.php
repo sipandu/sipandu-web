@@ -27,6 +27,11 @@
 <div class="container-fluid px-0">
     <div class="row">
         <div class="col-12">
+            @if ($errors->any())
+                <div class="alert alert-danger text-center" role="alert">
+                    <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                </div>
+            @endif
             <div class="card card-primary">
                 <div class="card-header my-auto">
                     <h3 class="card-title my-auto">Tambah Kader Baru</h3>
@@ -259,24 +264,22 @@
                                                     <div class="form-group">
                                                         <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
                                                         <div class="input-group mb-3">
-                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan != "kader")
                                                                 <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
                                                                     @if ( old('jabatan') )
                                                                         <option selected value="{{ old('jabatan') }}">{{ old('jabatan') }}</option>
-                                                                        <option value="super admin">Super Admin</option>
-                                                                        <option value="head admin">Head Admin</option>
-                                                                        <option value="admin">Admin</option>
+                                                                        <option value="kader">Kader</option>
+                                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                                     @else
                                                                         <option selected disabled>Pilih jabatan....</option>
-                                                                        <option value="super admin">Super Admin</option>
-                                                                        <option value="head admin">Head Admin</option>
-                                                                        <option value="admin">Admin</option>
+                                                                        <option value="kader">Kader</option>
+                                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                                     @endif
                                                                 </select>
                                                             @endif
-                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "head admin")
+                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "kader")
                                                                 <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                    <option selected value="admin">Admin</option>
+                                                                    <option selected value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                                 </select>
                                                             @endif
                                                             <div class="input-group-append">

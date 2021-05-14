@@ -30,10 +30,10 @@ class PemberianVitaminController extends Controller
             'vitamin.required' => "Nama Vitamin wajib diisi",
             'vitamin.exists' => "Jenis Vitamin tidak terdaftar",
             'tgl_kembali_vitamin.date' => "Format tanggal Vitamin kembali tidak sesuai",
-            'lokasiVitamin.required' => "Lokasi Vitamin wajib diisi",
-            'lokasiVitamin.regex' => "Format penulisan lokasi Vitamin tidak sesuai",
-            'lokasiVitamin.min' => "Penulisan lokasi Vitamin minimal berjumlah 5 karakter",
-            'lokasiVitamin.max' => "Penulisan lokasi Vitamin minimal berjumlah 100 karakter",
+            'lokasiVitamin.required' => "Lokasi pemberian Vitamin wajib diisi",
+            'lokasiVitamin.regex' => "Format penulisan lokasi pemberian Vitamin tidak sesuai",
+            'lokasiVitamin.min' => "Penulisan lokasi pemberian Vitamin minimal berjumlah 5 karakter",
+            'lokasiVitamin.max' => "Penulisan lokasi pemberian Vitamin minimal berjumlah 100 karakter",
         ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();

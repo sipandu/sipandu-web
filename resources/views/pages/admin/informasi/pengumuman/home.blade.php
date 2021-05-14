@@ -8,77 +8,63 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Manajemen Pengumuman {{ $posyandu->nama_posyandu }}</h1>
+        <h1 class="h3">Manajemen Pengumuman</h1>
         <div class="col-auto ml-auto text-right mt-n1">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
-                    <li class="breadcrumb-item">Informasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Pengumuman</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Pengumuman</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
+    <div class="container-fluid px-0">
+        <div class="row">
             <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3 class="card-title">Data Pengumuman</h3>
-                        </div>
-                        <div class="col-6">
-                            <a class="btn btn-success float-right" href="{{ route('pengumuman.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6 my-auto">
+                                <h3 class="card-title my-auto">Data Pengumuman</h3>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-success float-right" href="{{ route('pengumuman.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="data" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Judul</th>
-                        <th>Tanggal</th>
-                        <th style="text-align: center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pengumuman as $item)
-                            <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <th>{{ $item->judul_pengumuman }}</th>
-                                <th>{{ date('d F Y', strtotime($item->tanggal)) }}</th>
-                                <th>
-                                    <a href="{{ route('pengumuman.show', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
-                                    <button class="btn btn-danger btn-sm" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
-                                </th>
+                    <div class="card-body table-responsive-md">
+                        <table id="data" class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="text-center">
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Tindakan</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>No</th>
-                        <th>Judul</th>
-                        <th>Tanggal</th>
-                        <th style="text-align: center">Action</th>
-                      </tr>
-                    </tfoot>
-                  </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($pengumuman as $item)
+                                <tr class="text-center">
+                                    <th class="fw-normal align-middle">{{ $loop->iteration }}</th>
+                                    <th class="fw-normal align-middle">{{ $item->judul_pengumuman }}</th>
+                                    <th class="fw-normal align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
+                                    <th class="fw-normal align-middle">
+                                        <a href="{{ route('pengumuman.show', $item->id) }}" class="btn btn-primary btn-sm my-1">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <button class="btn btn-danger btn-sm my-1" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
+                                    </th>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    </section>
+    </div>
+
     <form id="form-delete" action="{{ route('pengumuman.delete') }}" method="POST">
         @csrf
         <input type="hidden" name="id" id="id-delete">
@@ -93,21 +79,31 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script>
-        $(function () {
-            $('#data').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#pengumuman').addClass('active');
+        });
+
+        $(function () {
+            $('#data').DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari: ",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "emptyTable": "Tidak Terdapat Data Pengumuman",
+                    "sSearchPlaceholder": "Cari pengumuman....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
+                },
+                "language": {
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                }
+            });
         });
 
         function deletePenyuluhan(id){

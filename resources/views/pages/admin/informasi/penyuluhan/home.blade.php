@@ -20,71 +20,58 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
+    <div class="container-fluid px-0">
+        <div class="row">
             <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3 class="card-title">Data Penyuluhan</h3>
-                        </div>
-                        <div class="col-6">
-                            <a class="btn btn-success float-right" href="{{ route('penyuluhan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
-                        </div>
-                    </div>
+                <div class="card">
+                  <div class="card-header">
+                      <div class="row">
+                          <div class="col-6 my-auto">
+                              <h3 class="card-title my-auto">Data Penyuluhan</h3>
+                          </div>
+                          <div class="col-6">
+                              <a class="btn btn-success float-right" href="{{ route('penyuluhan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body table-responsive-md">
+                    <table id="data" class="table table-bordered table-hover">
+                      <thead>
+                        <tr class="text-center">
+                          <th>No</th>
+                          <th>Nama Penyuluhan</th>
+                          <th>Topik</th>
+                          <th>Tempat</th>
+                          <th>Tanggal</th>
+                          <th>Tindakan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($penyuluhan as $item)
+                              <tr class="text-center">
+                                  <th class="fw-normal align-middle">{{ $loop->iteration }}</th>
+                                  <th class="fw-normal align-middle">{{ $item->nama_penyuluhan }}</th>
+                                  <th class="fw-normal align-middle">{{ $item->topik_penyuluhan }}</th>
+                                  <th class="fw-normal align-middle">{{ $item->lokasi }}</th>
+                                  <th class="fw-normal align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
+                                  <th class="fw-normal align-middle">
+                                    <a href="{{ route('penyuluhan.show', $item->id) }}" class="btn btn-primary btn-sm my-1">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                      <button class="btn btn-danger btn-sm my-1" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
+                                  </th>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="data" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th style="text-align: center">No</th>
-                        <th>Nama Penyuluhan</th>
-                        <th>Topik</th>
-                        <th>Tempat</th>
-                        <th>Tanggal</th>
-                        <th style="text-align: center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($penyuluhan as $item)
-                            <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <th>{{ $item->nama_penyuluhan }}</th>
-                                <th>{{ $item->topik_penyuluhan }}</th>
-                                <th>{{ $item->lokasi }}</th>
-                                <th>{{ date('d F Y', strtotime($item->tanggal)) }}</th>
-                                <th>
-                                    <a href="{{ route('penyuluhan.show', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
-                                    <button class="btn btn-danger btn-sm" onclick="deletePenyuluhan('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
-                                </th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>No</th>
-                        <th>Posyandu</th>
-                        <th>Topik</th>
-                        <th>Tempat</th>
-                        <th>Tanggal</th>
-                        <th style="text-align: center">Action</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    </section>
+    </div>
+
     <form id="form-delete" action="{{ route('penyuluhan.delete') }}" method="POST">
         @csrf
         <input type="hidden" name="id" id="id-delete">
@@ -99,21 +86,31 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script>
-        $(function () {
-            $('#data').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#penyuluhan').addClass('active');
+        });
+
+        $(function () {
+            $('#data').DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari: ",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "emptyTable": "Tidak Terdapat Data Penyuluhan",
+                    "sSearchPlaceholder": "Cari penyuluhan....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
+                },
+                "language": {
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                }
+            });
         });
 
         function deletePenyuluhan(id){

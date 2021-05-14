@@ -291,9 +291,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-imunisasi').addClass('menu-is-opening menu-open');
-            $('#imunisasi').addClass('active');
-            $('#jenis-imunisasi').addClass('active');
+            $('#list-vitamin').addClass('menu-is-opening menu-open');
+            $('#vitamin').addClass('active');
+            $('#jenis-vitamin').addClass('active');
         });
     </script>
 

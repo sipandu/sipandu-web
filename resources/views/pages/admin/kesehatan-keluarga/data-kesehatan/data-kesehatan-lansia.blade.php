@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{ $dataLansia->nama_lansia }}</h3>
-                        <p class="text-muted text-center">Emailnya</p>
+                        <p class="text-muted text-center">{{ $dataLansia->user->email }}</p>
                         <ul class="list-group list-group-unbordered mb-1">
                             <li class="list-group-item">
                                 <b class="fw-bold">Usia</b>
@@ -61,7 +61,7 @@
                                     <a class="float-right text-decoration-none link-dark">{{ $dataLansia->user->golongan_darah }}</a>
                                 </li>
                             @endif
-                            @if ($dataLansia->user->nomor_telepon == NULL)
+                            @if ($dataLansia->nomor_telepon == NULL)
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telepon</b>
                                     <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
@@ -69,7 +69,7 @@
                             @else
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telpon</b>
-                                    <a class="float-right text-decoration-none link-dark">{{ $dataLansia->user->nomor_telepon }}</a>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataLansia->nomor_telepon }}</a>
                                 </li>
                             @endif
                             @if ($dataLansia->user->telegram == NULL)
@@ -393,6 +393,8 @@
                         @endif
                     </ul>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -438,6 +440,8 @@
                         @endif
                     </ul>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -454,7 +458,7 @@
                                         <div class="row text-center">
                                             <div class="col-6">
                                                 <span class="fw-bold">Jenis Vitamin :</span>
-                                                <p>{{ $data->nama_vitamin }}</p>
+                                                <p>{{ $data->vitamin->nama_vitamin }}</p>
                                             </div>
                                             <div class="col-6">
                                                 <span class="fw-bold">Pemberian Selanjutnya :</span>

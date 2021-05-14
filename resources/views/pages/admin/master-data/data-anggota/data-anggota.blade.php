@@ -66,15 +66,6 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot class="text-center">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Anak</th>
-                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
-                                                <th class="d-md-none">Tindakan</th>
-                                                <th class="d-none d-md-table-cell">Tindakan</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 @else
                                     <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Lanjut Usia</p>
@@ -112,15 +103,6 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot class="text-center">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Anak</th>
-                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
-                                                <th class="d-md-none">Tindakan</th>
-                                                <th class="d-none d-md-table-cell">Tindakan</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 @else
                                     <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Bayi dan Balitas</p>
@@ -160,16 +142,6 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot class="text-center">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Lansia</th>
-                                                <th class="d-none d-sm-table-cell">Golongan</th>
-                                                <th class="d-none d-md-table-cell">Lokasi Posyandu</th>
-                                                <th class="d-md-none">Tindakan</th>
-                                                <th class="d-none d-md-table-cell">Tindakan</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 @else
                                     <p class="text-center my-auto">Tidak Terdapat Anggota Posyandu Lanjut Usia</p>

@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="copyright-area">
-            <p class="mb-0 text-center">Copyright &copy; 2021  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu</a></p>
+            <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu</a></p>
         </div>
     </div>
 </footer>

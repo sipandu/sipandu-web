@@ -26,6 +26,11 @@
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-center" role="alert">
+                        <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                    </div>
+                @endif
                 <div class="card card-primary">
                     <div class="card-header my-auto">
                         <h3 class="card-title my-auto">Tambah Admin Baru</h3>

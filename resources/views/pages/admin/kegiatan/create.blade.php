@@ -1,8 +1,5 @@
 @extends('layouts/admin/admin-layout')
 @section('title', 'Tambah Kegiatan')
-@push('css')
-
-@endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -18,84 +15,105 @@
         </div>
     </div>
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <form action="{{ route('kegiatan.store') }}" enctype="multipart/form-data" method="POST">
-                @csrf
-                <div class="form-row">
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Setting Penyuluhan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Lokasi Kegiatan</label>
-                                    <input type="text" name="tempat" class="form-control" placeholder="Masukkan Temapt Kegiatan" id="">
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <form action="{{ route('kegiatan.store') }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        Setting Penyuluhan
+                                    </h4>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Tanggal Mulai</label>
-                                    <input type="date" name="start_at" class="form-control" id="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Tanggal Berakhir</label>
-                                    <input type="date" name="end_at" class="form-control" id="">
-                                </div>
-                                {{-- <div class="form-group">
-                                    <label for="">Gambar Penyuluhan</label>
-                                    <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
-                                    <input type="file" id="input-file" name="image" class="form-control-file" id="">
-                                </div> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    Konten Kegiatan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="">Nama Kegiatan</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Penyuluhan" name="nama_kegiatan" id="">
-                                </div>
-                                {{-- <div class="form-group">
-                                    <label for="">Topik</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Topik Penyuluhan" name="topik_penyuluhan" id="">
-                                </div> --}}
-                                <div class="form-group">
-                                    <label for="">Kontent</label>
-                                    <textarea name="deskripsi" class="ckeditor" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10"></textarea>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a href="{{ route('kegiatan.home') }}" class="btn btn-danger">Kembali</a>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Lokasi Kegiatan</label>
+                                        <input type="text" name="tempat" class="form-control @error('tempat') is-invalid @enderror"
+                                        value="{{ old('tempat') }}" placeholder="Masukkan Tempat Kegiatan" id="">
+                                        @error('tempat')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                    <div class="form-group">
+                                        <label for="">Tanggal Mulai</label>
+                                        <input type="date" name="start_at" class="form-control @error('start_at') is-invalid @enderror" value="{{ old('start_at') }}" id="">
+                                        @error('start_at')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Tanggal Berakhir</label>
+                                        <input type="date" name="end_at" class="form-control @error('end_at') is-invalid @enderror" value="{{ old('end_at') }}" id="">
+                                        @error('end_at')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        Konten Kegiatan
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Nama Kegiatan</label>
+                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Penyuluhan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
+                                        @error('nama_kegiatan')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Kontent</label>
+                                        <textarea name="deskripsi" class="ckeditor @error('deskripsi') is-invalid @enderror" id="" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10">{{ old('deskripsi') }}</textarea>
+                                        @error('deskripsi')
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{{ route('kegiatan.home') }}" class="btn btn-danger">Kembali</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
-          <!-- /.row -->
+                </form>
+            </div>
         </div>
-        <!-- /.container-fluid -->
-      </section>
+    </div>
 @endsection
 
 @push('js')
 <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
-            $('#kegiatan').addClass('active');
+          $('#list-admin-dashboard').removeClass('menu-open');
+          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+          $('#kegiatan').addClass('active');
+          $('#tambah-kegiatan').addClass('active');
         });
+
         $(function () {
           $('.ckeditor').each(function(e){
               CKEDITOR.replace(this.id ,{
@@ -106,6 +124,7 @@
               });
           });
         });
+
         $('#input-file').on('change', function(){
             var filedata = this.files[0];
             var imgtype = filedata.type;

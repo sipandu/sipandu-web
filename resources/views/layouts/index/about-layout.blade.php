@@ -16,12 +16,8 @@
                         gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sqit consetetur
                         sadipscing elitr,
                         sed diam nonumy eirmod tempor invidunt.</p>
-                    <a href="#" class="btn theme-btn wow fadeInUp" data-wow-delay=".8s">Pelajari Selengkapnya</a>
                 </div>
             </div>
         </div>
     </div>
-    {{-- <div class="about-img text-center">
-        <img src="index-template/img/about/about-img.png" alt="">
-    </div> --}}
 </section>

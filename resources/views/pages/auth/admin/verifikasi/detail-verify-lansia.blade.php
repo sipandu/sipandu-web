@@ -45,47 +45,47 @@
                                             <label for="noKK">Nomor KK</label>
                                         </div>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="lokasiPosyandu" value="{{$lansia->lansia->posyandu->nama_posyandu}}" disabled>
-                                        <label for="lokasiPosyandu">Lokasi Posyandu</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="banjar" value="{{$lansia->lansia->posyandu->banjar}}" disabled>
-                                        <label for="banjar">Banjar</label>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="lokasiPosyandu" value="{{$lansia->lansia->posyandu->nama_posyandu}}" disabled>
+                                            <label for="lokasiPosyandu">Lokasi Posyandu</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="banjar" value="{{$lansia->lansia->posyandu->banjar}}" disabled>
+                                            <label for="banjar">Banjar</label>
+                                        </div>
                                     </div>
                                 </div>
-
-                                    <form method="POST" action="{{route('tolak.user')}}" class="mb-2">
-                                        @csrf
-                                        <div class="col-12 p-0 m-0">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
-                                                <label for="keterangan">Keterangan Tambahan</label>
-                                            </div>
-                                            @error('keterangan  ')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
+                                <form method="POST" action="{{route('tolak.user')}}" class="mb-2">
+                                    @csrf
+                                    <div class="col-12 p-0 m-0">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">
+                                            <label for="keterangan">Keterangan Tambahan</label>
                                         </div>
-                                        <div class="col-12 text-start p-0 m-0">
-                                            <button class="btn btn-block btn-outline-danger btn-sm">Tolak dengan alasan</button>
-                                        </div>
-                                    </form>
-                                    <div class="row p-0 m-0">
-                                        <div class="col-sm-12 col-md-6 text-start float-lg-left">
-                                            <a href="{{route('show.verify')}}" class="btn btn-outline-primary btn-sm">Kembali</a>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 my-auto">
-                                            <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
-                                                @csrf
-                                                <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
-                                                <div class="text-end float-lg-right my-auto">
-                                                    <button class="btn btn-outline-success btn-sm">Setujui</button>
+                                        @error('keterangan  ')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
                                                 </div>
-                                            </form>
-                                        </div>
+                                            @enderror
+                                        <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
+                                    </div>
+                                    <div class="col-12 text-start p-0 m-0">
+                                        <button class="btn btn-block btn-outline-danger btn-sm">Tolak dengan alasan</button>
+                                    </div>
+                                </form>
+                                <div class="row p-0 m-0">
+                                    <div class="col-sm-12 col-md-6 text-start float-lg-left">
+                                        <a href="{{route('show.verify')}}" class="btn btn-outline-primary btn-sm">Kembali</a>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 my-auto">
+                                        <form method="POST" action="{{route('terima.user')}}" class="p-0 m-0">
+                                            @csrf
+                                            <input type="hidden" name="iduser" class="form-control" id="keterangan" value="{{$lansia->id}}">
+                                            <div class="text-end float-lg-right my-auto">
+                                                <button class="btn btn-outline-success btn-sm">Setujui</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -32,6 +32,11 @@
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-center" role="alert">
+                        <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
@@ -60,7 +65,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-sm-12 col-md-6 my-2">
-                                                    <label for="tanggal_persalinan">Tanggal Persalinan</label>
+                                                    <label for="tanggal_persalinan">Tanggal Persalinan<span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <input type="text" name="tanggal_persalinan" autocomplete="off" class="form-control @error('tanggal_persalinan') is-invalid @enderror" id="tanggal_persalinan" value="{{ old('tanggal_persalinan') }}"  placeholder="Tanggal persalinan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                         <div class="input-group-prepend">
@@ -80,8 +85,8 @@
                                                     <div class="input-group">
                                                         <input type="text" name="berat_lahir" autocomplete="off" class="form-control @error('berat_lahir') is-invalid @enderror" id="berat_lahir" value="{{ old('berat_lahir') }}" placeholder="LK Anak">
                                                         <div class="input-group-append">
-                                                            <div class="input-group-text">
-                                                                <span class="fas fa-weight"></span>
+                                                            <div class="input-group-text fw-bold">
+                                                                Gram
                                                             </div>
                                                         </div>
                                                         @error('berat_lahir')
@@ -561,6 +566,12 @@
 @endsection
 
 @push('js')
+    <!-- Custom Input Date -->
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function(){
             $('#list-admin-dashboard').removeClass('menu-open');
@@ -568,6 +579,21 @@
             $('#kesehatan').addClass('active');
             $('#konsultasi').addClass('active');
         });
+
+        // Custom Input Date
+        $(function () {
+            bsCustomFileInput.init();
+
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+
+            $('[data-mask]').inputmask()
+        })
     </script>
 
     @if($message = Session::get('failed'))

@@ -61,7 +61,7 @@
                                     <a class="float-right text-decoration-none link-dark">{{ $dataAnak->user->golongan_darah }}</a>
                                 </li>
                             @endif
-                            @if ($dataAnak->user->nomor_telepon == NULL)
+                            @if ($dataAnak->nomor_telepon == NULL)
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telepon</b>
                                     <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
@@ -69,7 +69,7 @@
                             @else
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telpon</b>
-                                    <a class="float-right text-decoration-none link-dark">{{ $dataAnak->user->nomor_telepon }}</a>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataAnak->nomor_telepon }}</a>
                                 </li>
                             @endif
                             @if ($dataAnak->user->telegram == NULL)
@@ -248,7 +248,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-6">
                 <div class="card">
                     @if($js_berat != null || $js_tinggi != null)
                     <div>
@@ -261,9 +261,7 @@
                     @endif
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-6">
                 <div class="card">
                     @if($js_berat != null || $js_usia != null)
                     <div>
@@ -276,9 +274,7 @@
                     @endif
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-6">
                 <div class="card">
                     @if($js_tinggi != null || $js_usia != null)
                     <div>
@@ -291,9 +287,7 @@
                     @endif
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-6">
                 <div class="card">
                     @if($js_lingkar != null || $js_usia != null)
                     <div>
@@ -399,6 +393,8 @@
                         @endif
                     </ul>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -444,6 +440,8 @@
                         @endif
                     </ul>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
                 <div class="card card-primary card-outline">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -460,7 +458,7 @@
                                         <div class="row text-center">
                                             <div class="col-6">
                                                 <span class="fw-bold">Jenis Vitamin :</span>
-                                                <p>{{ $data->nama_vitamin }}</p>
+                                                <p>{{ $data->vitamin->nama_vitamin }}</p>
                                             </div>
                                             <div class="col-6">
                                                 <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -507,8 +505,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        // const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
-        // const datapoints = [0, 0.25, 0.4, 0.55, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.6, 3.2, 3.8, 4.2, 4.8, 5.4, 6, 6.6, 7.2, 7.8, 8.4, 9, 9.6, 10.2, 10.8, 11.4, 12, 12.6, 13.2, 13.8, 14.4, 15, 15.6, 16.2, 16.8, 17.4, 18];
         const tinggi = JSON.parse("{{$js_tinggi}}");
         const berat = JSON.parse("{{$js_berat}}");
         const umur = JSON.parse("{{$js_usia}}");
@@ -565,19 +561,6 @@
             ]
         };
 
-        // const datatingber = {
-        //     labels: tinggi,
-        //     data: berat,
-        //     datasets: [
-        //         {
-        //             label: 'Data Berat Berdasarkan Tinggi Badan',
-        //             data: berat,
-        //             borderColor: '#111111',
-        //             fill: false,
-        //         },
-        //     ]
-        // };
-
         const config1 = {
             type: 'line',
             data: datatingber,
@@ -606,9 +589,6 @@
                             display: true,
                             text: 'Berat Badan'
                         },
-                        // suggestedMin: -1,
-                        // suggestedMax: 23,
-                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                     }
                 }
             },
@@ -642,9 +622,6 @@
                             display: true,
                             text: 'Usia'
                         },
-                        // suggestedMin: -1,
-                        // suggestedMax: 23,
-                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                     }
                 }
             },
@@ -678,9 +655,6 @@
                             display: true,
                             text: 'Usia'
                         },
-                        // suggestedMin: -1,
-                        // suggestedMax: 23,
-                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                     }
                 }
             },
@@ -714,9 +688,6 @@
                             display: true,
                             text: 'Usia'
                         },
-                        // suggestedMin: -1,
-                        // suggestedMax: 23,
-                        // labels: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                     }
                 }
             },
@@ -741,11 +712,6 @@
             document.getElementById('lila'),
             config4
         );
-
-        // var kms = new Chart(
-        //     document.getElementById('kms'),
-        //     config
-        // );
     </script>
   
 @endpush
