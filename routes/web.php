@@ -314,10 +314,9 @@ Route::get('/admin/informasi-penting/get-img/{id}', 'InformasiPentingController@
 Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delete')->name('informasi_penting.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 
 //SIG Posyandu
-Route::get('/admin/informasi/persebaran-posyandu/home', function(){
-    return view('pages.admin.informasi.sig-posyandu');
-})->name('sig-posyandu.home')->middleware('auth:admin');
-
+Route::get('/admin/informasi/persebaran-posyandu/home', 'SIGPosyanduController@index')->name('sig-posyandu.home')->middleware('auth:admin');
+Route::get('/admin/informasi/sig-posyandu/polos', 'SIGPosyanduController@sigPolosan')->name('sig-posyandu.polos');
+Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduController@getData')->name('sig-posyandu.get_data')->middleware('auth:admin');
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
 
