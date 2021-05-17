@@ -63,7 +63,7 @@ class DataRiwayatKesehatanController extends Controller
 
         $umur = Carbon::parse($ibu->tanggal_lahir)->age;
 
-        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->get()->first();
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('id', 'desc')->get()->first();
         if ($pemeriksaanIbu != NULL) {
             $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
         } else {
@@ -120,7 +120,8 @@ class DataRiwayatKesehatanController extends Controller
         $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
         $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
         
-        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->first();
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
         if($dataAwal != null){
             if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
                 $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
