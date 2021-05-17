@@ -46,7 +46,7 @@
 @endsection
 
 @push('js')
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -55,58 +55,29 @@
         var mymap = L.map('mapid').setView([-8.30926555343337, 115.09210838237348], 10);
 
         //function marker
-        function marker(id, latitude, longtitude, msg){
-            var id = L.marker([latitude, longtitude]).addTo(mymap);
-            id.bindPopup(msg);
+        function marker(posyandu){
+            var marker = L.marker([posyandu['latitude'], posyandu['longitude']]).addTo(mymap);
+            var msg = '<p>Nama Posyandu : '+posyandu['nama_posyandu']+'</p>'+
+                      '<p>Alamat : '+posyandu['alamat']+'</p>'+
+                      '<p>Nomor Telepon : '+posyandu['nomor_telepon']+'</p>'+
+                      '<a target="_blank" href="http://www.google.com/maps/place/'+posyandu['latitude']+','+posyandu['longitude']+'">Link Gmaps</a>'
+            marker.bindPopup(msg);
             //when marker on click
-            id.on('click', function(event){
-                id.openPopup();
+            marker.on('click', function(event){
+                marker.openPopup();
             });
         }
 
         $(document).ready(function(){
-            //SD 1 Jinengdalem
-            marker(
-                'marker1',
-                '-8.11074182432444',
-                '115.1251112243882',
-                'Nama : SD N 1 Jinengdalem<br>Jenis Sekolah : SD<br>Alamat : Jl. Setia Budi No.60, Penarukan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119'
-            );
-            //SD 3 Jinengdalem
-            marker(
-                'marker2',
-                '-8.116803838052453',
-                '115.12772031778378',
-                'Nama : SD 3 Jinengdalem<br>Jenis Sekolah : SD<br>Alamat : Jinengdalem, Kec. Buleleng, Kabupaten Buleleng, Bali 81119'
-            );
-            //Undiksha
-            marker(
-                'marker3',
-                '-8.131928366546758',
-                '115.13344951651526',
-                'Nama : Universitas Pendidikan Ganesha Kampus Jinengdalem<br>Jenis Sekolah : Universitas<br>Alamat : Jinengdalem, Kec. Buleleng, Kabupaten Buleleng, Bali 81151'
-            );
-            //SMP 5 Singaraja
-            marker(
-                'marker4',
-                '-8.123559612957928',
-                '115.123342879719',
-                'Nama : SMP 5 Singaraja<br>Jenis Sekolah : SMP<br>Alamat : Jl. Pulau Irian, Penglatan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119'
-            );
-            //SD 3 Penglatan
-            marker(
-                'marker5',
-                '-8.123039476290211',
-                '115.12598574703956',
-                'Nama : SD 3 Penglatan<br>Jenis Sekolah : SD<br>Alamat : Penglatan, Kec. Buleleng, Kabupaten Buleleng, Bali 81115'
-            );
-            //SD 1 Penglatan
-            marker(
-                'marker5',
-                '-8.12168999086156',
-                '115.12107947587519',
-                'Nama : SD 1 Penglatan<br>Jenis Sekolah : SD<br>Alamat : Penglatan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119'
-            );
+            $.ajax({
+                url : '{{ route("sig-posyandu.get_data") }}',
+                method : 'GET',
+                success : function(response) {
+                    for(let i = 0; i < response.posyandu.length; i++) {
+                        marker(response.posyandu[i]);
+                    }
+                }
+            });
         });
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {

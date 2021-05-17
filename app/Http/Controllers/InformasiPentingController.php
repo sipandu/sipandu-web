@@ -29,13 +29,20 @@ class InformasiPentingController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'required' => ':attribute Wajib Diisi',
+            'min' => ':attribute Harus Diisi minimum :min karakter',
+            'max' => ':attribute Ukuran Maksimal File :value',
+            'mimes' => ':attribute Format file yang boleh adalah :value'
+        ];
+
         $request->validate([
             'judul_informasi' => 'required|min:2',
             'informasi' => 'required|min:2',
-            'image' => 'max:2000|mimes:png,jpg,svg,jpeg',
-        ]);
+            'gambar' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
+        ], $messages);
 
-        $filename = Mover::slugFile($request->file('image'), 'app/informasi/informasi-penting/');
+        $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
         $informasi = new InformasiPenting();
         $informasi->judul_informasi = $request->judul_informasi;
         $informasi->informasi = $request->informasi;
@@ -59,17 +66,24 @@ class InformasiPentingController extends Controller
 
     public function update(Request $request, $id)
     {
+        $messages = [
+            'required' => ':attribute Wajib Diisi',
+            'min' => ':attribute Harus Diisi minimum :min karakter',
+            'max' => ':attribute Ukuran Maksimal File :value',
+            'mimes' => ':attribute Format file yang boleh adalah :value'
+        ];
+
         $request->validate([
             'judul_informasi' => 'required|min:2',
             'informasi' => 'required|min:2',
-            'image' => 'max:2000|mimes:png,jpg,svg,jpeg',
+            'gambar' => 'max:2000|mimes:png,jpg,svg,jpeg',
         ]);
 
         $informasi = InformasiPenting::find($id);
 
         if($request->file('image') != null) {
             File::delete(storage_path($informasi->image));
-            $filename = Mover::slugFile($request->file('image'), 'app/informasi/informasi-penting/');
+            $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
             $informasi->image = $filename;
         }
 
@@ -79,7 +93,12 @@ class InformasiPentingController extends Controller
         $informasi->author_id = Auth::guard('admin')->user()->id;
         $informasi->save();
 
-        $informasi->broadcastUpdateToAllUser();
+        try {
+            $informasi->broadcastUpdateToAllUser();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
 

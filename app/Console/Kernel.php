@@ -4,7 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Kegiatan;
+use Carbon\Carbon;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -24,7 +25,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $now = Carbon::now();
+            $kegiatan = Kegiatan::where('start_at', '>', $now->format('Y-m-d'))
+                ->where('start_at', '<', $now->addDays(2)->format('Y-m-d'))->get();
+            if($kegiatan->count() > 0) {
+                foreach($kegiatan as $item) {
+                    $item->SchedulerH_2();
+                }
+            }
+        })->daily();
     }
 
     /**
