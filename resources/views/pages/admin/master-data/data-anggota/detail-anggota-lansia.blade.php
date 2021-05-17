@@ -31,6 +31,11 @@
         </div>
     </div>
     <div class="container-fluid px-0">
+        @if ($errors->any())
+            <div class="alert alert-danger text-center" role="alert">
+                <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
@@ -47,7 +52,7 @@
                                 <b class="fw-bold">Status Keluarga</b>
                                 <a class="float-right text-decoration-none link-dark">Lansia</a>
                             </li>
-                            @if ( $dataUser->lansia->jenis_kelamin == 'laki laki')
+                            @if ( $dataUser->lansia->jenis_kelamin == 'laki-laki')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Jenis Kelamin</b>
                                     <a class="float-right text-decoration-none link-dark">Laki-laki</a>
@@ -95,7 +100,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->tempat_lahir }}" disabled readonly>
-                                            <label for="floatingInput">Tampat Lahir</label>
+                                            <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -284,10 +289,10 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    @if ($dataUser->fasker_rujukan == NULL)
+                                    @if ($dataUser->faskes_rujukan == NULL)
                                         <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
                                     @else
-                                        <input type="text" class="form-control" value="{{ $dataUser->fasker_rujukan }}" disabled readonly>
+                                        <input type="text" class="form-control" value="{{ $dataUser->faskes_rujukan }}" disabled readonly>
                                     @endif
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>
@@ -708,29 +713,19 @@
                                                     <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('kabupaten')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                             <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
                                                 <option value="{{ $dataKecamatan->id_kecamatan }}" selected>{{ $dataKecamatan->nama_kecamatan }}</option>
                                             </select>
-                                            @error('kecamatan')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                             <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example">
                                                 <option value="{{ $pj->id_desa }}" selected>{{ $pj->desa->nama_desa }}</option>
                                             </select>
-                                            @error('kecamatan')
+                                            @error('desa')
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
@@ -797,21 +792,16 @@
                                             @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
+                                            <select class="form-select kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
                                                 <option disabled selected>Silakan pilih Kabupaten</option>
                                                 @foreach ($kabupaten as $k)
                                                     <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('kabupaten')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                            <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
+                                            <label for="floatingSelect">Pilih Kabupaten</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
+                                            <select id="kecamatan" class="form-select kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
                                                 <option disabled selected>Pilih Kabupaten terlebih dahulu</option>
                                             </select>
                                             @error('kecamatan')
@@ -822,7 +812,7 @@
                                             <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example">
+                                            <select id="desa" name="desa" class="form-select @error('desa') is-invalid @enderror" aria-label="Floating label select example">
                                                 <option disabled selected>Pilih Kecamatan terlebih dahulu</option>
                                             </select>
                                             @error('kecamatan')
@@ -886,14 +876,12 @@
         </div>
     </div>
 @endsection
-
-@push('js')
+    
+@push('js')    
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
     <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/jquery/jquery.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -902,11 +890,26 @@
             $('#management-posyandu').addClass('active');
             $('#data-anggota').addClass('active');
 
+            // Custom Input Date
+            $(function () {
+                bsCustomFileInput.init();
+
+                $('.select2').select2()
+
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
+                $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+
+                $('[data-mask]').inputmask()
+            })
+
             // Kabupaten to Kecamatan AJAX //
             $('#kabupaten').on('change', function () {
                 let id = $(this).val();
                 $('#kecamatan').empty().append(`<option disabled selected>Silakan pilih Kabupaten</option>`);
-                $('#kecamatan').append(`<option value="0" disabled selected>Processing...</option>`);
+                $('#kecamatan').append(`<option value="0" disabled selected>Silakan tunggu ...</option>`);
                 $.ajax({
                     type: 'GET',
                     url: '/kecamatan/' + id,
@@ -914,7 +917,7 @@
                         var response = JSON.parse(response);
                         console.log(response);
                         $('#kecamatan').empty();
-                        $('#kecamatan').append(`<option value="0" disabled selected>Select Kecamatan</option>`);
+                        $('#kecamatan').append(`<option value="0" disabled selected>Silakan pilih Kecamatan</option>`);
                         response.forEach(element => {
                             $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
                         });
@@ -926,7 +929,7 @@
             $('#kecamatan').on('change', function () {
                 let idDesa = $(this).val();
                 $('#desa').empty();
-                $('#desa').append(`<option value="0" disabled selected>Processing...</option>`);
+                $('#desa').append(`<option value="0" disabled selected>Silahkan tunggu ...</option>`);
                 $.ajax({
                     type: 'GET',
                     url: '/desa/' + idDesa,
@@ -934,7 +937,7 @@
                         var response = JSON.parse(response);
                         console.log(response);
                         $('#desa').empty();
-                        $('#desa').append(`<option value="0" disabled selected>Select Desa/Kelurahan</option>`);
+                        $('#desa').append(`<option value="0" disabled selected>Silakan pilih Desa/Kelurahan</option>`);
                         response.forEach(element => {
                             $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
                         });
@@ -942,21 +945,6 @@
                 });
             });
         });
-
-        // Custom Input Date
-        $(function () {
-            bsCustomFileInput.init();
-
-            $('.select2').select2()
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
-            $('[data-mask]').inputmask()
-        })
     </script>
     
     @if($message = Session::get('failed'))

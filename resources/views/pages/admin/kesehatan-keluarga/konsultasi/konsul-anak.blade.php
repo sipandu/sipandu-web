@@ -294,7 +294,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else
@@ -339,7 +339,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else

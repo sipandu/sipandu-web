@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
-                                            <label for="penerima">penerima<span class="text-danger">*</span></label>
+                                            <label for="penerima">Penerima<span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <select class="form-control" id="penerima" disabled>
                                                     <option selected disabled>{{ $imunisasi->penerima }}</option>

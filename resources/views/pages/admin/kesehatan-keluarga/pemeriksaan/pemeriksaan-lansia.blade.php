@@ -53,8 +53,8 @@
                                                         <div class="input-group">
                                                             <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-weight"></span>
+                                                                <div class="input-group-text fw-bold">
+                                                                    Gram
                                                                 </div>
                                                             </div>
                                                             @error('berat_badan')
@@ -69,8 +69,8 @@
                                                         <div class="input-group">
                                                             <input type="text" name="suhu_tubuh" autocomplete="off" class="form-control @error('suhu_tubuh') is-invalid @enderror" id="suhu_tubuh" value="{{ old('suhu_tubuh') }}" placeholder="Suhu tubuh">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-thermometer"></span>
+                                                                <div class="input-group-text fw-bold">
+                                                                    C
                                                                 </div>
                                                             </div>
                                                             @error('suhu_tubuh')
@@ -86,7 +86,7 @@
                                                             <input type="text" name="tinggi_lutut" autocomplete="off" class="form-control @error('tinggi_lutut') is-invalid @enderror" id="tinggi_lutut" value="{{ old('tinggi_lutut') }}" placeholder="Tinggi lutut">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-ruler-vertical"></span>
+                                                                    Cm
                                                                 </div>
                                                             </div>
                                                             @error('tinggi_lutut')
@@ -97,12 +97,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tinggi_badan">Tinggi badan<span class="text-danger">*</span></label>
+                                                        <label for="tinggi_badan">Tinggi Badan<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi badan">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-ruler-vertical"></span>
+                                                                <div class="input-group-text fw-bold">
+                                                                    Cm
                                                                 </div>
                                                             </div>
                                                             @error('tinggi_badan')
@@ -115,10 +115,10 @@
                                                     <div class="col-sm-12 col-md-6 my-2">
                                                         <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="tekanan_darah" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan Darah">
+                                                            <input type="text" name="tekanan_darah" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-plus"></span>
+                                                                <div class="input-group-text fw-bold">
+                                                                    BPM
                                                                 </div>
                                                             </div>
                                                             @error('tekanan_darah')
@@ -131,10 +131,10 @@
                                                     <div class="col-sm-12 col-md-6 my-2">
                                                         <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="denyut_nadi" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut Nadi">
+                                                            <input type="text" name="denyut_nadi" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-plus"></span>
+                                                                <div class="input-group-text fw-bold">
+                                                                    BPM
                                                                 </div>
                                                             </div>
                                                             @error('denyut_nadi')
@@ -153,7 +153,7 @@
                                                                     <span class="fas fa-map-marker-alt"></span>
                                                                 </div>
                                                             </div>
-                                                            @error('lokasi_pemeriksaan')
+                                                            @error('    ')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
                                                                 </div>
@@ -161,7 +161,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tgl_kembali">Tanggal Kembali<span class="text-danger">*</span></label>
+                                                        <label for="tgl_kembali">Tanggal Pemberian Kembali<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                             <div class="input-group-prepend">
@@ -351,7 +351,7 @@
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating">
                                                         <textarea name="lokasiVitamin" class="form-control @error('lokasiVitamin') is-invalid @enderror" id="lokasiVitamin" placeholder="Masukan lokasi pemberian"></textarea>
-                                                        <label for="lokasiVitamin">Lokasi Vitamin<span class="text-danger">*</span></label>
+                                                        <label for="lokasiVitamin">Lokasi Pemberian Vitamin<span class="text-danger">*</span></label>
                                                         @error('lokasiVitamin')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
@@ -621,7 +621,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else
@@ -654,7 +654,7 @@
                                                 <div class="row text-center">
                                                     <div class="col-6">
                                                         <span class="fw-bold">Jenis Vitamin :</span>
-                                                        <p>{{ $data->nama_vitamin }}</p>
+                                                        <p>{{ $data->vitamin->nama_vitamin }}</p>
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -666,7 +666,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
-                                                    <span class="fw-bold">keterangan Tambahan :</span>
+                                                    <span class="fw-bold">Keterangan Tambahan :</span>
                                                     @if ($data->keterangan != NULL)
                                                         <p>{{ $data->keterangan }}</p>
                                                     @else

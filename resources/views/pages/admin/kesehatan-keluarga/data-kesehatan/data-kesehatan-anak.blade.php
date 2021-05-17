@@ -61,7 +61,7 @@
                                     <a class="float-right text-decoration-none link-dark">{{ $dataAnak->user->golongan_darah }}</a>
                                 </li>
                             @endif
-                            @if ($dataAnak->user->nomor_telepon == NULL)
+                            @if ($dataAnak->nomor_telepon == NULL)
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telepon</b>
                                     <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
@@ -69,7 +69,7 @@
                             @else
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telpon</b>
-                                    <a class="float-right text-decoration-none link-dark">{{ $dataAnak->user->nomor_telepon }}</a>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataAnak->nomor_telepon }}</a>
                                 </li>
                             @endif
                             @if ($dataAnak->user->telegram == NULL)
@@ -458,7 +458,7 @@
                                         <div class="row text-center">
                                             <div class="col-6">
                                                 <span class="fw-bold">Jenis Vitamin :</span>
-                                                <p>{{ $data->nama_vitamin }}</p>
+                                                <p>{{ $data->vitamin->nama_vitamin }}</p>
                                             </div>
                                             <div class="col-6">
                                                 <span class="fw-bold">Pemberian Selanjutnya :</span>

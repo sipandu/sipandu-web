@@ -32,9 +32,11 @@ class AdminController extends Controller
         return view('pages/admin/dashboard');
     }
 
-    public function getProfileImage($id)
-    {
-        $admin = Admin::where('id', $id)->get()->first();
+    public function getProfileImage()
+    { 
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $admin = Admin::where('id', $idAdmin)->get()->first();
+        
         if(File::exists(storage_path($admin->profile_image))) {
             return response()->file(
                 storage_path($admin->profile_image)
@@ -44,8 +46,6 @@ class AdminController extends Controller
                 public_path('images/sipandu-logo.png')
             );
         }
-
-        return redirect()->back();
     }
 
     public function profile(Request $request)
@@ -56,12 +56,13 @@ class AdminController extends Controller
     public function profileUpdate(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|image|mimes:jpeg,png,jpg',
+            'file' => 'required|image|mimes:jpeg,png,jpg|size:5000',
         ],
         [
             'file.required' => "Silahkan masukan foto profile",
             'file.image' => "Gambar harus berupa foto",
             'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+            'file.size' => "Gambar maksimal berukuran 5 Mb",
         ]);
 
         $idAdmin = Auth::guard('admin')->user()->id;
@@ -92,7 +93,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'email' => "required|email",
             'telegram' => "nullable|max:25|unique:tb_admin,username_tele",
-            'no_tlpn' => "nullable|numeric|unique:tb_admin|nomor_telepon",
+            'no_tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon",
         ]
         ,[
             'email.required' => "Email wajib diisi",
@@ -104,16 +105,23 @@ class AdminController extends Controller
             'no_tlpn.unique' => "Nomor telepon sudah pernah digunakan",
         ]);
 
+        $idAdmin = Auth::guard('admin')->user()->id;
+
         if ($request->telegram == NULL) {
-            $pegawai = Pegawai::update([
-                'status' => 'tidak tersedia'
-            ]);
-        } else {
-            $idAdmin = Auth::guard('admin')->user()->id;
             $admin = Admin::find($idAdmin);
             $admin->email = $request->email;
             $admin->save();
-    
+
+            $pegawai = Pegawai::where('id_admin', $idAdmin)->update([
+                'status' => 'tidak tersedia',
+                'username_telegram' => $request->telegram,
+                'nomor_telepon' => $request->no_tlpn
+            ]);
+        } else {
+            $admin = Admin::find($idAdmin);
+            $admin->email = $request->email;
+            $admin->save();
+            
             $pegawai = Pegawai::where('id_admin',$idAdmin)->first();
             $pegawai->username_telegram = $request->telegram;
             $pegawai->nomor_telepon = $request->no_tlpn;
