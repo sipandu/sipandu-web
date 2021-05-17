@@ -21,11 +21,20 @@ class ApiUserDataController extends Controller
         //Auth User
         $idUser = User::where('email', $request->email)->first();
         $user = User::find($idUser->id);
+        $profileImg = $user->getUrlImage();
         $anak = Anak::whereId_user($idUser->id)->first();
+        $anakJml = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->count();
+        $bumilJml = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->count();
+        $lansiaJml = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->count();
+        $totalKeluarga = $anakJml + $bumilJml + $lansiaJml;
+        $KK = KK::where('id', $idUser->id_kk)->first();
         return response()->json([
             'status_code' => 200,
             'user' => $user,
-            'anak' => $anak
+            'anak' => $anak,
+            'profile_img' => $profileImg,
+            'total_keluarga' => $totalKeluarga,
+            'kartu_keluarga' => $KK
         ]);
     }
 
@@ -33,12 +42,14 @@ class ApiUserDataController extends Controller
     {
         //Auth User
         $idUser = User::where('email', $request->email)->first();
-        $user = Ibu::find($idUser->id);
+        $user = User::find($idUser->id);
+        $profileImg = $user->getUrlImage();
         $ibu = Ibu::whereId_user($idUser->id)->first();
         return response()->json([
             'status_code' => 200,
             'user' => $user,
-            'ibu' => $ibu
+            'ibu' => $ibu,
+            'profile_img' => $profileImg
         ]);
     }
 
@@ -47,20 +58,31 @@ class ApiUserDataController extends Controller
         //Auth User
         $idUser = User::where('email', $request->email)->first();
         $user = Lansia::find($idUser->id);
+        $profileImg = $user->getUrlImage();
         $lansia = Lansia::whereId_user($idUser->id)->first();
         return response()->json([
             'status_code' => 200,
             'user' => $user,
-            'lansia' => $lansia
+            'lansia' => $lansia,
+            'profile_img' => $profileImg
         ]);
     }
 
     public function getUserKeluarga(Request $request)
     {
         $idUser = User::where('email', $request->email)->first();
-        $anak = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->get();
-        $bumil = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->get();
-        $lansia = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->get();
+        $anak = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->get()->map(function($item){
+            $item->profile_image = $item->getUrlImage();
+            return $item;
+        });
+        $bumil = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->get()->map(function($item){
+            $item->profile_image = $item->getUrlImage();
+            return $item;
+        });
+        $lansia = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->get()->map(function($item){
+            $item->profile_image = $item->getUrlImage();
+            return $item;
+        });
         return response()->json([
             'status_code' => 200,
             'user_with_anak' => $anak,

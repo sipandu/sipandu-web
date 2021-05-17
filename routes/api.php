@@ -51,6 +51,10 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/user/get-user-lansia', 'User\Auth\Api\ApiUserDataController@getUserLansia');
     Route::post('/user/get-user-keluarga', 'User\Auth\Api\ApiUserDataController@getUserKeluarga');
 
+    //kesehatan stuff
+    Route::post('/kesehatan/get-history-vitamin-anak', 'User\Auth\Api\ApiKesehatanDataController@getVitaminHistory');
+    Route::post('/kesehatan/get-history-imunisasi-anak', 'User\Auth\Api\ApiKesehatanDataController@getImunisasiHistory');
+
     // informasi stuff
     Route::get('/get-informasi-home', 'User\Auth\Api\ApiInformasiController@getInformasiHome');
     Route::post('/get-informasi', 'User\Auth\Api\ApiInformasiController@getInformasi');
@@ -60,6 +64,7 @@ Route::prefix('mobileuser')->group(function(){
     // other
     Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
     Route::get('/get-informasi-img/{id}', 'User\Auth\Api\ApiGetImageController@getInformasiImage');
+    Route::get('/get-user-img/{id}', 'User\Auth\Api\ApiGetImageController@getUserProfilePict');
     Route::get('/get-pengumuman-img/{id}', 'User\Auth\Api\ApiGetImageController@getPengumumanImage');
 });
 
