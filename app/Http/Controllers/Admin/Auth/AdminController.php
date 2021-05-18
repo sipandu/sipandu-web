@@ -29,7 +29,29 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        return view('pages/admin/dashboard');
+        $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
+        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+            ->select('tb_anak.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+        $bumil = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            ->select('tb_ibu_hamil.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+            ->select('tb_lansia.*')
+            ->where('tb_user.is_verified', 1)
+            ->where('tb_user.keterangan', NULL)
+        ->get();
+        $nakes = Pegawai::where('id_posyandu', $idPosyandu)->where('jabatan', 'tenaga kesehatan')->get();
+        $nakesAll = Pegawai::where('jabatan', 'tenaga kesehatan')->get();
+        $kaderAll = Pegawai::where('jabatan', 'kader')->get();
+        $anggota = User::where('is_verified', 1)->get();
+        $posyandu = Posyandu::get();
+
+        return view('pages/admin/dashboard', compact('anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
     }
 
     public function getProfileImage()

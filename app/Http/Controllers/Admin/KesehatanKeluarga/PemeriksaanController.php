@@ -126,6 +126,8 @@ class PemeriksaanController extends Controller
         $alergi = Alergi::where('id_user', $anak->id_user)->get();
         $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
+        $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
+        $gizi_anak = $gizi->status_gizi;
 
         if ($umur > 0) {
             $usia = $umur.' Tahun';
@@ -144,7 +146,7 @@ class PemeriksaanController extends Controller
             ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
         ->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu'));
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi_anak'));
     }
 
     public function pemeriksaanLansia(Lansia $lansia)
@@ -270,6 +272,7 @@ class PemeriksaanController extends Controller
             'berat_badan' => "required|numeric|min:2",
             'tinggi_badan' => 'required|numeric|min:2',
             'tgl_kembali' => 'required|date',
+            'status_gizi' => 'required',
             'lokasiPemeriksaan' => 'required|min:5',
             'diagnosa' => 'required|min:5',
             'pengobatan' => 'nullable',
@@ -286,7 +289,8 @@ class PemeriksaanController extends Controller
             'tinggi_badan.numeric' => "Tinggi badan anak harus berupa angka",
             'tinggi_badan.min' => "Tinggi badan anak kurang dari nilai minimum",
             'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
-            'tgl_kembali.required' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'tgl_kembali.date' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'status_gizi.required' => "Status gizi anak wajib dipilih",
             'lokasiPemeriksaan.required' => "Tempat pemeriksaan anak wajib diisi",
             'lokasiPemeriksaan.min' => "Nama tempat pemeriksaan anak terlalu singkat",
             'diagnosa.required' => "Diagnosa pemeriksaan anak wajib diisi",
@@ -340,6 +344,7 @@ class PemeriksaanController extends Controller
                 'pengobatan' => $request->pengobatan,
                 'keterangan' => $request->keterangan,
                 'IMT' => $imtAnak,
+                'status_gizi' => $request->status_gizi,
                 'jenis_pemeriksaan' => 'Pemeriksaan',
                 'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
                 'tanggal_pemeriksaan' => $today,

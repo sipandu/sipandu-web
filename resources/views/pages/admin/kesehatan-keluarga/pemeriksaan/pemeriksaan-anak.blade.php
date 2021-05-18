@@ -119,6 +119,20 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 my-2">
+                                                            <label for="status_gizi">Status Gizi<span class="text-danger">*</span></label>
+                                                            <select class="form-select @error('status_gizi') is-invalid @enderror" name="status_gizi" id="status_gizi" aria-label="Default select example">
+                                                                <option disabled selected>Pilih status gizi anak berdasarkan hasil pemeriksaan</option>
+                                                                <option class="text-success" value="Cukup Gizi">Cukup Gizi</option>
+                                                                <option class="text-danger" value="Kurang Gizi">Kurang Gizi</option>
+                                                                <option class="text-warning" value="Kelebihan Gizi">Kelebihan Gizi</option>
+                                                            </select>
+                                                            @error('status_gizi')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-12 my-2">
                                                             <div class="form-floating">
                                                                 <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan"></textarea>
                                                                 <label for="lokasiPemeriksaan">
@@ -761,12 +775,22 @@
                                             <div class="col-7 text-end"><span>{{ $dataAnak->nama_ibu }}</span></div>
                                         </div>
                                     </li>
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
-                                            <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
-                                        </div>
-                                    </li>
+                                    @if ($gizi_anak != NULL)
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
+                                                @if ($gizi_anak == 'Cukup Gizi')
+                                                    <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Cukup Gizi</span></div>
+                                                @endif
+                                                @if ($gizi_anak == 'Kurang Gizi')
+                                                    <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
+                                                @endif
+                                                @if ($gizi_anak == 'Kelebihan Gizi')
+                                                    <div class="col-6 text-end my-auto"><span class="btn btn-warning btn-sm">Kelebihan Gizi</span></div>
+                                                @endif
+                                            </div>
+                                        </li>
+                                    @endif
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-6 my-auto"><span class="fw-bold">Usia Anak</span></div>

@@ -20,6 +20,7 @@ class PemeriksaanAnak extends Model
         'tinggi_badan',
         'usia_anak',
         'IMT',
+        'status_gizi',
         'diagnosa',
         'pengobatan',
         'keterangan',
