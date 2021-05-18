@@ -67,11 +67,11 @@ class AdminController extends Controller
                 return view('pages/admin/dashboard', compact('jumlahIbu', 'jumlahAnak', 'jumlahLansia', 'anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
             }else{
                 $datKonIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
-                $datKonAnak = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
-                $datKonLansia = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
                 $datPemIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
-                $datPemAnak = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m') )->get();
-                $datPemLansia = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
+                $datPemAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m') )->get();
+                $datPemLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
                 // dd($datKonIbu);
                 $jumlahKonIbu = count($datKonIbu);
                 $jumlahKonAnak = count($datKonAnak);
