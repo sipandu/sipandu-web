@@ -146,7 +146,7 @@
                     labels: ['Bumil', 'Anak', 'Lansia'],
                     datasets: [{
                         label: 'Pertambahan',
-                        data: [12, 19, 5],
+                        data: ["{{$jumlahIbu}}", "{{$jumlahAnak}}", "{{$jumlahLansia}}"],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -178,7 +178,7 @@
                     labels: ['Bumil', 'Anak', 'Lansia'],
                     datasets: [{
                         label: 'Pertambahan',
-                        data: [12, 19, 3],
+                        data: ["{{$jumlahPemIbu}}", "{{$jumlahPemAnak}}", "{{$jumlahPemLansia}}"],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -208,7 +208,7 @@
                     labels: ['Bumil', 'Anak', 'Lansia'],
                     datasets: [{
                         label: 'Pertambahan',
-                        data: [12, 19, 5],
+                        data: ["{{$jumlahKonIbu}}", "{{$jumlahKonAnak}}", "{{$jumlahKonLansia}}"],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

@@ -19,6 +19,9 @@ use App\Ibu;
 use App\Lansia;
 use App\KK;
 use App\Mover;
+use App\PemeriksaanIbu;
+use App\PemeriksaanAnak;
+use App\PemeriksaanLansia;
 
 class AdminController extends Controller
 {
@@ -50,8 +53,35 @@ class AdminController extends Controller
         $kaderAll = Pegawai::where('jabatan', 'kader')->get();
         $anggota = User::where('is_verified', 1)->get();
         $posyandu = Posyandu::get();
-
-        return view('pages/admin/dashboard', compact('anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+        // dd($posyandu);
+        $indicateUser = Pegawai::where('id_admin', Auth()->user()->id)->first();
+        if($indicateUser != null){
+            if($indicateUser->jabatan == "super admin"){
+                $datIbu = Ibu::whereMonth('created_at', date("m") )->get();
+                $jumlahIbu = count($datIbu);
+                $datAnak = Anak::whereMonth('created_at', date("m") )->get();
+                $jumlahAnak = count($datAnak);
+                $datLansia = Lansia::whereMonth('created_at', date("m") )->get();
+                $jumlahLansia = count($datLansia);
+                // dd($jumlahIbu);
+                return view('pages/admin/dashboard', compact('jumlahIbu', 'jumlahAnak', 'jumlahLansia', 'anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+            }else{
+                $datKonIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonAnak = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonLansia = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datPemIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
+                $datPemAnak = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m') )->get();
+                $datPemLansia = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
+                // dd($datKonIbu);
+                $jumlahKonIbu = count($datKonIbu);
+                $jumlahKonAnak = count($datKonAnak);
+                $jumlahKonLansia = count($datKonLansia);
+                $jumlahPemIbu = count($datPemIbu);
+                $jumlahPemAnak = count($datPemAnak);
+                $jumlahPemLansia = count($datPemLansia);
+                return view('pages/admin/dashboard', compact('jumlahKonIbu', 'jumlahKonAnak','jumlahKonLansia','jumlahPemIbu','jumlahPemAnak','jumlahPemLansia','anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+            }
+        }
     }
 
     public function getProfileImage()
