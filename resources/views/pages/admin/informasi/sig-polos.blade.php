@@ -27,7 +27,7 @@
             var msg = '<p>Nama Posyandu : '+posyandu['nama_posyandu']+'</p>'+
                       '<p>Alamat : '+posyandu['alamat']+'</p>'+
                       '<p>Nomor Telepon : '+posyandu['nomor_telepon']+'</p>'+
-                      '<a target="_blank" href="http://www.google.com/maps/place/'+posyandu['latitude']+','+posyandu['longitude']+'">Link Gmaps</a>'
+                      '<a target="_blank" href="http://www.google.com/maps/place/'+posyandu['latitude']+','+posyandu['longitude']+'">Lihat lokasi posyandu pada google maps</a>'
             marker.bindPopup(msg);
             //when marker on click
             marker.on('click', function(event){
