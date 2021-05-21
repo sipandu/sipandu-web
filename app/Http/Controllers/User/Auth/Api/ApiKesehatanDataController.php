@@ -12,6 +12,8 @@ use App\Vitamin;
 use App\PemberianVitamin;
 use App\PemberianImunisasi;
 use App\PemeriksaanAnak;
+use App\PemeriksaanIbu;
+use App\PemeriksaanLansia;
 use Auth;
 use App\Lansia;
 use App\Kabupaten;
@@ -134,6 +136,114 @@ class ApiKesehatanDataController extends Controller
                 'flag' => 0,
                 'pemeriksaan_anak_terakhir' => null,
                 'status_gizi_anak' => null,
+                'message' => 'success',
+            ]);
+        }
+    }
+
+    public function getPemeriksaanIbuHistory(Request $request)
+    {
+        /*
+        0 -> pemeriksaan
+        1 -> konsultasi
+        */
+        $idUser = User::where('email', $request->email)->first();
+        $ibu = Ibu::where('id_user', $idUser->id)->first();
+
+        if ($request->flag == 0) {
+            $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->get();
+        }
+        else if ($request->flag == 1) {
+            $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', 'Konsultasi')->orderby('created_at','desc')->get();
+        }
+        return response()->json([
+            'status_code' => 200,
+            'riwayat_pemeriksaan_ibu' => $pemeriksaan,
+            'message' => 'success',
+        ]);
+    }
+
+    public function getKeluargakuIbu(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        $ibu = Ibu::where('id_user', $idUser->id)->first();
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->first();
+
+        /*
+        send 1 -> if theres pemeriksaan data exist
+        send 0 -> if theres none pemeriksaan data exist
+        */
+        if ($pemeriksaanIbu != null) {
+            return response()->json([
+                'status_code' => 200,
+                'nama_ibu' => $ibu->nama_ibu_hamil,
+                'flag' => 1,
+                'pemeriksaan_ibu_terakhir' => $pemeriksaanIbu->tanggal_pemeriksaan,
+                'usia_kandungan' => $pemeriksaanIbu->usia_kandungan,
+                'message' => 'success',
+            ]);
+        }
+        else {
+            return response()->json([
+                'status_code' => 200,
+                'nama_anak' => $ibu->nama_ibu_hamil,
+                'flag' => 0,
+                'pemeriksaan_anak_terakhir' => null,
+                'usia_kandungan' => null,
+                'message' => 'success',
+            ]);
+        }
+    }
+
+    public function getPemeriksaanLansiaHistory(Request $request)
+    {
+        /*
+        0 -> pemeriksaan
+        1 -> konsultasi
+        */
+        $idUser = User::where('email', $request->email)->first();
+        $lansia = Lansia::where('id_user', $idUser->id)->first();
+
+        if ($request->flag == 0) {
+            $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->get();
+        }
+        else if ($request->flag == 1) {
+            $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan', 'Konsultasi')->orderby('created_at','desc')->get();
+        }
+        return response()->json([
+            'status_code' => 200,
+            'riwayat_pemeriksaan_lansia' => $pemeriksaan,
+            'message' => 'success',
+        ]);
+    }
+
+    public function getKeluargakuLansia(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        $lansia = Lansia::where('id_user', $idUser->id)->first();
+        $pemeriksaanLansia = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->first();
+
+        /*
+        send 1 -> if theres pemeriksaan data exist
+        send 0 -> if theres none pemeriksaan data exist
+        */
+        if ($pemeriksaanLansia != null) {
+            return response()->json([
+                'status_code' => 200,
+                'nama_lansia' => $lansia->nama_lansia,
+                'flag' => 1,
+                'pemeriksaan_lansia_terakhir' => $pemeriksaanLansia->tanggal_pemeriksaan,
+                'imt' => $pemeriksaanLansia->IMT,
+                'message' => 'success',
+            ]);
+        }
+        else {
+            return response()->json([
+                'status_code' => 200,
+                'nama_lansia' => $lansia->nama_lansia,
+                'flag' => 0,
+                'pemeriksaan_lansia_terakhir' => null,
+                'imt' => null,
                 'message' => 'success',
             ]);
         }
