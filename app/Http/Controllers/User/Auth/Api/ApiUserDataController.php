@@ -45,11 +45,18 @@ class ApiUserDataController extends Controller
         $user = User::find($idUser->id);
         $profileImg = $user->getUrlImage();
         $ibu = Ibu::whereId_user($idUser->id)->first();
+        $anakJml = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->count();
+        $bumilJml = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->count();
+        $lansiaJml = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->count();
+        $totalKeluarga = $anakJml + $bumilJml + $lansiaJml;
+        $KK = KK::where('id', $idUser->id_kk)->first();
         return response()->json([
             'status_code' => 200,
             'user' => $user,
             'ibu' => $ibu,
-            'profile_img' => $profileImg
+            'profile_img' => $profileImg,
+            'total_keluarga' => $totalKeluarga,
+            'kartu_keluarga' => $KK
         ]);
     }
 
@@ -57,14 +64,21 @@ class ApiUserDataController extends Controller
     {
         //Auth User
         $idUser = User::where('email', $request->email)->first();
-        $user = Lansia::find($idUser->id);
+        $user = User::find($idUser->id);
         $profileImg = $user->getUrlImage();
         $lansia = Lansia::whereId_user($idUser->id)->first();
+        $anakJml = User::where('id_kk', $idUser->id_kk)->where('role', '0')->with('anak')->count();
+        $bumilJml = User::where('id_kk', $idUser->id_kk)->where('role', '1')->with('ibu')->count();
+        $lansiaJml = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->count();
+        $totalKeluarga = $anakJml + $bumilJml + $lansiaJml;
+        $KK = KK::where('id', $idUser->id_kk)->first();
         return response()->json([
             'status_code' => 200,
             'user' => $user,
             'lansia' => $lansia,
-            'profile_img' => $profileImg
+            'profile_img' => $profileImg,
+            'total_keluarga' => $totalKeluarga,
+            'kartu_keluarga' => $KK
         ]);
     }
 
