@@ -60,7 +60,9 @@ class PengumumanController extends Controller
             "data" => array(
                 "title" => $notiftitle,
                 "body" => $notifcontent,
-                "type" => "notall"
+                "image" => $pengumuman->getUrlImage(),
+                "posyandu" => $pengumuman->id_posyandu,
+                "type" => "pengumuman"
             )
         );
         $headers = array(
