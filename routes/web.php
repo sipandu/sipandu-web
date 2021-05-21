@@ -135,9 +135,9 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
 
 //Dashboard User
 Route::prefix('user')->namespace('User\Auth')->group(function(){
-    Route::get('/anak', 'UserController@anakhome')->name('anak.home')->middleware('userAkses:0,user:anak');
-    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware('userAkses:1,user:ibu');
-    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware('userAkses:2,user:lansia');
+    Route::get('/anak', 'UserController@anakhome')->name('anak.home')->middleware(['userAkses:0','user:anak']);
+    Route::get('/ibu', 'UserController@ibuhome')->name('ibu.home')->middleware(['userAkses:1','user:ibu']);
+    Route::get('/lansia', 'UserController@lansiahome')->name('lansia.home')->middleware(['userAkses:2','user:lansia']);
 
     Route::get('/anak/tambah-keluarga', 'TambahKeluargaController@formAnak')->name('Tambah Keluarga Anak');
     Route::get('/ibu/tambah-keluarga', 'TambahKeluargaController@formIbu')->name('Tambah Keluarga Ibu');
@@ -290,11 +290,11 @@ Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminCon
 
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
-  
+
     Route::get('/laporan/kegiatan' , 'LaporanController@laporankegiatan')->name('laporan.kegiatan');
     Route::get('/laporan/bulanan' , 'LaporanController@laporanbulanan')->name('laporan.bulanan');
     Route::get('/laporan/tahunan' , 'LaporanController@laporantahunan')->name('laporan.tahunan');
-  
+
     // Ajax Laporan
     Route::prefix('ajax')->group( function () {
       Route::post('/laporan/kegiatan' , 'LaporanController@ajaxchartkegiatan');
@@ -304,9 +304,9 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
     });
-  
+
   });
-  
+
   // File Update ----
   //Riwayat Kesehatan Anggota Keluarga User
   Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
@@ -333,7 +333,7 @@ Route::post('/admin/informasi-penting/delete', 'InformasiPentingController@delet
 //SIG Posyandu
 Route::get('/admin/informasi/persebaran-posyandu/home', 'SIGPosyanduController@index')->name('sig-posyandu.home')->middleware('auth:admin');
 Route::get('/admin/informasi/sig-posyandu/polos', 'SIGPosyanduController@sigPolosan')->name('sig-posyandu.polos');
-Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduController@getData')->name('sig-posyandu.get_data')->middleware('auth:admin');
+Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduController@getData')->name('sig-posyandu.get_data');
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
 
