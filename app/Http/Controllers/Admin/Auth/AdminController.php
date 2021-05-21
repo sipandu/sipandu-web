@@ -108,7 +108,7 @@ class AdminController extends Controller
     public function profileUpdate(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|image|mimes:jpeg,png,jpg|size:5000',
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:5000',
         ],
         [
             'file.required' => "Silahkan masukan foto profile",
