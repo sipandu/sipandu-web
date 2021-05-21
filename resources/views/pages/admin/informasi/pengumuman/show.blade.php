@@ -145,4 +145,12 @@
                     console.error( error );
             } );
     </script>
+
+    @if($message = Session::get('success'))
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
+    @endif
 @endpush

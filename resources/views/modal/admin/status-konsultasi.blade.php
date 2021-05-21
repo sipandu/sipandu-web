@@ -10,38 +10,38 @@
                 <div class="modal-body text-center">
                     <div class="row">
                         @if (Auth::guard('admin')->user()->pegawai->status == 'tersedia')
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <div class="custom-control custom-radio">
                                     <input class="custom-control-input"  type="radio"  value="tersedia" id="customRadio2" name="customRadio" checked >
-                                    <label for="customRadio2" class="custom-control-label">tersedia</label>
+                                    <label for="customRadio2" class="custom-control-label">Tersedia</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <div class="custom-control custom-radio">
                                     <input class="custom-control-input"  type="radio" value="tidak tersedia" id="customRadio1" name="customRadio" >
-                                    <label for="customRadio1" class="custom-control-label">tidak tersedia</label>
+                                    <label for="customRadio1" class="custom-control-label">Tidak Tersedia</label>
                                 </div>
                             </div>
                         @endif
                         @if (Auth::guard('admin')->user()->pegawai->status=='tidak tersedia')
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <div class="custom-control custom-radio">
                                     <input class="custom-control-input"  type="radio"  value="tersedia" id="customRadio2" name="customRadio" >
-                                    <label for="customRadio2" class="custom-control-label">tersedia</label>
+                                    <label for="customRadio2" class="custom-control-label">Tersedia</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <div class="custom-control custom-radio">
                                     <input class="custom-control-input"  type="radio" value="tidak tersedia" id="customRadio1" name="customRadio" checked >
-                                    <label for="customRadio1" class="custom-control-label">tidak tersedia</label>
+                                    <label for="customRadio1" class="custom-control-label">Tidak Tersedia</label>
                                 </div>
                             </div>
                         @endif
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="cancle" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save changes</button>
+                    <button type="cancle" class="btn btn-sm btn-outline-warning" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan Perubahan</button>
                 </div>
             </form>
         </div>

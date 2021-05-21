@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Posyandu;
+use Mail;
+use Illuminate\Mail\Mailable;
+use App\Mail\NotificationAccUser;
+use App\Mail\NotificationRjctUser;
 use App\Pegawai;
 use App\Admin;
 use App\User;
@@ -57,8 +61,8 @@ class AccountController extends Controller
 
     public function getKKImage($id)
     {
-        $user = User::where('id', $id)->get()->first();
-        $kk = KK::where('id', $user->id_kk)->get()->first();
+        // $user = User::where('id', $id)->get()->first();
+        $kk = KK::where('id', $id)->get()->first();
 
         if( File::exists(storage_path($kk->file_kk)) ) {
             return response()->file(

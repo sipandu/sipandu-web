@@ -377,19 +377,19 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="/admin/laporan/kegiatan" class="nav-link">
                                     <i class="fas fa-file-alt nav-icon"></i>
                                     <p>Laporan Kegiatan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
+                                <a href="/admin/laporan/bulanan" class="nav-link">
                                     <i class="fas fa-clipboard-check nav-icon"></i>
                                     <p>Laporan Bulanan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                <a href="/admin/laporan/tahunan" class="nav-link">
                                     <i class="fas fa-clipboard-check nav-icon"></i>
                                     <p>Laporan Tahunan</p>
                                 </a>

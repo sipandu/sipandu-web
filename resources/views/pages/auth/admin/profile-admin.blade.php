@@ -31,12 +31,17 @@
     </div>
     <div class="container-fluid">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger text-center" role="alert">
+                    <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+                </div>
+            @endif
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('profile.admin.get_img', Auth::guard('admin')->user()->id ) }}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('profile.admin.get_img') }}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
@@ -56,7 +61,7 @@
                                 @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
                                     <a class="float-right text-decoration-none link-dark">Kader Posyandu</a>
                                 @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'nakes')
+                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
                                     <a class="float-right text-decoration-none link-dark">Tenaga Kesehatan</a>
                                 @endif
                             </li>
@@ -68,7 +73,12 @@
                             @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Konsultasi</b>
-                                    <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">{{Auth::guard('admin')->user()->pegawai->status}}</a>
+                                    @if (Auth::guard('admin')->user()->pegawai->status == 'tidak tersedia')
+                                        <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Tidak Tersedia</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->pegawai->status == 'tersedia')
+                                        <a href="" class="float-right text-decoration-none link-primary" data-bs-toggle="modal" data-bs-target="#statusKonsultasi">Tersedia</a>
+                                    @endif
                                     @include('modal/admin/status-konsultasi')
                                 </li>
                             @endif
@@ -173,12 +183,12 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="edit-profile">
-                                <form action="{{route('edit.profile')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('edit.profile.admin')}}" enctype="multipart/form-data" method="post">
                                     @csrf
                                     <label class="fs-4 fw-bold text-center d-grid">Ubah Foto Profile</label>
                                     <div class="modal-body">
                                         <div class="form-group row">
-                                            <label for="inputTelp" class="col-sm-3 col-form-label">Profile Image<span class="text-danger">*</span></label>
+                                            <label for="inputTelp" class="col-sm-3 col-form-label">Foto Profile<span class="text-danger">*</span></label>
                                             <div class="col-sm-9">
                                                 <div class="custom-file">
                                                     <input type="file" name="file" autocomplete="off" class="custom-file-input @error('file') is-invalid @enderror"  id="inputTelp"autocomplete="off">

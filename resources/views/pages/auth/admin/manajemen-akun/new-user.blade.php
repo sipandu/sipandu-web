@@ -93,12 +93,12 @@
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input type="file" name="file_bumil" class="custom-file-input form-control @error('file_bumil') is-invalid @enderror" id="inputTelp" autocomplete="off">
+                                                        <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                         @error('file_bumil')
                                                             <div class="invalid-feedback text-start">
                                                                 {{ $message }}
                                                             </div>
                                                         @enderror
-                                                        <label class="custom-file-label" for="exampleInputFile">Unggah Scan KK</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -165,7 +165,7 @@
                                             <div class="form-group">
                                                 <label for="tgl_lahir_bumil">Tanggal Lahir Bumil<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_lahir_bumil" autocomplete="off" class="form-control @error('tgl_lahir_bumil') is-invalid @enderror" id="tgl_lahir_bumil" value="{{ old('tgl_lahir_bumil') }}"  placeholder="Tanggal lahir" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                    <input type="text" name="tgl_lahir_bumil" autocomplete="off" class="form-control @error('tgl_lahir_bumil') is-invalid @enderror" id="tgl_lahir_bumil" value="{{ old('tgl_lahir_bumil') }}"  placeholder="Tanggal lahir bumil" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="far fa-calendar-alt"></i>
@@ -189,16 +189,16 @@
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
                                                             <option selected disabled>Pilih agama....</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @endif
                                                     </select>
@@ -413,7 +413,7 @@
                                             <div class="form-group">
                                                 <label for="passwordBumil">Password<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="passwordBumil" class="form-control @error('passwordBumil') is-invalid @enderror" id="passwordBumil" value="{{ old('passwordBumil') }}" autocomplete="off" placeholder="Masukan Password" autocomplete="off">
+                                                    <input type="text" name="passwordBumil" class="form-control @error('passwordBumil') is-invalid @enderror" id="passwordBumil" value="{{ old('passwordBumil') }}" autocomplete="off" placeholder="Masukkan Password" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
@@ -619,16 +619,16 @@
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
                                                             <option selected disabled>Pilih agama....</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @endif
                                                     </select>
@@ -881,7 +881,7 @@
                                             <div class="form-group">
                                                 <label for="passwordAnak">Password<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="passwordAnak" autocomplete="off" class="form-control @error('passwordAnak') is-invalid @enderror" id="passwordAnak" value="{{ old('passwordAnak') }}" placeholder="Masukan Password">
+                                                    <input type="text" name="passwordAnak" autocomplete="off" class="form-control @error('passwordAnak') is-invalid @enderror" id="passwordAnak" value="{{ old('passwordAnak') }}" placeholder="Masukkan Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
@@ -1099,16 +1099,16 @@
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
                                                             <option selected disabled>Pilih agama....</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
-                                                            <option value="Katolik">Kristen Katolik</option>
-                                                            <option value="Protestan">Kristen Protestan</option>
+                                                            <option value="Katolik">Katolik</option>
+                                                            <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @endif
                                                     </select>
@@ -1326,7 +1326,7 @@
                                                 <div class="form-group">
                                                     <label for="passwordLansia">Password<span class="text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" name="passwordLansia" autocomplete="off" class="form-control @error('passwordLansia') is-invalid @enderror" id="passwordLansia" value="{{ old('passwordLansia') }}" placeholder="Masukan Password">
+                                                        <input type="text" name="passwordLansia" autocomplete="off" class="form-control @error('passwordLansia') is-invalid @enderror" id="passwordLansia" value="{{ old('passwordLansia') }}" placeholder="Masukkan Password">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-lock"></span>

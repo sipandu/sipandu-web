@@ -76,16 +76,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot class="text-center">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Posyandu</th>
-                                    <th class="d-none d-sm-table-cell">Lokasi Banjar</th>
-                                    <th class="d-none d-md-table-cell">Administrator</th>
-                                    <th class="d-md-none">Tindakan</th>
-                                    <th class="d-none d-md-table-cell">Tindakan</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

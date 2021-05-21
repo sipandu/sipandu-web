@@ -31,6 +31,11 @@
         </div>
     </div>
     <div class="container-fluid px-0">
+        @if ($errors->any())
+            <div class="alert alert-danger text-center" role="alert">
+                <span>Terdapat kesalahan dalam penginputan data. Periksa kembali input data sebelumnya!</span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-5">
                 <div class="card card-primary card-outline">
@@ -94,7 +99,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir }}" disabled readonly>
-                                            <label for="floatingInput">Tampat Lahir</label>
+                                            <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -231,10 +236,10 @@
                                     </div>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    @if ($dataUser->fasker_rujukan == NULL)
+                                    @if ($dataUser->faskes_rujukan == NULL)
                                         <input type="text" class="form-control" value="Belum ditambahkan" disabled readonly>
                                     @else
-                                        <input type="text" class="form-control" value="{{ $dataUser->fasker_rujukan }}" disabled readonly>
+                                        <input type="text" class="form-control" value="{{ $dataUser->faskes_rujukan }}" disabled readonly>
                                     @endif
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>
@@ -264,7 +269,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" value="{{ old('tempat_lahir', $dataUser->ibu->tempat_lahir) }}" placeholder="Tempat Lahir Ibu Hamil">
-                                                <label for="tempat_lahir">Tampat Lahir<span class="text-danger">*</span></label>
+                                                <label for="tempat_lahir">Tempat Lahir<span class="text-danger">*</span></label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}

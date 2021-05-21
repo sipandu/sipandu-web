@@ -59,14 +59,6 @@
                               </tr>
                           @endforeach
                       </tbody>
-                      <tfoot>
-                        <tr class="text-center">
-                          <th>No</th>
-                          <th>Judul</th>
-                          <th>Tanggal</th>
-                          <th>Tindakan</th>
-                        </tr>
-                      </tfoot>
                     </table>
                   </div>
                 </div>

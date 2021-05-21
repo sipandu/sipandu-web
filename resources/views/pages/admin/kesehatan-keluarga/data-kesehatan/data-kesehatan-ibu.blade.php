@@ -61,7 +61,7 @@
                                     <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->golongan_darah }}</a>
                                 </li>
                             @endif
-                            @if ($dataIbu->user->nomor_telepon == NULL)
+                            @if ($dataIbu->nomor_telepon == NULL)
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telepon</b>
                                     <a class="float-right text-decoration-none link-dark">Belum ditambahkan</a>
@@ -69,7 +69,7 @@
                             @else
                                 <li class="list-group-item">
                                     <b class="fw-bold">Nomor Telpon</b>
-                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->user->nomor_telepon }}</a>
+                                    <a class="float-right text-decoration-none link-dark">{{ $dataIbu->nomor_telepon }}</a>
                                 </li>
                             @endif
                             @if ($dataIbu->user->telegram == NULL)
@@ -199,7 +199,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="{{ $dataKesehatan->denyut_nadi }}" disabled readonly>
+                                        <input type="text" class="form-control" value="{{ $dataKesehatan->denyut_nadi_ibu }}" disabled readonly>
                                         <label for="konsultasi">Denyut Nadi</label>
                                     </div>
                                 </div>
@@ -359,7 +359,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Denyut Nadi :</span>
-                                                        <p>{{ $data->denyut_nadi }}</p>
+                                                        <p>{{ $data->denyut_nadi_ibu }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row text-center">
@@ -419,7 +419,7 @@
                                             </div>
                                         </div>
                                         <div class="card card-body">
-                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <span class="fw-bold">Keterangan Tambahan :</span>
                                             @if ($data->keterangan != NULL)
                                                 <p>{{ $data->keterangan }}</p>
                                             @else
@@ -454,7 +454,7 @@
                                         <div class="row text-center">
                                             <div class="col-6">
                                                 <span class="fw-bold">Jenis Vitamin :</span>
-                                                <p>{{ $data->nama_vitamin }}</p>
+                                                <p>{{ $data->vitamin->nama_vitamin }}</p>
                                             </div>
                                             <div class="col-6">
                                                 <span class="fw-bold">Pemberian Selanjutnya :</span>
@@ -466,7 +466,7 @@
                                             </div>
                                         </div>
                                         <div class="card card-body">
-                                            <span class="fw-bold">keterangan Tambahan :</span>
+                                            <span class="fw-bold">Keterangan Tambahan :</span>
                                             @if ($data->keterangan != NULL)
                                                 <p>{{ $data->keterangan }}</p>
                                             @else

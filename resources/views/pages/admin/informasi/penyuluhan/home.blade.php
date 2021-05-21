@@ -64,16 +64,6 @@
                               </tr>
                           @endforeach
                       </tbody>
-                      <tfoot>
-                        <tr class="text-center">
-                          <th>No</th>
-                          <th>Posyandu</th>
-                          <th>Topik</th>
-                          <th>Tempat</th>
-                          <th>Tanggal</th>
-                          <th>Tindakan</th>
-                        </tr>
-                      </tfoot>
                     </table>
                   </div>
                   <!-- /.card-body -->
