@@ -25,7 +25,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">
-                                        Setting Penyuluhan
+                                        Setting Kegiatan
                                     </h4>
                                 </div>
                                 <div class="card-body">
@@ -70,7 +70,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Nama Kegiatan</label>
-                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Penyuluhan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
+                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Kegiatan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
                                         @error('nama_kegiatan')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>

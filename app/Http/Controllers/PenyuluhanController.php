@@ -13,7 +13,8 @@ class PenyuluhanController extends Controller
 {
     public function index()
     {
-        $penyuluhan = Penyuluhan::where('id_posyandu', 4)->orderby('tanggal', 'desc')->get();
+        $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
+        $penyuluhan = Penyuluhan::where('id_posyandu', $pegawai->id_posyandu)->orderby('tanggal', 'desc')->get();
         return view('pages.admin.informasi.penyuluhan.home', compact('penyuluhan'));
     }
 
