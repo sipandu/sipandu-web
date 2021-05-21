@@ -46,7 +46,7 @@ class PengumumanController extends Controller
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
 
-        $notiftitle = "Ada pengumuman baru";
+        $notiftitle = "Ada pengumuman baru!";
         $notifcontent = $pengumuman->judul_pengumuman;
 
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -54,7 +54,7 @@ class PengumumanController extends Controller
             "to" => "/topics/all",
             "android" => array (
                 "notification"=> array (
-                    "tag" => "informasi"
+                    "tag" => "pengumuman"
                 )
             ),
             "data" => array(
