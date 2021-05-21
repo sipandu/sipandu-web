@@ -127,14 +127,7 @@ class PemeriksaanController extends Controller
         $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
         $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
-
-        if ($gisi->status_gizi == NULL) {
-            $gizi_anak = NULL;
-        } else {
-            $gizi_anak = $gizi->status_gizi;
-        }
         
-
         if ($umur > 0) {
             $usia = $umur.' Tahun';
         } else {
@@ -152,7 +145,7 @@ class PemeriksaanController extends Controller
             ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
         ->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi_anak'));
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi'));
     }
 
     public function pemeriksaanLansia(Lansia $lansia)

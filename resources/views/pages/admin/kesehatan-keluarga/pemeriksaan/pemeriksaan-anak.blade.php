@@ -775,20 +775,17 @@
                                             <div class="col-7 text-end"><span>{{ $dataAnak->nama_ibu }}</span></div>
                                         </div>
                                     </li>
-                                    @if ($gizi_anak != NULL)
+                                    @if ($gizi != NULL)
                                         <li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
-                                                @if ($gizi_anak == 'Belum ditambahkan')
-                                                    <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Belum ditambahkan</span></div>
-                                                @endif
-                                                @if ($gizi_anak == 'Cukup Gizi')
+                                                @if ($gizi == 'Cukup Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Cukup Gizi</span></div>
                                                 @endif
-                                                @if ($gizi_anak == 'Kurang Gizi')
+                                                @if ($gizi == 'Kurang Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
                                                 @endif
-                                                @if ($gizi_anak == 'Kelebihan Gizi')
+                                                @if ($gizi == 'Kelebihan Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-warning btn-sm">Kelebihan Gizi</span></div>
                                                 @endif
                                             </div>
