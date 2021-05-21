@@ -43,14 +43,17 @@ class ApiLoginController extends Controller
             if ($user->role == "0") {
                 $role = Anak::where('id_user', $user->id)->get()->first();
                 $nama = $role->nama_anak;
+                $posyandu = $role->id_posyandu;
             }
             else if ($user->role == '1') {
                 $role = Ibu::where('id_user', $user->id)->get()->first();
                 $nama = $role->nama_ibu_hamil;
+                $posyandu = $role->id_posyandu;
             }
             else if ($user->role == '2') {
                 $role = Lansia::where('id_user', $user->id)->get()->first();
                 $nama = $role->nama_lansia;
+                $posyandu = $role->id_posyandu;
             }
 
             if ($role->NIK == NULL) {
@@ -73,6 +76,7 @@ class ApiLoginController extends Controller
             'message' => 'sucess',
             'user' => $user,
             'flag_complete' => $flagComplete,
+            'posyandu' => $posyandu,
             'nama' => $nama
             ]);
 

@@ -70,7 +70,7 @@ class InformasiPentingController extends Controller
                 "title" => $notiftitle,
                 "body" => $notifcontent,
                 "image" => $informasi->getUrlImage(),
-                "type" => "all"
+                "type" => "informasi"
             )
         );
         $headers = array(
