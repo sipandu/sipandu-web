@@ -14,9 +14,7 @@
             <canvas id="bb_tb"></canvas>
         </div>
     @else 
-        <li class="list-group-item">
             <p class="text-center fs-5 fw-bold mt-3">Data Grafik Tidak Tersedia</p>
-        </li>
     @endif
 
                     
