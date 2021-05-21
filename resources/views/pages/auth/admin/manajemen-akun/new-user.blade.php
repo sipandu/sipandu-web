@@ -413,7 +413,7 @@
                                             <div class="form-group">
                                                 <label for="passwordBumil">Password<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="passwordBumil" class="form-control @error('passwordBumil') is-invalid @enderror" id="passwordBumil" value="{{ old('passwordBumil') }}" autocomplete="off" placeholder="Masukkan Password" autocomplete="off">
+                                                    <input type="password" name="passwordBumil" class="form-control @error('passwordBumil') is-invalid @enderror" id="passwordBumil" value="{{ old('passwordBumil') }}" autocomplete="off" placeholder="Masukkan Password" autocomplete="off">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
@@ -881,7 +881,7 @@
                                             <div class="form-group">
                                                 <label for="passwordAnak">Password<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" name="passwordAnak" autocomplete="off" class="form-control @error('passwordAnak') is-invalid @enderror" id="passwordAnak" value="{{ old('passwordAnak') }}" placeholder="Masukkan Password">
+                                                    <input type="password" name="passwordAnak" autocomplete="off" class="form-control @error('passwordAnak') is-invalid @enderror" id="passwordAnak" value="{{ old('passwordAnak') }}" placeholder="Masukkan Password">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-lock"></span>
@@ -1326,7 +1326,7 @@
                                                 <div class="form-group">
                                                     <label for="passwordLansia">Password<span class="text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" name="passwordLansia" autocomplete="off" class="form-control @error('passwordLansia') is-invalid @enderror" id="passwordLansia" value="{{ old('passwordLansia') }}" placeholder="Masukkan Password">
+                                                        <input type="password" name="passwordLansia" autocomplete="off" class="form-control @error('passwordLansia') is-invalid @enderror" id="passwordLansia" value="{{ old('passwordLansia') }}" placeholder="Masukkan Password">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
                                                                 <span class="fas fa-lock"></span>

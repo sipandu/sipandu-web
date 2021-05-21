@@ -127,7 +127,13 @@ class PemeriksaanController extends Controller
         $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
         $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
-        $gizi_anak = $gizi->status_gizi;
+
+        if ($gisi->status_gizi == NULL) {
+            $gizi_anak = NULL;
+        } else {
+            $gizi_anak = $gizi->status_gizi;
+        }
+        
 
         if ($umur > 0) {
             $usia = $umur.' Tahun';

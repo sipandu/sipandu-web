@@ -92,19 +92,31 @@
                                     <label for="floatingInput">Nama Lengkap</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->NIK }}" disabled readonly>
+                                    @if ($dataUser->ibu->NIK == NULL)
+                                        <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->NIK }}" disabled readonly>
+                                    @endif
                                     <label for="floatingInput">Nomor Induk Kependudukan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir }}" disabled readonly>
+                                            @if ($dataUser->ibu->tempat_lahir)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->ibu->tanggal_lahir)) }}" disabled readonly>
+                                            @if ($dataUser->ibu->tanggal_lahir == NULL)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->ibu->tanggal_lahir)) }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
                                     </div>

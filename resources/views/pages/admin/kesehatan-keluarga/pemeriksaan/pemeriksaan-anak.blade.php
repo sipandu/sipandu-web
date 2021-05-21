@@ -779,6 +779,9 @@
                                         <li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
+                                                @if ($gizi_anak == 'Belum ditambahkan')
+                                                    <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Belum ditambahkan</span></div>
+                                                @endif
                                                 @if ($gizi_anak == 'Cukup Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Cukup Gizi</span></div>
                                                 @endif

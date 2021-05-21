@@ -394,12 +394,6 @@
                                     <p>Laporan Tahunan</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="far fa-chart-bar nav-icon"></i>
-                                    <p>Grafik Kesehatan</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 </li>

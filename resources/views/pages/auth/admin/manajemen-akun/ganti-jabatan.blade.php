@@ -62,7 +62,7 @@
                                                 <option value="head admin">Head Admin</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="kader">Kader</option>
-                                                <option value="nakes">Tenaga Kesehatan</option>
+                                                <option value="tenaga kesehatan">Tenaga Kesehatan</option>
                                                 <option value="disactive">Non Aktif</option>
                                             </select>
                                             <div class="input-group-append">
