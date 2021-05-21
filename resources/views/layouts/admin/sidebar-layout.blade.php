@@ -220,12 +220,6 @@
                             </a>
                             <ul class="nav nav-treeview ms-3">
                                 <li class="nav-item" >
-                                    <a href="{{ route("Tambah Konsultasi") }}" class="nav-link" id="konsultasi">
-                                        <i class="nav-icon fas fa-user-md"></i>
-                                        <p>Konsultasi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" >
                                     <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
                                         <i class="fas fa-stethoscope nav-icon"></i>
                                         <p>Pemeriksaan</p>
