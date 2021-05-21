@@ -63,7 +63,7 @@ class InformasiPentingController extends Controller
             "to" => "/topics/all",
             "android" => array (
                 "notification"=> array (
-                    "tag" => "presensiclose"
+                    "tag" => "informasi"
                 )
             ),
             "data" => array(

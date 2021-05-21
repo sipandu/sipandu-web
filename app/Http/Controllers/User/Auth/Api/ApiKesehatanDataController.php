@@ -109,6 +109,47 @@ class ApiKesehatanDataController extends Controller
         }
     }
 
+    public function getKesehatanSummaryIbu(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        $ibu = Ibu::where('id_user', $idUser->id)->first();
+        $imunisasi = PemberianImunisasi::where('id_user', $idUser->id)->orderby('created_at','desc')->get()->count();
+        $vitamin = PemberianVitamin::where('id_user', $idUser->id)->orderby('created_at','desc')->get()->count();
+        $konsultasi = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', 'Konsultasi')->orderby('created_at','desc')->get()->count();
+        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->get();
+
+        /*
+        send 1 -> if theres pemeriksaan data exist
+        send 0 -> if theres none pemeriksaan data exist
+        */
+        if ($pemeriksaanIbu != null) {
+            return response()->json([
+                'status_code' => 200,
+                'nama_ibu' => $ibu->nama_ibu_hamil,
+                'flag' => 1,
+                'riwayat_pemeriksaan_ibu' => $pemeriksaanIbu,
+                'jumlah_vitamin' => $vitamin,
+                'jumlah_konsultasi' => $konsultasi,
+                'jumlah_imunisasi' => $imunisasi,
+                'jumlah_pemeriksaan' => $pemeriksaanIbu->count(),
+                'message' => 'success'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status_code' => 200,
+                'nama_anak' => $ibu->nama_ibu,
+                'flag' => 0,
+                'riwayat_pemeriksaan_ibu' => null,
+                'jumlah_vitamin' => $vitamin,
+                'jumlah_konsultasi' => $konsultasi,
+                'jumlah_imunisasi' => $imunisasi,
+                'jumlah_pemeriksaan' => $pemeriksaanIbu->count(),
+                'message' => 'success',
+            ]);
+        }
+    }
+
     public function getKeluargakuAnak(Request $request)
     {
         $idUser = User::where('email', $request->email)->first();
@@ -186,9 +227,9 @@ class ApiKesehatanDataController extends Controller
         else {
             return response()->json([
                 'status_code' => 200,
-                'nama_anak' => $ibu->nama_ibu_hamil,
+                'nama_ibu' => $ibu->nama_ibu_hamil,
                 'flag' => 0,
-                'pemeriksaan_anak_terakhir' => null,
+                'pemeriksaan_ibu_terakhir' => null,
                 'usia_kandungan' => null,
                 'message' => 'success',
             ]);
