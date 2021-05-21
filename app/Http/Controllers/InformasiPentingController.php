@@ -54,12 +54,6 @@ class InformasiPentingController extends Controller
         $informasi->save();
 
         $informasi->broadcastToAllUser();
-        sendNotifInformasi($informasi);
-
-        return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
-    }
-
-    public function sendNotifInformasi($informasi) {
 
         $notiftitle = "Ada informasi baru";
         $notifcontent = $informasi->judul_informasi;
@@ -93,7 +87,10 @@ class InformasiPentingController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         curl_exec($ch);
         curl_close($ch);
+
+        return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
     }
+
 
     public function show($id)
     {
