@@ -51,7 +51,7 @@ class RegisController extends Controller
             'tgl_lahir' => "required|date",
             'gender' => "required",
             'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
-            'file'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
+            'file'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'jabatan' => "required",
             'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
@@ -279,7 +279,7 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_bumil'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
+                    'file_bumil'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
                     'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK ",
@@ -486,7 +486,7 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_anak'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
+                    'file_anak'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
                     'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK",
@@ -681,7 +681,7 @@ class RegisController extends Controller
                 }
             } else {
                 $this->validate($request,[
-                    'file_lansia'=> 'required|image|mimes:jpeg,png,jpg|size:5000',
+                    'file_lansia'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
                     'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK",
