@@ -198,4 +198,232 @@ class DataRiwayatKesehatanController extends Controller
 
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-lansia', compact('dataLansia', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'pj', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'dataKesehatan'));
     }
+
+    public function kesehatanAnakMob1(Anak $anak)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8'); 
+        $dataAnak = $anak;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $beratBadan[] = $dataAwal->berat_badan;
+            $tinggiBadan[] = $dataAwal->tinggi_badan;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($beratBadan, $d->berat_badan);
+                    array_push($tinggiBadan, $d->tinggi_badan);
+                }
+            }
+            $js_tinggi = json_encode($tinggiBadan);
+            $js_berat = json_encode($beratBadan);
+            }else{
+                $js_tinggi = null;
+                $js_berat = null;  
+            }
+        }else{
+            $js_tinggi = null;
+            $js_berat = null;
+        }
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        if ($umur > 0) {
+            $usia = $umur.' Tahun';
+        } else {
+            if ($umur < 1) {
+                $usia= $umurLahirBayi.' Hari';
+            } else {
+                $usia = $umurBayi.' Bulan';
+            }
+        }
+
+        return view('mobile/graph-mobile-1', compact('js_berat', 'js_tinggi', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
+    }
+
+    public function kesehatanAnakMob2(Anak $anak)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8'); 
+        $dataAnak = $anak;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $beratBadan[] = $dataAwal->berat_badan;
+            $usia[] = $dataAwal->usia_anak;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($beratBadan, $d->berat_badan);
+                    array_push($usia, $d->usia_anak);
+                }
+            }
+            $js_berat = json_encode($beratBadan);
+            $js_usia = json_encode($usia);
+            }else{
+                $js_berat = null;
+                $js_usia = null;    
+            }
+        }else{
+            $js_berat = null;
+            $js_usia = null;
+        }
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        if ($umur > 0) {
+            $usia = $umur.' Tahun';
+        } else {
+            if ($umur < 1) {
+                $usia= $umurLahirBayi.' Hari';
+            } else {
+                $usia = $umurBayi.' Bulan';
+            }
+        }
+
+        return view('mobile/graph-mobile-2', compact('js_berat', 'js_usia', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
+    }
+
+    public function kesehatanAnakMob3(Anak $anak)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8'); 
+        $dataAnak = $anak;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $tinggiBadan[] = $dataAwal->tinggi_badan;
+            $usia[] = $dataAwal->usia_anak;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($tinggiBadan, $d->tinggi_badan);
+                    array_push($usia, $d->usia_anak);
+                }
+            }
+            $js_tinggi = json_encode($tinggiBadan);
+            $js_usia = json_encode($usia);
+            }else{
+                $js_tinggi = null;
+                $js_usia = null;
+            }
+        }else{
+            $js_tinggi = null;
+            $js_usia = null;
+        }
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        if ($umur > 0) {
+            $usia = $umur.' Tahun';
+        } else {
+            if ($umur < 1) {
+                $usia= $umurLahirBayi.' Hari';
+            } else {
+                $usia = $umurBayi.' Bulan';
+            }
+        }
+
+        return view('mobile/graph-mobile-3', compact( 'js_tinggi', 'js_usia', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
+    }
+
+    public function kesehatanAnakMob4(Anak $anak)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8'); 
+        $dataAnak = $anak;
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
+        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
+        
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $usia[] = $dataAwal->usia_anak;
+            $lingkarKepala[] = $dataAwal->lingkar_kepala;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($usia, $d->usia_anak);
+                    array_push($lingkarKepala, $d->lingkar_kepala);
+                }
+            }
+            $js_usia = json_encode($usia);
+            $js_lingkar = json_encode($lingkarKepala);
+            }else{
+                $js_usia = null;
+                $js_lingkar = null;    
+            }
+        }else{
+            $js_usia = null;
+            $js_lingkar = null;
+        }
+
+        $alergi = Alergi::where('id_user', $anak->id_user)->get();
+
+        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->get();
+        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->get();
+
+        $dataKesehatan = PemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan','Pemeriksaan')->orderBy('id', 'desc')->first();
+
+        if ($umur > 0) {
+            $usia = $umur.' Tahun';
+        } else {
+            if ($umur < 1) {
+                $usia= $umurLahirBayi.' Hari';
+            } else {
+                $usia = $umurBayi.' Bulan';
+            }
+        }
+
+        return view('mobile/graph-mobile-4', compact('js_lingkar', 'js_usia', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
+    }
 }
