@@ -54,8 +54,45 @@ class InformasiPentingController extends Controller
         $informasi->save();
 
         $informasi->broadcastToAllUser();
+        sendNotifInformasi($informasi);
 
         return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
+    }
+
+    public function sendNotifInformasi($informasi) {
+
+        $notiftitle = "Ada informasi baru";
+        $notifcontent = $informasi->judul_informasi;
+
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $fields = array(
+            "to" => "/topics/all",
+            "android" => array (
+                "notification"=> array (
+                    "tag" => "presensiclose"
+                )
+            ),
+            "data" => array(
+                "title" => $notiftitle,
+                "body" => $notifcontent,
+                "type" => "all"
+            )
+        );
+        $headers = array(
+            'Authorization: key=AAAAVT49iyk:APA91bH_tmF2z2SCC8mPWWsNSvXZ-CuhjV-8SXmY8l0gNtvNw5wFuXVRjX0-l4KIFm7DaHy6JGI5v-ltwutEXCddhTlcFhqy9YyoO0kg3WQ4d290KB_4hM4N91kk0P4JkkH5Qkk8G72W',
+            'Content-type: Application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        curl_exec($ch);
+        curl_close($ch);
     }
 
     public function show($id)
