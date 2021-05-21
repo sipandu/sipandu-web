@@ -57,6 +57,7 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/kesehatan/get-history-pemeriksaan-anak', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanAnakHistory');
     Route::post('/kesehatan/get-keluargaku-anak', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuAnak');
     Route::post('/kesehatan/get-kesehatan-anak', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryAnak');
+    Route::post('/kesehatan/get-kesehatan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryIbu');
 
     Route::post('/kesehatan/get-history-pemeriksaan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanIbuHistory');
     Route::post('/kesehatan/get-keluargaku-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuIbu');
