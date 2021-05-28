@@ -94,6 +94,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
     Route::prefix('edit')->group(function(){
         Route::post('/profile', 'AdminController@profileUpdate')->name('edit.profile.admin');
         Route::post('/account', 'AdminController@accountUpdate')->name('edit.account');
+        Route::post('/account/superadmin', 'AdminController@accountUpdateSuperadmin')->name('edit.account.superadmin');
         Route::post('/password', 'AdminController@passwordUpdate')->name('edit.password');
     });
 });
@@ -103,12 +104,15 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 //Management Account
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
+    Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
+    Route::get('/new-kader/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
     Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
-    Route::get('/new-kader/show', 'RegisController@formAddKader')->name('Add Kader')->middleware('cek:super admin,kader,admin,head admin,param5');
 
     //Store Account
-    Route::post('/new-admin/store', 'RegisController@storeAdminKader')->name('create.add.admin.kader');
+    Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
+    Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
+    Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
     Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
     Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');

@@ -27,7 +27,6 @@ class Pegawai extends Authenticatable
         'nik',
         'status',
         'file_ktp',
-
     ];
 
     public function admin()

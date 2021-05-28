@@ -15,7 +15,7 @@
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Data Kader</li>
                 </ol>
             </nav>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        @if (Auth::guard('admin')->user()->pegawai->jabatan != 'super admin')
+                        @if (Auth::guard('admin')->user()->role == 'pegawai')
                             <table id="notSuperAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>
@@ -68,7 +68,7 @@
                                 </tbody>
                             </table>
                         @endif
-                        @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                        @if (Auth::guard('admin')->user()->role == 'super admin')
                             <table id="superAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>

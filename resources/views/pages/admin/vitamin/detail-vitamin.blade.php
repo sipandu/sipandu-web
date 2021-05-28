@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline card-primary p-3">
-                    @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                    @if (auth()->guard('admin')->user()->role == "super admin")
                         <form action="{{ route('Update Vitamin', [$vitamin->id]) }}" method="POST">
                         @csrf
                             <div class="row">

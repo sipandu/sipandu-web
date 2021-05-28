@@ -29,7 +29,7 @@
                             <div class="col-6 my-auto">
                                 <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
                             </div>
-                            @if(Auth::guard('admin')->pegawai->jabatan != 'tenaga kesehatan')
+                            @if(Auth::guard('admin')->user()->role != 'tenaga kesehatan')
                                 <div class="col-6">
                                     <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
                                 </div>
@@ -43,7 +43,7 @@
                                     <th>No</th>
                                     <th>Foto</th>
                                     <th>Deskripsi</th>
-                                    @if(Auth::guard('admin')->pegawai->jabatan != 'tenaga kesehatan')
+                                    @if(Auth::guard('admin')->user()->role != 'tenaga kesehatan')
                                         <th>Tindakan</th>
                                     @endif
                                 </tr>

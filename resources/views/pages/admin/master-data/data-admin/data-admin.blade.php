@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin' || auth()->guard('admin')->user()->pegawai->jabatan == 'admin')
+                        @if (auth()->guard('admin')->user()->role == 'pegawai')
                             <table id="tbHeadAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>
@@ -68,7 +68,7 @@
                                 </tbody>
                             </table>
                         @endif
-                        @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
+                        @if (auth()->guard('admin')->user()->role == 'super admin')
                             <table id="tbSuperAdmin" class="table table-bordered table-hover">
                                 <thead class="text-center">
                                     <tr>

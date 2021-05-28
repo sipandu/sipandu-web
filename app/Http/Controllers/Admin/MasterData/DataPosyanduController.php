@@ -231,7 +231,7 @@ class DataPosyanduController extends Controller
             ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
 
-        $headAdmin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'head admin')->get();
+        $headAdmin = Pegawai::where('id_posyandu', $posyandu->id)->where('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/detail-posyandu', compact(
             'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin', 'ibu', 'anak', 'lansia'

@@ -14,12 +14,12 @@
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Kader</h1>
+    <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Tenaag Kesehatan</h1>
     <div class="col-auto ml-auto text-right my-auto mt-n1">
         <nav aria-label="breadcrumb text-center">
             <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Kader</li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah Baru</li>
             </ol>
         </nav>
     </div>
@@ -34,7 +34,7 @@
             @endif
             <div class="card card-primary">
                 <div class="card-header my-auto">
-                    <h3 class="card-title my-auto">Tambah Kader Baru</h3>
+                    <h3 class="card-title my-auto">Form Tambah Tenaga Kesehatan Baru</h3>
                 </div>
                 <div class="card-body p-0">
                     <div class="bs-stepper py-3">
@@ -53,7 +53,7 @@
                                 </button>
                             </div>
                         </div>
-                        <form action="{{ route('create.add.admin.kader') }}" enctype="multipart/form-data" method="post">
+                        <form action="{{ route('create.add.nakes') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="bs-stepper-content p-3">
                                 <div id="data-pertama" class="content" role="tabpanel" aria-labelledby="data-pertama-trigger">
@@ -259,71 +259,13 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
-                                                        <div class="input-group mb-3">
-                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan != "kader")
-                                                                <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                    @if ( old('jabatan') )
-                                                                        <option selected value="{{ old('jabatan') }}">{{ old('jabatan') }}</option>
-                                                                        <option value="kader">Kader</option>
-                                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                                    @else
-                                                                        <option selected disabled>Pilih jabatan....</option>
-                                                                        <option value="kader">Kader</option>
-                                                                        <option value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                                    @endif
-                                                                </select>
-                                                            @endif
-                                                            @if (auth()->guard('admin')->user()->pegawai->jabatan == "kader")
-                                                                <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                    <option selected value="tenaga kesehatan">Tenaga Kesehatan</option>
-                                                                </select>
-                                                            @endif
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-user-cog"></span>
-                                                                </div>
-                                                            </div>
-                                                            @error('jabatan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
-                                                        <div class="input-group mb-3">
-                                                            <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
-                                                                @if (auth()->guard('admin')->user()->pegawai->jabatan == 'super admin')
-                                                                    @if ( old('lokasi_posyandu') )
-                                                                        <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
-                                                                        @foreach ($posyandu as $p)
-                                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <option selected disabled>Pilih Lokasi Posyandu ....</option>
-                                                                        @foreach ($posyandu as $p)
-                                                                            <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                @else
-                                                                    <option selected value="{{auth()->guard('admin')->user()->pegawai->id_posyandu}}">{{auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</option>
-                                                                @endif
-                                                            </select>
-                                                            @error('lokasi_posyandu')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label>Tempat Tugas</label>
+                                                <select class="select2" multiple="multiple" data-placeholder="Pilih posyandu tempat bertugas" name="lokasi_posyandu[]" style="width: 100%;">
+                                                    @foreach ($posyandu as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->nama_posyandu }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">

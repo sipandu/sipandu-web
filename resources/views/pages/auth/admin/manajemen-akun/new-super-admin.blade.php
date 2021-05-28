@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Administrator</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Super Admin</h1>
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
@@ -33,7 +33,7 @@
                 @endif
                 <div class="card card-primary">
                     <div class="card-header my-auto">
-                        <h3 class="card-title my-auto">Form Tambah Administrator Baru</h3>
+                        <h3 class="card-title my-auto">Form Tambah Super Admin Baru</h3>
                     </div>
                     <div class="card-body p-0">
                         <div class="bs-stepper py-3">
@@ -52,7 +52,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <form action="{{ route('create.add.admin') }}" enctype="multipart/form-data" method="post">
+                            <form action="{{ route('create.add.superadmin') }}" enctype="multipart/form-data" method="post">
                                 @csrf
                                 <div class="bs-stepper-content p-3">
                                     <div id="data-pertama" class="content" role="tabpanel" aria-labelledby="data-pertama-trigger">
@@ -259,68 +259,31 @@
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6">
                                                         <div class="form-group">
-                                                            <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
-                                                            <div class="input-group mb-3">
-                                                                @if (Auth::guard('admin')->user()->role == 'super admin')
-                                                                    <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                        @if ( old('jabatan') )
-                                                                            <option selected disabled>Pilih jabatan....</option>
-                                                                            <option value="head admin">Head Admin</option>
-                                                                            <option value="admin">Admin</option>
-                                                                        @else
-                                                                            <option selected disabled>Pilih jabatan....</option>
-                                                                            <option value="head admin">Head Admin</option>
-                                                                            <option value="admin">Admin</option>        
-                                                                        @endif
-                                                                    </select>
-                                                                @endif
-                                                                @if (Auth::guard('admin')->user()->role == 'pegawai')
-                                                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
-                                                                        <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
-                                                                            <option selected value="admin">Admin</option>
-                                                                        </select>
-                                                                    @endif
-                                                                @endif
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text">
-                                                                        <span class="fas fa-user-cog"></span>
-                                                                    </div>
+                                                            <label>Kabupaten/Kota</label>
+                                                            <select id="kabupaten" name="kabupaten" class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" style="width: 100%;">
+                                                                <option value="#" disabled selected>Pilih Kabupaten/Kota</option>
+                                                                @foreach ($kabupaten as $k)
+                                                                    <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('kabupaten')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
                                                                 </div>
-                                                                @error('jabatan')
-                                                                    <div class="invalid-feedback text-start">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6">
                                                         <div class="form-group">
-                                                            <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
-                                                            <div class="input-group mb-3">
-                                                                <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
-                                                                    @if (Auth::guard('admin')->user()->role == 'super admin')
-                                                                        @if ( old('lokasi_posyandu') )
-                                                                            <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
-                                                                            @foreach ($posyandu as $p)
-                                                                                <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                            @endforeach
-                                                                        @else
-                                                                            <option selected disabled>Pilih Lokasi Posyandu ....</option>
-                                                                            @foreach ($posyandu as $p)
-                                                                                <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                            @endforeach
-                                                                        @endif
-                                                                    @else
-                                                                        <option selected value="{{auth()->guard('admin')->user()->pegawai->id_posyandu}}">{{auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</option>
-                                                                    @endif
-                                                                </select>
-                                                                @error('lokasi_posyandu')
-                                                                    <div class="invalid-feedback text-start">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
+                                                            <label>Kecamatan</label>
+                                                            <select id="kecamatan" name="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" style="width: 100%;">
+                                                                <option value="#" disabled selected>Pilih Kecamatan</option>
+                                                            </select>
+                                                            @error('kecamatan')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -382,9 +345,28 @@
             $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-management-account').addClass('menu-is-opening menu-open');
             $('#management-account').addClass('active');
-            $('#new-admin').addClass('active');
-        });
+            $('#new-super-admin').addClass('active');
 
+            // Kabupaten to Kecamatan AJAX //
+            $('#kabupaten').on('change', function () {
+                let id = $(this).val();
+                $('#kecamatan').empty();
+                $('#kecamatan').append(`<option value="0" disabled selected>Silahkan tunggu ...</option>`);
+                $.ajax({
+                    type: 'GET',
+                    url: '/kecamatan/' + id,
+                    success: function (response) {
+                        var response = JSON.parse(response);
+                        console.log(response);
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append(`<option value="0" disabled selected>Pilih Kecamatan</option>`);
+                        response.forEach(element => {
+                            $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
+                        });
+                    }
+                });
+            });
+        });
 
         // Custom Input Date
         $(function () {
