@@ -11,11 +11,11 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Posyandu</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Posyandu 5.0</h1>
         <div class="col-auto ml-auto text-right my-auto mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Data Posyandu</li>
                 </ol>
             </nav>

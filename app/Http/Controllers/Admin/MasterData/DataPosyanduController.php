@@ -173,7 +173,7 @@ class DataPosyanduController extends Controller
                     'jenis_kelamin' => $request->gender,
                     'alamat' => $request->alamat_pegawai,
                     'nomor_telepon' => $request->no_telp,
-                    'jabatan' => "admin",
+                    'jabatan' => "head admin",
                     'username_telegram' => $request->telegram,
                     'nik' => $request->nik,
                     'file_ktp' => $filename,

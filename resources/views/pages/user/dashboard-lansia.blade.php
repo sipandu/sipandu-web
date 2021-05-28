@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu 5.0</li>
                 </ol>
             </nav>
         </div>

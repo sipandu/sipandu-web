@@ -2,7 +2,7 @@
 
     {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
-        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu 5.0 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text fw-bold fs-6">Smart Posyandu 5.0</span>
     </a>
     {{-- Brand Logo End --}}

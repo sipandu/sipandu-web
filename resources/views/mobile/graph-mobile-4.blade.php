@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
-    <title>Smart Posyandu | @yield('title')</title>
+    <title>Smart Posyandu 5.0 | @yield('title')</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>

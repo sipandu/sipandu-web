@@ -12,7 +12,6 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.home') }}">Riwayat Kegiatan</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ $kegiatan->nama_kegiatan }}</li>
                 </ol>
@@ -20,9 +19,6 @@
         </div>
     </div>
     <!-- Main content -->
-    @php
-        $pegawai = \App\Pegawai::where('id_admin', auth()->guard('admin')->user()->id)->first();
-    @endphp
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
@@ -32,11 +28,7 @@
                             <div class="col-6 my-auto">
                                 <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
                             </div>
-{{-- <<<<<<< HEAD --}}
-                            @if(Auth::guard('admin')->user()->role != 'tenaga kesehatan')
-{{-- =======
-                            @if($pegawai->jabatan != 'tenaga kesehatan')
->>>>>>> ac723ea66156b46368e0d4a6164cc76d77473058 --}}
+                            @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
                                 <div class="col-6">
                                     <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
                                 </div>
@@ -50,11 +42,7 @@
                                     <th>No</th>
                                     <th>Foto</th>
                                     <th>Deskripsi</th>
-{{-- <<<<<<< HEAD --}}
-                                    @if(Auth::guard('admin')->user()->role != 'tenaga kesehatan')
-{{-- ======= --}}
-                                    {{-- @if($pegawai->jabatan != 'tenaga kesehatan')
->>>>>>> ac723ea66156b46368e0d4a6164cc76d77473058 --}}
+                                    @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
                                         <th>Tindakan</th>
                                     @endif
                                 </tr>
@@ -67,7 +55,7 @@
                                             <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
                                         </td>
                                         <td class="align-middle">{{ $item->deskripsi }}</td>
-                                        @if($pegawai->jabatan != 'tenaga kesehatan')
+                                        @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
                                             <td class="align-middle">
                                                 <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                                 <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
