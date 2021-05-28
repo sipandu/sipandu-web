@@ -55,7 +55,7 @@ class InformasiPentingController extends Controller
 
         $informasi->broadcastToAllUser();
 
-        $notiftitle = "Ada informasi baru";
+        $notiftitle = "Ada informasi baru!";
         $notifcontent = $informasi->judul_informasi;
 
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -69,7 +69,8 @@ class InformasiPentingController extends Controller
             "data" => array(
                 "title" => $notiftitle,
                 "body" => $notifcontent,
-                "type" => "all"
+                "image" => $informasi->getUrlImage(),
+                "type" => "informasi"
             )
         );
         $headers = array(

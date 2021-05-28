@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use File;
 
 class PengumumanController extends Controller
-{    
+{
     public function index()
     {
         $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
@@ -45,6 +45,42 @@ class PengumumanController extends Controller
         $pengumuman->image = $filename;
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
+
+        $notiftitle = "Ada pengumuman baru!";
+        $notifcontent = $pengumuman->judul_pengumuman;
+
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $fields = array(
+            "to" => "/topics/all",
+            "android" => array (
+                "notification"=> array (
+                    "tag" => "pengumuman"
+                )
+            ),
+            "data" => array(
+                "title" => $notiftitle,
+                "body" => $notifcontent,
+                "image" => $pengumuman->getUrlImage(),
+                "posyandu" => $pengumuman->id_posyandu,
+                "type" => "pengumuman"
+            )
+        );
+        $headers = array(
+            'Authorization: key=AAAAVT49iyk:APA91bH_tmF2z2SCC8mPWWsNSvXZ-CuhjV-8SXmY8l0gNtvNw5wFuXVRjX0-l4KIFm7DaHy6JGI5v-ltwutEXCddhTlcFhqy9YyoO0kg3WQ4d290KB_4hM4N91kk0P4JkkH5Qkk8G72W',
+            'Content-type: Application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        curl_exec($ch);
+        curl_close($ch);
+
 
         $pengumuman->broadcastPengumumanToMember();
         return redirect()->route('pengumuman.home')->with(['success' => 'Data Berhasil Disimpan']);
