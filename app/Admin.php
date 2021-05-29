@@ -46,6 +46,6 @@ class Admin extends Authenticatable
 
     public function nakes()
     {
-        return $this->hasOne(SuperAdmin::class,'id_admin','id');
+        return $this->hasOne(Nakes::class,'id_admin','id');
     }
 }

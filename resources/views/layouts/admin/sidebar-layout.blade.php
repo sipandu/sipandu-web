@@ -190,6 +190,12 @@
                                         <p>Data Admin</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Data Nakes') }}" class="nav-link" id="data-nakes">
+                                        <i class="nav-icon fas fa-user-md"></i>
+                                        <p>Data Nakes</p>
+                                    </a>
+                                </li>
                             @endif
                             @if (Auth::guard('admin')->user()->role == 'pegawai')
                                 @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
@@ -214,13 +220,13 @@
                                         <p>Anggota Posyandu</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Data Kader') }}" class="nav-link" id="data-kader">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>Kader Posyandu</p>
+                                    </a>
+                                </li>
                             @endif
-                            <li class="nav-item">
-                                <a href="{{ route('Data Kader') }}" class="nav-link" id="data-kader">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Kader Posyandu</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 </li>
@@ -322,14 +328,14 @@
                                         <p>Informasi Penting</p>
                                     </a>
                                 </li>
+                                @endif
+                            @if (Auth::guard('admin')->user()->role == 'pegawai')
                                 <li class="nav-item">
                                     <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
                                         <i class="fas fa-chalkboard-teacher nav-icon"></i>
                                         <p>Penyuluhan</p>
                                     </a>
                                 </li>
-                            @endif
-                            @if (Auth::guard('admin')->user()->role == 'pegawai')
                                 <li class="nav-item">
                                     <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
                                         <i class="fas fa-bullhorn nav-icon"></i>
