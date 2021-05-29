@@ -11,6 +11,7 @@ use App\Mover;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
+use App\NakesPosyandu;
 use App\Pegawai;
 use App\Kabupaten;
 use App\Kecamatan;
@@ -29,8 +30,38 @@ class DataPosyanduController extends Controller
 
     public function listPosyandu()
     {
-        // $admin = Admin::with('pegawai')->get();
-        $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+        $posyandu = [];
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+        }
+        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $login_user = [];
+
+            $data_posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+
+            // $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            //     ->select('tb_ibu_hamil.*')
+            //     ->where('tb_user.is_verified', 1)
+            //     ->where('tb_user.keterangan', NULL)
+            //     ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            // ->get();
+
+            // if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+                $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+                $login_user = $nakes;
+            // }
+
+            foreach ($login_user as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_posyandu->where('id', $item) as $data) {
+                    $posyandu[] = $data;
+                }
+            }
+        }
         $pegawai = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/data-posyandu', compact('posyandu', 'pegawai'));
@@ -195,8 +226,9 @@ class DataPosyanduController extends Controller
         Carbon::setLocale('id');
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
-        $dataPosyandu = Posyandu::with('pegawai')->where('id', $posyandu->id)->get();
+        $dataPosyandu = Posyandu::with('pegawai')->where('id', $posyandu->id)->first();
         $pegawai = Pegawai::where('id_posyandu', $posyandu->id)->get();
+        $nakes = NakesPosyandu::where('id_posyandu', $posyandu->id)->get();
 
         // Upcoming Event Checking
         $nextKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '>', $today)->get();
@@ -234,7 +266,7 @@ class DataPosyanduController extends Controller
         $headAdmin = Pegawai::where('id_posyandu', $posyandu->id)->where('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/detail-posyandu', compact(
-            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin', 'ibu', 'anak', 'lansia'
+            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin', 'ibu', 'anak', 'lansia', 'nakes'
         ));
         // return $kegiatanPosyandu;
     }

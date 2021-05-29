@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'cek' => \App\Http\Middleware\CekLevel::class,
         'user' => \App\Http\Middleware\UserCheck::class,
         'userAkses' => \App\Http\Middleware\AksesUser::class,
+        'super.admin' => \App\Http\Middleware\SuperAdmin::class,
+        'nakes' => \App\Http\Middleware\Nakes::class,
     ];
 }

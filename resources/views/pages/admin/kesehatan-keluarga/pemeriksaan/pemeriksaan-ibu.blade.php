@@ -886,7 +886,7 @@
                                     </li>
                                 </ul>
                                 <a href="{{ route('Detail Anggota Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Bumil</a>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
+                                <a href="{{ route('Data Kesehatan Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
                             </div>
                         </div>
                     </div>

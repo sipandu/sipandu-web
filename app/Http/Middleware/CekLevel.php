@@ -17,21 +17,45 @@ class CekLevel
     public function handle($request, Closure $next, $level1, $level2, $level3, $level4, $level5)
     {
         if (Auth::guard('admin')->user()->role == 'super admin') {
-            return $next($request);
+            if ($level1 == 'super admin') {
+                return $next($request);
+            } elseif ($level2 == 'super admin') {
+                return $next($request);
+            } elseif ($level3 == 'super admin') {
+                return $next($request);
+            } elseif ($level4 == 'super admin') {
+                return $next($request);
+            } elseif ($level5 == 'super admin') {
+                return $next($request);
+            } else {
+                return redirect()->back();
+            }
         } elseif (Auth::guard('admin')->user()->role == 'tenaga kesehatan') {
-            return $next($request);
-        } elseif (Auth::guard('admin')->user()->role == 'pegawai') {
-            if(Auth::guard('admin')->user()->pegawai->jabatan == $level1){
+            if ($level1 == 'tenaga kesehatan') {
                 return $next($request);
-            }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level2){
+            } elseif ($level2 == 'tenaga kesehatan') {
                 return $next($request);
-            }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level3){
+            } elseif ($level3 == 'tenaga kesehatan') {
                 return $next($request);
-            }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level4){
+            } elseif ($level4 == 'tenaga kesehatan') {
                 return $next($request);
-            }elseif(Auth::guard('admin')->user()->pegawai->jabatan == $level5){
+            } elseif ($level5 == 'tenaga kesehatan') {
                 return $next($request);
-            }else{
+            } else {
+                return redirect()->back();
+            }
+        } else if (Auth::guard('admin')->user()->role == 'pegawai') {
+            if ($level1 == 'head admin' || $level1 == 'admin' || $level1 == 'kader') {
+                return $next($request);
+            } elseif ($level2 == 'head admin' || $level2 == 'admin' || $level2 == 'kader') {
+                return $next($request);
+            } elseif ($level3 == 'head admin' || $level3 == 'admin' || $level3 == 'kader') {
+                return $next($request);
+            } elseif ($level4 == 'head admin' || $level4 == 'admin' || $level4 == 'kader') {
+                return $next($request);
+            } elseif ($level5 == 'head admin' || $level5 == 'admin' || $level5 == 'kader') {
+                return $next($request);
+            } else {
                 return redirect()->back();
             }
         } else {

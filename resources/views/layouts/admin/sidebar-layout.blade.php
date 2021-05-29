@@ -197,6 +197,14 @@
                                     </a>
                                 </li>
                             @endif
+                            @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                <li class="nav-item">
+                                    <a href="{{ route("Data Posyandu") }}" id="data-posyandu" class="nav-link">
+                                        <i class="nav-icon fas fa-layer-group"></i>
+                                        <p>Data Posyandu</p>
+                                    </a>
+                                </li>
+                            @endif
                             @if (Auth::guard('admin')->user()->role == 'pegawai')
                                 @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin' || Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
                                     <li class="nav-item">
@@ -205,15 +213,15 @@
                                             <p>Data Admin</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
+                                            <i class="nav-icon fas fa-clinic-medical"></i>
+                                            <p>Profile Posyandu</p>
+                                        </a>
+                                    </li>
                                 @endif
                             @endif
                             @if (Auth::guard('admin')->user()->role != 'super admin')
-                                <li class="nav-item">
-                                    <a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
-                                        <i class="nav-icon fas fa-clinic-medical"></i>
-                                        <p>Profile Posyandu</p>
-                                    </a>
-                                </li>
                                 <li class="nav-item">
                                     <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
                                         <i class="nav-icon fas fa-user-friends"></i>

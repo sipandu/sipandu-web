@@ -871,7 +871,7 @@
                                     </li>
                                 </ul>
                                 <a href="{{ route('Detail Anggota Anak', $dataAnak->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Anak</a>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
+                                <a href="{{ route('Data Kesehatan Anak', $dataAnak->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
                             </div>
                         </div>
                     </div>

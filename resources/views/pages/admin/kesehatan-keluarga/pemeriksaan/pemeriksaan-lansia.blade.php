@@ -781,7 +781,7 @@
                                     </li>
                                 </ul>
                                 <a href="{{ route('Detail Anggota Lansia', $dataLansia->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Lansia</a>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
+                                <a href="{{ route('Data Kesehatan Lansia', $dataLansia->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
                             </div>
                         </div>
                         <div class="card card-primary card-outline">

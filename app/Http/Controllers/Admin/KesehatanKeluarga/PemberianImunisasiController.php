@@ -38,9 +38,8 @@ class PemberianImunisasiController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($ibu->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $pegawai = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $ibu->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
 
         if ($request->tgl_kembali_imunisasi) {
             // Ubah format tanggal //
@@ -53,10 +52,10 @@ class PemberianImunisasiController extends Controller
 
             $imunisasiIbu = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $ibu->id_posyandu,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $ibu->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,
@@ -67,10 +66,10 @@ class PemberianImunisasiController extends Controller
         } else {
             $imunisasiIbu = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $ibu->id,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $ibu->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,
@@ -109,9 +108,9 @@ class PemberianImunisasiController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $pegawai = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $anak->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
+        
         if ($request->tgl_kembali_imunisasi) {
             // Ubah format tanggal //
             $tgl_lahir_indo = $request->tgl_kembali_imunisasi;
@@ -123,10 +122,10 @@ class PemberianImunisasiController extends Controller
 
             $imunisasiAnak = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $anak->id,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,
@@ -137,10 +136,10 @@ class PemberianImunisasiController extends Controller
         } else {
             $imunisasiAnak = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $anak->id,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,
@@ -179,9 +178,8 @@ class PemberianImunisasiController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $pegawai = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $lansia->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
 
         if ($request->tgl_kembali_imunisasi) {
             // Ubah format tanggal //
@@ -194,10 +192,10 @@ class PemberianImunisasiController extends Controller
 
             $imunisasiLansia = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $lansia->id,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $lansia->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,
@@ -208,10 +206,10 @@ class PemberianImunisasiController extends Controller
         } else {
             $imunisasiLansia = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $lansia->id,
                 'id_user' => $user->id,
                 'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
+                'nama_posyandu' => $lansia->posyandu->nama_posyandu,
                 'nama_pemeriksa' => $pegawai->nama_pegawai,
                 'usia' => $umur,
                 'tanggal_imunisasi' => $today,

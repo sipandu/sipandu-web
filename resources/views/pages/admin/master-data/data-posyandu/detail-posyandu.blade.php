@@ -96,56 +96,54 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-lg-4 order-1 order-sm-1  order-lg-2">
-                                @foreach ($dataPosyandu as $data)
-                                    <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ $data->nama_posyandu }}</h3>
-                                    <h5 class="mt-5 text-muted"><i class="fas fa-user-cog"></i> Head Admin</h5>
-                                    <ul class="list-unstyled">
-                                        @if ($pegawai->where('jabatan', 'head admin')->count() < 1)
-                                            <li>
-                                                <a class="btn-link text-secondary text-decoration-none">Head Admin Belum Ditambahkan</a>
-                                            </li>
-                                        @else
-                                            @foreach ($pegawai->where('jabatan', 'head admin') as $pgw)
-                                                <li>
-                                                    <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                    <h5 class="text-muted"><i class="fas fa-user-shield"></i> Administrator</h5>
-                                    <ul class="list-unstyled">
-                                        @foreach ($pegawai->where('jabatan', 'admin') as $pgw)
+                                <h3 class="text-primary"><i class="fas fa-clinic-medical pe-3"></i> {{ $dataPosyandu->nama_posyandu }}</h3>
+                                <h5 class="mt-5 text-muted"><i class="fas fa-user-cog"></i> Head Admin</h5>
+                                <ul class="list-unstyled">
+                                    @if ($pegawai->where('jabatan', 'head admin')->count() < 1)
+                                        <li>
+                                            <a class="btn-link text-secondary text-decoration-none">Head Admin Belum Ditambahkan</a>
+                                        </li>
+                                    @else
+                                        @foreach ($pegawai->where('jabatan', 'head admin') as $pgw)
                                             <li>
                                                 <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
                                             </li>
                                         @endforeach
-                                    </ul>
-                                    <h5 class="mt-3 text-muted"><i class="fas fa-map-marker-alt"></i> Alamat</h5>
-                                    <ul class="list-unstyled">
+                                    @endif
+                                </ul>
+                                <h5 class="text-muted"><i class="fas fa-user-shield"></i> Administrator</h5>
+                                <ul class="list-unstyled">
+                                    @foreach ($pegawai->where('jabatan', 'admin') as $pgw)
                                         <li>
-                                            <p href="" class="btn-link text-secondary text-decoration-none">{{ $data->alamat }}</p>
+                                            <a href="{{ route("Detail Admin", [$pgw->id])}}" class="btn-link text-secondary text-decoration-none">{{ $pgw->nama_pegawai }}</a>
                                         </li>
-                                    </ul>
-                                    <h5 class="mt-3 text-muted"><i class="fas fa-map-marked-alt"></i> Lokasi</h5>
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <a href="" class="btn-link text-secondary text-decoration-none">Lihat pada peta</a>
-                                        </li>
-                                    </ul>
-                                    <h5 class="mt-3 text-muted"><i class="fas fa-phone-alt"></i> Nomor Telp</h5>
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <p href="" class="btn-link text-secondary text-decoration-none">{{ $data->nomor_telepon}}</p>
-                                        </li>
-                                    </ul>
-                                @endforeach
+                                    @endforeach
+                                </ul>
+                                <h5 class="mt-3 text-muted"><i class="fas fa-map-marker-alt"></i> Alamat</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <p href="" class="btn-link text-secondary text-decoration-none">{{ $dataPosyandu->alamat }}</p>
+                                    </li>
+                                </ul>
+                                <h5 class="mt-3 text-muted"><i class="fas fa-map-marked-alt"></i> Lokasi</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="" class="btn-link text-secondary text-decoration-none">Lihat pada peta</a>
+                                    </li>
+                                </ul>
+                                <h5 class="mt-3 text-muted"><i class="fas fa-phone-alt"></i> Nomor Telp</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <p href="" class="btn-link text-secondary text-decoration-none">{{ $dataPosyandu->nomor_telepon}}</p>
+                                    </li>
+                                </ul>
                                 <h5 class="mt-4 text-muted"><i class="fas fa-users-cog"></i> Jumlah Petugas</h5>
-                                <ul class="list-unstyled lh-sm">
+                                <ul class="list-unstyled lh-sm mt-3">
                                     <li class="my-1">
                                         <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-shield"></i> {{ ($pegawai->where('jabatan', 'admin')->count()) + ($pegawai->where('jabatan', 'head admin')->count()) }} Petugas</p>
                                     </li>
                                     <li class="my-1">
-                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $pegawai->where('jabatan', 'kader')->count() }} Kader & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Nakes</p>
+                                        <p class="btn-link text-secondary text-decoration-none lh-sm"><i class="fas fa-user-tag"></i> {{ $nakes->count() }} Nakes & {{ $pegawai->where('jabatan', 'tenaga kesehatan')->count() }} Kader</p>
                                     </li>
                                 </ul>
                                 <h5 class="mt-5 text-muted">Kegiatan Berikutnya</h5>
@@ -162,9 +160,9 @@
                                 </ul>
                                 <div class="text-center mt-5 mb-5">
                                     <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
-                                    @foreach ($dataPosyandu as $data)
-                                        <a href="{{ route("Edit Posyandu", [$data->id])}}" class="btn btn-sm btn-warning">Edit</a>
-                                    @endforeach
+                                    {{-- @foreach ($dataPosyandu as $data) --}}
+                                        <a href="{{ route("Edit Posyandu", $dataPosyandu->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                    {{-- @endforeach --}}
                                 </div>
                             </div>
                         </div>

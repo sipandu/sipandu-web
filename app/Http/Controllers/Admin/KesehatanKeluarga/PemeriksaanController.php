@@ -83,6 +83,16 @@ class PemeriksaanController extends Controller
                 $ibu[] = $data;
             }
         }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_anak->where('id_posyandu', $item) as $data) {
+                $anak[] = $data;
+            }
+        }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_lansia->where('id_posyandu', $item) as $data) {
+                $lansia[] = $data;
+            }
+        }
 
         return view('pages/admin/kesehatan-keluarga/pemeriksaan/tambah-pemeriksaan', compact('ibu', 'anak', 'lansia') );
     }
@@ -236,7 +246,7 @@ class PemeriksaanController extends Controller
         ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $pegawai = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -529,16 +539,16 @@ class PemeriksaanController extends Controller
 
             if ($jarakKehamilan > 0) {
                 $bumil = Ibu::where('id', $ibu->id)->update([
-                    'kehamilan_ke' => $jarakKehamilan,
+                    'kehamilan_ke' => $jumlahKehamilan,
                     'jarak_anak_sebelumnya' => $jarakKehamilan,
                 ]);
             } else {
                 $bumil = Ibu::where('id', $ibu->id)->update([
-                    'kehamilan_ke' => $jarakKehamilan,
+                    'kehamilan_ke' => $jumlahKehamilan,
                 ]);
             }
             
-            if ($persalinan && $jarakKehamilan) {
+            if ($persalinan && $bumil) {
                 return redirect()->back()->with(['success' => 'Data Persalinan Berhasil di Simpan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Data Persalinan Gagal di Simpan']);
