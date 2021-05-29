@@ -17,7 +17,7 @@ class CekLevel
     public function handle($request, Closure $next, $level1, $level2, $level3, $level4, $level5)
     {
         if (Auth::guard('admin')->user()->role == 'super admin') {
-            return redirect()->back();
+            return $next($request);
         } elseif (Auth::guard('admin')->user()->role == 'tenaga kesehatan') {
             return $next($request);
         } elseif (Auth::guard('admin')->user()->role == 'pegawai') {
