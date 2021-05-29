@@ -42,13 +42,14 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($ibu->count() > 0)
+                                @if (count($ibu) > 0)
                                     <table id="tbIbu" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Bumil</th>
                                                 <th class="d-none d-md-table-cell">Nama Suami</th>
+                                                <th>Lokasi Posyandu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -59,6 +60,7 @@
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->nama_suami }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Pemeriksaan Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
@@ -90,13 +92,14 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($anak->count() > 0)
+                                @if (count($anak) > 0)
                                     <table id="tbAnak" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
                                                 <th class="d-none d-md-table-cell">Nama Ibu</th>
+                                                <th>Lokasi Posyandu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -107,6 +110,7 @@
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_anak }}</td>
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->nama_ibu }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Pemeriksaan Anak', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
@@ -138,13 +142,14 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($lansia->count() > 0)
+                                @if (count($lansia) > 0)
                                     <table id="tbLansia" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lansia</th>
                                                 <th class="d-none d-md-table-cell">Kategori</th>
+                                                <th>Lokasi Posyandu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -155,6 +160,7 @@
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_lansia }}</td>
                                                     <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Pemeriksaan Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>

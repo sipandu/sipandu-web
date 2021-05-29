@@ -40,7 +40,7 @@
                                     <li class="nav-item d-grid">
                                         <button class="nav-link btn btn-info active text-left" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                             <i class="fas fa-female nav-icon"></i> Ibu Hamil
-                                            @if ($ibu->count() > 0)
+                                            @if (count($ibu) > 0)
                                                 <span class="badge bg-warning float-right">{{ $ibu->count() }}</span>
                                             @endif
                                         </button>
@@ -48,7 +48,7 @@
                                     <li class="nav-item d-grid">
                                         <button class="nav-link text-left btn btn-success" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                             <i class="fas fa-child nav-icon"></i> Anak
-                                            @if ($anak->count() > 0)
+                                            @if (count($anak) > 0)
                                                 <span class="badge bg-warning float-right">{{ $anak->count() }}</span>
                                             @endif
                                         </button>
@@ -56,7 +56,7 @@
                                     <li class="nav-item d-grid">
                                         <button class="nav-link text-left btn btn-primary" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                                             <i class="fas fa-wheelchair nav-icon"></i> Lanjut Usia
-                                            @if ($lansia->count() > 0)
+                                            @if (count($lansia) > 0)
                                                 <span class="badge bg-warning float-right">{{ $lansia->count() }}</span>
                                             @endif
                                         </button>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="card-body p-0">
-                                    @if ($ibu->count() > 0)
+                                    @if (count($ibu) > 0)
                                         <div class="table-responsive mailbox-messages p-2">
                                             <table id="tbBumil" class="table table-bordered table-hover">
                                                 <thead class="text-center">
@@ -115,7 +115,7 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                 <div class="card-body p-0">
-                                    @if ($anak->count() > 0)
+                                    @if (count($anak) > 0)
                                         <div class="table-responsive mailbox-messages p-2">
                                             <table id="tbAnak" class="table table-bordered table-hover">
                                                 <thead class="text-center">
@@ -158,7 +158,7 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                 <div class="card-body p-0">
-                                    @if ($lansia->count() > 0)
+                                    @if (count($lansia) > 0)
                                         <div class="table-responsive mailbox-messages p-2">
                                             <table id="tbLansia" class="table table-bordered table-hover">
                                                 <thead class="text-center">

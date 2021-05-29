@@ -81,9 +81,11 @@
                                     <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->superAdmin->kecamatan->nama_kecamatan}}</a>
                                 @endif
                                 @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
-                                    @foreach ($nakesPosyandu->where('id_nakes', Auth::guard('admin')->user()->nakes->id) as $data)
-                                        <a class="float-right text-decoration-none link-dark">{{ $data->id_posyandu }}</a>
-                                    @endforeach
+                                    <a class="float-right text-decoration-none link-dark">
+                                        @foreach ($nakesPosyandu->where('id_nakes', Auth::guard('admin')->user()->nakes->id) as $data)
+                                            {{ $data->posyandu->nama_posyandu }}. 
+                                        @endforeach
+                                    </a>
                                 @endif
                                 @if (Auth::guard('admin')->user()->role == 'pegawai')
                                     <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>

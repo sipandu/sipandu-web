@@ -35,7 +35,7 @@
                     <div class="card-body table-responsive-md">
                         <div class="tab-content">
                             <div class="active tab-pane" id="tbIbu">
-                                @if ($ibu->count() > 0)
+                                @if (count($ibu) > 0)
                                     <table id="dataIbu" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
@@ -72,7 +72,7 @@
                                 @endif
                             </div>
                             <div class="tab-pane" id="tbAnak">
-                                @if ($anak->count() > 0)
+                                @if (count($anak) > 0)
                                     <table id="dataAnak" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
@@ -109,7 +109,7 @@
                                 @endif
                             </div>
                             <div class="tab-pane" id="tbLansia">
-                                @if ($lansia->count() > 0)
+                                @if (count($lansia) > 0)
                                     <table id="dataLansia" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>

@@ -33,76 +33,39 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        @if (Auth::guard('admin')->user()->role == 'pegawai')
-                            <table id="notSuperAdmin" class="table table-bordered table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Kader</th>
-                                        <th>Jabatan</th>
-                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
-                                        <th class="d-md-none">Tindakan</th>
-                                        <th class="d-none d-md-table-cell">Tindakan</th>
+                        <table id="notSuperAdmin" class="table table-bordered table-hover">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Kader</th>
+                                    <th>Jabatan</th>
+                                    <th class="d-none d-md-table-cell">Tempat Tugas</th>
+                                    <th class="d-md-none">Tindakan</th>
+                                    <th class="d-none d-md-table-cell">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kader as $data)
+                                    <tr class="text-center align-middle my-auto">
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle"> {{ $data->nama_pegawai }}</td>
+                                        <td class="align-middle">{{ $data->jabatan }}</td>
+                                        <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
+                                        <td class="text-center align-middle d-md-none">
+                                            <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                            <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-eye"></i>
+                                                Detail
+                                            </a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kader as $data)
-                                        <tr class="text-center align-middle my-auto">
-                                            <td class="align-middle">{{ $loop->iteration }}</td>
-                                            <td class="align-middle"> {{ $data->nama_pegawai }}</td>
-                                            <td class="align-middle">{{ $data->jabatan }}</td>
-                                            <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
-                                            <td class="text-center align-middle d-md-none">
-                                                <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center align-middle d-none d-md-table-cell">
-                                                <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                    Detail
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-                        @if (Auth::guard('admin')->user()->role == 'super admin')
-                            <table id="superAdmin" class="table table-bordered table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Kader</th>
-                                        <th>Jabatan</th>
-                                        <th class="d-none d-md-table-cell">Tempat Tugas</th>
-                                        <th class="d-md-none">Tindakan</th>
-                                        <th class="d-none d-md-table-cell">Tindakan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kaderAll as $data)
-                                        <tr class="text-center align-middle my-auto">
-                                            <td class="align-middle">{{ $loop->iteration }}</td>
-                                            <td class="align-middle"> {{ $data->nama_pegawai }}</td>
-                                            <td class="align-middle">{{ $data->jabatan }}</td>
-                                            <td class="align-middle d-none d-md-table-cell">{{ $data->posyandu->nama_posyandu }}</td>
-                                            <td class="text-center align-middle d-md-none">
-                                                <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center align-middle d-none d-md-table-cell">
-                                                <a href="{{route('Detail Kader', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                    Detail
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

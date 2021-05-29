@@ -145,7 +145,7 @@
                                         </form>
                                     </div>
                                 </li>
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemeriksaan Ibu</p></div>

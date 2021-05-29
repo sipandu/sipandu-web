@@ -38,7 +38,7 @@
                     <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemeriksaan Lansia</p></div>

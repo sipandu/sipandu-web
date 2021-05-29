@@ -51,7 +51,8 @@ class RegisController extends Controller
     public function formAddUser(Request $request)
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/manajemen-akun/new-user', compact('posyandu'));
+        $nakesPosyandu = NakesPosyandu::all();
+        return view('pages/auth/admin/manajemen-akun/new-user', compact('posyandu', 'nakesPosyandu'));
     }
 
     public function storeSuperAdmin(Request $request)
@@ -374,6 +375,7 @@ class RegisController extends Controller
             'alamat_bumil' => "required|regex:/^[a-z .,0-9]+$/i",
             'no_tlpn_bumil' => "nullable|numeric|unique:tb_ibu_hamil,nomor_telepon",
             'telegram_bumil' => "nullable|max:25|unique:tb_user,username_tele",
+            'lokasi_posyandu_bumil' => "required",
             'email_bumil' => "required|email|unique:tb_user,email",
             'passwordBumil' => 'required|min:8|max:50',
         ],
@@ -416,6 +418,7 @@ class RegisController extends Controller
             'no_tlpn_bumil.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn_bumil.between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
             'no_tlpn_bumil.unique' => "Nomor telepon ibu hamil sudah digunakan",
+            'lokasi_posyandu_bumil.required' => "Lokasi posyandu ibu hamil wajib diisi",
             'passwordBumil.required' => "Password akun ibu hamil wajib diisi",
             'passwordBumil.min' => "Password minimal berjumlah 8 karakter",
             'passwordBumil.max' => "Password maksimal berjumlah 50 karakter",
@@ -423,7 +426,6 @@ class RegisController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_bumil)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         // Ubah format tanggal lahir //
         $tgl_lahir_indo = $request->tgl_lahir_bumil;
@@ -479,7 +481,7 @@ class RegisController extends Controller
                 ]);
     
                 $ibu = Ibu::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_bumil,
                     'id_user' => $user->id,
                     'nama_ibu_hamil' => $request->nama_bumil,
                     'nama_suami' => $request->nama_suami,
@@ -529,7 +531,7 @@ class RegisController extends Controller
                 ]);
     
                 $ibu = Ibu::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_bumil,
                     'id_user' => $user->id,
                     'nama_ibu_hamil' => $request->nama_bumil,
                     'nama_suami' => $request->nama_suami,
@@ -569,6 +571,7 @@ class RegisController extends Controller
             'telegram_anak' => "nullable|unique:tb_user,username_tele",
             'no_tlpn_anak' => "nullable|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
             'status_anak' => "required|numeric",
+            'lokasi_posyandu_anak' => "required",
             'passwordAnak' => 'required|min:8|max:50',
         ],
         [
@@ -626,7 +629,6 @@ class RegisController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_anak)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir_anak;
@@ -683,7 +685,7 @@ class RegisController extends Controller
                 ]);
 
                 $anak = Anak::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_anak,
                     'id_user' => $user->id,
                     'nama_anak' => $request->nama_anak,
                     'nama_ayah' => $request->nama_ayah,
@@ -738,7 +740,7 @@ class RegisController extends Controller
                 ]);
 
                 $anak = Anak::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_anak,
                     'id_user' => $user->id,
                     'nama_anak' => $request->nama_anak,
                     'nama_ayah' => $request->nama_ayah,
@@ -778,6 +780,7 @@ class RegisController extends Controller
             'telegram_lansia' => "nullable|max:25|unique:tb_user,username_tele",
             'no_tlpn_lansia' => "nullable|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
             'status_lansia' => "required",
+            'lokasi_posyandu_lansia' => "required",
             'passwordLansia' => 'required|min:8|max:50',
         ],
         [
@@ -820,11 +823,11 @@ class RegisController extends Controller
             'status_lansia.required' => "Status lansia wajib diisi",
             'passwordLansia.required' => "Password akun lansia wajib diisi",
             'passwordLansia.min' => "Password minimal 8 karakter",
+            'lokasi_posyandu_lansia.required' => "Lokasi posyandu lansia wajib diisi",
             'passwordLansia.max' => "Password maksimal 50 karakter",
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_lansia)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         if ($request->tanggungan_lansia == 'Dengan Tanggungan') {
             $this->validate($request,[
@@ -879,7 +882,7 @@ class RegisController extends Controller
                 ]);
 
                 $lansia = Lansia::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_lansia,
                     'id_user' => $user->id,
                     'nama_lansia' => $request->nama_lansia,
                     'tempat_lahir' => $request->tempat_lahir_lansia,
@@ -932,7 +935,7 @@ class RegisController extends Controller
                 ]);
 
                 $lansia = Lansia::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_lansia,
                     'id_user' => $user->id,
                     'nama_lansia' => $request->nama_lansia,
                     'tempat_lahir' => $request->tempat_lahir_lansia,

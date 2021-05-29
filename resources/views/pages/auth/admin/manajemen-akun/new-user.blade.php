@@ -334,34 +334,66 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="no_tlpn_bumil">Nomor Telp</label>
-                                                <div class="input-group">
-                                                    <input type="text" name="no_tlpn_bumil" class="form-control @error('no_tlpn_bumil') is-invalid @enderror" id="no_tlpn_bumil" value="{{ old('no_tlpn_bumil') }}" autocomplete="off" placeholder="Nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-phone"></span>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="no_tlpn_bumil">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_bumil" class="form-control @error('no_tlpn_bumil') is-invalid @enderror" id="no_tlpn_bumil" value="{{ old('no_tlpn_bumil') }}" autocomplete="off" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn_bumil')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="telegram_bumil">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_bumil" class="form-control @error('telegram_bumil') is-invalid @enderror" id="telegram_bumil" value="{{ old('telegram_bumil') }}" autocomplete="off" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_bumil')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="telegram_bumil">Telegram</label>
+                                                <label for="lokasi_posyandu_bumil">Lokasi Posyandu</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="telegram_bumil" class="form-control @error('telegram_bumil') is-invalid @enderror" id="telegram_bumil" value="{{ old('telegram_bumil') }}" autocomplete="off" placeholder="Username Telegram">
+                                                    <select name="lokasi_posyandu_bumil" class="form-control @error('lokasi_posyandu_bumil') is-invalid @enderror" value="{{ old('lokasi_posyandu_bumil') }}" id="lokasi_posyandu_bumil">
+                                                        @if (auth()->guard('admin')->user()->role == 'pegawai')
+                                                            <option selected value="{{ auth()->guard('admin')->user()->pegawai->id_posyandu }}">{{ auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu }}</option>
+                                                        @endif
+                                                        @if (auth()->guard('admin')->user()->role == 'tenaga kesehatan')
+                                                            <option selected disabled>Pilih Posyandu ...</option>
+                                                            @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                                                <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fab fa-telegram-plane"></span>
+                                                            <span class="fas fa-arrow-left"></span>
                                                         </div>
                                                     </div>
-                                                    @error('telegram_bumil')
+                                                    @error('lokasi_posyandu_bumil')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -802,34 +834,66 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="no_tlpn_anak">Nomor Telp</label>
-                                                <div class="input-group">
-                                                    <input type="text" name="no_tlpn_anak" autocomplete="off" class="form-control @error('no_tlpn_anak') is-invalid @enderror" id="no_tlpn_anak" value="{{ old('no_tlpn_anak') }}" placeholder="Nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-phone"></span>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="no_tlpn_anak">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_anak" autocomplete="off" class="form-control @error('no_tlpn_anak') is-invalid @enderror" id="no_tlpn_anak" value="{{ old('no_tlpn_anak') }}" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn_anak')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="telegram_anak">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_anak" autocomplete="off" class="form-control @error('telegram_anak') is-invalid @enderror" id="telegram_anak" value="{{ old('telegram_anak') }}" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_anak')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="telegram_anak">Telegram</label>
+                                                <label for="lokasi_posyandu_anak">Lokasi Posyandu</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="telegram_anak" autocomplete="off" class="form-control @error('telegram_anak') is-invalid @enderror" id="telegram_anak" value="{{ old('telegram_anak') }}" placeholder="Username Telegram">
+                                                    <select name="lokasi_posyandu_anak" class="form-control @error('lokasi_posyandu_anak') is-invalid @enderror" value="{{ old('lokasi_posyandu_anak') }}" id="lokasi_posyandu_anak">
+                                                        @if (auth()->guard('admin')->user()->role == 'pegawai')
+                                                            <option selected value="{{ auth()->guard('admin')->user()->pegawai->id_posyandu }}">{{ auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu }}</option>
+                                                        @endif
+                                                        @if (auth()->guard('admin')->user()->role == 'tenaga kesehatan')
+                                                            <option selected disabled>Pilih Posyandu ...</option>
+                                                            @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                                                <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fab fa-telegram-plane"></span>
+                                                            <span class="fas fa-arrow-left"></span>
                                                         </div>
                                                     </div>
-                                                    @error('telegram_anak')
+                                                    @error('lokasi_posyandu_anak')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>
@@ -1244,34 +1308,66 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="no_tlpn_lansia">Nomor Telp</label>
-                                                <div class="input-group">
-                                                    <input type="text" name="no_tlpn_lansia" autocomplete="off" class="form-control @error('no_tlpn_lansia') is-invalid @enderror" id="no_tlpn_lansia" value="{{ old('no_tlpn_lansia') }}" placeholder="Nomor telepon">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-phone"></span>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="no_tlpn_lansia">Nomor Telp</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="no_tlpn_lansia" autocomplete="off" class="form-control @error('no_tlpn_lansia') is-invalid @enderror" id="no_tlpn_lansia" value="{{ old('no_tlpn_lansia') }}" placeholder="Nomor telepon">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-phone"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('no_tlpn_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    @error('no_tlpn_lansia')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="telergam_lansia">Telegram</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="telegram_lansia" autocomplete="off" class="form-control @error('telegram_lansia') is-invalid @enderror" id="telergam_lansia" value="{{ old('telegram_lansia') }}" placeholder="Username Telegram">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fab fa-telegram-plane"></span>
+                                                                </div>
+                                                            </div>
+                                                            @error('telegram_lansia')
+                                                                <div class="invalid-feedback text-start">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
-                                                    @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="telergam_lansia">Telegram</label>
+                                                <label for="lokasi_posyandu_lansia">Lokasi Posyandu</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="telegram_lansia" autocomplete="off" class="form-control @error('telegram_lansia') is-invalid @enderror" id="telergam_lansia" value="{{ old('telegram_lansia') }}" placeholder="Username Telegram">
+                                                    <select name="lokasi_posyandu_lansia" class="form-control @error('lokasi_posyandu_lansia') is-invalid @enderror" value="{{ old('lokasi_posyandu_lansia') }}" id="lokasi_posyandu_lansia">
+                                                        @if (auth()->guard('admin')->user()->role == 'pegawai')
+                                                            <option selected value="{{ auth()->guard('admin')->user()->pegawai->id_posyandu }}">{{ auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu }}</option>
+                                                        @endif
+                                                        @if (auth()->guard('admin')->user()->role == 'tenaga kesehatan')
+                                                            <option selected disabled>Pilih Posyandu ...</option>
+                                                            @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                                                <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fab fa-telegram-plane"></span>
+                                                            <span class="fas fa-arrow-left"></span>
                                                         </div>
                                                     </div>
-                                                    @error('telegram_lansia')
+                                                    @error('lokasi_posyandu_lansia')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
                                                         </div>

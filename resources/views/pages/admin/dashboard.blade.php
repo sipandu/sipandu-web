@@ -41,14 +41,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-3">
+                {{-- <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Nakes</h5>
                         <p class="text-muted card-text">{{ $nakes->count() }}</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         {{-- <div class="container-fluid px-0">

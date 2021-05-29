@@ -43,7 +43,7 @@
                     <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
                                     @if ($persalinan != NULL)
                                         <li class="list-group-item">
                                             <div class="row">

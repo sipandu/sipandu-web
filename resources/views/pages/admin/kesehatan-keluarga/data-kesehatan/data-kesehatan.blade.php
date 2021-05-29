@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($ibu->count() > 0)
+                                @if (count($ibu) > 0)
                                     <table id="tbIbu" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($anak->count() > 0)
+                                @if (count($anak) > 0)
                                     <table id="tbAnak" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive-md">
-                                @if ($lansia->count() > 0)
+                                @if (count($lansia) > 0)
                                     <table id="tbLansia" class="table table-bordered table-hover">
                                         <thead class="text-center">
                                             <tr>
