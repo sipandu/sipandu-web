@@ -27,10 +27,10 @@
           <div class="card-header">
             <div class="row">
               @if (auth()->guard('admin')->user()->role == 'super admin')
-                <div class="col-6 col-sm-6 my-auto">
+                <div class="col-6 my-auto">
                   <h3 class="card-title my-auto">Daftar Posyandu</h3>
                 </div>
-                <div class="col-6 col-sm-6 text-end">
+                <div class="col-6 text-end">
                   <a href="{{ route("Add Posyandu") }}" class="btn btn-success">
                     <i class="fa fa-plus"></i> Tambah
                   </a>

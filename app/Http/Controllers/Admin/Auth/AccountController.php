@@ -31,60 +31,87 @@ class AccountController extends Controller
 
     public function showVerifyUser(Request $request)
     {
-        $id_posyandu = [];
-        $login_user = [];
         $ibu = [];
         $anak = [];
         $lansia = [];
 
-        $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
-            ->select('tb_ibu_hamil.*')
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_ibu_hamil.created_at', 'desc')
-        ->get();
-
-        $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
-            ->select('tb_anak.*')
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_anak.created_at', 'desc')
-        ->get();
-
-        $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
-            ->select('tb_lansia.*')
-            ->where('tb_user.is_verified', 0)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_lansia.created_at', 'desc')
-        ->get();
-
         if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $login_user = $nakes;
-        }
-        if (auth()->guard('admin')->user()->role == 'pegawai') {
-            $admin = auth()->guard('admin')->user()->pegawai;
-            $login_user = $admin;
-        }
+            $id_posyandu = [];
+            $login_user = [];
 
-        foreach ($login_user as $data) {
-            $id_posyandu[] = $data->id_posyandu;
-        }
-        
-        foreach ($id_posyandu as $item) {
-            foreach ($data_ibu->where('id_posyandu', $item) as $data) {
-                $ibu[] = $data;
+            $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+                ->select('tb_ibu_hamil.*')
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            ->get();
+
+            $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+                ->select('tb_anak.*')
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_anak.created_at', 'desc')
+            ->get();
+
+            $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+                ->select('tb_lansia.*')
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_lansia.created_at', 'desc')
+            ->get();
+
+            if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+                $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+                $login_user = $nakes;
             }
-        }
-        foreach ($id_posyandu as $item) {
-            foreach ($data_anak->where('id_posyandu', $item) as $data) {
-                $anak[] = $data;
+            if (auth()->guard('admin')->user()->role == 'pegawai') {
+                $admin = auth()->guard('admin')->user()->pegawai;
+                $login_user = $admin;
             }
-        }
-        foreach ($id_posyandu as $item) {
-            foreach ($data_lansia->where('id_posyandu', $item) as $data) {
-                $lansia[] = $data;
+
+            foreach ($login_user as $data) {
+                $id_posyandu[] = $data->id_posyandu;
             }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_ibu->where('id_posyandu', $item) as $data) {
+                    $ibu[] = $data;
+                }
+            }
+            foreach ($id_posyandu as $item) {
+                foreach ($data_anak->where('id_posyandu', $item) as $data) {
+                    $anak[] = $data;
+                }
+            }
+            foreach ($id_posyandu as $item) {
+                foreach ($data_lansia->where('id_posyandu', $item) as $data) {
+                    $lansia[] = $data;
+                }
+            }
+        } else {
+            $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+                ->select('tb_ibu_hamil.*')
+                ->where('tb_ibu_hamil.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            ->get();
+
+            $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+                ->select('tb_anak.*')
+                ->where('tb_anak.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_anak.created_at', 'desc')
+            ->get();
+
+            $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+                ->select('tb_lansia.*')
+                ->where('tb_lansia.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 0)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_lansia.created_at', 'desc')
+            ->get();
         }
 
         return view('pages/auth/admin/verifikasi/verify-user',compact('anak','ibu','lansia'));

@@ -35,23 +35,23 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-              <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                      <a href="{{ route('profile.admin') }}" id="profile-admin" class="nav-link">
-                          <i class="nav-icon fas fa-id-badge"></i>
-                          <p>Profile Pribadi</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
-                          @csrf
-                          <button class="nav-link text-danger text-start btn-block">
-                              <i class="nav-icon fas fa-power-off"></i>
-                              <p>Logout</p>
-                          </button>
-                      </form>
-                  </li>
-              </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('profile.admin') }}" id="profile-admin" class="nav-link">
+                  <i class="nav-icon fas fa-id-badge"></i>
+                  <p>Profile Pribadi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <form action="{{route('logout.admin')}}" class="nav-link p-0 m-0">
+                  @csrf
+                  <button class="nav-link text-danger text-start btn-block">
+                    <i class="nav-icon fas fa-power-off"></i>
+                    <p>Logout</p>
+                  </button>
+                </form>
+              </li>
+            </ul>
           </li>
           <div class="dropdown-divider"></div>
           <li class="nav-item">
@@ -76,23 +76,23 @@
 					</li>
           @endif
           <li class="nav nav-treeview">
-						<li class="nav-item" id="list-management-account">
-							<a href="#" class="nav-link" id="management-account">
-									<i class="nav-icon fas fa-users-cog"></i>
-									<p>
-											Manajemen Akun
-											<i class="fas fa-angle-left right"></i>
-									</p>
+						<li class="nav-item" id="account-management">
+							<a href="#" class="nav-link" id="account">
+                <i class="nav-icon fas fa-users-cog"></i>
+                <p>
+                  Manajemen Akun
+                  <i class="fas fa-angle-left right"></i>
+                </p>
 							</a>
 							<ul class="nav nav-treeview ms-3">
 								<li class="nav-item">
-									<a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+									<a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
 										<i class="nav-icon fas fa-user-cog"></i>
 										<p>Data Super Admin</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+									<a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
 										<i class="nav-icon fas fa-user-nurse"></i>
 										<p>Data Nakes</p>
 									</a>
@@ -105,7 +105,7 @@
 								</li>
 								@if (auth()->guard('admin')->user()->role != 'super admin')
 									<li class="nav-item">
-										<a href="{{ route("Data Kader") }}" class="nav-link" id="data-admin">
+										<a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
 											<i class="nav-icon fas fa-user-tag"></i>
 											<p>Data Kader</p>
 										</a>
@@ -117,14 +117,14 @@
 											</a>
 									</li>
 									<li class="nav-item" id="list-data-user-verify">
-										<a href="{{route('show.verify')}}" id="verify-user" class="nav-link">
+										<a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
 											<i class="nav-icon fas fa-user-check"></i>
 											<p>Konfirmasi Anggota</p>
 										</a>
 									</li>
 								@else
 									<li class="nav-item">
-										<a href="{{ route('Ganti Jabatan') }}" id="change-role" class="nav-link">
+										<a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
 											<i class="nav-icon fas fa-people-arrows"></i>
 											<p>Ganti Jabatan</p>
 										</a>

@@ -12,6 +12,8 @@ use App\Posyandu;
 use App\Admin;
 use App\Pegawai;
 use App\Kabupaten;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\Kecamatan;
 use App\Desa;
 use App\Kegiatan;
@@ -25,15 +27,33 @@ class DataAdminController extends Controller
     
     public function listAdmin()
     {
-        if (auth()->guard('admin')->user()->role == 'pegawai') {
-            // $idPosyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
-            $admin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'admin')->orderBy('id', 'desc')->get();
-        } else {
-            $admin = NULL;
-        }
-        $adminAll = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orWhere('jabatan', 'super admin')->orderBy('id', 'desc')->get();
+        $admin = [];
+        
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $admin = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orderBy('nama_pegawai', 'asc')->get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $login_nakes = [];
 
-        return view('pages/admin/master-data/data-admin/data-admin', compact('admin', 'adminAll'));
+            $data_pegawai = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->orderBy('nama_pegawai', 'asc')->get();
+
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $login_nakes = $nakes;
+
+            foreach ($login_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_pegawai->where('id_posyandu', $item) as $data) {
+                    $admin[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $admin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'admin')->orderBy('id', 'desc')->get();
+        }
+
+        return view('pages/admin/master-data/data-admin/data-admin', compact('admin'));
     }
 
     public function getImage($id)

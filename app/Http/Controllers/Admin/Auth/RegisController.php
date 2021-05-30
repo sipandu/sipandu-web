@@ -48,6 +48,13 @@ class RegisController extends Controller
         return view('pages/auth/admin/manajemen-akun/new-admin',compact('posyandu'));
     }
 
+    public function tambahKader()
+    {
+        $posyandu = Posyandu::all();
+        $nakesPosyandu = NakesPosyandu::all();
+        return view('pages/auth/admin/manajemen-akun/new-kader',compact('posyandu', 'nakesPosyandu'));
+    }
+
     public function formAddUser(Request $request)
     {
         $posyandu = Posyandu::all();

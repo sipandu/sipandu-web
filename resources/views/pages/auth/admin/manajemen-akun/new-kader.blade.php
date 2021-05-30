@@ -1,6 +1,6 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Tambah Admin')
+@section('title', 'Tambah Kader')
 
 @push('css')
   <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
@@ -10,11 +10,11 @@
 
 @section('content')
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Administrator</h1>
+      <h1 class="h3 col-lg-auto text-center text-md-start">Tambah Kader</h1>
       <div class="col-auto ml-auto text-right my-auto mt-n1">
           <nav aria-label="breadcrumb text-center">
               <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                  <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Admin') }}">Semua Admin</a></li>
+                  <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kader') }}">Semua Kader</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Tambah Baru</li>
               </ol>
           </nav>
@@ -30,7 +30,7 @@
         @endif
         <div class="card card-primary">
           <div class="card-header my-auto">
-            <h3 class="card-title my-auto">Form Tambah Administrator Baru</h3>
+            <h3 class="card-title my-auto">Form Tambah Kader Baru</h3>
           </div>
           <div class="card-body p-0">
             <div class="bs-stepper py-3">
@@ -258,7 +258,7 @@
                             <div class="form-group">
                               <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
                               <div class="input-group mb-3">
-                                  @if (Auth::guard('admin')->user()->role == 'super admin')
+                                  @if (auth()->guard('admin')->user()->role == 'super admin' || auth()->guard('admin')->user()->role == 'tenaga kesehatan')
                                     <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
                                       @if ( old('jabatan') )
                                         <option selected disabled>Pilih jabatan....</option>
@@ -308,8 +308,12 @@
                                           <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
                                         @endforeach
                                       @endif
-                                    @else
-                                      <option selected value="{{auth()->guard('admin')->user()->pegawai->id_posyandu}}">{{auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</option>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                      <option selected disabled>Pilih lokasi posyandu</option>
+                                      @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                        <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                      @endforeach
                                     @endif
                                 </select>
                                 @error('lokasi_posyandu')
@@ -374,7 +378,7 @@
     $(document).ready(function(){
       $('#account-management').addClass('menu-is-opening menu-open');
       $('#account').addClass('active');
-      $('#data-admin').addClass('active');
+      $('#data-kader').addClass('active');
     });
 
     // Custom Input Date
