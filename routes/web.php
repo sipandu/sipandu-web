@@ -290,11 +290,11 @@ Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminCon
 
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
-  
+
     Route::get('/laporan/kegiatan' , 'LaporanController@laporankegiatan')->name('laporan.kegiatan');
     Route::get('/laporan/bulanan' , 'LaporanController@laporanbulanan')->name('laporan.bulanan');
     Route::get('/laporan/tahunan' , 'LaporanController@laporantahunan')->name('laporan.tahunan');
-  
+
     // Ajax Laporan
     Route::prefix('ajax')->group( function () {
       Route::post('/laporan/kegiatan' , 'LaporanController@ajaxchartkegiatan');
@@ -304,9 +304,9 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
     });
-  
+
   });
-  
+
   // File Update ----
   //Riwayat Kesehatan Anggota Keluarga User
   Route::prefix('keluarga')->namespace('User\Auth')->group(function(){
@@ -358,8 +358,6 @@ Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->nam
 Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
 Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
-
-
 //Kegiatan
 Route::get('/admin/kegiatan/home', 'KegiatanController@index')->name('kegiatan.home')->middleware("cek:param1,head admin,admin,kader,param5");
 Route::get('/admin/kegiatan/create', 'KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
@@ -379,7 +377,15 @@ Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/update/{id}', 'Riwayat
 Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/delete', 'RiwayatKegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
 Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/get-img/{id}', 'RiwayatKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
-
+//Command Bot
+Route::get('/admin/command-bot/pertanyaan-konsultasi/home', 'BotCommandController@index')->name('pertanyaan-konsultasi.home');
+Route::get('/admin/command-bot/pertanyaan-konsultasi/create', 'BotCommandController@create')->name('pertanyaan-konsultasi.create');
+Route::post('/admin/command-bot/pertanyaan-konsultasi/store', 'BotCommandController@store')->name('pertanyaan-konsultasi.store');
+Route::get('/admin/command-bot/pertanyaan-konsultasi/show/{id}', 'BotCommandController@show')->name('pertanyaan-konsultasi.show');
+Route::get('/admin/command-bot/pertanyaan-konsultasi/kosongkan/{id}', 'BotCommandController@kosongkanParent')->name('pertanyaan-konsultasi.kosongkan');
+Route::post('/admin/command-bot/pertanyaan-konsultasi/update/{id}', 'BotCommandController@update')->name('pertanyaan-konsultasi.update');
+Route::post('/admin/command-bot/pertanyaan-konsultasi/add-parent', 'BotCommandController@addParent')->name('pertanyaan-konsultasi.add-parent');
+Route::post('/admin/command-bot/pertanyaan-konsultasi/delete', 'BotCommandController@delete')->name('pertanyaan-konsultasi.delete');
 
 // Ajax Dependent Select
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
