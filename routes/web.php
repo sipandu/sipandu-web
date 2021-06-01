@@ -105,7 +105,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
     Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
-    Route::get('/new-kader/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
+    Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
     Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
 
@@ -298,6 +298,7 @@ Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiControlle
 Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
 
 
 
@@ -307,6 +308,7 @@ Route::post('nakes/vitamin/tambah', 'Admin\ImunisasiVitamin\VitaminController@st
 Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {

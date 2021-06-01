@@ -16,6 +16,7 @@ class Imunisasi extends Model
         'deskripsi',
         'status',
         'penerima',
+        'deleted_at',
     ];
 
     public function pemberianImunisasi()
