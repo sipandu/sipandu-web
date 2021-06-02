@@ -38,7 +38,7 @@
                   </div>
                 @endif
                 @if (auth()->guard('admin')->user()->role == 'pegawai')
-                  @if (auth()->guard('admin')->user()->pegawai->role != 'kader')
+                  @if (auth()->guard('admin')->user()->pegawai->jabatan != 'kader')
                     <div class="col-6 my-auto">
                       <h3 class="card-title my-auto">Daftar Kader Posyandu</h3>
                     </div>
@@ -69,8 +69,8 @@
                   <th>Nomor Telp</th>
                   <th>Telegram</th>
                   <th>Tempat Tugas</th>
-                  @if (auth()->guard('admin')->user()->jabatan == 'pegawai')
-                    @if (auth()->guard('admin')->user()->pegawai->role != 'kader')
+                  @if (auth()->guard('admin')->user()->role == 'pegawai')
+                    @if (auth()->guard('admin')->user()->pegawai->jabatan != 'kader')
                       <th class="d-md-none">Tindakan</th>
                       <th class="d-none d-md-table-cell">Tindakan</th>
                     @endif
@@ -93,8 +93,8 @@
                       <td class="align-middle">{{ $data->username_telegram }}</td>
                     @endempty
                     <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
-                    @if (auth()->guard('admin')->user()->jabatan == 'pegawai')
-                        @if (auth()->guard('admin')->user()->pegawai->role != 'kader')
+                    @if (auth()->guard('admin')->user()->role == 'pegawai')
+                        @if (auth()->guard('admin')->user()->pegawai->jabatan != 'kader')
                           <td class="text-center align-middle d-md-none">
                             <a href="{{route('Detail Kader', $data->id)}}" class="btn btn-warning btn-sm">
                               <i class="fas fa-eye"></i>

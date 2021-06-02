@@ -29,7 +29,7 @@
             </nav>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid px-0">
         <div class="row">
             @if ($errors->any())
                 <div class="alert alert-danger text-center" role="alert">
@@ -314,13 +314,13 @@
                                     <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-sm-10 my-auto">
                                         @if (Auth::guard('admin')->user()->role == 'super admin')
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->superAdmin->tanggal_lahir)) }}">
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->superAdmin->tanggal_lahir)) }}">
                                         @endif
                                         @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->nakes->tanggal_lahir)) }}">
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->nakes->tanggal_lahir)) }}">
                                         @endif
                                         @if (Auth::guard('admin')->user()->role == 'pegawai')
-                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
                                         @endif
                                     </div>
                                 </div>
