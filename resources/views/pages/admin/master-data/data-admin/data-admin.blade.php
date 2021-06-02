@@ -27,19 +27,32 @@
         <div class="card-header">
           <div class="row">
             @if (auth()->guard('admin')->user()->role == 'super admin')
-                <div class="col-6 my-auto">
-                  <h3 class="card-title my-auto">Daftar Admin Posyandu</h3>
-                </div>
-                <div class="col-6 text-end">
-                  <a href="{{ route("Add Admin") }}" class="btn btn-success">
-                    <i class="fa fa-plus"></i> Tambah
-                  </a>
-                </div>
-              @else
-                <div class="col-12 my-auto">
-                  <h3 class="card-title my-auto">Daftar Admin Posyandu</h3>
-                </div>
+              <div class="col-6 my-auto">
+                <h3 class="card-title my-auto">Daftar Admin Posyandu</h3>
+              </div>
+              <div class="col-6 text-end">
+                <a href="{{ route("Add Admin") }}" class="btn btn-success">
+                  <i class="fa fa-plus"></i> Tambah
+                </a>
+              </div>
+            @else
+              @if (auth()->guard('admin')->user()->role == 'pegawai')
+                @if (auth()->guard('admin')->user()->pegawai->jabatan == 'head admin')
+                  <div class="col-6 my-auto">
+                    <h3 class="card-title my-auto">Daftar Admin Posyandu</h3>
+                  </div>
+                  <div class="col-6 text-end">
+                    <a href="{{ route("Add Admin") }}" class="btn btn-success">
+                      <i class="fa fa-plus"></i> Tambah
+                    </a>
+                  </div>
+                @else
+                  <div class="col-12 my-auto">
+                    <h3 class="card-title my-auto">Daftar Admin Posyandu</h3>
+                  </div>
+                @endif
               @endif
+            @endif
           </div>
         </div>
         <div class="card-body table-responsive-md">

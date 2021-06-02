@@ -258,21 +258,28 @@
                             <div class="form-group">
                               <label for="jabatan">Jabatan<span class="text-danger">*</span></label>
                               <div class="input-group mb-3">
+                                @if (auth()->guard('admin')->user()->role == 'super admin' || auth()->guard('admin')->user()->role == 'tenaga kesehatan')
+                                  <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
+                                    <option value="kader">Kader</option>
+                                  </select>
+                                @endif
+                                @if (Auth::guard('admin')->user()->role == 'pegawai')
                                   @if (Auth::guard('admin')->user()->pegawai->jabatan != 'kader')
                                     <select name="jabatan" class="form-select @error('jabatan') is-invalid @enderror" id="jabatan">
                                       <option selected value="kader">Kader</option>
                                     </select>
                                   @endif
-                                  <div class="input-group-append">
-                                    <div class="input-group-text">
-                                      <span class="fas fa-users-cog"></span>
-                                    </div>
+                                @endif
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-users-cog"></span>
                                   </div>
-                                  @error('jabatan')
-                                    <div class="invalid-feedback text-start">
-                                      {{ $message }}
-                                    </div>
-                                  @enderror
+                                </div>
+                                @error('jabatan')
+                                  <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                  </div>
+                                @enderror
                               </div>
                             </div>
                           </div>
@@ -281,7 +288,35 @@
                               <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
                               <div class="input-group mb-3">
                                 <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
-                                  <option value="{{ auth()->guard('admin')->user()->pegawai->id_posyandu }}">{{ auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu }}</option>
+                                  @if (Auth::guard('admin')->user()->role == 'super admin')
+                                    @if ( old('lokasi_posyandu') )
+                                      <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
+                                      @foreach ($posyandu as $p)
+                                        <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                      @endforeach
+                                    @else
+                                      <option selected disabled>Pilih Lokasi Posyandu ....</option>
+                                      @foreach ($posyandu as $p)
+                                        <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
+                                      @endforeach
+                                    @endif
+                                  @endif
+                                  @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                    @if ( old('lokasi_posyandu') )
+                                      <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
+                                      @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                        <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                      @endforeach
+                                    @else
+                                      <option selected disabled>Pilih lokasi posyandu</option>
+                                      @foreach ($nakesPosyandu->where('id_nakes', auth()->guard('admin')->user()->nakes->id) as $data)
+                                        <option value="{{ $data->id_posyandu }}">{{ $data->posyandu->nama_posyandu }}</option>
+                                      @endforeach
+                                    @endif
+                                  @endif
+                                  @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                    <option value="{{ auth()->guard('admin')->user()->pegawai->id_posyandu }}">{{ auth()->guard('admin')->user()->pegawai->posyandu->nama_posyandu }}</option>
+                                  @endif
                                 </select>
                                 @error('lokasi_posyandu')
                                   <div class="invalid-feedback text-start">
