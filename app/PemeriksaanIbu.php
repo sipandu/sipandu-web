@@ -11,7 +11,7 @@ class PemeriksaanIbu extends Model
     protected $fillable = [
         'id_posyandu',
         'id_ibu_hamil',
-        'id_pegawai',
+        'id_nakes',
         'nama_posyandu',
         'nama_pemeriksa',
         'nama_ibu_hamil',
@@ -41,8 +41,8 @@ class PemeriksaanIbu extends Model
         return $this->belongsTo(Ibu::class,'id_ibu_hamil','id');
     }
 
-    public function pegawai()
+    public function nakes()
     {
-        return $this->belongsTo(Pegawai::class,'id_pegawai','id');
+        return $this->belongsTo(Nakes::class,'id_nakes','id');
     }
 }

@@ -38,7 +38,7 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($ibu->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->nakes;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $ibu->id_user)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
@@ -54,9 +54,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $ibu->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $ibu->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -68,9 +68,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $ibu->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $ibu->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,
@@ -108,7 +108,7 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->nakes;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $anak->id_user)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
@@ -124,9 +124,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $anak->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $anak->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -138,9 +138,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $anak->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $anak->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,
@@ -178,7 +178,7 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->nakes;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $lansia->id_user)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
@@ -194,9 +194,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $lansia->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -208,9 +208,9 @@ class PemberianVitaminController extends Controller
                 'id_jenis_vitamin' => $request->vitamin,
                 'id_posyandu' => $lansia->id,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,

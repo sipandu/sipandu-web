@@ -246,7 +246,7 @@ class PemeriksaanController extends Controller
         ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
-        $pegawai = Auth::guard('admin')->user()->nakes;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -265,10 +265,10 @@ class PemeriksaanController extends Controller
         } else {
             $pemeriksaanIbu = PemeriksaanIbu::create([
                 'id_posyandu' => $ibu->id_posyandu,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'id_ibu_hamil' => $ibu->id,
                 'nama_posyandu' => $ibu->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
                 'lingkar_lengan' => $request->lingkar_lengan,
                 'berat_badan' => $berat_badan,
@@ -330,7 +330,7 @@ class PemeriksaanController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -360,10 +360,10 @@ class PemeriksaanController extends Controller
 
             $pemeriksaanAnak = PemeriksaanAnak::create([
                 'id_posyandu' => $anak->id_posyandu,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'id_anak' => $anak->id,
                 'nama_posyandu' => $anak->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_anak' => $anak->nama_anak,
                 'usia_anak' => $umur,
                 'lingkar_kepala' => $request->lingkar_kepala,
@@ -432,7 +432,7 @@ class PemeriksaanController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -452,10 +452,10 @@ class PemeriksaanController extends Controller
 
             $pemeriksaanLansia = PemeriksaanLansia::create([
                 'id_posyandu' => $lansia->id_posyandu,
-                'id_pegawai' => $pegawai->id,
+                'id_nakes' => $nakes->id,
                 'id_lansia' => $lansia->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_lansia' => $lansia->nama_lansia,
                 'usia_lansia' => $umur,
                 'berat_badan' => $request->berat_badan,
