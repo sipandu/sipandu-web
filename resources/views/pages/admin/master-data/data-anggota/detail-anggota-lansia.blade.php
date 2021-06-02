@@ -69,7 +69,7 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataUser->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d M Y', strtotime($dataUser->created_at)) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -116,7 +116,7 @@
                                             @if ($dataUser->lansia->tanggal_lahir == NULL)
                                                 <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
                                             @else
-                                                <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->lansia->tanggal_lahir)) }}" disabled readonly>
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ date('d M Y', strtotime($dataUser->lansia->tanggal_lahir)) }}" disabled readonly>
                                             @endif
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
@@ -890,30 +890,25 @@
 @endsection
     
 @push('js')    
-    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
-            $('#management-posyandu').addClass('active');
+            $('#account-management').addClass('menu-is-opening menu-open');
+            $('#account').addClass('active');
             $('#data-anggota').addClass('active');
 
             // Custom Input Date
             $(function () {
                 bsCustomFileInput.init();
-
                 $('.select2').select2()
-
                 $('.select2bs4').select2({
                     theme: 'bootstrap4'
                 })
-
                 $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
                 $('[data-mask]').inputmask()
             })
 
