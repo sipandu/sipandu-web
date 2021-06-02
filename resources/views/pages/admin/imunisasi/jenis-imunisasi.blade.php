@@ -56,19 +56,23 @@
                           <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-warning btn-sm">
                             <i class="fas fa-eye"></i>
                           </a>
-                          <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash-alt"></i>
-                          </a>
+                          @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                            <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-danger btn-sm">
+                              <i class="fas fa-trash-alt"></i>
+                            </a>
+                          @endif
                         </td>
                         <td class="text-center align-middle d-none d-md-table-cell">
                           <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-warning btn-sm">
                             <i class="fas fa-eye"></i>
                             Detail
                           </a>
-                          <button onclick="hapusImunisasi()" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                            Hapus
-                          </button>
+                          @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                            <button onclick="hapusImunisasi()" class="btn btn-sm btn-danger">
+                              <i class="fas fa-trash"></i>
+                              Hapus
+                            </button>
+                          @endif
                         </td>
                         <form action="{{ route('Hapus Imunisasi', $data->id) }}" id="hapus-imunisasi" method="POST" class="d-inline">
                           @csrf
