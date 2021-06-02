@@ -126,8 +126,8 @@ class PemeriksaanController extends Controller
         }
         
         $dataIbu = $ibu;
-        $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->get();
+        $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
+        $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
         $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $alergi = Alergi::where('id_user', $ibu->id_user)->get();
