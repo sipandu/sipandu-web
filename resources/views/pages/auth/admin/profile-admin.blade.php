@@ -121,14 +121,14 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Akun</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#account-admin" data-toggle="tab">Akun</a></li>
                             <li class="nav-item"><a class="nav-link" href="#personal" data-toggle="tab">Personal</a></li>
                             <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="active tab-pane" id="account">
+                            <div class="tab-pane active" id="account-admin">
                                 @if (Auth::guard('admin')->user()->role == 'super admin')
                                     <form action="{{route('edit.account.superadmin')}}" method="POST" class="form-horizontal">
                                         @csrf
@@ -414,7 +414,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                @include('modal/admin/change-profile')
+                                {{-- @include('modal/admin/change-profile') --}}
                             </div>
                         </div>
                     </div>
@@ -425,10 +425,6 @@
 @endsection
 
 @push('js')
-    {{-- Custom Step Page --}}
-    <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
-
-    <!-- Custom Input Date -->
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
@@ -436,7 +432,6 @@
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-admin-account').addClass('menu-is-opening menu-open');
             $('#list-admin-account-link').addClass('active');
             $('#profile-admin').addClass('active');
@@ -451,10 +446,6 @@
             $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
             $('[data-mask]').inputmask()
         })
-        // Custom Step Page
-        document.addEventListener('DOMContentLoaded', function () {
-            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-        });
     </script>
 
     @if($message = Session::get('failed'))

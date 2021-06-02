@@ -56,7 +56,7 @@
                           <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-warning btn-sm">
                             <i class="fas fa-eye"></i>
                           </a>
-                          @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                          @if (auth()->guard('admin')->user()->role == 'super admin')
                             <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-danger btn-sm">
                               <i class="fas fa-trash-alt"></i>
                             </a>
@@ -67,7 +67,7 @@
                             <i class="fas fa-eye"></i>
                             Detail
                           </a>
-                          @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                          @if (auth()->guard('admin')->user()->role == 'super admin')
                             <button onclick="hapusImunisasi()" class="btn btn-sm btn-danger">
                               <i class="fas fa-trash"></i>
                               Hapus

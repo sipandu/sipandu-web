@@ -9,12 +9,16 @@
 @section('content')
 <section class="content">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3 col-lg-auto text-center text-md-start">Rincian Posyandu</h1>
+    <h1 class="h3 col-lg-auto text-center text-md-start">Detail Posyandu</h1>
     <div class="col-auto ml-auto text-right my-auto mt-n1">
       <nav aria-label="breadcrumb text-center">
         <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-          <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Posyandu') }}">Data Posyandu</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Rincian Posyandu</li>
+          @if (auth()->guard('admin')->user()->role != 'pegawai')  
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Posyandu') }}">Data Posyandu</a></li>
+          @else  
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
+          @endif
+          <li class="breadcrumb-item active" aria-current="page">Detail Posyandu</li>
         </ol>
       </nav>
     </div>
@@ -24,7 +28,7 @@
       <div class="col-12">
         <div class="card card-primary">
           <div class="card-header">
-            <p class="card-title h4 my-auto">Rincian Data Posyandu</p>
+            <p class="card-title h4 my-auto">Detail Data Posyandu</p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -159,8 +163,8 @@
                   @endif
                 </ul>
                 <div class="text-center mt-5 mb-5">
-                  <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
                   @if (auth()->guard('admin')->user()->role == 'super admin')
+                    <a href="{{ route('Data Posyandu') }}" class="btn btn-sm btn-primary">Kembali</a>
                     <a href="{{ route("Edit Posyandu", $dataPosyandu->id)}}" class="btn btn-sm btn-warning">Edit</a>
 								  @endif
                   @if (auth()->guard('admin')->user()->role == 'pegawai')

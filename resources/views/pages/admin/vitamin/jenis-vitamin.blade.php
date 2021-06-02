@@ -52,21 +52,21 @@
                       <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
                       <td class="align-middle">{{ $data->penerima }}</td>
                       <td class="text-center align-middle d-md-none">
-                        <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
+                        <a href="{{route('Detail Vitamin', $data->id)}}" class="btn btn-warning btn-sm">
                           <i class="fas fa-eye"></i>
                         </a>
-                        @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                        @if (auth()->guard('admin')->user()->role == 'super admin')
                           <a href="{{route('Detail Imunisasi', $data->id)}}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i>
                           </a>
                         @endif
                       </td>
                       <td class="text-center align-middle d-none d-md-table-cell">
-                        <a href="{{route('Detail Vitamin', [$data->id])}}" class="btn btn-warning btn-sm">
+                        <a href="{{route('Detail Vitamin', $data->id)}}" class="btn btn-warning btn-sm">
                           <i class="fas fa-eye"></i>
                           Detail
                         </a>
-                        @if (auth()->guard('admin')->user()->jabatan == 'super admin')
+                        @if (auth()->guard('admin')->user()->role == 'super admin')
                           <button onclick="hapusVitamin()" class="btn btn-sm btn-danger">
                             <i class="fas fa-trash"></i>
                             Hapus

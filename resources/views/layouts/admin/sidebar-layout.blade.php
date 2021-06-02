@@ -67,13 +67,13 @@
                 <p>Data Posyandu</p>
               </a>
             </li>
-					@else
-					<li class="nav-item">
-						<a href="{{ route("Profile Posyandu") }}" class="nav-link" id="profile-posyandu">
-							<i class="nav-icon fas fa-clinic-medical"></i>
-							<p>Profile Posyandu</p>
-						</a>
-					</li>
+            @else
+            <li class="nav-item">
+                <a href="{{ route("Detail Posyandu", auth()->guard('admin')->user()->pegawai->id_posyandu) }}" id="data-posyandu" class="nav-link">
+                  <i class="nav-icon fas fa-hospital-user"></i>
+                  <p>Profile Posyandu</p>
+                </a>
+              </li>
           @endif
           <li class="nav nav-treeview">
 						<li class="nav-item" id="account-management">

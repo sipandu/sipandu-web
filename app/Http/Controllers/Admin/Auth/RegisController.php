@@ -341,6 +341,7 @@ class RegisController extends Controller
                 'password' => Hash::make($request->password),
                 'profile_image' => '/images/upload/Profile/default.jpg',
                 'is_verified' => 1,
+                'role' => 'pegawai',
             ]);
     
             $pegawai = $admin->pegawai()->create([
