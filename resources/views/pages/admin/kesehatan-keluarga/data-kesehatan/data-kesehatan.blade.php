@@ -24,31 +24,22 @@
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-bumil-tab" data-bs-toggle="tab" data-bs-target="#nav-bumil" type="button" role="tab" aria-controls="nav-bumil" aria-selected="true">Ibu Hamil</button>
-                        <button class="nav-link" id="nav-anak-tab" data-bs-toggle="tab" data-bs-target="#nav-anak" type="button" role="tab" aria-controls="nav-anak" aria-selected="true">Anak</button>
-                        <button class="nav-link" id="nav-lansia-tab" data-bs-toggle="tab" data-bs-target="#nav-lansia" type="button" role="tab" aria-controls="nav-lansia" aria-selected="true">Lansia</button>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-bumil" role="tabpanel" aria-labelledby="nav-bumil-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-12 my-auto">
-                                        <h3 class="card-title my-auto">Anggota Ibu Hamil</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body table-responsive-md">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-bumil-tab" data-bs-toggle="tab" data-bs-target="#nav-bumil" type="button" role="tab" aria-controls="nav-bumil" aria-selected="true">Ibu Hamil</button>
+                            <button class="nav-link" id="nav-anak-tab" data-bs-toggle="tab" data-bs-target="#nav-anak" type="button" role="tab" aria-controls="nav-anak" aria-selected="true">Anak</button>
+                            <button class="nav-link" id="nav-lansia-tab" data-bs-toggle="tab" data-bs-target="#nav-lansia" type="button" role="tab" aria-controls="nav-lansia" aria-selected="true">Lansia</button>
+                        </div>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-bumil" role="tabpanel" aria-labelledby="nav-bumil-tab">
                                 @if (count($ibu) > 0)
-                                    <table id="tbIbu" class="table table-bordered table-hover">
+                                    <table id="tbIbu" class="table table-bordered table-hover table-responsive-sm">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Bumil</th>
-                                                <th class="d-none d-md-table-cell">Nama Suami</th>
+                                                <th>Nama Suami</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -58,7 +49,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_ibu_hamil }}</td>
-                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->nama_suami }}</td>
+                                                    <td class="align-middle">{{ $data->nama_suami }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Data Kesehatan Ibu', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
@@ -75,28 +66,17 @@
                                         </tbody>
                                     </table>
                                 @else
-                                    <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Data Lansia</p>
+                                    <p class="my-auto text-center fs-5">Tidak Terdapat Data Lansia</p>
                                 @endif
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-anak" role="tabpanel" aria-labelledby="nav-anak-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-12 my-auto">
-                                        <h3 class="card-title my-auto">Anggota Anak</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body table-responsive-md">
+                            <div class="tab-pane fade" id="nav-anak" role="tabpanel" aria-labelledby="nav-anak-tab">
                                 @if (count($anak) > 0)
-                                    <table id="tbAnak" class="table table-bordered table-hover">
+                                    <table id="tbAnak" class="table table-bordered table-hover table-responsive-sm">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Anak</th>
-                                                <th class="d-none d-md-table-cell">Nama Ibu</th>
+                                                <th>Nama Ibu</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -106,7 +86,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_anak }}</td>
-                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->nama_ibu }}</td>
+                                                    <td class="align-middle">{{ $data->nama_ibu }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Data Kesehatan Anak', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
@@ -123,28 +103,17 @@
                                         </tbody>
                                     </table>
                                 @else
-                                    <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Data Anak</p>
+                                    <p class="my-auto text-center fs-5">Tidak Terdapat Data Anak</p>
                                 @endif
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-lansia" role="tabpanel" aria-labelledby="nav-lansia-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-12 my-auto">
-                                        <h3 class="card-title my-auto">Anggota Lansia</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body table-responsive-md">
+                            <div class="tab-pane fade" id="nav-lansia" role="tabpanel" aria-labelledby="nav-lansia-tab">
                                 @if (count($lansia) > 0)
-                                    <table id="tbLansia" class="table table-bordered table-hover">
+                                    <table id="tbLansia" class="table table-bordered table-hover table-responsive-sm">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lansia</th>
-                                                <th class="d-none d-md-table-cell">Kategori</th>
+                                                <th>Kategori</th>
                                                 <th class="d-md-none">Tindakan</th>
                                                 <th class="d-none d-md-table-cell">Tindakan</th>
                                             </tr>
@@ -154,7 +123,7 @@
                                                 <tr class="text-center align-middle my-auto">
                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $data->nama_lansia }}</td>
-                                                    <td class="align-middle d-none d-md-table-cell">{{ $data->status }}</td>
+                                                    <td class="align-middle">{{ $data->status }}</td>
                                                     <td class="text-center align-middle d-md-none">
                                                         <a href="{{route('Data Kesehatan Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
@@ -171,7 +140,7 @@
                                         </tbody>
                                     </table>
                                 @else
-                                    <p class="my-auto text-center fs-5 text-warning">Tidak Terdapat Data Lansia</p>
+                                    <p class="my-auto text-center fs-5">Tidak Terdapat Data Lansia</p>
                                 @endif
                             </div>
                         </div>

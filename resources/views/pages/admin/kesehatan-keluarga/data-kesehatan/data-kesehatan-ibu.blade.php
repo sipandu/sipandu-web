@@ -19,12 +19,12 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Ibu</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Kesehatan Ibu Hamil</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Ibu</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Data Kesehatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ibu Hamil</li>
                 </ol>
             </nav>
         </div>
@@ -228,13 +228,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Lingkar Lengan</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Berat Badan</label>
                                     </div>
                                 </div>
@@ -242,13 +242,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Denyut Nadi</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Tekanan Darah</label>
                                     </div>
                                 </div>
@@ -256,13 +256,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Tinggi Rahim</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Detak Jantung Bayi</label>
                                     </div>
                                 </div>

@@ -23,8 +23,8 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Anak</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Data Kesehatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Anak</li>
                 </ol>
             </nav>
         </div>
@@ -217,13 +217,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Lingkar Kepala</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Tinggi Badan</label>
                                     </div>
                                 </div>
@@ -231,13 +231,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Berat Badan</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">IMT</label>
                                     </div>
                                 </div>
@@ -493,16 +493,14 @@
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-kesehatan').addClass('menu-is-opening menu-open');
             $('#kesehatan').addClass('active');
             $('#data-kesehatan-keluarga').addClass('active');
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         const tinggi = JSON.parse("{{$js_tinggi}}");

@@ -23,8 +23,8 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Lansia</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Data Kesehatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lansia</li>
                 </ol>
             </nav>
         </div>
@@ -243,13 +243,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-&deg" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Suhu Tubuh</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Berat Badan</label>
                                     </div>
                                 </div>
@@ -257,13 +257,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Tinggi Lutut</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Tinggi Badan</label>
                                     </div>
                                 </div>
@@ -271,13 +271,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Tekanan Darah</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Denyut Nadi</label>
                                     </div>
                                 </div>
