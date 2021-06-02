@@ -52,7 +52,7 @@ class PemberianVitaminController extends Controller
 
             $vitaminIbu = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $ibu->id,
+                'id_posyandu' => $ibu->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $ibu->posyandu->nama_posyandu,
@@ -66,7 +66,7 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminIbu = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $ibu->id,
+                'id_posyandu' => $ibu->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $ibu->posyandu->nama_posyandu,
@@ -122,7 +122,7 @@ class PemberianVitaminController extends Controller
 
             $vitaminAnak = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $anak->id,
+                'id_posyandu' => $anak->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $anak->posyandu->nama_posyandu,
@@ -136,7 +136,7 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminAnak = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $anak->id,
+                'id_posyandu' => $anak->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $anak->posyandu->nama_posyandu,
@@ -192,7 +192,7 @@ class PemberianVitaminController extends Controller
 
             $vitaminLansia = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $lansia->id,
+                'id_posyandu' => $lansia->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,
@@ -206,7 +206,7 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminLansia = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $lansia->id,
+                'id_posyandu' => $lansia->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,

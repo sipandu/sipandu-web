@@ -194,7 +194,7 @@ class PemberianImunisasiController extends Controller
 
             $imunisasiLansia = PemberianImunisasi::create([
                 'id_jenis_imunisasi' => $request->imunisasi,
-                'id_posyandu' => $lansia->id,
+                'id_posyandu' => $lansia->id_posyandu,
                 'id_user' => $user->id,
                 'id_nakes' => $nakes->id,
                 'nama_posyandu' => $lansia->posyandu->nama_posyandu,
