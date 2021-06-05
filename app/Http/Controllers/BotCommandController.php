@@ -31,6 +31,7 @@ class BotCommandController extends Controller
         $pertanyaan->key = $request->key;
         $pertanyaan->is_question = '1';
         $pertanyaan->is_answer = '0';
+        $pertanyaan->satuan = $request->satuan ?? '-';
         $pertanyaan->save();
 
         $jawaban = new Command();
@@ -44,6 +45,7 @@ class BotCommandController extends Controller
         $jawaban->is_question = '0';
         $jawaban->is_answer = '1';
         $jawaban->is_numeric = $request->is_numeric;
+        $jawaban->satuan = $request->satuan ?? '-';
         $jawaban->save();
 
         return redirect()->route('pertanyaan-konsultasi.home')->with(['success' => 'Data berhasil ditambahkan']);
@@ -64,6 +66,7 @@ class BotCommandController extends Controller
         $pertanyaan->chat = $request->chat_pertanyaan;
         $pertanyaan->method = 'ask'.$request->key;
         $pertanyaan->key = $request->key;
+        $pertanyaan->satuan = $request->satuan ?? '-';
         $pertanyaan->save();
 
         $jawaban = Command::where('parent_id', $id)->first();
@@ -72,6 +75,7 @@ class BotCommandController extends Controller
         $jawaban->method = 'store'.$request->key;
         $jawaban->key = $request->key;
         $jawaban->is_numeric = $request->is_numeric;
+        $jawaban->satuan = $request->satuan ?? '-';
         $jawaban->save();
 
         return redirect()->route('pertanyaan-konsultasi.home')->with(['success' => 'Data berhasil diubah']);

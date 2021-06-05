@@ -470,7 +470,7 @@
                                             @if ($data->keterangan != NULL)
                                                 <p>{{ $data->keterangan }}</p>
                                             @else
-                                                <p>-</p>    
+                                                <p>-</p>
                                             @endif
                                         </div>
                                     </div>
@@ -501,7 +501,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-    
+
     // const DATA_COUNT = 12;
     // const labels[];
     // // for (let i = 0; i < DATA_COUNT; ++i) {
@@ -523,14 +523,14 @@
                 fill: false,
                 // cubicInterpolationMode: 'monotone',
                 // tension: 1
-            }, 
+            },
             // {
             //     label: 'Cubic interpolation',
             //     data: datapoints,
             //     borderColor: '#36a2eb',
             //     fill: false,
             //     tension: 0.4
-            // }, 
+            // },
             // {
             //     label: 'Linear interpolation (default)',
             //     data: datapoints,
@@ -560,7 +560,7 @@
                         title: {
                             display: true,
                             text: 'Minggu ke-',
-                        },  
+                        },
                     },
                     y: {
                         display: true,
@@ -575,11 +575,11 @@
                 }
             },
         };
-        
+
         var myChart = new Chart(
             document.getElementById('myChart'),
             config
         );
     </script>
-  
+
 @endpush

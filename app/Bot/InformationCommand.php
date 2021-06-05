@@ -38,10 +38,10 @@ class InformationCommand
     public function sendNewsestInformation()
     {
         $informasi = InformasiPenting::query()->orderby('created_at', 'desc')->limit(5)->get();
-        $data_chat = "[Informasi Terbaru]".PHP_EOL;
+        $data_chat = "INFORMASI TERBARU".PHP_EOL;
 
         foreach($informasi as $item) {
-            $data_chat = $data_chat . PHP_EOL . $item->judul_informasi . '('. $item->tanggal . ')' . PHP_EOL . $item->getLink() . PHP_EOL;
+            $data_chat = $data_chat . PHP_EOL . $item->judul_informasi . ' ('. $item->tanggal . ')' . PHP_EOL . $item->getLink() . PHP_EOL;
         }
 
         $response = Http::get($this->url_bot, [

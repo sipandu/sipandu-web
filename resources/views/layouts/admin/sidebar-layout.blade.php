@@ -226,6 +226,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item" >
+                                    <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
+                                        <i class="nav-icon fas fa-user-md"></i>
+                                        <p>Konsultasi Bot</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" >
                                     <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
                                         <i class="fas fa-stethoscope nav-icon"></i>
                                         <p>Pemeriksaan</p>
@@ -404,7 +410,7 @@
                     </li>
                 </li>
                 <li class="nav nav-treeview">
-                    <li class="nav-item">
+                    <li class="nav-item" id="setting-bot">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-robot"></i>
                             <p>
@@ -414,9 +420,15 @@
                         </a>
                         <ul class="nav nav-treeview ms-3">
                             <li class="nav-item">
-                                <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link">
+                                <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan-konsultasi">
                                     <i class="fas fa-file-alt nav-icon"></i>
                                     <p>Pertanyaan Konsultasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan statis">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Pertanyaan Statis</p>
                                 </a>
                             </li>
                         </ul>

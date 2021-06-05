@@ -22,17 +22,28 @@ class BotCommand extends Model
     {
         if(isset($this->data)) {
             $command = TableCommand::where('command', 'LIKE', '%'.$this->data['command'].'%')->first();
-            if ($command->model == 'GreetingCommand::class') {
-                $this->sendGreeting($command);
-            } else if($command->model == 'InformationCommand::class') {
-                $this->sendInformation($command);
-            } else if($command->model == 'RegisterUserCommand::class') {
-                $this->sendRegisterCommand($command);
-            } else if($command->model == 'KonsultasiCommand::class') {
-                $this->sendKonsultasiCommand($command);
-            }
-            else {
-                $this->singleMessage($command);
+            if (isset($command)) {
+                if ($command->model == 'GreetingCommand::class') {
+                    $this->sendGreeting($command);
+                } else if($command->model == 'InformationCommand::class') {
+                    $this->sendInformation($command);
+                } else if($command->model == 'RegisterUserCommand::class') {
+                    $this->sendRegisterCommand($command);
+                } else if($command->model == 'KonsultasiCommand::class') {
+                    $this->sendKonsultasiCommand($command);
+                }
+                else {
+                    $this->singleMessage($command);
+                }
+            } else {
+                $response = Http::get($this->url_bot, [
+                    'chat_id' => $this->data['chat_id'],
+                    'chat' => "Tidak ada command yang diterdaftar, anda dapat menggunakan beberapa command dibawah",
+                    'command' => '/no_command',
+                    'id_chat_in' => $this->data['id']
+                ]);
+                $command_hello = TableCommand::where('command', '/hello')->first();
+                $this->singleMessage($command_hello);
             }
         }
     }
@@ -64,7 +75,7 @@ class BotCommand extends Model
     public function singleMessage($command)
     {
         $response = Http::get($this->url_bot, [
-            'chat_id' => '759889734',
+            'chat_id' => $this->data['chat_id'],
             'chat' => $command->chat,
             'command' => $command->command,
             'id_chat_in' => $this->data['id']

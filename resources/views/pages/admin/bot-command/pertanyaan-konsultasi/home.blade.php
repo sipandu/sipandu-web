@@ -46,7 +46,7 @@
                       <th>Chat</th>
                       <th>Jenis</th>
                       <th>Key</th>
-                      <th>Tindakan</th>
+                      <th style="width: 100px;">Tindakan</th>
                     </tr>
                   </thead>
                   <tbody>

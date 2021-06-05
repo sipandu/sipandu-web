@@ -336,8 +336,6 @@ Route::get('/admin/informasi/sig-posyandu/polos', 'SIGPosyanduController@sigPolo
 Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduController@getData')->name('sig-posyandu.get_data')->middleware('auth:admin');
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
-
-
 //Penyuluhan
 Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
@@ -346,8 +344,6 @@ Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('pe
 Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-
-
 
 //Pengumuman
 Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
@@ -386,6 +382,13 @@ Route::get('/admin/command-bot/pertanyaan-konsultasi/kosongkan/{id}', 'BotComman
 Route::post('/admin/command-bot/pertanyaan-konsultasi/update/{id}', 'BotCommandController@update')->name('pertanyaan-konsultasi.update');
 Route::post('/admin/command-bot/pertanyaan-konsultasi/add-parent', 'BotCommandController@addParent')->name('pertanyaan-konsultasi.add-parent');
 Route::post('/admin/command-bot/pertanyaan-konsultasi/delete', 'BotCommandController@delete')->name('pertanyaan-konsultasi.delete');
+
+//Konsultasi Bot
+Route::get('/admin/konsultasi-bot/home', 'KonsultasiBotController@index')->name('konsultasi-bot.home');
+Route::get('/admin/konsultasi-bot/show/{id}', 'KonsultasiBotController@show')->name('konsultasi-bot.show');
+Route::get('/admin/konsultasi-bot/download/{id}', 'KonsultasiBotController@downloadKonsultasi')->name('konsultasi-bot.download');
+Route::get('/admin/konsultasi-bot/send-to-user/{id}', 'KonsultasiBotController@sendHasilToUser')->name('konsultasi-bot.sent-to-user');
+Route::post('/admin/konsultasi-bot/update-konsultasi', 'KonsultasiBotController@updateDiagnosa')->name('konsultasi-bot.update');
 
 // Ajax Dependent Select
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');

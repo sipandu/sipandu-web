@@ -3,8 +3,10 @@
 namespace App\Bot;
 
 use App\Command;
+use App\Konsultasi;
 use App\KonsultasiTemp;
 use App\RegisterBot;
+use App\User;
 use Illuminate\Support\Facades\Http;
 class KonsultasiCommand
 {
@@ -24,7 +26,12 @@ class KonsultasiCommand
             $this->login();
         } elseif ($this->command->command == '/cek_token') {
             $this->cekToken();
-        } else {
+        } elseif ($this->command->command == '/preview_konsultasi') {
+            $this->previewKonsultasi();
+        } elseif ($this->command->command == '/selesai_konsultasi') {
+            $this->selesaiKonsultasi();
+        }
+        else {
             if ($this->command->is_question == '1' && $this->command->is_answer == '0') {
                 $this->sendPertanyaan();
             } else {
@@ -105,15 +112,15 @@ class KonsultasiCommand
     public function storeJawaban()
     {
         $register_bot = RegisterBot::where('id_chat_tele', $this->data['chat_id'])->first();
-        $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->where('is_end', '0')->first();
+        $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->first();
         $data = [];
         if(isset($konsultasi_temp)) {
             $data = json_decode($konsultasi_temp->value, true);
-            $data[$this->command->key] = $this->data['chat'];
+            $data[$this->command->key] = $this->data['chat'] . ' ' . $this->command->satuan ?? ' ';
             $konsultasi_temp->value = json_encode($data);
             $konsultasi_temp->save();
         } else {
-            $data[$this->command->key] = $this->data['chat'];
+            $data[$this->command->key] = $this->data['chat'] . ' ' . $this->command->satuan ?? ' ';
             $konsultasi_temp = new KonsultasiTemp();
             $konsultasi_temp->id_user = $register_bot->user_id;
             $konsultasi_temp->chat_id = $this->data['chat_id'];
@@ -121,14 +128,18 @@ class KonsultasiCommand
             $konsultasi_temp->value = json_encode($data);
             $konsultasi_temp->save();
         }
-        $response = Http::get($this->url_bot, [
-            'chat_id' => $this->data['chat_id'],
-            'chat' => $this->command->chat,
-            'command' => $this->command->command,
-            'id_chat_in' => $this->data['id']
-        ]);
 
-        $this->cekJikaAdaPertanyaan();
+        if ($konsultasi_temp->is_end == '0') {
+            $response = Http::get($this->url_bot, [
+                'chat_id' => $this->data['chat_id'],
+                'chat' => $this->command->chat,
+                'command' => $this->command->command,
+                'id_chat_in' => $this->data['id']
+            ]);
+            $this->cekJikaAdaPertanyaan();
+        } else {
+            $this->previewKonsultasi();
+        }
     }
 
     public function cekJikaAdaPertanyaan()
@@ -147,13 +158,8 @@ class KonsultasiCommand
             $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->where('is_end', '0')->first();
             $konsultasi_temp->is_end = '1';
             $konsultasi_temp->save();
+
             $this->konfirmasiKonsultasi();
-            // $response = Http::get($this->url_bot, [
-            //     'chat_id' => $this->data['chat_id'],
-            //     'chat' => "Konsultasi Selesai, hasil akan dikirimkan berupa file",
-            //     'command' => $this->command->command,
-            //     'id_chat_in' => $this->data['id']
-            // ]);
         }
     }
 
@@ -162,8 +168,8 @@ class KonsultasiCommand
         $keyboard = [
             'inline_keyboard' => [
                 [
-                    ['text' => 'Input Ulang', 'callback_data' => '/hello'],
-                    ['text' => 'Sudah Benar', 'callback_data' => '/hello']
+                    ['text' => 'Preview', 'callback_data' => '/preview_konsultasi'],
+                    ['text' => 'Selesai', 'callback_data' => '/selesai_konsultasi']
                 ]
             ]
         ];
@@ -174,6 +180,61 @@ class KonsultasiCommand
             'command' => $this->command->command,
             'id_chat_in' => $this->data['id'],
             'reply_markup' => json_encode($keyboard)
+        ]);
+    }
+
+    public function previewKonsultasi()
+    {
+        $register_bot = RegisterBot::where('id_chat_tele', $this->data['chat_id'])->first();
+        $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->where('is_end', '1')->first();
+        $msg = '[PREVIEW DATA KONSULTASI]';
+        $data = (array) json_decode($konsultasi_temp->value);
+        foreach($data as $key => $item) {
+            $command_jawab = Command::where('model', 'KonsultasiCommand::class')
+                ->where('key', $key)
+                ->where('is_answer', '1')->first();
+            $msg = $msg . PHP_EOL . $command_jawab->command . ' ' . $key . ' => ' . $item;
+        }
+
+        $msg = $msg . PHP_EOL . 'Ketik /preview_konsultasi untuk melihat preview dari data konsultasi' .
+                PHP_EOL . 'Ketik /selesai_konsultasi untuk menyelesaikan konsultasi';
+
+        $response = Http::get($this->url_bot, [
+            'chat_id' => $this->data['chat_id'],
+            'chat' => $msg,
+            'command' => $this->command->command,
+            'id_chat_in' => $this->data['id']
+        ]);
+
+    }
+
+    public function selesaiKonsultasi()
+    {
+        $register_bot = RegisterBot::where('id_chat_tele', $this->data['chat_id'])->first();
+        $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->first();
+        $konsultasi_temp->is_end = '1';
+        $konsultasi_temp->save();
+
+        $user = User::find($register_bot->user_id);
+
+        $konsultasi = new Konsultasi();
+        $konsultasi->id_user = $register_bot->user_id;
+        $konsultasi->id_posyandu = $user->getIdPosyandu();
+        $konsultasi->kode_konsultasi = 'KONSUL-'.date('YmdHis').'-'.$register_bot->user_id;
+        $konsultasi->nama_pasien = $user->getNamaPasien();
+        $konsultasi->tanggal = date('Y-m-d');
+        $konsultasi->chat_id = $this->data['chat_id'];
+        $konsultasi->is_confirm = '0';
+        $konsultasi->value = $konsultasi_temp->value;
+        $konsultasi->save();
+
+        $konsultasi_temp->delete();
+
+        $response = Http::get($this->url_bot, [
+            'chat_id' => $this->data['chat_id'],
+            'chat' => $this->command->chat,
+            'command' => $this->command->command,
+            'id_chat_in' => $this->data['id']
         ]);
     }
 

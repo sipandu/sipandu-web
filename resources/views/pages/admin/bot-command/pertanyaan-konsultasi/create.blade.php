@@ -107,6 +107,16 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="">Satuan (Optional)</label>
+                                            <input type="text" name="satuan" class="form-control @error('satuan') is-invalid @enderror"
+                                            value="{{ old('satuan') }}" placeholder="Key Command" id="">
+                                            @error('key')
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                         <div class="col-12">
                                             <button class="btn btn-primary float-right" type="submit">Tambah</button>
                                         </div>
