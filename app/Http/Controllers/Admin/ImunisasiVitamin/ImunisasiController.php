@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Anak;
 use App\Ibu;
+use Carbon\Carbon;
 use App\Lansia;
 use App\Imunisasi;
 
@@ -72,7 +73,7 @@ class ImunisasiController extends Controller
 
     public function jenisImunisasi()
     {
-        $imunisasi = Imunisasi::orderBy('created_at', 'desc')->get();
+        $imunisasi = Imunisasi::orderBy('created_at', 'desc')->where('deleted_at', NULL)->get();
         
         return view('pages/admin/imunisasi/jenis-imunisasi', compact('imunisasi'));
     }
@@ -173,6 +174,21 @@ class ImunisasiController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data Imunisasi gagal diperbaharui']);
             }
+        }
+    }
+
+    public function hapusImunisasi(Imunisasi $imunisasi)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8');
+
+        $updateImunisasi = Imunisasi::where('id', $imunisasi->id)->update([
+            'deleted_at' => $today
+        ]);
+
+        if ($updateImunisasi) {
+            return redirect()->back()->with(['success' => 'Data Imunisasi berhasil dihapus']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Imunisasi gagal dihapus']);
         }
     }
 }

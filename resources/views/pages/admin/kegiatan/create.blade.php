@@ -7,7 +7,6 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
                     <li class="breadcrumb-item">Kegiatan</li>
                     <li class="breadcrumb-item active" aria-current="page">Tambah Kegiatan</li>
                 </ol>
@@ -25,7 +24,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">
-                                        Setting Penyuluhan
+                                        Setting Kegiatan
                                     </h4>
                                 </div>
                                 <div class="card-body">
@@ -70,7 +69,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Nama Kegiatan</label>
-                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Penyuluhan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
+                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Kegiatan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="">
                                         @error('nama_kegiatan')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>

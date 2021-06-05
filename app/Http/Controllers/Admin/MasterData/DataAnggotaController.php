@@ -15,6 +15,8 @@ use App\Kabupaten;
 use App\Kecamatan;
 use App\Desa;
 use App\Kegiatan;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\Ibu;
 use App\Anak;
 use App\Lansia;
@@ -30,29 +32,88 @@ class DataAnggotaController extends Controller
     
     public function listAnggota()
     {
-        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
-        ->select('tb_ibu_hamil.*')
-        ->where('tb_ibu_hamil.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
-        ->where('tb_user.is_verified', 1)
-        ->where('tb_user.keterangan', NULL)
-        ->orderBy('tb_ibu_hamil.created_at', 'desc')
-    ->get();
+        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $login_user = [];
+            $ibu = [];
+            $anak = [];
+            $lansia = [];
 
-    $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
-        ->select('tb_anak.*')
-        ->where('tb_anak.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
-        ->where('tb_user.is_verified', 1)
-        ->where('tb_user.keterangan', NULL)
-        ->orderBy('tb_anak.created_at', 'desc')
-    ->get();
+            $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+                ->select('tb_ibu_hamil.*')
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            ->get();
 
-    $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
-        ->select('tb_lansia.*')
-        ->where('tb_lansia.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
-        ->where('tb_user.is_verified', 1)
-        ->where('tb_user.keterangan', NULL)
-        ->orderBy('tb_lansia.created_at', 'desc')
-    ->get();
+            $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+                ->select('tb_anak.*')
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_anak.created_at', 'desc')
+            ->get();
+
+            $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+                ->select('tb_lansia.*')
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_lansia.created_at', 'desc')
+            ->get();
+
+            if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+                $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+                $login_user = $nakes;
+            }
+            if (auth()->guard('admin')->user()->role == 'pegawai') {
+                $admin = auth()->guard('admin')->user()->pegawai;
+                $login_user = $admin;
+            }
+
+            foreach ($login_user as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_ibu->where('id_posyandu', $item) as $data) {
+                    $ibu[] = $data;
+                }
+            }
+            foreach ($id_posyandu as $item) {
+                foreach ($data_anak->where('id_posyandu', $item) as $data) {
+                    $anak[] = $data;
+                }
+            }
+            foreach ($id_posyandu as $item) {
+                foreach ($data_lansia->where('id_posyandu', $item) as $data) {
+                    $lansia[] = $data;
+                }
+            }
+        }
+        if (auth()->guard('admin')->user()->role == 'pegawai') {
+            $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+                ->select('tb_ibu_hamil.*')
+                ->where('tb_ibu_hamil.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            ->get();
+    
+            $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+                ->select('tb_anak.*')
+                ->where('tb_anak.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_anak.created_at', 'desc')
+            ->get();
+    
+            $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+                ->select('tb_lansia.*')
+                ->where('tb_lansia.id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)
+                ->where('tb_user.is_verified', 1)
+                ->where('tb_user.keterangan', NULL)
+                ->orderBy('tb_lansia.created_at', 'desc')
+            ->get();
+        }
 
         return view('pages/admin/master-data/data-anggota/data-anggota', compact('anak', 'ibu', 'lansia'));
     }
@@ -134,7 +195,7 @@ class DataAnggotaController extends Controller
 
         if ($ibu->NIK == $request->nik) {
             $request->validate([
-                'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+                'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:51",
                 'nik' => "required|numeric|digits:16",
                 'tempat_lahir' => "required|min:3|max:50",
                 'tgl_lahir' => "required|date",

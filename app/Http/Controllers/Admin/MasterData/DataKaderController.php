@@ -10,6 +10,8 @@ use App\Mover;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\Pegawai;
 use App\Kabupaten;
 use App\Kecamatan;
@@ -25,12 +27,29 @@ class DataKaderController extends Controller
     
     public function listKader()
     {
-        $kader = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where( function ($q) {
-            $q->where('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan');
-        })->orderBy('id', 'desc')->get();
-        $kaderAll = Pegawai::orWhere('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan')->get();
+        if (auth()->guard('admin')->user()->role == 'pegawai') {
+            $kader = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'kader')->orderBy('id', 'desc')->get();
+        } else if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $login_user = [];
+            $kader = [];
 
-        return view('pages/admin/master-data/data-kader/data-kader', compact('kader', 'kaderAll'));
+            $data_kader = Pegawai::where('jabatan', 'kader')->get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $login_user = $nakes;
+
+            foreach ($login_user as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_kader->where('id_posyandu', $item) as $data) {
+                    $kader[] = $data;
+                }
+            }
+        }
+
+        return view('pages/admin/master-data/data-kader/data-kader', compact('kader'));
     }
 
     public function getImage($id)

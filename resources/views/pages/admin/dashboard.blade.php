@@ -9,12 +9,12 @@
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu 5.0</li>
                 </ol>
             </nav>
         </div>
     </div>
-    @if (auth()->guard('admin')->user()->pegawai->jabatan != "super admin")
+    @if (auth()->guard('admin')->user()->role != "super admin")
         <div class="container-fluid px-0">
             <div class="row text-center">
                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -41,17 +41,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-3">
+                {{-- <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Nakes</h5>
                         <p class="text-muted card-text">{{ $nakes->count() }}</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
-        <div class="container-fluid px-0">
+        {{-- <div class="container-fluid px-0">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="card">
@@ -74,9 +74,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     @endif
-    @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+    @if (auth()->guard('admin')->user()->role == "super admin")
         <div class="container-fluid px-0">
             <div class="row text-center">
                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid px-0">
+        {{-- <div class="container-fluid px-0">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     @endif
 @endsection
 
@@ -137,7 +137,7 @@
         });
     </script>
 
-    @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+    {{-- @if (auth()->guard('admin')->user()->role == "super admin")
         <script>
             var ctx3 = document.getElementById('pertambahanAnggota');
             var myChart3 = new Chart(ctx3, {
@@ -240,5 +240,5 @@
                 }
             });
         </script>
-    @endif
+    @endif --}}
 @endpush

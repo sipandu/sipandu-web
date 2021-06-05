@@ -42,7 +42,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataUser->id ) }}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataUser->id ) }}?{{date('YmdHis')}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{ $dataUser->lansia->nama_lansia }}</h3>
@@ -69,7 +69,7 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataUser->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d M Y', strtotime($dataUser->created_at)) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -93,19 +93,31 @@
                                     <label for="floatingInput">Nama Lengkap</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->NIK }}" disabled readonly>
+                                    @if ($dataUser->lansia->NIK == NULL)
+                                        <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->NIK }}" disabled readonly>
+                                    @endif
                                     <label for="floatingInput">Nomor Induk Kependudukan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->tempat_lahir }}" disabled readonly>
+                                            @if ($dataUser->lansia->tempat_lahir == NULL)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->lansia->tempat_lahir }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->lansia->tanggal_lahir)) }}" disabled readonly>
+                                            @if ($dataUser->lansia->tanggal_lahir == NULL)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ date('d M Y', strtotime($dataUser->lansia->tanggal_lahir)) }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
                                     </div>
@@ -878,30 +890,25 @@
 @endsection
     
 @push('js')    
-    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
-            $('#management-posyandu').addClass('active');
+            $('#account-management').addClass('menu-is-opening menu-open');
+            $('#account').addClass('active');
             $('#data-anggota').addClass('active');
 
             // Custom Input Date
             $(function () {
                 bsCustomFileInput.init();
-
                 $('.select2').select2()
-
                 $('.select2bs4').select2({
                     theme: 'bootstrap4'
                 })
-
                 $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
                 $('[data-mask]').inputmask()
             })
 

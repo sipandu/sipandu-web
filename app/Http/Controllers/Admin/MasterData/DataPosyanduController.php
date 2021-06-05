@@ -11,6 +11,7 @@ use App\Mover;
 use Carbon\Carbon;
 use App\Posyandu;
 use App\Admin;
+use App\NakesPosyandu;
 use App\Pegawai;
 use App\Kabupaten;
 use App\Kecamatan;
@@ -29,8 +30,38 @@ class DataPosyanduController extends Controller
 
     public function listPosyandu()
     {
-        // $admin = Admin::with('pegawai')->get();
-        $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+        $posyandu = [];
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+        }
+        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $login_user = [];
+
+            $data_posyandu = Posyandu::with('pegawai')->orderBy('nama_posyandu', 'asc')->get();
+
+            // $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+            //     ->select('tb_ibu_hamil.*')
+            //     ->where('tb_user.is_verified', 1)
+            //     ->where('tb_user.keterangan', NULL)
+            //     ->orderBy('tb_ibu_hamil.created_at', 'desc')
+            // ->get();
+
+            // if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+                $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+                $login_user = $nakes;
+            // }
+
+            foreach ($login_user as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_posyandu->where('id', $item) as $data) {
+                    $posyandu[] = $data;
+                }
+            }
+        }
         $pegawai = Pegawai::orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/data-posyandu', compact('posyandu', 'pegawai'));
@@ -173,7 +204,7 @@ class DataPosyanduController extends Controller
                     'jenis_kelamin' => $request->gender,
                     'alamat' => $request->alamat_pegawai,
                     'nomor_telepon' => $request->no_telp,
-                    'jabatan' => "admin",
+                    'jabatan' => "head admin",
                     'username_telegram' => $request->telegram,
                     'nik' => $request->nik,
                     'file_ktp' => $filename,
@@ -195,8 +226,9 @@ class DataPosyanduController extends Controller
         Carbon::setLocale('id');
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
-        $dataPosyandu = Posyandu::with('pegawai')->where('id', $posyandu->id)->get();
+        $dataPosyandu = Posyandu::with('pegawai')->where('id', $posyandu->id)->first();
         $pegawai = Pegawai::where('id_posyandu', $posyandu->id)->get();
+        $nakes = NakesPosyandu::where('id_posyandu', $posyandu->id)->get();
 
         // Upcoming Event Checking
         $nextKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '>', $today)->get();
@@ -231,69 +263,99 @@ class DataPosyanduController extends Controller
             ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
 
-        $headAdmin = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'head admin')->get();
+        $headAdmin = Pegawai::where('id_posyandu', $posyandu->id)->where('jabatan', 'head admin')->get();
 
         return view('pages/admin/master-data/data-posyandu/detail-posyandu', compact(
-            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin', 'ibu', 'anak', 'lansia'
+            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan', 'headAdmin', 'ibu', 'anak', 'lansia', 'nakes'
         ));
         // return $kegiatanPosyandu;
     }
 
     public function editPosyandu(Posyandu $posyandu)
     {
-        Carbon::setLocale('id');
-        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        // Carbon::setLocale('id');
+        // $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
         $dataPosyandu = Posyandu::with('pegawai')->where('id', $posyandu->id)->get();
-        $pegawai = Pegawai::where('id_posyandu', $posyandu->id)->where( function ($q) {
-            $q->where('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan')->orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin');
-        })->orderBy('id', 'desc')->get();
+        // $pegawai = Pegawai::where('id_posyandu', $posyandu->id)->where( function ($q) {
+        //     $q->where('jabatan', 'kader')->orWhere('jabatan', 'tenaga kesehatan')->orWhere('jabatan', 'admin')->orWhere('jabatan', 'head admin');
+        // })->orderBy('id', 'desc')->get();
 
         // Upcoming Event Checking
-        $nextKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '>', $today)->get();
+        // $nextKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '>', $today)->get();
 
         // Ended Event Checking
-        $lastKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('end_at', '<', $today)->get();
+        // $lastKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('end_at', '<', $today)->get();
 
         // In progres Event Checking
-        $currentKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '<', $today)->where('end_at', '>', $today)->get();
+        // $currentKegiatan = Kegiatan::where('id_posyandu', $posyandu->id)->where('start_at', '<', $today)->where('end_at', '>', $today)->get();
 
-        return view('pages/admin/master-data/data-posyandu/edit-posyandu', compact(
-            'dataPosyandu', 'pegawai', 'nextKegiatan', 'lastKegiatan', 'currentKegiatan'
-        ));
+        return view('pages/admin/master-data/data-posyandu/edit-posyandu', compact('dataPosyandu'));
     }
 
     public function updatePosyandu(Request $request, Posyandu $posyandu)
     {
-        $request->validate([
-            'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
-            'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
-            'telp' => "required|numeric|unique:tb_posyandu,nomor_telepon|digits_between:10,15",
-            'alamat' => "required|regex:/^[a-z0-9 ,.]+$/i|min:7",
-            'lat' => "required|regex:/^[0-9.-]+$/i|min:3",
-            'lng' => "required|regex:/^[0-9.-]+$/i|min:3"
-        ],
-        [
-            'nama.required' => "Nama Posyandu wajib diisi",
-            'nama.regex' => "Format penamaan posyandu tidak sesuai",
-            'nama.min' => "Nama posyandu minimal berjumlah 2 huruf",
-            'nama.max' => "Nama posyandu maksimal berjumlah 27 huruf",
-            'banjar.required' => "Banjar wajib diisi",
-            'banjar.regex' => "Format nama banjar tidak sesuai",
-            'banjar.min' => "Nama banjar minimal berjumlah 3 huruf",
-            'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
-            'telp.unique' => "Nomor telepon posyandu sudah pernah digunakan",
-            'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
-            'alamat.required' => "Alamat posyandu wajib diisi",
-            'alamat.regex' => "Format alamat posyandu tidak sesuai",
-            'alamat.min' => "Alamat posyandu minimal berjumlah 7 karakter",
-            'lat.required' => "Koordinat Latitude posyandu wajib diisi",
-            'lat.min' => "Koordinat Latitude minimal berjumlah 3 karakter",
-            'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
-            'lng.required' => "Koordinat Longitude posyandu wajib diisi",
-            'lng.min' => "Koordinat Longitude minimal berjumlah 3 karakter",
-            'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai",
-        ]);
+        if ($request->telp != $posyandu->nomor_telepon) {
+            $request->validate([
+                'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
+                'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
+                'telp' => "required|numeric|unique:tb_posyandu,nomor_telepon|digits_between:10,15",
+                'alamat' => "required|regex:/^[a-z0-9 ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:3",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:3"
+            ],
+            [
+                'nama.required' => "Nama Posyandu wajib diisi",
+                'nama.regex' => "Format penamaan posyandu tidak sesuai",
+                'nama.min' => "Nama posyandu minimal berjumlah 2 huruf",
+                'nama.max' => "Nama posyandu maksimal berjumlah 27 huruf",
+                'banjar.required' => "Banjar wajib diisi",
+                'banjar.regex' => "Format nama banjar tidak sesuai",
+                'banjar.min' => "Nama banjar minimal berjumlah 3 huruf",
+                'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
+                'telp.unique' => "Nomor telepon posyandu sudah pernah digunakan",
+                'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
+                'alamat.required' => "Alamat posyandu wajib diisi",
+                'alamat.regex' => "Format alamat posyandu tidak sesuai",
+                'alamat.min' => "Alamat posyandu minimal berjumlah 7 karakter",
+                'lat.required' => "Koordinat Latitude posyandu wajib diisi",
+                'lat.min' => "Koordinat Latitude minimal berjumlah 3 karakter",
+                'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
+                'lng.required' => "Koordinat Longitude posyandu wajib diisi",
+                'lng.min' => "Koordinat Longitude minimal berjumlah 3 karakter",
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai",
+            ]);
+        } else {
+            $request->validate([
+                'nama' => "required|regex:/^[a-z ]+$/i|min:2|max:27",
+                'banjar' => "required|regex:/^[a-z ]+$/i|min:3",
+                'telp' => "required|numeric|digits_between:10,15",
+                'alamat' => "required|regex:/^[a-z0-9 ,.]+$/i|min:7",
+                'lat' => "required|regex:/^[0-9.-]+$/i|min:3",
+                'lng' => "required|regex:/^[0-9.-]+$/i|min:3"
+            ],
+            [
+                'nama.required' => "Nama Posyandu wajib diisi",
+                'nama.regex' => "Format penamaan posyandu tidak sesuai",
+                'nama.min' => "Nama posyandu minimal berjumlah 2 huruf",
+                'nama.max' => "Nama posyandu maksimal berjumlah 27 huruf",
+                'banjar.required' => "Banjar wajib diisi",
+                'banjar.regex' => "Format nama banjar tidak sesuai",
+                'banjar.min' => "Nama banjar minimal berjumlah 3 huruf",
+                'telp.numeric' => "Nomor telepon posyandu harus berupa angka",
+                'telp.digits_between' => "Nomor telp posyandu harus berjumlah 10 sampai 15 digit",
+                'alamat.required' => "Alamat posyandu wajib diisi",
+                'alamat.regex' => "Format alamat posyandu tidak sesuai",
+                'alamat.min' => "Alamat posyandu minimal berjumlah 7 karakter",
+                'lat.required' => "Koordinat Latitude posyandu wajib diisi",
+                'lat.min' => "Koordinat Latitude minimal berjumlah 3 karakter",
+                'lat.regex' => "Format koordinat Latitude posyandu tidak sesuai",
+                'lng.required' => "Koordinat Longitude posyandu wajib diisi",
+                'lng.min' => "Koordinat Longitude minimal berjumlah 3 karakter",
+                'lng.regex' => "Format koordinat Longitude posyandu tidak sesuai",
+            ]);
+        }
+        
 
         $data = Posyandu::where('id', $posyandu->id)->update([
             'nama_posyandu' => $request->nama,

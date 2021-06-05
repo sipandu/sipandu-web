@@ -10,9 +10,8 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.home') }}">Riwayat Kegiatan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Tambah Dokumentasi Kegiatan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Baru</li>
                 </ol>
             </nav>
         </div>

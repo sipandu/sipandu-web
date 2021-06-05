@@ -6,7 +6,7 @@
                     <div class="footer-widget mb-30">
                         <a href="index.html" class="logo">
                             {{-- <img src="index-template/img/logo/logo.svg" alt=""> --}}
-                            <img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="90" height="90" class="d-inline-block align-top" alt="Logo Smart Posyandu">
+                            <img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="90" height="90" class="d-inline-block align-top" alt="Logo Smart Posyandu 5.0">
                         </a>
                         <p>Lorem ipsum dolor serit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
                             labore dolore magna
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="copyright-area">
-            <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu</a></p>
+            <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu 5.0</a></p>
         </div>
     </div>
 </footer>

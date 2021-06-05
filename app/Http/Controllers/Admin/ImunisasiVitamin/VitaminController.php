@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\ImunisasiVitamin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\User;
 use App\Anak;
 use App\Ibu;
@@ -78,7 +79,7 @@ class VitaminController extends Controller
 
     public function jenisVitamin()
     {
-        $vitamin = Vitamin::orderBy('created_at', 'desc')->get();
+        $vitamin = Vitamin::orderBy('created_at', 'desc')->where('deleted_at', NULL)->get();
 
         return view('pages/admin/vitamin/jenis-vitamin', compact('vitamin'));
     }
@@ -191,6 +192,21 @@ class VitaminController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data Vitamin gagal diperbaharui']);
             }
+        }
+    }
+
+    public function hapusVitamin(Vitamin $vitamin)
+    {
+        $today = Carbon::now()->setTimezone('GMT+8');
+
+        $updateVitamin = Vitamin::where('id', $vitamin->id)->update([
+            'deleted_at' => $today
+        ]);
+
+        if ($updateVitamin) {
+            return redirect()->back()->with(['success' => 'Data Vitamin berhasil dihapus']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Vitamin gagal dihapus']);
         }
     }
 }

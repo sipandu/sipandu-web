@@ -38,7 +38,7 @@
                     <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemeriksaan Lansia</p></div>
@@ -52,11 +52,7 @@
                                                         <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text fw-bold">
-                                                                    Gram
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">kg</span>
                                                             @error('berat_badan')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -68,11 +64,7 @@
                                                         <label for="suhu_tubuh">Suhu Tubuh<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="suhu_tubuh" autocomplete="off" class="form-control @error('suhu_tubuh') is-invalid @enderror" id="suhu_tubuh" value="{{ old('suhu_tubuh') }}" placeholder="Suhu tubuh">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text fw-bold">
-                                                                    C
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">C&deg</span>
                                                             @error('suhu_tubuh')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -84,11 +76,7 @@
                                                         <label for="tinggi_lutut">Tinggi Lutut<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="tinggi_lutut" autocomplete="off" class="form-control @error('tinggi_lutut') is-invalid @enderror" id="tinggi_lutut" value="{{ old('tinggi_lutut') }}" placeholder="Tinggi lutut">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    Cm
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">cm</span>
                                                             @error('tinggi_lutut')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -100,11 +88,7 @@
                                                         <label for="tinggi_badan">Tinggi Badan<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi badan">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text fw-bold">
-                                                                    Cm
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">cm</span>
                                                             @error('tinggi_badan')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -116,11 +100,7 @@
                                                         <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="tekanan_darah" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text fw-bold">
-                                                                    BPM
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">mmHG</span>
                                                             @error('tekanan_darah')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -132,11 +112,7 @@
                                                         <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
                                                         <div class="input-group">
                                                             <input type="text" name="denyut_nadi" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text fw-bold">
-                                                                    BPM
-                                                                </div>
-                                                            </div>
+                                                            <span class="input-group-text" id="basic-addon2">BPM</span>
                                                             @error('denyut_nadi')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
@@ -153,7 +129,7 @@
                                                                     <span class="fas fa-map-marker-alt"></span>
                                                                 </div>
                                                             </div>
-                                                            @error('    ')
+                                                            @error('lokasi_pemeriksaan')
                                                                 <div class="invalid-feedback text-start">
                                                                     {{ $message }}
                                                                 </div>
@@ -500,97 +476,103 @@
                                 <li class="list-group-item">
                                     <p class="text-center fs-5 fw-bold mt-3">Riwayat Pemeriksaan Lansia</p>
                                 </li>
-                                @foreach ($pemeriksaan as $data)
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{ $data->jenis_pemeriksaan }} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->pegawai->nama_pegawai}}</p></div>
-                                            <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#pemeriksaan{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="pemeriksaan{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
-                                        </div>
-                                        @if ($data->jenis_pemeriksaan == 'Konsultasi')
-                                            <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
-                                                <div class="card card-body">
-                                                    <span class="fw-bold">Usia :</span>
-                                                    <p>{{ $data->usia_lansia }} Tahun</p>
-                                                    <span class="fw-bold">Hasil Pemeriksaan :</span>
-                                                    <p>{{ $data->diagnosa }}</p>
-                                                    <span class="fw-bold">Pengobatan :</span>
-                                                    @if ($data->pengobatan != NULL)
-                                                        <p>{{ $data->pengobatan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
-                                                    <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
-                                                </div>
+                                @if ($pemeriksaan->count() > 0)
+                                    @foreach ($pemeriksaan as $data)
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{ $data->jenis_pemeriksaan }} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->nakes->nama_nakes}}</p></div>
+                                                <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#pemeriksaan{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="pemeriksaan{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
-                                        @endif
-                                        @if ($data->jenis_pemeriksaan == 'Pemeriksaan')
-                                            <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
-                                                <div class="card card-body">
-                                                    <span class="fw-bold">Hasil Pemeriksaan :</span>
-                                                    <p>{{ $data->diagnosa }}</p>
-                                                    <span class="fw-bold">Pengobatan :</span>
-                                                    @if ($data->pengobatan != NULL)
-                                                        <p>{{ $data->pengobatan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
-                                                    <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
-                                                    <div class="row text-center">
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Usia :</span>
-                                                            <p>{{ $data->usia_lansia }} Tahun</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Berat Badan :</span>
-                                                            <p>{{ $data->berat_badan }} Kilogram</p>
-                                                        </div>
+                                            @if ($data->jenis_pemeriksaan == 'Konsultasi')
+                                                <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
+                                                    <div class="card card-body">
+                                                        <span class="fw-bold">Usia :</span>
+                                                        <p>{{ $data->usia_lansia }} Tahun</p>
+                                                        <span class="fw-bold">Hasil Pemeriksaan :</span>
+                                                        <p>{{ $data->diagnosa }}</p>
+                                                        <span class="fw-bold">Pengobatan :</span>
+                                                        @if ($data->pengobatan != NULL)
+                                                            <p>{{ $data->pengobatan }}</p>
+                                                        @else
+                                                            <p>-</p>
+                                                        @endif
+                                                        <span class="fw-bold">Keterangan Tambahan :</span>
+                                                        @if ($data->keterangan != NULL)
+                                                            <p>{{ $data->keterangan }}</p>
+                                                        @else
+                                                            <p>-</p>
+                                                        @endif
                                                     </div>
-                                                    <div class="row text-center">
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Suhu Tubuh :</span>
-                                                            <p>{{ $data->suhu_tubuh }}&deg Celcius</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Tinggi Lutut :</span>
-                                                            <p>{{ $data->tinggi_lutut }} Sentimeter</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row text-center">
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Tinggi Badan :</span>
-                                                            <p>{{ $data->tinggi_badan }} Sentimeter</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Tekanan Darah :</span>
-                                                            <p>{{ $data->tekanan_darah }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row text-center">
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">Denyut Nadi :</span>
-                                                            <p>{{ $data->denyut_nadi }}</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <span class="fw-bold">IMT :</span>
-                                                            <p>{{ $data->IMT }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
+                                            @if ($data->jenis_pemeriksaan == 'Pemeriksaan')
+                                                <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
+                                                    <div class="card card-body">
+                                                        <span class="fw-bold">Hasil Pemeriksaan :</span>
+                                                        <p>{{ $data->diagnosa }}</p>
+                                                        <span class="fw-bold">Pengobatan :</span>
+                                                        @if ($data->pengobatan != NULL)
+                                                            <p>{{ $data->pengobatan }}</p>
+                                                        @else
+                                                            <p>-</p>
+                                                        @endif
+                                                        <span class="fw-bold">Keterangan Tambahan :</span>
+                                                        @if ($data->keterangan != NULL)
+                                                            <p>{{ $data->keterangan }}</p>
+                                                        @else
+                                                            <p>-</p>
+                                                        @endif
+                                                        <div class="row text-center">
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Usia :</span>
+                                                                <p>{{ $data->usia_lansia }} Tahun</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Berat Badan :</span>
+                                                                <p>{{ $data->berat_badan }} Kilogram</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center">
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Suhu Tubuh :</span>
+                                                                <p>{{ $data->suhu_tubuh }}&deg Celcius</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Tinggi Lutut :</span>
+                                                                <p>{{ $data->tinggi_lutut }} Sentimeter</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center">
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Tinggi Badan :</span>
+                                                                <p>{{ $data->tinggi_badan }} Sentimeter</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Tekanan Darah :</span>
+                                                                <p>{{ $data->tekanan_darah }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center">
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">Denyut Nadi :</span>
+                                                                <p>{{ $data->denyut_nadi }}</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <span class="fw-bold">IMT :</span>
+                                                                <p>{{ $data->IMT }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">21 Mei 2021</span></span>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <li class="list-group-item my-auto">
+                                        <p class="text-center my-auto">Belum Pernah Melakukan Pemeriksaan</p>
                                     </li>
-                                @endforeach
+                                @endif
                             </ul>
                         </div>
                         <div class="card card-primary card-outline">
@@ -602,7 +584,7 @@
                                     @foreach ($imunisasi as $data)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                                 <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="imunisasi{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
                                             <div class="collapse my-3" id="imunisasi{{ $loop->iteration }}">
@@ -647,7 +629,7 @@
                                     @foreach ($vitamin as $data)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                                 <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="vitamin{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
                                             <div class="collapse my-3" id="vitamin{{ $loop->iteration }}">
@@ -685,7 +667,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-primary card-outline sticky-top">
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <div class="image mx-auto d-block rounded">
@@ -780,40 +762,38 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <a href="{{ route('Detail Anggota Lansia', $dataLansia->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Lansia</a>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
-                            </div>
-                        </div>
-                        <div class="card card-primary card-outline">
-                            <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-12 my-auto text-center"><span class="fw-bold fs-5">Masalah Kesehatan Lansia</span></div>
-                                    </div>
-                                </li>
-                                @if ($riwayatPenyakit->count() < 1)
+                                <ul class="list-group list-group-unbordered mt-3">
                                     <li class="list-group-item">
-                                        <div class="row px-2 text-center">
-                                            <div class="col-12 my-3">
-                                                <span class="fw-bold">Tidak terdapat riwayat penyakit lansia</span>
+                                        <div class="row">
+                                            <div class="col-12 my-auto text-center"><span class="fw-bold fs-6">Masalah Kesehatan Lansia</span></div>
+                                        </div>
+                                    </li>
+                                    @if ($riwayatPenyakit->count() < 1)
+                                        <li class="list-group-item">
+                                            <div class="row px-2 text-center">
+                                                <div class="col-12 my-3">
+                                                    <span>Tidak terdapat riwayat penyakit lansia</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @else
-                                    <li class="list-group-item">
-                                        <div class="row px-2 text-center">
-                                            @foreach ($riwayatPenyakit as $data)
-                                                <div class="col-12 mt-3"><span class="fw-bold">{{ $data->nama_penyakit }}</span></div>
-                                                @if ($data->status == 'Sedang Mengalami')
-                                                    <div class="col-12 text-center my-auto"><span class="btn-sm btn-warning">Sedang Mengalami</span></div>
-                                                @else
-                                                    <div class="col-12 text-center my-auto"><span class="btn-sm btn-success">Sudah Sembuh</span></div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </li>
-                                @endif
-                            </ul>
+                                        </li>
+                                    @else
+                                        <li class="list-group-item">
+                                            <div class="row px-2 text-center">
+                                                @foreach ($riwayatPenyakit as $data)
+                                                    <div class="col-12 mt-3"><span class="fw-bold">{{ $data->nama_penyakit }}</span></div>
+                                                    @if ($data->status == 'Sedang Mengalami')
+                                                        <div class="col-12 text-center my-auto"><span class="btn-sm btn-warning">Sedang Mengalami</span></div>
+                                                    @else
+                                                        <div class="col-12 text-center my-auto"><span class="btn-sm btn-success">Sudah Sembuh</span></div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
+                                <a href="{{ route('Detail Anggota Lansia', $dataLansia->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Lansia</a>
+                                <a href="{{ route('Data Kesehatan Lansia', $dataLansia->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Lansia</a>
+                            </div>
                         </div>
                     </div>
                 </div>

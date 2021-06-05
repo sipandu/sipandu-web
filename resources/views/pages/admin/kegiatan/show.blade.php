@@ -10,7 +10,6 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ url('/admin') }}">sipandu</a></li>
                     <li class="breadcrumb-item">Kegiatan</li>
                     <li class="breadcrumb-item active" aria-current="page">{{ $kegiatan->nama_kegiatan }}</li>
                 </ol>
@@ -28,13 +27,13 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">
-                                        Setting Penyuluhan
+                                        Setting Kegiatan
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Lokasi Kegiatan</label>
-                                        <input type="text" name="tempat" value="{{ $kegiatan->tempat }}" class="form-control @error('tempat') is-invalid @enderror" placeholder="Masukkan Temapt Kegiatan" id="">
+                                        <input type="text" name="tempat" value="{{ $kegiatan->tempat }}" class="form-control @error('tempat') is-invalid @enderror" placeholder="Masukkan Tempat Kegiatan" id="">
                                         @error('tempat')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -77,7 +76,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Nama Kegiatan</label>
-                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" value="{{ $kegiatan->nama_kegiatan }}" placeholder="Masukkan Nama Penyuluhan" name="nama_kegiatan" id="">
+                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" value="{{ $kegiatan->nama_kegiatan }}" placeholder="Masukkan Nama Kegiatan" name="nama_kegiatan" id="">
                                         @error('nama_kegiatan')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -124,7 +123,7 @@
           $('#kegiatan').addClass('active');
           $('#tambah-kegiatan').addClass('active');
         });
-        
+
         $(function () {
           $('.ckeditor').each(function(e){
               CKEDITOR.replace(this.id ,{

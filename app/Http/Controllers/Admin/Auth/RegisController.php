@@ -12,7 +12,12 @@ use App\Posyandu;
 use App\Pegawai;
 use App\Admin;
 use App\User;
+use App\Kabupaten;
+use App\Kecamatan;
+use App\SuperAdmin;
 use App\Anak;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\Ibu;
 use App\Lansia;
 use App\KK;
@@ -24,25 +29,246 @@ class RegisController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function formAddSuperAdmin(Request $request)
+    {
+        $kabupaten = Kabupaten::get();
+        $kecamatan = Kecamatan::get();
+        return view('pages/auth/admin/manajemen-akun/new-super-admin', compact('kabupaten', 'kecamatan'));
+    }
+
+    public function formAddNakes(Request $request)
+    {
+        $posyandu = Posyandu::all();
+        return view('pages/auth/admin/manajemen-akun/new-nakes',compact('posyandu'));
+    }
+
     public function formAddAdmin(Request $request)
     {
         $posyandu = Posyandu::all();
         return view('pages/auth/admin/manajemen-akun/new-admin',compact('posyandu'));
     }
 
-    public function formAddKader(Request $request)
+    public function tambahKader()
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/manajemen-akun/new-kader',compact('posyandu'));
+        $nakesPosyandu = NakesPosyandu::all();
+        return view('pages/auth/admin/manajemen-akun/new-kader',compact('posyandu', 'nakesPosyandu'));
     }
 
     public function formAddUser(Request $request)
     {
         $posyandu = Posyandu::all();
-        return view('pages/auth/admin/manajemen-akun/new-user', compact('posyandu'));
+        $nakesPosyandu = NakesPosyandu::all();
+        return view('pages/auth/admin/manajemen-akun/new-user', compact('posyandu', 'nakesPosyandu'));
     }
 
-    public function storeAdminKader(Request $request)
+    public function storeSuperAdmin(Request $request)
+    {
+        // return ($request);
+        $this->validate($request,[
+            'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+            'email' => "required|email|unique:tb_admin,email",
+            'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3|max:50",
+            'tgl_lahir' => "required|date",
+            'gender' => "required",
+            'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
+            'file'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
+            'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
+            'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
+            'kabupaten' => "required",
+            'kecamatan' => "required",
+            'telegram' => "nullable|max:25|unique:tb_pegawai,username_telegram",
+            'password' => 'required|min:8',
+        ],
+        [
+            'name.required' => "Nama lengkap wajib diisi",
+            'name.regex' => "Format nama tidak sesuai",
+            'name.min' => "Nama lengkap minimal berjumlah 2 karakter",
+            'name.max' => "Nama lengkap maksimal berjumlah 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan format email yang sesuai",
+            'email.unique' => "Email sudah digunakan",
+            'tempat_lahir.required' => "Tampat lahir wajib diisi",
+            'tempat_lahir.regex' => "Format tempat lahir tidak sesuai",
+            'tempat_lahir.min' => "Tempat lahir minimal berjumlah 3 karakter",
+            'tempat_lahir.min' => "Tempat lahir maksimal berjumlah 50 karakter",
+            'tgl_lahir.required' => "Tanggal lahir wajib diisi",
+            'tgl_lahir.date' => "Tanggal lahir harus berformat tanggal",
+            'gender.required' => "Jenis kelamin wajib diisi",
+            'nik.required' => "NIK wajib diisi",
+            'nik.numeric' => "NIK harus berupa angka",
+            'nik.unique' => "NIK sudah digunakan",
+            'nik.digits' => "NIK harus berjumlah 16 karakter",
+            'file.required' => "Upload Scan KTP Wajib diisi",
+            'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
+            'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+            'file.size' => "Gambar maksimal berukuran 5 Mb",
+            'alamat.required' => "Alamat wajib diisi",
+            'alamat.regex' => "Format alamat tidak sesuai",
+            'tlpn.required' => "Nomor telepon wajib diisi",
+            'tlpn.numeric' => "Nomor telepon harus berupa angka",
+            'tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
+            'tlpn.unique' => "Nomor telepon sudah pernah digunakan",
+            'kecamatan.required' => "Kecamatan tempat bertugas wajib diisi",
+            'kabupaten.required' => "Kabupaten tempat bertugas wajib diisi",
+            'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
+            'telegram.unique' => "Username Telegram pernah digunakan",
+            'password.required' => "Password wajib diisi",
+            'password.min' => "Password minimal 8 karakter",
+        ]);
+
+        $umur = Carbon::parse($request->tgl_lahir)->age;
+        if ($umur < 19) {
+            return redirect()->back()->with(['error' => 'Tidak dapat menambahkan akun']);
+        } else {
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_lahir;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_lahir = $tahun.$bulan.$tgl;
+
+            $filename = Mover::slugFile($request->file('file'), 'app/files/ktp/');
+    
+            $admin = Admin::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => '/images/upload/Profile/default.jpg',
+                'is_verified' => 1,
+                'role' => 'super admin',
+            ]);
+    
+            $pegawai = SuperAdmin::create([
+                'id_admin' => $admin->id,
+                'id_kabupaten' => $request->kabupaten,
+                'id_kecamatan' => $request->kecamatan,
+                'nama_super_admin' => $request->name,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $tgl_lahir,
+                'jenis_kelamin' => $request->gender,
+                'alamat' => $request->alamat,
+                'jabatan' => 'super admin',
+                'nomor_telepon' => $request->tlpn,
+                'username_telegram' => $request->telegram,
+                'nik' => $request->nik,
+                'file_ktp' => $filename,
+            ]);
+
+            if ($filename && $admin && $pegawai) {
+                return redirect()->back()->with(['success' => 'Data akun super admin baru berhasil ditambahkan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data akun gagal ditambahkan']);
+            }
+        }
+    }
+
+    public function storeNakes(Request $request)
+    {
+        // return ($request);
+        $this->validate($request,[
+            'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+            'email' => "required|email|unique:tb_admin,email",
+            'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3|max:50",
+            'tgl_lahir' => "required|date",
+            'gender' => "required",
+            'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
+            'file'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
+            'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
+            'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
+            'lokasi_posyandu' => "required",
+            'telegram' => "nullable|max:25|unique:tb_pegawai,username_telegram",
+            'password' => 'required|min:8',
+        ],
+        [
+            'name.required' => "Nama lengkap wajib diisi",
+            'name.regex' => "Format nama tidak sesuai",
+            'name.min' => "Nama lengkap minimal berjumlah 2 karakter",
+            'name.max' => "Nama lengkap maksimal berjumlah 50 karakter",
+            'email.required' => "Email wajib diisi",
+            'email.email' => "Masukan format email yang sesuai",
+            'email.unique' => "Email sudah digunakan",
+            'tempat_lahir.required' => "Tampat lahir wajib diisi",
+            'tempat_lahir.regex' => "Format tempat lahir tidak sesuai",
+            'tempat_lahir.min' => "Tempat lahir minimal berjumlah 3 karakter",
+            'tempat_lahir.min' => "Tempat lahir maksimal berjumlah 50 karakter",
+            'tgl_lahir.required' => "Tanggal lahir wajib diisi",
+            'tgl_lahir.date' => "Tanggal lahir harus berformat tanggal",
+            'gender.required' => "Jenis kelamin wajib diisi",
+            'nik.required' => "NIK wajib diisi",
+            'nik.numeric' => "NIK harus berupa angka",
+            'nik.unique' => "NIK sudah digunakan",
+            'nik.digits' => "NIK harus berjumlah 16 karakter",
+            'file.required' => "Upload Scan KTP Wajib diisi",
+            'file.image' => "Gambar yang di unggah harus berupa jpeg, png atau,jpg ",
+            'file.mimes' => "Format gambar harus jpeg, png atau jpg",
+            'file.size' => "Gambar maksimal berukuran 5 Mb",
+            'alamat.required' => "Alamat wajib diisi",
+            'alamat.regex' => "Format alamat tidak sesuai",
+            'jabatan.required' => "Jabatan wajib diiisi",
+            'tlpn.required' => "Nomor telepon wajib diisi",
+            'tlpn.numeric' => "Nomor telepon harus berupa angka",
+            'tlpn.digits_between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
+            'tlpn.unique' => "Nomor telepon sudah pernah digunakan",
+            'lokasi_posyandu.required' => "Posyandu tempat bertugas wajib diisi",
+            'telegram.max' => "Username Telegram maksimal berjumlah 25 karakter",
+            'telegram.unique' => "Username Telegram pernah digunakan",
+            'password.required' => "Password wajib diisi",
+            'password.min' => "Password minimal 8 karakter",
+        ]);
+
+        $umur = Carbon::parse($request->tgl_lahir)->age;
+        if ($umur < 19) {
+            return redirect()->back()->with(['error' => 'Tenaga Kesehatan Tidak Cukup Umur']);
+        } else {
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_lahir;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_lahir = $tahun.$bulan.$tgl;
+
+            $filename = Mover::slugFile($request->file('file'), 'app/files/ktp/');
+    
+            $admin = Admin::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_image' => '/images/upload/Profile/default.jpg',
+                'is_verified' => 1,
+                'role' => 'tenaga kesehatan',
+            ]);
+    
+            $pegawai = Nakes::create([
+                'id_admin' => $admin->id,
+                'nama_nakes' => $request->name,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $tgl_lahir,
+                'jenis_kelamin' => $request->gender,
+                'alamat' => $request->alamat,
+                'jabatan' => 'tenaga kesehatan',
+                'nomor_telepon' => $request->tlpn,
+                'username_telegram' => $request->telegram,
+                'nik' => $request->nik,
+                'file_ktp' => $filename,
+            ]);
+
+            foreach ($request->lokasi_posyandu as $data => $value) {
+                $nakesPosyandu = NakesPosyandu::create([
+                    'id_posyandu' => $request->lokasi_posyandu[$data],
+                    'id_nakes' => $pegawai->id,
+                ]);
+            }
+
+            if ($filename && $admin && $pegawai && $nakesPosyandu) {
+                return redirect()->back()->with(['success' => 'Data akun Tenaga Kesehatan baru berhasil ditambahkan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data akun gagal ditambahkan']);
+            }
+        }
+    }
+
+    public function storeAdmin(Request $request)
     {
         $this->validate($request,[
             'name' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
@@ -115,6 +341,7 @@ class RegisController extends Controller
                 'password' => Hash::make($request->password),
                 'profile_image' => '/images/upload/Profile/default.jpg',
                 'is_verified' => 1,
+                'role' => 'pegawai',
             ]);
     
             $pegawai = $admin->pegawai()->create([
@@ -156,6 +383,7 @@ class RegisController extends Controller
             'alamat_bumil' => "required|regex:/^[a-z .,0-9]+$/i",
             'no_tlpn_bumil' => "nullable|numeric|unique:tb_ibu_hamil,nomor_telepon",
             'telegram_bumil' => "nullable|max:25|unique:tb_user,username_tele",
+            'lokasi_posyandu_bumil' => "required",
             'email_bumil' => "required|email|unique:tb_user,email",
             'passwordBumil' => 'required|min:8|max:50',
         ],
@@ -198,6 +426,7 @@ class RegisController extends Controller
             'no_tlpn_bumil.numeric' => "Nomor telepon harus berupa angka",
             'no_tlpn_bumil.between' => "Nomor telepon harus berjumlah 11 sampai 15 karakter",
             'no_tlpn_bumil.unique' => "Nomor telepon ibu hamil sudah digunakan",
+            'lokasi_posyandu_bumil.required' => "Lokasi posyandu ibu hamil wajib diisi",
             'passwordBumil.required' => "Password akun ibu hamil wajib diisi",
             'passwordBumil.min' => "Password minimal berjumlah 8 karakter",
             'passwordBumil.max' => "Password maksimal berjumlah 50 karakter",
@@ -205,7 +434,6 @@ class RegisController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_bumil)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         // Ubah format tanggal lahir //
         $tgl_lahir_indo = $request->tgl_lahir_bumil;
@@ -261,7 +489,7 @@ class RegisController extends Controller
                 ]);
     
                 $ibu = Ibu::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_bumil,
                     'id_user' => $user->id,
                     'nama_ibu_hamil' => $request->nama_bumil,
                     'nama_suami' => $request->nama_suami,
@@ -311,7 +539,7 @@ class RegisController extends Controller
                 ]);
     
                 $ibu = Ibu::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_bumil,
                     'id_user' => $user->id,
                     'nama_ibu_hamil' => $request->nama_bumil,
                     'nama_suami' => $request->nama_suami,
@@ -351,6 +579,7 @@ class RegisController extends Controller
             'telegram_anak' => "nullable|unique:tb_user,username_tele",
             'no_tlpn_anak' => "nullable|numeric|unique:tb_anak,nomor_telepon|digits_between:11,15",
             'status_anak' => "required|numeric",
+            'lokasi_posyandu_anak' => "required",
             'passwordAnak' => 'required|min:8|max:50',
         ],
         [
@@ -408,7 +637,6 @@ class RegisController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_anak)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         // Ubah format tanggal //
         $tgl_lahir_indo = $request->tgl_lahir_anak;
@@ -465,7 +693,7 @@ class RegisController extends Controller
                 ]);
 
                 $anak = Anak::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_anak,
                     'id_user' => $user->id,
                     'nama_anak' => $request->nama_anak,
                     'nama_ayah' => $request->nama_ayah,
@@ -520,7 +748,7 @@ class RegisController extends Controller
                 ]);
 
                 $anak = Anak::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_anak,
                     'id_user' => $user->id,
                     'nama_anak' => $request->nama_anak,
                     'nama_ayah' => $request->nama_ayah,
@@ -560,6 +788,7 @@ class RegisController extends Controller
             'telegram_lansia' => "nullable|max:25|unique:tb_user,username_tele",
             'no_tlpn_lansia' => "nullable|numeric|unique:tb_lansia,nomor_telepon|digits_between:10,15",
             'status_lansia' => "required",
+            'lokasi_posyandu_lansia' => "required",
             'passwordLansia' => 'required|min:8|max:50',
         ],
         [
@@ -602,11 +831,11 @@ class RegisController extends Controller
             'status_lansia.required' => "Status lansia wajib diisi",
             'passwordLansia.required' => "Password akun lansia wajib diisi",
             'passwordLansia.min' => "Password minimal 8 karakter",
+            'lokasi_posyandu_lansia.required' => "Lokasi posyandu lansia wajib diisi",
             'passwordLansia.max' => "Password maksimal 50 karakter",
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir_lansia)->age;
-        $posyandu = Posyandu::where('id', Auth::guard('admin')->user()->pegawai->id_posyandu)->first();
 
         if ($request->tanggungan_lansia == 'Dengan Tanggungan') {
             $this->validate($request,[
@@ -661,7 +890,7 @@ class RegisController extends Controller
                 ]);
 
                 $lansia = Lansia::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_lansia,
                     'id_user' => $user->id,
                     'nama_lansia' => $request->nama_lansia,
                     'tempat_lahir' => $request->tempat_lahir_lansia,
@@ -714,7 +943,7 @@ class RegisController extends Controller
                 ]);
 
                 $lansia = Lansia::create([
-                    'id_posyandu' => $posyandu->id,
+                    'id_posyandu' => $request->lokasi_posyandu_lansia,
                     'id_user' => $user->id,
                     'nama_lansia' => $request->nama_lansia,
                     'tempat_lahir' => $request->tempat_lahir_lansia,

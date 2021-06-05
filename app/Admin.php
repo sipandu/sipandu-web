@@ -2,7 +2,6 @@
 
 namespace App;
 
-// <<<<<<< loginRegis
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +22,7 @@ class Admin extends Authenticatable
         'profile_image',
         'is_verified',
         'otp_token',
+        'role',
         'created_at'
     ];
 
@@ -39,30 +39,13 @@ class Admin extends Authenticatable
         return $this->belongsTo(Admin::class, 'author_id');
     }
 
+    public function superAdmin()
+    {
+        return $this->hasOne(SuperAdmin::class,'id_admin','id');
+    }
 
-// =======
-
-
-// class Admin extends Model
-// {
-//     protected $table = 'tb_admin';
-
-//     protected $fillable = [
-//         'email', 'password', 'profile_image', 'is_verified'
-//     ];
-
-//     protected $hidden = [
-//         'password'
-//     ];
-
-    // public function posyandu()
-    // {
-    //     return $this->hasMany(Posyandu::class, 'id_admin');
-    // }
-
-    // public function pegawai()
-    // {
-    //     return $this->hasMany(Pegawai::class, 'id_admin');
-    // }
-// >>>>>>> main
+    public function nakes()
+    {
+        return $this->hasOne(Nakes::class,'id_admin','id');
+    }
 }

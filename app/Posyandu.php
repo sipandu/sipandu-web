@@ -83,4 +83,14 @@ class Posyandu extends Model
     {
         return $this->hasMany(PemeriksaanLansia::class,'id_posyandu','id');
     }
+
+    public function nakesPosyandu()
+    {
+        return $this->hasMany(NakesPosyandu::class,'id_posyandu','id');
+    }
+
+    public function superAdmin()
+    {
+        return $this->hasMany(SuperAdmin::class,'id_posyandu','id');
+    }
 }

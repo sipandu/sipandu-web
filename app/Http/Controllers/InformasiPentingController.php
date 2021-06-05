@@ -13,7 +13,7 @@ class InformasiPentingController extends Controller
 {
     public function index()
     {
-        if(Auth::guard('admin')->user()->pegawai->jabatan == 'super admin') {
+        if(Auth::guard('admin')->user()->role == 'super admin') {
             $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
         } else {
             $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)

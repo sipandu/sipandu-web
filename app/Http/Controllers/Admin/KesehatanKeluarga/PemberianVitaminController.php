@@ -38,9 +38,8 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($ibu->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $ibu->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
             // Ubah format tanggal //
@@ -53,11 +52,11 @@ class PemberianVitaminController extends Controller
 
             $vitaminIbu = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $ibu->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $ibu->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -67,11 +66,11 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminIbu = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $ibu->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $ibu->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,
@@ -109,9 +108,8 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $anak->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
             // Ubah format tanggal //
@@ -124,11 +122,11 @@ class PemberianVitaminController extends Controller
 
             $vitaminAnak = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $anak->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -138,11 +136,11 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminAnak = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $anak->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,
@@ -180,9 +178,8 @@ class PemberianVitaminController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
         $user = User::where('id', $lansia->id_user)->get()->first();
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
 
         if ($request->tgl_kembali_vitamin) {
             // Ubah format tanggal //
@@ -195,11 +192,11 @@ class PemberianVitaminController extends Controller
 
             $vitaminLansia = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $lansia->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $lansia->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => $tgl_kembali,
@@ -209,11 +206,11 @@ class PemberianVitaminController extends Controller
         } else {
             $vitaminLansia = PemberianVitamin::create([
                 'id_jenis_vitamin' => $request->vitamin,
-                'id_posyandu' => $posyandu->id,
+                'id_posyandu' => $lansia->id_posyandu,
                 'id_user' => $user->id,
-                'id_pegawai' => $pegawai->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $lansia->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'usia' => $umur,
                 'tanggal_pemberian' => $today,
                 'tanggal_kembali' => NULL,

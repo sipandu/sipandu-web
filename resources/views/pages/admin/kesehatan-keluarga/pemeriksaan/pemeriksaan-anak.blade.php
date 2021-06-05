@@ -21,12 +21,12 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Pemeriksaan Kesehatan Anak</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Pemeriksaan Anak</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Tambah Pemeriksaan') }}">Pemeriksaan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Pemeriksaan Anak</li>
+                    <li class="breadcrumb-item active" aria-current="page">Anak</li>
                 </ol>
             </nav>
         </div>
@@ -36,14 +36,14 @@
             <div class="col-12">
                 @if ($persalinan == NULL)
                     <div class="alert alert-primary text-center fs-5 fw-bold" role="alert">
-                        <span>Silakan isi data kehiran anak terlebih dahulu untuk mulai melakukan pemeriksaan</span>
+                        <span class="text-dark">Silakan isi data kehiran anak terlebih dahulu untuk mulai melakukan pemeriksaan</span>
                     </div>
                 @endif
                 <div class="row">
                     <div class="col-sm-12 col-md-7 col-lg-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if (auth()->guard('admin')->user()->pegawai->jabatan == "tenaga kesehatan")
+                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
                                     @if ($persalinan != NULL)
                                         <li class="list-group-item">
                                             <div class="row">
@@ -57,12 +57,8 @@
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label for="lingkar_kepala">Lingkar Kepala<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" name="lingkar_kepala" autocomplete="off" class="form-control @error('lingkar_kepala') is-invalid @enderror" id="lingkar_kepala" value="{{ old('lingkar_kepala') }}" placeholder="LK Anak">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Cm
-                                                                    </div>
-                                                                </div>
+                                                                <input type="text" name="lingkar_kepala" autocomplete="off" class="form-control @error('lingkar_kepala') is-invalid @enderror" id="lingkar_kepala" value="{{ old('lingkar_kepala') }}" placeholder="Lingkar kepada">
+                                                                <span class="input-group-text" id="basic-addon2">cm</span>
                                                                 @error('lingkar_kepala')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -74,11 +70,7 @@
                                                             <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat Anak">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Gram
-                                                                    </div>
-                                                                </div>
+                                                                <span class="input-group-text" id="basic-addon2">gram</span>
                                                                 @error('berat_badan')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -90,11 +82,7 @@
                                                             <label for="tinggi_badan">Tinggi Badan<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi Anak">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Cm
-                                                                    </div>
-                                                                </div>
+                                                                <span class="input-group-text" id="basic-addon2">cm</span>
                                                                 @error('tinggi_badan')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -199,7 +187,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label for="nama_ibu" class="form-label">Nama Ibu<span class="text-danger">*</span></label>
-                                                            <input class="form-control @error('berat_lahir') is-invalid @enderror" list="dataIbu" id="nama_ibu" name="nama_ibu" placeholder="Cari nama ibu...">
+                                                            <input class="form-control @error('nama_ibu') is-invalid @enderror" list="dataIbu" id="nama_ibu" name="nama_ibu" placeholder="Cari nama ibu...">
                                                             <datalist id="dataIbu">
                                                                 @foreach ($ibu as $data)
                                                                     <option value="{{ $data->nama_ibu_hamil }},{{ $data->NIK }}">
@@ -214,7 +202,8 @@
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label for="berat_lahir">Berat Lahir Bayi<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" name="berat_lahir" autocomplete="off" class="form-control @error('berat_lahir') is-invalid @enderror" id="berat_lahir" value="{{ old('berat_lahir') }}" placeholder="LK Anak">
+                                                                <input type="text" name="berat_lahir" autocomplete="off" class="form-control @error('berat_lahir') is-invalid @enderror" id="berat_lahir" value="{{ old('berat_lahir') }}" placeholder="Berat lahir">
+                                                                <span class="input-group-text" id="basic-addon2">gram</span>
                                                                 @error('berat_lahir')
                                                                     <div class="invalid-feedback text-start">
                                                                         {{ $message }}
@@ -285,34 +274,22 @@
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label>Lingkar Kepala</label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" placeholder="LK Anak" disabled readonly>
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Cm
-                                                                    </div>
-                                                                </div>
+                                                                <input type="text" class="form-control" placeholder="Lingkar kepala" disabled readonly>
+                                                                <span class="input-group-text" id="basic-addon2">cm</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label>Berat Badan<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" placeholder="Berat Anak" disabled readonly>
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Gram
-                                                                    </div>
-                                                                </div>
+                                                                <span class="input-group-text" id="basic-addon2">gram</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 col-md-6 my-2">
                                                             <label>Tinggi Badan</label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" placeholder="Tinggi Anak" disabled readonly>
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text fw-bold">
-                                                                        Cm
-                                                                    </div>
-                                                                </div>
+                                                                <span class="input-group-text" id="basic-addon2">cm</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 col-md-6 my-2">
@@ -575,7 +552,7 @@
                                     @foreach ($pemeriksaan as $data)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{$data->jenis_pemeriksaan}} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->pegawai->nama_pegawai}}</p></div>
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{$data->jenis_pemeriksaan}} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->nakes->nama_nakes}}</p></div>
                                                 <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#pemeriksaan{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="pemeriksaan{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
                                             @if ($data->jenis_pemeriksaan == 'Konsultasi')
@@ -665,7 +642,7 @@
                                     @foreach ($imunisasi as $data)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                                 <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="imunisasi{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
                                             <div class="collapse my-3" id="imunisasi{{ $loop->iteration }}">
@@ -710,7 +687,7 @@
                                     @foreach ($vitamin as $data)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                                <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                                 <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="vitamin{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                             </div>
                                             <div class="collapse my-3" id="vitamin{{ $loop->iteration }}">
@@ -748,7 +725,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-5 col-lg-4 order-1 order-md-2 mb-2">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-primary card-outline sticky-top">
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <div class="image mx-auto d-block rounded">
@@ -775,17 +752,17 @@
                                             <div class="col-7 text-end"><span>{{ $dataAnak->nama_ibu }}</span></div>
                                         </div>
                                     </li>
-                                    @if ($gizi_anak != NULL)
+                                    @if ($gizi != NULL)
                                         <li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-6 my-auto"><span class="fw-bold">Status Gizi</span></div>
-                                                @if ($gizi_anak == 'Cukup Gizi')
+                                                @if ($gizi == 'Cukup Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-success btn-sm">Cukup Gizi</span></div>
                                                 @endif
-                                                @if ($gizi_anak == 'Kurang Gizi')
+                                                @if ($gizi == 'Kurang Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-danger btn-sm">Kurang Gizi</span></div>
                                                 @endif
-                                                @if ($gizi_anak == 'Kelebihan Gizi')
+                                                @if ($gizi == 'Kelebihan Gizi')
                                                     <div class="col-6 text-end my-auto"><span class="btn btn-warning btn-sm">Kelebihan Gizi</span></div>
                                                 @endif
                                             </div>
@@ -871,7 +848,7 @@
                                     </li>
                                 </ul>
                                 <a href="{{ route('Detail Anggota Anak', $dataAnak->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Anak</a>
-                                <a href="" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
+                                <a href="{{ route('Data Kesehatan Anak', $dataAnak->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Anak</a>
                             </div>
                         </div>
                     </div>
@@ -882,7 +859,6 @@
 @endsection
 
 @push('js')
-    <!-- Custom Input Date -->
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
@@ -890,7 +866,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-kesehatan').addClass('menu-is-opening menu-open');
             $('#kesehatan').addClass('active');
             $('#pemeriksaan-keluarga').addClass('active');
@@ -899,18 +874,23 @@
         // Custom Input Date
         $(function () {
             bsCustomFileInput.init();
-
             $('.select2').select2()
-
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
-
             $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
             $('[data-mask]').inputmask()
         })
     </script>
+
+    @if ($errors->has('foto'))
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $('#detailFoto').modal('show');
+                $('#img_preview').hide();
+            });
+        </script>
+    @endif
 
     @if($message = Session::get('failed'))
         <script>

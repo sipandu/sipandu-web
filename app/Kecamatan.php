@@ -26,4 +26,9 @@ class Kecamatan extends Model
     {
         return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id');
     }
+
+    public function superAdmin()
+    {
+        return $this->hasMany(SuperAdmin::class,'id_posyandu','id');
+    }
 }
