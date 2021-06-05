@@ -48,14 +48,14 @@
                                     {{-- <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-penyuluhan" href="#penyuluhan">Penyuluhan</a>
                                     </li> --}}
+                                    {{-- <li class="nav-item">
+                                        <a class="text-decoration-none" href="{{ route('landing.regis') }}">Registrasi</a>
+                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="text-decoration-none" href="{{route('form.admin.login')}}">Masuk</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-tentang" href="#about">Tentang</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="text-decoration-none" href="{{ route('landing.regis') }}">Registrasi</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="text-decoration-none" href="{{route('form.user.login')}}">Masuk</a>
                                     </li>
                                 </ul>
                             </div>
