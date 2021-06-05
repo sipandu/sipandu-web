@@ -11,7 +11,7 @@ class PemeriksaanAnak extends Model
     protected $fillable = [
         'id_posyandu',
         'id_anak',
-        'id_pegawai',
+        'id_nakes',
         'nama_posyandu',
         'nama_pemeriksa',
         'nama_anak',
@@ -20,6 +20,7 @@ class PemeriksaanAnak extends Model
         'tinggi_badan',
         'usia_anak',
         'IMT',
+        'status_gizi',
         'diagnosa',
         'pengobatan',
         'keterangan',
@@ -39,8 +40,8 @@ class PemeriksaanAnak extends Model
         return $this->belongsTo(Anak::class,'id_ibu_hamil','id');
     }
 
-    public function pegawai()
+    public function nakes()
     {
-        return $this->belongsTo(Pegawai::class,'id_pegawai','id');
+        return $this->belongsTo(Nakes::class,'id_nakes','id');
     }
 }

@@ -23,13 +23,13 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Data Profile</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid px-0">
         <div class="row">
             @if ($errors->any())
                 <div class="alert alert-danger text-center" role="alert">
@@ -41,36 +41,57 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('profile.admin.get_img') }}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('profile.admin.get_img') }}?{{date('YmdHis')}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
-                        <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
+                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                            <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->superAdmin->nama_super_admin}}</h3>
+                        @endif
+                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                            <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->nakes->nama_nakes}}</h3>
+                        @endif
+                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                            <h3 class="profile-username text-center">{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}</h3>
+                        @endif
                         <p class="text-muted text-center">{{Auth::guard('admin')->user()->email}}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Jabatan</b>
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'super admin')
+                                @if (Auth::guard('admin')->user()->role == 'super admin')
                                     <a class="float-right text-decoration-none link-dark">Super Admin</a>
                                 @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
-                                    <a class="float-right text-decoration-none link-dark">Head Admin</a>
+                                @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'head admin')
+                                        <a class="float-right text-decoration-none link-dark">Head Admin</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
+                                        <a class="float-right text-decoration-none link-dark">Administrator</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
+                                        <a class="float-right text-decoration-none link-dark">Kader Posyandu</a>
+                                    @endif
                                 @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'admin')
-                                    <a class="float-right text-decoration-none link-dark">Administrator</a>
-                                @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'kader')
-                                    <a class="float-right text-decoration-none link-dark">Kader Posyandu</a>
-                                @endif
-                                @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
+                                @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
                                     <a class="float-right text-decoration-none link-dark">Tenaga Kesehatan</a>
                                 @endif
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Tempat Tugas</b>
-                                <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
-                                @include('modal/admin/status-konsultasi')
+                                @if (Auth::guard('admin')->user()->role == 'super admin')
+                                    <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->superAdmin->kecamatan->nama_kecamatan}}</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                    <a class="float-right text-decoration-none link-dark">
+                                        @foreach ($nakesPosyandu->where('id_nakes', Auth::guard('admin')->user()->nakes->id) as $data)
+                                            {{ $data->posyandu->nama_posyandu }}. 
+                                        @endforeach
+                                    </a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                    <a class="float-right text-decoration-none link-dark">{{Auth::guard('admin')->user()->pegawai->posyandu->nama_posyandu}}</a>
+                                @endif
                             </li>
-                            @if (Auth::guard('admin')->user()->pegawai->jabatan == 'tenaga kesehatan')
+                            {{-- @if (Auth::guard('admin')->user()->nakes->jabatan == 'tenaga kesehatan')
                                 <li class="list-group-item">
                                     <b class="fw-bold">Konsultasi</b>
                                     @if (Auth::guard('admin')->user()->pegawai->status == 'tidak tersedia')
@@ -81,10 +102,10 @@
                                     @endif
                                     @include('modal/admin/status-konsultasi')
                                 </li>
-                            @endif
+                            @endif --}}
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d M Y', strtotime(Auth::guard('admin')->user()->created_at)) }}</a>
                             </li>
                         </ul>
                         <form action="{{route('logout.admin')}}">
@@ -100,85 +121,221 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab">Akun</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#account-admin" data-toggle="tab">Akun</a></li>
                             <li class="nav-item"><a class="nav-link" href="#personal" data-toggle="tab">Personal</a></li>
                             <li class="nav-item"><a class="nav-link" href="#edit-profile" data-toggle="tab">Edit</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="active tab-pane" id="account">
-                                <form action="{{route('edit.account')}}" method="POST" class="form-horizontal">
-                                    @csrf
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
-                                            @error('email')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                            <div class="tab-pane active" id="account-admin">
+                                @if (Auth::guard('admin')->user()->role == 'super admin')
+                                    <form action="{{route('edit.account.superadmin')}}" method="POST" class="form-horizontal">
+                                        @csrf
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
+                                                @error('email')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->pegawai->username_telegram) }}" autocomplete="off">
-                                            @error('telegram')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                        <div class="form-group row">
+                                            <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->superAdmin->username_telegram) }}" autocomplete="off">
+                                                @error('telegram')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
-                                        <div class="col-sm-10 my-auto">
-                                            <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->pegawai->nomor_telepon) }}" autocomplete="off">
-                                            @error('no_tlpn')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                        <div class="form-group row">
+                                            <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->superAdmin->nomor_telepon) }}" autocomplete="off">
+                                                @error('no_tlpn')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12 d-grid">
-                                            <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 d-grid">
+                                                <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                @endif
+                                @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                    <form action="{{route('edit.account')}}" method="POST" class="form-horizontal">
+                                        @csrf
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
+                                                @error('email')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->nakes->username_telegram) }}" autocomplete="off">
+                                                @error('telegram')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->nakes->nomor_telepon) }}" autocomplete="off">
+                                                @error('no_tlpn')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 d-grid">
+                                                <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+                                @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                    <form action="{{route('edit.account')}}" method="POST" class="form-horizontal">
+                                        @csrf
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Alamat E-Mail" value="{{ old('email', Auth::guard('admin')->user()->email) }}" autocomplete="off">
+                                                @error('email')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputTele" class="col-sm-2 col-form-label">Telegram</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="telegram" type="text" class="form-control @error('telegram') is-invalid @enderror" id="inputTele" placeholder="Username Telegram" value="{{ old('telegram', Auth::guard('admin')->user()->pegawai->username_telegram) }}" autocomplete="off">
+                                                @error('telegram')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputTelp" class="col-sm-2 col-form-label">Nomor Telp</label>
+                                            <div class="col-sm-10 my-auto">
+                                                <input name="no_tlpn" type="text" class="form-control @error('no_tlpn') is-invalid @enderror" id="inputTelp" placeholder="Nomor Telepon" value="{{ old('no_tlpn', Auth::guard('admin')->user()->pegawai->nomor_telepon) }}" autocomplete="off">
+                                                @error('no_tlpn')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 d-grid">
+                                                <button type="submit" class="btn btn-outline-success my-1">Simpan Data</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                             <div class="tab-pane" id="personal">
                                 <div class="form-group row">
                                     <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
+                                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->superAdmin->nama_super_admin}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->nakes->nama_nakes}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                            <input type="email" class="form-control" id="inputNama" placeholder="Nama" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nama_pegawai}}">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputNIK" class="col-sm-2 col-form-label">NIK</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
+                                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->superAdmin->nik}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->nakes->nik}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->nik}}">
+                                        @endif
                                     </div>
                                 </div>
+                                @if (Auth::guard('admin')->user()->role == 'super admin')
+                                    <div class="form-group row">
+                                        <label for="inputNIK" class="col-sm-2 col-form-label">NIP</label>
+                                        <div class="col-sm-10 my-auto">
+                                            <input type="text" class="form-control" id="inputNIK" placeholder="NIK" disabled readonly value="{{Auth::guard('admin')->user()->superAdmin->nip}}">
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="form-group row">
                                     <label for="inputTempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
+                                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->superAdmin->tempat_lahir}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->nakes->tempat_lahir}}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                            <input type="text" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir" disabled readonly value="{{Auth::guard('admin')->user()->pegawai->tempat_lahir}}">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputTglLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-sm-10 my-auto">
-                                        <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d-M-Y', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
+                                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->superAdmin->tanggal_lahir)) }}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->nakes->tanggal_lahir)) }}">
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                            <input type="text" class="form-control" id="inputTglLahir" placeholder="Tanggal Lahir" disabled readonly value="{{ date('d M Y', strtotime(Auth::guard('admin')->user()->pegawai->tanggal_lahir)) }}">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row my-auto">
                                     <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
+                                        @if (Auth::guard('admin')->user()->role == 'super admin')
+                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->superAdmin->alamat}}</textarea>
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
+                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->nakes->alamat}}</textarea>
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->role == 'pegawai')
+                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat Lengkap" disabled readonly>{{Auth::guard('admin')->user()->pegawai->alamat}}</textarea>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +414,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                @include('modal/admin/change-profile')
+                                {{-- @include('modal/admin/change-profile') --}}
                             </div>
                         </div>
                     </div>
@@ -268,10 +425,6 @@
 @endsection
 
 @push('js')
-    {{-- Custom Step Page --}}
-    <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
-
-    <!-- Custom Input Date -->
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
@@ -279,7 +432,6 @@
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-admin-account').addClass('menu-is-opening menu-open');
             $('#list-admin-account-link').addClass('active');
             $('#profile-admin').addClass('active');
@@ -294,10 +446,6 @@
             $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
             $('[data-mask]').inputmask()
         })
-        // Custom Step Page
-        document.addEventListener('DOMContentLoaded', function () {
-            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-        });
     </script>
 
     @if($message = Session::get('failed'))

@@ -28,7 +28,7 @@
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="#">
-                                <img src="{{ asset('/images/sipandu-logo.png') }}" alt="" width="75" height="75" class="d-inline-block align-top" alt="Logo Smart Posyandu">
+                                <img src="{{ asset('/images/sipandu-logo.png') }}" alt="" width="75" height="75" class="d-inline-block align-top" alt="Logo Smart Posyandu 5.0">
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,14 +48,14 @@
                                     {{-- <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-penyuluhan" href="#penyuluhan">Penyuluhan</a>
                                     </li> --}}
+                                    {{-- <li class="nav-item">
+                                        <a class="text-decoration-none" href="{{ route('landing.regis') }}">Registrasi</a>
+                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="text-decoration-none" href="{{route('form.admin.login')}}">Masuk</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-tentang" href="#about">Tentang</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="text-decoration-none" href="{{ route('landing.regis') }}">Registrasi</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="text-decoration-none" href="{{route('form.user.login')}}">Masuk</a>
                                     </li>
                                 </ul>
                             </div>

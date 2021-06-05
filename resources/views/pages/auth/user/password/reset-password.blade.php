@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('images/sipandu-logo.ico') }}">
-    <title>Smart Posyandu - Reset Password</title>
+    <title>Smart Posyandu 5.0 - Reset Password</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
@@ -30,7 +30,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h4 fw-bold">Smart POSYANDU</a>
+                <a href="" class="text-decoration-none h4 fw-bold">Smart Posyandu 5.0</a>
             </div>
             <div class="card-body">
                 <p class="text-center py-2">Silahkan atur ulang password anda</p>
@@ -81,7 +81,7 @@
                     </div>
                 </form>
                 <div class="text-center mt-4 mb-0">
-                    <a href="{{ route('Landing Page') }}" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
+                    <a href="{{ route('Landing Page') }}" class="nav-link link-dark">Smart Posyandu 5.0 &copy 2021</a>
                 </div>
             </div>
         </div>

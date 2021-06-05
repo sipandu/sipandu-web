@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('images/sipandu-logo.ico') }}">
-    <title>Smart Posyandu | Lupa Sandi</title>
+    <title>Smart Posyandu 5.0 | Lupa Sandi</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('base-template/plugins/fontawesome-free/css/all.min.css')}}">
@@ -27,7 +27,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="" class="text-decoration-none h3 fw-bold">Smart Posyandu</a>
+                <a href="" class="text-decoration-none h3 fw-bold">Smart Posyandu 5.0</a>
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold">Pengubahan Kata Sandi</p>
             </div>
             <div class="card-body" >
@@ -88,7 +88,7 @@
                 </p>
             </div>
             <div class="text-center mt-4 mb-0">
-                <a href="" class="nav-link link-dark">Smart Posyandu &copy 2021</a>
+                <a href="" class="nav-link link-dark">Smart Posyandu 5.0 &copy 2021</a>
             </div>
 
         </div>

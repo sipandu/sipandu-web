@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline card-primary p-3">
-                    @if (auth()->guard('admin')->user()->pegawai->jabatan == "super admin")
+                    @if (auth()->guard('admin')->user()->role == "super admin")
                         <form action="{{ route('Update Vitamin', [$vitamin->id]) }}" method="POST">
                         @csrf
                             <div class="row">
@@ -87,7 +87,7 @@
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fas fa-tablets"></span>
+                                                        <span class="fas fa-tag"></span>
                                                     </div>
                                                 </div>
                                                 @error('status')
@@ -173,7 +173,7 @@
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fas fa-tag"></span>
+                                                        <span class="fas fa-user-tag"></span>
                                                     </div>
                                                 </div>
                                                 @error('penerima')
@@ -249,7 +249,7 @@
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fas fa-tablets"></span>
+                                                        <span class="fas fa-tag"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -262,7 +262,7 @@
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fas fa-tag"></span>
+                                                        <span class="fas fa-user-tag"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -274,9 +274,6 @@
                                         <textarea class="form-control" id="keterangan" placeholder="Masukan keterangan tambahan" disabled readonly>{{ $vitamin->deskripsi }}</textarea>
                                         <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
                                     </div>
-                                </div>
-                                <div class="col-12 my-2">
-                                    <a href="{{ route('Jenis Vitamin') }}" class="btn btn-block btn-outline-success">Jenis Vitamin</a>
                                 </div>
                             </div>
                         </form>

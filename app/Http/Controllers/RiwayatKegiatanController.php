@@ -18,7 +18,7 @@ class RiwayatKegiatanController extends Controller
     
     public function index()
     {
-        if(Auth::guard('admin')->user()->pegawai->jabatan == 'super admin') {
+        if(Auth::guard('admin')->user()->role == 'super admin') {
             $kegiatan_lewat = Kegiatan::where('end_at', '<', date('Y-m-d'))
                 ->orderby('end_at', 'desc')->get();
             $kegiatan_cancel = Kegiatan::onlyTrashed()->orderby('end_at', 'desc')->get();

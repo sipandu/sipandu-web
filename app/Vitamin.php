@@ -15,6 +15,7 @@ class Vitamin extends Model
         'deskripsi',
         'status',
         'penerima',
+        'deleted_at',
     ];
 
     public function pemberianVitamin()

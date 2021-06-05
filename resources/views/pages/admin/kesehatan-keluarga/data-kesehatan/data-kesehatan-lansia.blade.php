@@ -23,8 +23,8 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Kesehatan Keluarga</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Kehatan Lansia</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Kesehatan') }}">Data Kesehatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lansia</li>
                 </ol>
             </nav>
         </div>
@@ -243,13 +243,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-&deg" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Suhu Tubuh</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Kilogram" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Berat Badan</label>
                                     </div>
                                 </div>
@@ -257,13 +257,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Tinggi Lutut</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="- Sentimeter" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Tinggi Badan</label>
                                     </div>
                                 </div>
@@ -271,13 +271,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="konsultasi">Tekanan Darah</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="-" disabled readonly>
+                                        <input type="text" class="form-control" value="Tidak Tersedia" disabled readonly>
                                         <label for="pemeriksaan">Denyut Nadi</label>
                                     </div>
                                 </div>
@@ -298,7 +298,7 @@
                             @foreach ($pemeriksaan as $data)
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{ $data->jenis_pemeriksaan }} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->pegawai->nama_pegawai}}</p></div>
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">{{ $data->jenis_pemeriksaan }} {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{$data->nakes->nama_nakes}}</p></div>
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#pemeriksaan{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="pemeriksaan{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     @if ($data->jenis_pemeriksaan == 'Konsultasi')
@@ -404,7 +404,7 @@
                             @foreach ($imunisasi as $data)
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Imunisasi {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#imunisasi{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="imunisasi{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="imunisasi{{ $loop->iteration }}">
@@ -451,7 +451,7 @@
                             @foreach ($vitamin as $data)
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->pegawai->nama_pegawai }}</p></div>
+                                        <div class="col-10 my-auto"><p class="my-auto fs-6 text-start">Vitamin {{ date('d M Y', strtotime($data->created_at)) }} | Oleh {{ $data->nakes->nama_nakes }}</p></div>
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#vitamin{{ $loop->iteration }}" role="button" aria-expanded="false" aria-controls="vitamin{{ $loop->iteration }}"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="vitamin{{ $loop->iteration }}">

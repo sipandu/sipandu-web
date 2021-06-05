@@ -16,6 +16,8 @@ use App\PemeriksaanLansia;
 use App\PemberianImunisasi;
 use App\PemberianVitamin;
 use App\Alergi;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\Persalinan;
 use App\PenyakitBawaan;
 use App\RiwayatPenyakit;
@@ -30,29 +32,51 @@ class DataRiwayatKesehatanController extends Controller
     
     public function dataKesehatan()
     {
-        $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
+        $id_posyandu = [];
+        $login_user = [];
+        $ibu = [];
+        $anak = [];
+        $lansia = [];
 
-        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+        $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
             ->select('tb_ibu_hamil.*')
-            ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
+            ->orderBy('tb_ibu_hamil.created_at', 'desc')
         ->get();
 
-        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+        $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
             ->select('tb_anak.*')
-            ->where('tb_anak.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_anak.created_at', 'desc')
         ->get();
 
-        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+        $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
             ->select('tb_lansia.*')
-            ->where('tb_lansia.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
+
+        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $login_user = $nakes;
+        }
+        if (auth()->guard('admin')->user()->role == 'pegawai') {
+            $admin = auth()->guard('admin')->user()->pegawai;
+            $login_user = $admin;
+        }
+
+        foreach ($login_user as $data) {
+            $id_posyandu[] = $data->id_posyandu;
+        }
+        
+        foreach ($id_posyandu as $item) {
+            foreach ($data_ibu->where('id_posyandu', $item) as $data) {
+                $ibu[] = $data;
+            }
+        }
 
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan', compact('ibu', 'anak', 'lansia'));
     }
@@ -197,5 +221,176 @@ class DataRiwayatKesehatanController extends Controller
         $pj = PjLansia::where('id_lansia', $lansia->id)->first();
 
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan-lansia', compact('dataLansia', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'pj', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'dataKesehatan'));
+    }
+
+    public function kesehatanAnakMob1(Anak $anak)
+    {
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $beratBadan[] = $dataAwal->berat_badan;
+            $tinggiBadan[] = $dataAwal->tinggi_badan;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($beratBadan, $d->berat_badan);
+                    array_push($tinggiBadan, $d->tinggi_badan);
+                }
+            }
+            $js_tinggi = json_encode($tinggiBadan);
+            $js_berat = json_encode($beratBadan);
+            }else{
+                $js_tinggi = null;
+                $js_berat = null;  
+            }
+        }else{
+            $js_tinggi = null;
+            $js_berat = null;
+        }
+
+        return view('mobile/graph-mobile-1', compact('js_berat', 'js_tinggi', 'dataAnak', 'umur', 'imunisasi', 'vitamin', 'pemeriksaan', 'usia', 'alergi', 'dataKesehatan'));
+    }
+
+    public function kesehatanAnakMob2(Anak $anak)
+    {
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $beratBadan[] = $dataAwal->berat_badan;
+            $usia[] = $dataAwal->usia_anak;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($beratBadan, $d->berat_badan);
+                    array_push($usia, $d->usia_anak);
+                }
+            }
+            $js_berat = json_encode($beratBadan);
+            $js_usia = json_encode($usia);
+            }else{
+                $js_berat = null;
+                $js_usia = null;    
+            }
+        }else{
+            $js_berat = null;
+            $js_usia = null;
+        }
+
+        return view('mobile/graph-mobile-2', compact('js_berat', 'js_usia',));
+    }
+
+    public function kesehatanAnakMob3(Anak $anak)
+    {    
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $tinggiBadan[] = $dataAwal->tinggi_badan;
+            $usia[] = $dataAwal->usia_anak;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($tinggiBadan, $d->tinggi_badan);
+                    array_push($usia, $d->usia_anak);
+                }
+            }
+            $js_tinggi = json_encode($tinggiBadan);
+            $js_usia = json_encode($usia);
+            }else{
+                $js_tinggi = null;
+                $js_usia = null;
+            }
+        }else{
+            $js_tinggi = null;
+            $js_usia = null;
+        }
+
+
+        return view('mobile/graph-mobile-3', compact( 'js_tinggi', 'js_usia',));
+    }
+
+    public function kesehatanAnakMob4(Anak $anak)
+    {
+        
+        $dataAwal = pemeriksaanAnak::where('id_anak', $anak->id)->where('jenis_pemeriksaan', "Pemeriksaan")->orderBy('created_at', 'asc')->first();
+        // dd($dataAwal->id);
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->tinggi_badan != null){
+                $dataPemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('created_at', 'asc')->get();
+            $usia[] = $dataAwal->usia_anak;
+            $lingkarKepala[] = $dataAwal->lingkar_kepala;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    array_push($usia, $d->usia_anak);
+                    array_push($lingkarKepala, $d->lingkar_kepala);
+                }
+            }
+            $js_usia = json_encode($usia);
+            $js_lingkar = json_encode($lingkarKepala);
+            }else{
+                $js_usia = null;
+                $js_lingkar = null;    
+            }
+        }else{
+            $js_usia = null;
+            $js_lingkar = null;
+        }
+
+
+        return view('mobile/graph-mobile-4', compact('js_lingkar', 'js_usia'));
+    }
+
+    public function kesehatanIbuMob(Ibu $ibu)
+    {
+
+        $dataAwal = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->first();
+        if($dataAwal != null){
+            if($dataAwal->berat_badan != null || $dataAwal->usia_kandungan != null){
+                $beratAwal = $dataAwal->berat_badan;
+                $dataPemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('created_at', 'asc')->get();
+            // dd($dataAwal->berat_badan);
+            $perubahanBerat[] = 0;
+            $minggu[] = $dataAwal->usia_kandungan;
+            $i = 1;
+            foreach($dataPemeriksaan as $d){
+                if($i == 1){
+                    $i += 1 ;
+                    continue;
+                }else{
+                    $minusBerat = $d->berat_badan - $dataAwal->berat_badan;
+                    array_push($perubahanBerat, $minusBerat);
+                    array_push($minggu, $d->usia_kandungan);
+                }
+            }
+            $js_minggu = json_encode($minggu);
+            $js_berat = json_encode($perubahanBerat);
+            }else{
+                $js_minggu = null;
+                $js_berat = null;
+            }
+        }else{
+            $js_minggu = null;
+            $js_berat = null;
+        }
+
+        return view('mobile/graph-mobile-5', compact('js_minggu', 'js_berat',));
     }
 }

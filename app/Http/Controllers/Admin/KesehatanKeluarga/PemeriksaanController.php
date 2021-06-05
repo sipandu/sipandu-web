@@ -16,6 +16,8 @@ use App\Imunisasi;
 use App\KK;
 use App\Vitamin;
 use App\Posyandu;
+use App\Nakes;
+use App\NakesPosyandu;
 use App\PemeriksaanIbu;
 use App\PemeriksaanAnak;
 use App\PemeriksaanLansia;
@@ -36,29 +38,61 @@ class PemeriksaanController extends Controller
     
     public function tambahPemeriksaan()
     {
-        $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
+        $id_posyandu = [];
+        $login_user = [];
+        $ibu = [];
+        $anak = [];
+        $lansia = [];
 
-        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
+        $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
             ->select('tb_ibu_hamil.*')
-            ->where('tb_ibu_hamil.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
+            ->orderBy('tb_ibu_hamil.created_at', 'desc')
         ->get();
 
-        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
+        $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
             ->select('tb_anak.*')
-            ->where('tb_anak.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_anak.created_at', 'desc')
         ->get();
 
-        $lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
+        $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
             ->select('tb_lansia.*')
-            ->where('tb_lansia.id_posyandu', $idPosyandu)
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
+            ->orderBy('tb_lansia.created_at', 'desc')
         ->get();
+
+        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $login_user = $nakes;
+        }
+        if (auth()->guard('admin')->user()->role == 'pegawai') {
+            $admin = auth()->guard('admin')->user()->pegawai;
+            $login_user = $admin;
+        }
+
+        foreach ($login_user as $data) {
+            $id_posyandu[] = $data->id_posyandu;
+        }
+        
+        foreach ($id_posyandu as $item) {
+            foreach ($data_ibu->where('id_posyandu', $item) as $data) {
+                $ibu[] = $data;
+            }
+        }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_anak->where('id_posyandu', $item) as $data) {
+                $anak[] = $data;
+            }
+        }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_lansia->where('id_posyandu', $item) as $data) {
+                $lansia[] = $data;
+            }
+        }
 
         return view('pages/admin/kesehatan-keluarga/pemeriksaan/tambah-pemeriksaan', compact('ibu', 'anak', 'lansia') );
     }
@@ -92,8 +126,8 @@ class PemeriksaanController extends Controller
         }
         
         $dataIbu = $ibu;
-        $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->get();
+        $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
+        $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
         $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
         $alergi = Alergi::where('id_user', $ibu->id_user)->get();
@@ -126,7 +160,8 @@ class PemeriksaanController extends Controller
         $alergi = Alergi::where('id_user', $anak->id_user)->get();
         $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
-
+        $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
+        
         if ($umur > 0) {
             $usia = $umur.' Tahun';
         } else {
@@ -144,11 +179,11 @@ class PemeriksaanController extends Controller
             ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
         ->get();
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu'));
+        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi'));
     }
 
     public function pemeriksaanLansia(Lansia $lansia)
-    {   
+    {
         $dataLansia = $lansia;
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
         $pj = PjLansia::where('id_lansia', $lansia->id)->first();
@@ -211,9 +246,7 @@ class PemeriksaanController extends Controller
         ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
-
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -231,11 +264,11 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk ibu hamil tidak sesuai']);
         } else {
             $pemeriksaanIbu = PemeriksaanIbu::create([
-                'id_posyandu' => $posyandu->id,
-                'id_pegawai' => $pegawai->id,
+                'id_posyandu' => $ibu->id_posyandu,
+                'id_nakes' => $nakes->id,
                 'id_ibu_hamil' => $ibu->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_posyandu' => $ibu->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_ibu_hamil' => $ibu->nama_ibu_hamil,
                 'lingkar_lengan' => $request->lingkar_lengan,
                 'berat_badan' => $berat_badan,
@@ -270,6 +303,7 @@ class PemeriksaanController extends Controller
             'berat_badan' => "required|numeric|min:2",
             'tinggi_badan' => 'required|numeric|min:2',
             'tgl_kembali' => 'required|date',
+            'status_gizi' => 'required',
             'lokasiPemeriksaan' => 'required|min:5',
             'diagnosa' => 'required|min:5',
             'pengobatan' => 'nullable',
@@ -286,7 +320,8 @@ class PemeriksaanController extends Controller
             'tinggi_badan.numeric' => "Tinggi badan anak harus berupa angka",
             'tinggi_badan.min' => "Tinggi badan anak kurang dari nilai minimum",
             'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
-            'tgl_kembali.required' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'tgl_kembali.date' => "Tanggal pemeriksaan kembali harus berformat tanggal",
+            'status_gizi.required' => "Status gizi anak wajib dipilih",
             'lokasiPemeriksaan.required' => "Tempat pemeriksaan anak wajib diisi",
             'lokasiPemeriksaan.min' => "Nama tempat pemeriksaan anak terlalu singkat",
             'diagnosa.required' => "Diagnosa pemeriksaan anak wajib diisi",
@@ -295,9 +330,7 @@ class PemeriksaanController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($anak->tanggal_lahir)->age;
-
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -326,11 +359,11 @@ class PemeriksaanController extends Controller
             }
 
             $pemeriksaanAnak = PemeriksaanAnak::create([
-                'id_posyandu' => $posyandu->id,
-                'id_pegawai' => $pegawai->id,
+                'id_posyandu' => $anak->id_posyandu,
+                'id_nakes' => $nakes->id,
                 'id_anak' => $anak->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_anak' => $anak->nama_anak,
                 'usia_anak' => $umur,
                 'lingkar_kepala' => $request->lingkar_kepala,
@@ -340,6 +373,7 @@ class PemeriksaanController extends Controller
                 'pengobatan' => $request->pengobatan,
                 'keterangan' => $request->keterangan,
                 'IMT' => $imtAnak,
+                'status_gizi' => $request->status_gizi,
                 'jenis_pemeriksaan' => 'Pemeriksaan',
                 'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
                 'tanggal_pemeriksaan' => $today,
@@ -398,9 +432,7 @@ class PemeriksaanController extends Controller
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-
-        $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get()->first();
-        $pegawai = Auth::guard('admin')->user()->pegawai;
+        $nakes = Auth::guard('admin')->user()->nakes;
 
         // Ubah format tanggal //
         $tgl_kotor = $request->tgl_kembali;
@@ -419,11 +451,11 @@ class PemeriksaanController extends Controller
             $imt = $request->berat_badan / $tb;
 
             $pemeriksaanLansia = PemeriksaanLansia::create([
-                'id_posyandu' => $posyandu->id,
-                'id_pegawai' => $pegawai->id,
+                'id_posyandu' => $lansia->id_posyandu,
+                'id_nakes' => $nakes->id,
                 'id_lansia' => $lansia->id,
-                'nama_posyandu' => $posyandu->nama_posyandu,
-                'nama_pemeriksa' => $pegawai->nama_pegawai,
+                'nama_posyandu' => $lansia->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
                 'nama_lansia' => $lansia->nama_lansia,
                 'usia_lansia' => $umur,
                 'berat_badan' => $request->berat_badan,
@@ -507,16 +539,16 @@ class PemeriksaanController extends Controller
 
             if ($jarakKehamilan > 0) {
                 $bumil = Ibu::where('id', $ibu->id)->update([
-                    'kehamilan_ke' => $jarakKehamilan,
+                    'kehamilan_ke' => $jumlahKehamilan,
                     'jarak_anak_sebelumnya' => $jarakKehamilan,
                 ]);
             } else {
                 $bumil = Ibu::where('id', $ibu->id)->update([
-                    'kehamilan_ke' => $jarakKehamilan,
+                    'kehamilan_ke' => $jumlahKehamilan,
                 ]);
             }
             
-            if ($persalinan && $jarakKehamilan) {
+            if ($persalinan && $bumil) {
                 return redirect()->back()->with(['success' => 'Data Persalinan Berhasil di Simpan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Data Persalinan Gagal di Simpan']);

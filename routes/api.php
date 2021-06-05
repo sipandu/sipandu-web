@@ -54,6 +54,19 @@ Route::prefix('mobileuser')->group(function(){
     //kesehatan stuff
     Route::post('/kesehatan/get-history-vitamin-anak', 'User\Auth\Api\ApiKesehatanDataController@getVitaminHistory');
     Route::post('/kesehatan/get-history-imunisasi-anak', 'User\Auth\Api\ApiKesehatanDataController@getImunisasiHistory');
+    Route::post('/kesehatan/get-history-pemeriksaan-anak', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanAnakHistory');
+    Route::post('/kesehatan/get-keluargaku-anak', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuAnak');
+    Route::post('/kesehatan/get-kesehatan-anak', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryAnak');
+    Route::post('/kesehatan/get-kesehatan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryIbu');
+
+    Route::post('/kesehatan/get-history-pemeriksaan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanIbuHistory');
+    Route::post('/kesehatan/get-keluargaku-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuIbu');
+
+    Route::post('/kesehatan/get-history-pemeriksaan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanIbuHistory');
+    Route::post('/kesehatan/get-keluargaku-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuIbu');
+
+    Route::post('/kesehatan/get-history-pemeriksaan-lansia', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanLansiaHistory');
+    Route::post('/kesehatan/get-keluargaku-lansia', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuLansia');
 
     // informasi stuff
     Route::get('/get-informasi-home', 'User\Auth\Api\ApiInformasiController@getInformasiHome');

@@ -31,6 +31,6 @@ class ForgotPassword extends Mailable
      */
     public function build()
     {
-        return $this->Subject('Reset Password - Smart Posyandu')->markdown('pages.auth.admin.password.email')->with('admin',$this->admin);
+        return $this->Subject('Reset Password - Smart Posyandu 5.0')->markdown('pages.auth.admin.password.email')->with('admin',$this->admin);
     }
 }

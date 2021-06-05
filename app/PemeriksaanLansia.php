@@ -10,7 +10,7 @@ class PemeriksaanLansia extends Model
 
     protected $fillable = [
         'id_posyandu',
-        'id_pegawai',
+        'id_nakes',
         'id_lansia',
         'nama_posyandu',
         'nama_pemeriksa',
@@ -42,8 +42,8 @@ class PemeriksaanLansia extends Model
         return $this->belongsTo(Lansia::class,'id_lansia','id');
     }
 
-    public function pegawai()
+    public function nakes()
     {
-        return $this->belongsTo(Pegawai::class,'id_pegawai','id');
+        return $this->belongsTo(Nakes::class,'id_nakes','id');
     }
 }

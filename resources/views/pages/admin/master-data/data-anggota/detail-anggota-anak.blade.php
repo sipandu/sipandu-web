@@ -42,7 +42,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataUser->id ) }}" alt="Profile Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Data Anggota', $dataUser->id ) }}?{{date('YmdHis')}}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{ $dataUser->anak->nama_anak }}</h3>
@@ -76,7 +76,7 @@
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>
-                                <a class="float-right text-decoration-none link-dark">{{ date('d-M-Y', strtotime($dataUser->created_at)) }}</a>
+                                <a class="float-right text-decoration-none link-dark">{{ date('d M Y', strtotime($dataUser->created_at)) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -99,19 +99,31 @@
                                     <label for="floatingInput">Nama Lengkap</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->NIK }}" disabled readonly>
+                                    @if ($dataUser->anak->NIK == NULL)
+                                        <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                    @else
+                                        <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->NIK }}" disabled readonly>
+                                    @endif
                                     <label for="floatingInput">Nomor Induk Kependudukan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->tempat_lahir }}" disabled readonly>
+                                            @if ($dataUser->anak->tempat_lahir == NULL)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->anak->tempat_lahir }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tempat Lahir</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" value="{{ date('d-M-Y', strtotime($dataUser->anak->tanggal_lahir)) }}" disabled readonly>
+                                            @if ($dataUser->anak->tanggal_lahir == NULL)
+                                                <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
+                                            @else
+                                                <input type="text" class="form-control" id="floatingInput" value="{{ date('d M Y', strtotime($dataUser->anak->tanggal_lahir)) }}" disabled readonly>
+                                            @endif
                                             <label for="floatingInput">Tanggal Lahir</label>
                                         </div>
                                     </div>
@@ -482,9 +494,8 @@
 
     <script>
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
-            $('#list-management-posyandu').addClass('menu-is-opening menu-open');
-            $('#management-posyandu').addClass('active');
+            $('#account-management').addClass('menu-is-opening menu-open');
+            $('#account').addClass('active');
             $('#data-anggota').addClass('active');
         });
 
