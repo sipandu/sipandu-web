@@ -37,7 +37,6 @@
                     <table id="data" class="table table-bordered table-hover">
                       <thead>
                         <tr class="text-center">
-                          <th>No</th>
                           <th>Tanggal</th>
                           <th>Nama Pasien</th>
                           <th>Status</th>
@@ -46,22 +45,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                          @foreach ($konsultasi as $item)
-                              <tr class="text-center">
-                                  <th class="fw-normal align-middle">{{ $loop->iteration }}</th>
-                                  <th class="fw-normal align-middle">{{ $item->nama_pasien }}</th>
-                                  <th class="fw-normal align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
-                                  <th class="fw-normal align-middle">{{ $item->cekStatus() }}</th>
-                                  <th class="fw-normal align-middle">{{ $item->cekStatusTerkirim() }}</th>
-                                  <th class="fw-normal align-middle">
-                                      @if($item->is_confirm != '0')
+                          @foreach ($data_konsultasi as $kon_item)
+                            @foreach ($kon_item as $item)
+                                <tr class="text-center">
+                                    <th class="fw-normal align-middle">{{ $item->nama_pasien }}</th>
+                                    <th class="fw-normal align-middle">{{ date('d F Y', strtotime($item->tanggal)) }}</th>
+                                    <th class="fw-normal align-middle">{{ $item->cekStatus() }}</th>
+                                    <th class="fw-normal align-middle">{{ $item->cekStatusTerkirim() }}</th>
+                                    <th class="fw-normal align-middle">
+                                        @if($item->is_confirm != '0')
                                         @if($item->is_sent != '1')
                                             <a href="{{ route('konsultasi-bot.sent-to-user', $item->id) }}" class="btn btn-sm btn-primary"><i class="fab fa-telegram-plane"></i></a>
                                         @endif
-                                      @endif
-                                      <a href="{{ route('konsultasi-bot.show', $item->id) }}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
-                                  </th class="align-middle">
-                              </tr>
+                                        @endif
+                                        <a href="{{ route('konsultasi-bot.show', $item->id) }}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
+                                    </th class="align-middle">
+                                </tr>
+                            @endforeach
                           @endforeach
                       </tbody>
                     </table>
@@ -93,7 +93,7 @@
                 "oLanguage": {
                     "sSearch": "Cari: ",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "emptyTable": "Tidak Terdapat Data Informasi",
+                    "emptyTable": "Tidak Terdapat Data Konsultasi Bot",
                     "sSearchPlaceholder": "Cari informasi....",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)",
