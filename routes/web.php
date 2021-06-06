@@ -319,13 +319,16 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
     // Ajax Laporan
     Route::prefix('ajax')->group( function () {
-      Route::post('/laporan/kegiatan' , 'LaporanController@ajaxchartkegiatan');
-      Route::post('/laporan/bulanan' , 'LaporanController@ajaxchartbulanan');
-      Route::post('/laporan/tahunan' , 'LaporanController@ajaxcharttahunan');
-      Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
-      Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
-      Route::get('/filter/l/{type}' , 'LaporanController@filter');
-    });
+        Route::post('/laporan/kegiatan' , 'LaporanController@ajaxchartkegiatan');
+        Route::post('/laporan/bulanan' , 'LaporanController@ajaxchartbulanan');
+        Route::post('/laporan/tahunan' , 'LaporanController@ajaxcharttahunan');
+        Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
+        Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
+        Route::get('/filter/l/{type}' , 'LaporanController@filter');
+        Route::get('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
+        Route::post('/default/bulanan' , 'LaporanController@loadchartbulanan');
+        Route::post('/default/tahunan' , 'LaporanController@loadcharttahunan');
+      });
 
   });
 
