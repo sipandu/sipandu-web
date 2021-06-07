@@ -25,24 +25,22 @@
             </nav>
         </div>
     </div>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
-                            </div>
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
                         </div>
-                        <div class="card-body">
-                            <div id="mapid"></div>
-                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="mapid"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection
 
 @push('js')

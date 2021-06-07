@@ -132,7 +132,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" value="{{ $pj->nama }}" disabled readonly>
+                                    <input type="text" class="form-control" value="{{ $pj->nama ?? "Belum ditambahkan" }}" disabled readonly>
                                     <label for="floatingInput">Nama Keluarga Dekat</label>
                                 </div>
                             </div>

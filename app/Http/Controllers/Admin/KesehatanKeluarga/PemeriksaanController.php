@@ -682,6 +682,8 @@ class PemeriksaanController extends Controller
             'kategori.required' => "Kategori alergi wajib dipilih",
         ]);
 
+        // return($request);
+
         $alergi = Alergi::create([
             'id_user' => $user->id,
             'nama_alergi' => $request->nama_alergi,

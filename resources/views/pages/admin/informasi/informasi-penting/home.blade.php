@@ -27,12 +27,18 @@
                 <div class="card">
                   <div class="card-header">
                       <div class="row">
-                          <div class="col-6 my-auto">
-                              <h3 class="card-title my-auto">Data Informasi Penting</h3>
-                          </div>
-                          <div class="col-6">
-                              <a class="btn btn-success float-right" href="{{ route('informasi_penting.create') }}"><i class="fa fa-plus"></i> Tambah</a>
-                          </div>
+                          @if (auth()->guard('admin')->user()->role == 'Pegawai')
+                            <div class="col-6 my-auto">
+                                <h3 class="card-title my-auto">Data Informasi Penting</h3>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-success float-right" href="{{ route('informasi_penting.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                            </div>
+                            @else
+                                <div class="col-12 my-auto">
+                                    <h3 class="card-title my-auto">Data Informasi Penting</h3>
+                                </div>
+                          @endif
                       </div>
                   </div>
                   <!-- /.card-header -->
