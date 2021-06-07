@@ -310,7 +310,6 @@ Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminControl
 Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
 
@@ -326,8 +325,10 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
+      Route::get('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
+      Route::post('/default/bulanan' , 'LaporanController@loadchartbulanan');
+      Route::post('/default/tahunan' , 'LaporanController@loadcharttahunan');
     });
-
   });
 
   // File Update ----
