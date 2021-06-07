@@ -148,4 +148,9 @@ class User extends Authenticatable
 
         return $nama;
     }
+  
+    public function notifUser()
+    {
+        return $this->hasMany(Notifikasiuser::class,'id_user','id');
+    }
 }

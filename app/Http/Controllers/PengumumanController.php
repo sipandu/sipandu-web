@@ -10,6 +10,11 @@ use App\Mover;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use File;
+use App\NotifikasiUser;
+use App\User;
+use App\Anak;
+use App\Ibu;
+use App\Lansia;
 
 class PengumumanController extends Controller
 {
@@ -46,6 +51,8 @@ class PengumumanController extends Controller
         $pengumuman->slug = Str::slug($request->judul_pengumuman);
         $pengumuman->save();
 
+        /* notif mobile user shit start here */
+
         $notiftitle = "Ada pengumuman baru!";
         $notifcontent = $pengumuman->judul_pengumuman;
 
@@ -81,6 +88,29 @@ class PengumumanController extends Controller
         curl_exec($ch);
         curl_close($ch);
 
+        $user = User::get();
+        foreach( $user as $item) {
+            if ( $item->role == '0' ) {
+                $duar = Anak::where("id_user", $item->id)->get()->first();
+            }
+
+            else if ( $item->role == '1' ) {
+                $duar = Ibu::where("id_user", $item->id)->get()->first();
+            }
+
+            else if ( $item->role == '2' ) {
+                $duar = Lansia::where("id_user", $item->id)->get()->first();
+            }
+            if ( $duar->id_posyandu == $pengumuman->id_posyandu ) {
+                $notif = NotifikasiUser::create([
+                    'id_user' => $item->id,
+                    'notif_title' => $notiftitle,
+                    'notif_content' => $notifcontent
+                ]);
+            }
+        }
+
+        /* notif mobile user shit end here */
 
         $pengumuman->broadcastPengumumanToMember();
         return redirect()->route('pengumuman.home')->with(['success' => 'Data Berhasil Disimpan']);
