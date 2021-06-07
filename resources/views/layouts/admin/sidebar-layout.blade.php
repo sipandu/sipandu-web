@@ -470,31 +470,33 @@
                   </ul>
               </li>
           </li>
-          <li class="nav nav-treeview">
-            <li class="nav-item" id="setting-bot">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-robot"></i>
-                    <p>
-                        Setting Bot
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item">
-                        <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan-konsultasi">
-                            <i class="fas fa-file-alt nav-icon"></i>
-                            <p>Pertanyaan Konsultasi</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan statis">
-                            <i class="fas fa-file-alt nav-icon"></i>
-                            <p>Pertanyaan Statis</p>
-                        </a>
-                    </li>
-                </ul>
+          @if (auth()->guard('admin')->user()->role == 'super admin')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="setting-bot">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-robot"></i>
+                        <p>
+                            Setting Bot
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        <li class="nav-item">
+                            <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan-konsultasi">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Pertanyaan Konsultasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('pertanyaan-satu-arah.home') }}" class="nav-link" id="pertanyaan-statis">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Pertanyaan Statis</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </li>
-        </li>
+            @endif
           <li class="nav-item">
               <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-info-circle"></i>

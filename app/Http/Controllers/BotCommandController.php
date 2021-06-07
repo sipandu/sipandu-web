@@ -9,7 +9,10 @@ class BotCommandController extends Controller
 {
     public function index()
     {
-        $command = Command::where('model', 'KonsultasiCommand::class')->where('is_question', '1')->get();
+        $command = Command::where('model', 'KonsultasiCommand::class')
+            ->where('is_question', '1')
+            ->where('is_full_edited', '1')
+            ->get();
         return view('pages.admin.bot-command.pertanyaan-konsultasi.home', compact('command'));
     }
 
@@ -30,6 +33,7 @@ class BotCommandController extends Controller
         $pertanyaan->method = 'ask'.$request->key;
         $pertanyaan->key = $request->key;
         $pertanyaan->is_question = '1';
+        $pertanyaan->id_full_edited = '1';
         $pertanyaan->is_answer = '0';
         $pertanyaan->satuan = $request->satuan ?? '-';
         $pertanyaan->save();
@@ -43,6 +47,7 @@ class BotCommandController extends Controller
         $jawaban->method = 'store'.$request->key;
         $jawaban->key = $request->key;
         $jawaban->is_question = '0';
+        $jawaban->id_full_edited = '1';
         $jawaban->is_answer = '1';
         $jawaban->is_numeric = $request->is_numeric;
         $jawaban->satuan = $request->satuan ?? '-';
@@ -74,7 +79,7 @@ class BotCommandController extends Controller
         $jawaban->chat = $request->chat_jawaban;
         $jawaban->method = 'store'.$request->key;
         $jawaban->key = $request->key;
-        $jawaban->is_numeric = $request->is_numeric;
+        $jawaban->is_numeric = $request->is_numeric ?? '0';
         $jawaban->satuan = $request->satuan ?? '-';
         $jawaban->save();
 

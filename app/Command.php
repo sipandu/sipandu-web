@@ -41,6 +41,13 @@ class Command extends Model
         return $answer->id ?? 0;
     }
 
+    public function getMenuChild()
+    {
+        $child = Command::where('parent_id', $this->id)->get();
+
+        return $child;
+    }
+
     public function cekJenis()
     {
         if ($this->is_numeric == '1') {

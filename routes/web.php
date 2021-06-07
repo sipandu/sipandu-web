@@ -405,6 +405,13 @@ Route::post('/admin/command-bot/pertanyaan-konsultasi/update/{id}', 'BotCommandC
 Route::post('/admin/command-bot/pertanyaan-konsultasi/add-parent', 'BotCommandController@addParent')->name('pertanyaan-konsultasi.add-parent');
 Route::post('/admin/command-bot/pertanyaan-konsultasi/delete', 'BotCommandController@delete')->name('pertanyaan-konsultasi.delete');
 
+//Command Statis
+Route::get('/admin/command-bot/pertanyaan-satu-arah/home', 'BotCommandControllerStatic@index')->name('pertanyaan-satu-arah.home');
+Route::get('/admin/command-bot/pertanyaan-satu-arah/edit/{id}', 'BotCommandControllerStatic@edit')->name('pertanyaan-satu-arah.edit');
+Route::post('/admin/command-bot/pertanyaan-satu-arah/update/{id}', 'BotCommandControllerStatic@update')->name('pertanyaan-satu-arah.update');
+Route::get('/admin/command-bot/pertanyaan-satu-arah/child/home/{id}', 'BotCommandControllerStatic@indexChild')->name('pertanyaan-satu-arah.child.home');
+Route::get('/admin/command-bot/pertanyaan-satu-arah/child/edit/{id}', 'BotCommandControllerStatic@editChild')->name('pertanyaan-satu-arah.child.edit');
+
 //Konsultasi Bot
 Route::get('/admin/konsultasi-bot/home', 'KonsultasiBotController@index')->name('konsultasi-bot.home');
 Route::get('/admin/konsultasi-bot/show/{id}', 'KonsultasiBotController@show')->name('konsultasi-bot.show');

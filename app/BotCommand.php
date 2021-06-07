@@ -56,7 +56,7 @@ class BotCommand extends Model
 
     public function sendInformation($command)
     {
-        $greeting = new InformationCommand($command->command, $command->chat, $this->data['id'], $this->data['chat_id']);
+        $greeting = new InformationCommand($command->command, $command->chat, $this->data['id'], $this->data['chat_id'], $command->id);
         $greeting->sendMessage();
     }
 
@@ -74,12 +74,26 @@ class BotCommand extends Model
 
     public function singleMessage($command)
     {
-        $response = Http::get($this->url_bot, [
-            'chat_id' => $this->data['chat_id'],
-            'chat' => $command->chat,
-            'command' => $command->command,
-            'id_chat_in' => $this->data['id']
-        ]);
+        if($command->command == '/hello') {
+            $command_menu = Command::where('is_full_edited', '!=', '1')->where('is_main_fitur', '1')->get();
+            $msg = $command->chat;
+            foreach($command_menu as $item) {
+                $msg = $msg . PHP_EOL . $item->command . ' => ' . $item->desc_fitur;
+            }
+            $response = Http::get($this->url_bot, [
+                'chat_id' => $this->data['chat_id'],
+                'chat' => $msg,
+                'command' => $command->command,
+                'id_chat_in' => $this->data['id']
+            ]);
+        } else {
+            $response = Http::get($this->url_bot, [
+                'chat_id' => $this->data['chat_id'],
+                'chat' => $command->chat,
+                'command' => $command->command,
+                'id_chat_in' => $this->data['id']
+            ]);
+        }
     }
 
 }
