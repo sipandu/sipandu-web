@@ -799,7 +799,7 @@ class RegisController extends Controller
             'nama_lansia.regex' => "Format nama lansia tidak sesuai",
             'nama_lansia.min' => "Nama lansia minimal berjumlah 2 karakter",
             'nama_lansia.max' => "Nama lansia maksimal 50 karakter",
-            'tempat_lahir_lansia.required' => "Tempat lahir lansia wajin diisi",
+            'tempat_lahir_lansia.required' => "Tempat lahir lansia wajib diisi",
             'tempat_lahir_lansia.regex' => "Format tempat lahir tidak sesuai",
             'tempat_lahir_lansia.min' => "Tempat lahir minimal berjumlah 3 karakter",
             'tempat_lahir_lansia.max' => "Tempat lahir minimal berjumlah 50 karakter",

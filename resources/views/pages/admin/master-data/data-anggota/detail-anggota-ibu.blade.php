@@ -102,11 +102,7 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-6">
                     <div class="form-floating mb-3">
-                      @if ($dataUser->ibu->tempat_lahir)
-                        <input type="text" class="form-control" id="floatingInput" value="Belum ditambahkan" disabled readonly>
-                      @else
-                        <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir }}" disabled readonly>
-                      @endif
+                        <input type="text" class="form-control" id="floatingInput" value="{{ $dataUser->ibu->tempat_lahir ?? "Belum ditambahkan" }}" disabled readonly>
                       <label for="floatingInput">Tempat Lahir</label>
                     </div>
                   </div>

@@ -267,7 +267,7 @@
                       <div class="form-group">
                         <label for="password">Password<span class="text-danger">*</span></label>
                         <div class="input-group mb-3">
-                          <input type="text" name="password" id="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan Password">
+                          <input type="password" name="password" id="password" autocomplete="off" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan Password">
                           <div class="input-group-append">
                             <div class="input-group-text">
                               <span class="fas fa-lock"></span>

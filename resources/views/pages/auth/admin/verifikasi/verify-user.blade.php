@@ -48,7 +48,7 @@
                     <button class="nav-link text-left btn btn-info" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                       <i class="fas fa-child nav-icon"></i> Anak
                       @if (count($anak) > 0)
-                        <span class="badge bg-warning float-right">{{ $anak->count() }}</span>
+                        <span class="badge bg-warning float-right">{{ count($anak) }}</span>
                       @endif
                     </button>
                   </li>
