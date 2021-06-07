@@ -94,6 +94,7 @@ class ApiKesehatanDataController extends Controller
                 'jumlah_konsultasi' => $konsultasi,
                 'jumlah_imunisasi' => $imunisasi,
                 'jumlah_pemeriksaan' => $pemeriksaanAnak->count(),
+                'id_anak' => $anak->id,
                 'message' => 'success'
             ]);
         }
@@ -107,6 +108,7 @@ class ApiKesehatanDataController extends Controller
                 'jumlah_konsultasi' => $konsultasi,
                 'jumlah_imunisasi' => $imunisasi,
                 'jumlah_pemeriksaan' => $pemeriksaanAnak->count(),
+                'id_anak' => $anak->id,
                 'message' => 'success',
             ]);
         }
@@ -135,6 +137,7 @@ class ApiKesehatanDataController extends Controller
                 'jumlah_konsultasi' => $konsultasi,
                 'jumlah_imunisasi' => $imunisasi,
                 'jumlah_pemeriksaan' => $pemeriksaanIbu->count(),
+                'id_ibu' => $ibu->id,
                 'message' => 'success'
             ]);
         }
@@ -148,6 +151,7 @@ class ApiKesehatanDataController extends Controller
                 'jumlah_konsultasi' => $konsultasi,
                 'jumlah_imunisasi' => $imunisasi,
                 'jumlah_pemeriksaan' => $pemeriksaanIbu->count(),
+                'id_ibu' => $ibu->id,
                 'message' => 'success',
             ]);
         }
