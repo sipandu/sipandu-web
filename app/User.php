@@ -87,4 +87,9 @@ class User extends Authenticatable
     public function getUrlImage() {
         return url('/api/mobileuser/get-user-img/'.$this->id);
     }
+
+    public function notifUser()
+    {
+        return $this->hasMany(Notifikasiuser::class,'id_user','id');
+    }
 }

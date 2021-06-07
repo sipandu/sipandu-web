@@ -354,6 +354,7 @@ class ApiKesehatanDataController extends Controller
                 'nama_lansia' => $lansia->nama_lansia,
                 'flag' => 1,
                 'pemeriksaan_lansia_terakhir' => $pemeriksaanLansia->tanggal_pemeriksaan,
+                'status_lansia' => $lansia->status,
                 'imt' => $pemeriksaanLansia->IMT,
                 'message' => 'success',
             ]);
@@ -363,6 +364,7 @@ class ApiKesehatanDataController extends Controller
                 'status_code' => 200,
                 'nama_lansia' => $lansia->nama_lansia,
                 'flag' => 0,
+                'status_lansia' => $lansia->status,
                 'pemeriksaan_lansia_terakhir' => null,
                 'imt' => null,
                 'message' => 'success',
