@@ -58,6 +58,11 @@ Route::prefix('mobileuser')->group(function(){
     Route::post('/kesehatan/get-keluargaku-anak', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuAnak');
     Route::post('/kesehatan/get-kesehatan-anak', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryAnak');
     Route::post('/kesehatan/get-kesehatan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryIbu');
+    Route::post('/kesehatan/get-kesehatan-lansia', 'User\Auth\Api\ApiKesehatanDataController@getKesehatanSummaryLansia');
+
+    Route::post('/kesehatan/get-alergi', 'User\Auth\Api\ApiKesehatanDataController@getAlergi');
+    Route::post('/kesehatan/get-penyakit-bawaan', 'User\Auth\Api\ApiKesehatanDataController@getPenyakitBawaan');
+    Route::post('/kesehatan/get-masalah-kesehatan-lansia', 'User\Auth\Api\ApiKesehatanDataController@getMasalahKesehatanLansia');
 
     Route::post('/kesehatan/get-history-pemeriksaan-ibu', 'User\Auth\Api\ApiKesehatanDataController@getPemeriksaanIbuHistory');
     Route::post('/kesehatan/get-keluargaku-ibu', 'User\Auth\Api\ApiKesehatanDataController@getKeluargakuIbu');
