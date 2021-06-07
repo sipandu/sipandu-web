@@ -23,7 +23,7 @@ class Kegiatan extends Model
         $msg = '[ KEGIATAN BARU ]'.PHP_EOL.
 
         'Salam sehat, salam semangat!'.PHP_EOL.
-        'Smart Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
+        'Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
         'Kegiatan             : '. $this->nama_kegiatan.PHP_EOL.
         'Tempat               : '.$this->tempat.PHP_EOL.
         'Tanggal              : '.date('D, d F Y', strtotime($this->start_at)) . ' s/d ' . date('D, d F Y', strtotime($this->end_at)).PHP_EOL.PHP_EOL.
@@ -31,7 +31,7 @@ class Kegiatan extends Model
         strip_tags($this->deskripsi.PHP_EOL.PHP_EOL).
 
         'Salam Sehat,'.PHP_EOL.
-        'Smart Posyandu 5.0';
+        'Posyandu 5.0';
 
         $anak = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
@@ -74,7 +74,7 @@ class Kegiatan extends Model
         $msg = '[ RALAT KEGIATAN ]'.PHP_EOL.
 
         'Salam sehat, salam semangat!'.PHP_EOL.
-        'Smart Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
+        'Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
         'Kegiatan             : '. $this->nama_kegiatan.PHP_EOL.
         'Tempat               : '.$this->tempat.PHP_EOL.
         'Tanggal              : '.date('D, d F Y', strtotime($this->start_at)) . ' s/d ' . date('D, d F Y', strtotime($this->end_at)).PHP_EOL.PHP_EOL.
@@ -82,7 +82,7 @@ class Kegiatan extends Model
         strip_tags($this->deskripsi.PHP_EOL.PHP_EOL).
 
         'Salam Sehat,'.PHP_EOL.
-        'Smart Posyandu 5.0';
+        'Posyandu 5.0';
 
         $anak = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')
@@ -125,7 +125,7 @@ class Kegiatan extends Model
         $msg = '[ PEMBATALAN KEGIATAN ]'.PHP_EOL.
 
         'Salam sehat, salam semangat!'.PHP_EOL.
-        'Smart Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
+        'Posyandu 5.0 kembali hadir menemani dengan membawa agenda baru.'.PHP_EOL.
         'Kegiatan             : '. $this->nama_kegiatan.PHP_EOL.
         'Tempat               : '.$this->tempat.PHP_EOL.
         'Tanggal              : '.date('D, d F Y', strtotime($this->start_at)) . ' s/d ' . date('D, d F Y', strtotime($this->end_at)).PHP_EOL.PHP_EOL.
@@ -133,7 +133,7 @@ class Kegiatan extends Model
         $alasan.
 
         'Salam Sehat,'.PHP_EOL.
-        'Smart Posyandu 5.0';
+        'Posyandu 5.0';
 
         $anak = DB::table('tb_user')->join('tb_anak', 'tb_anak.id_user', 'tb_user.id')
             ->select('tb_user.id_chat_tele')

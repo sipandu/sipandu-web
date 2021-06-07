@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Smart Posyandu 5.0 - Welcome</title>
+	<title>Posyandu 5.0 - Welcome</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="{{ asset('/images/sipandu-logo.ico') }}">
@@ -21,7 +21,7 @@
 	{{-- Preload Start --}}
 	<div class="preloader">
 		<div class="loader">
-			<img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="50" height="50" class="d-inline-block align-top" alt="Logo Smart Posyandu 5.0">
+			<img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="50" height="50" class="d-inline-block align-top" alt="Logo Posyandu 5.0">
 			<div class="ytp-spinner">
 				<div class="ytp-spinner-container">
 					<div class="ytp-spinner-rotator">

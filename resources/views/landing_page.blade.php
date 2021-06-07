@@ -42,7 +42,7 @@
     <div class="container d-none d-lg-block">
       <div class="row">
         <div class="col-12 text-center mb-4 mt-5">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">Smart Posyandu 5.0<span class="text-primary">.</span> </a></h1>
+            <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">Posyandu 5.0<span class="text-primary">.</span> </a></h1>
           </div>
       </div>
     </div>
@@ -200,7 +200,7 @@
             <img src="{{asset('user-template') }}/images/do_ui_kit_download_cta_floating_devices-2x.png" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-            <h2 class="text-black">Bersama Smart Posyandu 5.0</h2>
+            <h2 class="text-black">Bersama Posyandu 5.0</h2>
             <p class="mb-4">Posyandu merupakan salah satu bentuk Upaya Kesehatan Bersumberdaya Masyarakat (UKBM) yang dikelola dari, oleh, untuk, dan bersama masyarakat, guna memberdayakan masyarakat dan memberikan kemudahan kepada masyarakat dalam perawatan anak khususnya bayi serta balita</p>
             <ul class="ul-check mb-5 list-unstyled success">
               <li>Website</li>
@@ -265,7 +265,7 @@
             <div class="h-entry">
               <img style="width:280px;height:280px" src="{{asset('user-template') }}/images/pertama.png" alt="Image" class="img-fluid">
               <h2 style="text-align: center;"><a href="#">Pendaftaran</a></h2>
-              <p style="text-align: center;">Anda dapat melakukan pendaftaran online pada website resmi Smart Posyandu 5.0 atau offline dengan mengunjungi posyandu terdekat di daerah anda</p>
+              <p style="text-align: center;">Anda dapat melakukan pendaftaran online pada website resmi Posyandu 5.0 atau offline dengan mengunjungi posyandu terdekat di daerah anda</p>
 
             </div>
           </div>

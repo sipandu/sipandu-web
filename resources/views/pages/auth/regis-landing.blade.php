@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('sipandu.png') }}">
-    <title>Smart Posyandu 5.0 | Registrasi Anggota</title>
+    <title>Posyandu 5.0 | Registrasi Anggota</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Font Awesome -->
@@ -29,7 +29,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header bg-white text-center">
                 <img class="rounded mx-auto d-block" src="{{ asset('/images/sipandu-logo.png') }}" alt="sipandu logo" width="100" height="100">
-                <a href="/" class="text-decoration-none h4 fw-bold">Smart Posyandu 5.0</a>
+                <a href="/" class="text-decoration-none h4 fw-bold">Posyandu 5.0</a>
                 <p class="login-box-msg mb-0 pb-0 px-0 pb-3 fw-bold h6">Daftar Sebagai Anggota Posyandu</p>
             </div>
             <div class="card-body">
@@ -87,7 +87,7 @@
                 </form>
             </div>
             <div class="text-center mt-4 mb-0">
-                <a href="" class="nav-link link-dark">Smart Posyandu 5.0 &copy 2021</a>
+                <a href="" class="nav-link link-dark">Posyandu 5.0 &copy 2021</a>
             </div>
 
         </div>
