@@ -89,15 +89,15 @@ class KegiatanController extends Controller
 
         $user = User::get();
         foreach( $user as $item) {
-            if ( $item->role == 0 ) {
+            if ( $item->role == '0' ) {
                 $duar = Anak::where("id_user", $item->role)->get()->first();
             }
 
-            else if ( $item->role == 1 ) {
+            else if ( $item->role == '1' ) {
                 $duar = Ibu::where("id_user", $item->role)->get()->first();
             }
 
-            else if ( $item->role == 2 ) {
+            else if ( $item->role == '2' ) {
                 $duar = Lansia::where("id_user", $item->role)->get()->first();
             }
             if ( $duar->id_posyandu == $kegiatan->id_posyandu ) {
