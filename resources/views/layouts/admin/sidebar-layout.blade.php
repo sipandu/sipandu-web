@@ -380,15 +380,16 @@
                       </p>
                   </a>
                   <ul class="nav nav-treeview ms-3">
-                      @if (Auth::guard('admin')->user()->role == 'super admin')
-                          <li class="nav-item">
-                              <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-                                  <i class="fas fa-exclamation nav-icon"></i>
-                                  <p>Informasi Penting</p>
-                              </a>
-                          </li>
-                          @endif
+                      {{-- @if (Auth::guard('admin')->user()->role == 'super admin')
+                          
+                          @endif --}}
                       @if (Auth::guard('admin')->user()->role == 'pegawai')
+                        <li class="nav-item">
+                            <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
+                                <i class="fas fa-exclamation nav-icon"></i>
+                                <p>Informasi Penting</p>
+                            </a>
+                        </li>
                           <li class="nav-item">
                               <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
                                   <i class="fas fa-chalkboard-teacher nav-icon"></i>
