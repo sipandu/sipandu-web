@@ -187,7 +187,8 @@ class KonsultasiCommand
     {
         $register_bot = RegisterBot::where('id_chat_tele', $this->data['chat_id'])->first();
         $konsultasi_temp = KonsultasiTemp::where('id_user', $register_bot->user_id)->where('is_end', '1')->first();
-        $msg = '[PREVIEW DATA KONSULTASI]';
+        $command_selesai = Command::where('command', '/selesai_konsultasi')->first();
+        $msg = $this->command->chat;
         $data = (array) json_decode($konsultasi_temp->value);
         foreach($data as $key => $item) {
             $command_jawab = Command::where('model', 'KonsultasiCommand::class')
@@ -196,8 +197,8 @@ class KonsultasiCommand
             $msg = $msg . PHP_EOL . $command_jawab->command . ' ' . $key . ' => ' . $item;
         }
 
-        $msg = $msg . PHP_EOL . 'Ketik /preview_konsultasi untuk melihat preview dari data konsultasi' .
-                PHP_EOL . 'Ketik /selesai_konsultasi untuk menyelesaikan konsultasi';
+        $msg = $msg . PHP_EOL . 'Ketik /preview_konsultasi => ' . $this->command->desc_fitur .
+                PHP_EOL . 'Ketik /selesai_konsultasi => ' . $command_selesai->desc_fitur;
 
         $response = Http::get($this->url_bot, [
             'chat_id' => $this->data['chat_id'],

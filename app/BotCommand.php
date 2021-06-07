@@ -6,6 +6,7 @@ use App\Bot\GreetingCommand;
 use App\Bot\InformationCommand;
 use App\Bot\KonsultasiCommand;
 use App\Bot\RegisterUserCommand;
+use App\Bot\RiwayatKesehatan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 
@@ -31,19 +32,27 @@ class BotCommand extends Model
                     $this->sendRegisterCommand($command);
                 } else if($command->model == 'KonsultasiCommand::class') {
                     $this->sendKonsultasiCommand($command);
+                } else if($command->model == 'RiwayatKesehatan::class') {
+                    $this->sendRiwayatKesehatanCommand($command);
                 }
                 else {
                     $this->singleMessage($command);
                 }
             } else {
+                $no_command = TableCommand::where('command', '/no_command')->first();
+                $command_menu = Command::where('is_full_edited', '!=', '1')
+                    ->where('command', '!=', '/no_command')
+                    ->where('is_main_fitur', '1')->get();
+                $msg = $no_command->chat;
+                foreach($command_menu as $item) {
+                    $msg = $msg . PHP_EOL . $item->command . ' => ' . $item->desc_fitur;
+                }
                 $response = Http::get($this->url_bot, [
                     'chat_id' => $this->data['chat_id'],
-                    'chat' => "Tidak ada command yang diterdaftar, anda dapat menggunakan beberapa command dibawah",
+                    'chat' => $msg,
                     'command' => '/no_command',
                     'id_chat_in' => $this->data['id']
                 ]);
-                $command_hello = TableCommand::where('command', '/hello')->first();
-                $this->singleMessage($command_hello);
             }
         }
     }
@@ -72,10 +81,18 @@ class BotCommand extends Model
         $greeting->sendMessage();
     }
 
+    public function sendRiwayatKesehatanCommand($command)
+    {
+        $greeting = new RiwayatKesehatan($command , $this->data);
+        $greeting->sendMessage();
+    }
+
     public function singleMessage($command)
     {
         if($command->command == '/hello') {
-            $command_menu = Command::where('is_full_edited', '!=', '1')->where('is_main_fitur', '1')->get();
+            $command_menu = Command::where('is_full_edited', '!=', '1')
+                ->where('command', '!=', '/no_command')
+                ->where('is_main_fitur', '1')->get();
             $msg = $command->chat;
             foreach($command_menu as $item) {
                 $msg = $msg . PHP_EOL . $item->command . ' => ' . $item->desc_fitur;

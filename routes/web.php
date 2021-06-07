@@ -419,6 +419,9 @@ Route::get('/admin/konsultasi-bot/download/{id}', 'KonsultasiBotController@downl
 Route::get('/admin/konsultasi-bot/send-to-user/{id}', 'KonsultasiBotController@sendHasilToUser')->name('konsultasi-bot.sent-to-user');
 Route::post('/admin/konsultasi-bot/update-konsultasi', 'KonsultasiBotController@updateDiagnosa')->name('konsultasi-bot.update');
 
+//Riwayat-Kesehatan
+Route::get('/admin/riwayat-kesehatan/download-file', 'RiwayatKesehatanController@downloadFile')->name('riwayat-kesehatan.download-file');
+
 // Ajax Dependent Select
 Route::get('/kecamatan/{id}', 'AjaxSearchLocation@kecamatan');
 Route::get('/desa/{id}', 'AjaxSearchLocation@desa');

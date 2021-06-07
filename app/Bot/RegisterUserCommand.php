@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use App\Command;
 class RegisterUserCommand
 {
     protected $url_bot = 'http://127.0.0.1:5002/updated-chat-in';
@@ -33,9 +34,14 @@ class RegisterUserCommand
 
     public function sendFiturRegisterUser()
     {
+        $command_child = Command::where('is_full_edited', '!=', '1')->where('parent_id', $this->command->id)->get();
+        $msg = $this->command->chat;
+        foreach($command_child as $item) {
+            $msg = $msg . PHP_EOL . $item->command . ' => ' . $item->desc_fitur;
+        }
         $response = Http::get($this->url_bot, [
             'chat_id' => $this->data['chat_id'],
-            'chat' => $this->command->chat,
+            'chat' => $msg,
             'command' => $this->command->command,
             'id_chat_in' => $this->data['id']
         ]);
