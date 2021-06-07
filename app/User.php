@@ -88,6 +88,67 @@ class User extends Authenticatable
         return url('/api/mobileuser/get-user-img/'.$this->id);
     }
 
+    public function getIdPosyandu()
+    {
+        $id_posyandu = 0;
+        if($this->role == '0') {
+            $user = Anak::query()->select('id_posyandu')->where('id_user', $this->id)->first();
+        } elseif($this->role == '1') {
+            $user = Ibu::query()->select('id_posyandu')->where('id_user', $this->id)->first();
+        } elseif($this->role == '2') {
+            $user = Lansia::query()->select('id_posyandu')->where('id_user', $this->id)->first();
+        }
+
+        if($user->id_posyandu != null) {
+            $id_posyandu = $user->id_posyandu;
+        }
+
+        return $id_posyandu;
+    }
+
+    public function getNamaPasien()
+    {
+        $nama = '';
+        if($this->role == '0') {
+            $user = Anak::query()->select('nama_anak')->where('id_user', $this->id)->first();
+            $nama = $user->nama_anak;
+        } elseif($this->role == '1') {
+            $user = Ibu::query()->select('nama_ibu_hamil')->where('id_user', $this->id)->first();
+            $nama = $user->nama_ibu_hamil;
+        } elseif($this->role == '2') {
+            $user = Lansia::query()->select('nama_lansia')->where('id_user', $this->id)->first();
+            $nama = $user->nama_lansia;
+        }
+
+        return $nama;
+    }
+
+    public function getPasienInfo()
+    {
+        if($this->role == '0') {
+            $user = Anak::query()
+                ->join('tb_posyandu', 'tb_posyandu.id', 'tb_anak.id_posyandu')
+                ->select('nama_anak AS nama', 'jenis_kelamin', 'tanggal_lahir', 'tb_posyandu.nama_posyandu')
+                ->where('id_user', $this->id)
+                ->first();
+            $nama = $user;
+        } elseif($this->role == '1') {
+            $user = Ibu::query()
+                ->join('tb_posyandu', 'tb_posyandu.id', 'tb_ibu_hamil.id_posyandu')
+                ->select('nama_ibu_hamil AS nama', 'tanggal_lahir', 'tb_posyandu.nama_posyandu')
+                ->where('id_user', $this->id)->first();
+            $nama = $user;
+        } elseif($this->role == '2') {
+            $user = Lansia::query()
+                ->join('tb_posyandu', 'tb_posyandu.id', 'tb_lansia.id_posyandu')
+                ->select('nama_lansia AS nama', 'jenis_kelamin', 'tanggal_lahir', 'tb_posyandu.nama_posyandu')
+                ->where('id_user', $this->id)->first();
+            $nama = $user;
+        }
+
+        return $nama;
+    }
+  
     public function notifUser()
     {
         return $this->hasMany(Notifikasiuser::class,'id_user','id');

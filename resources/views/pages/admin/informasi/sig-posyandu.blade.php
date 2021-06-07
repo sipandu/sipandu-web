@@ -19,30 +19,28 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Persebaran Posyandu</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
-                            </div>
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <h3 class="card-title">Peta Pesebaran Posyandu di Bali</h3>
                         </div>
-                        <div class="card-body">
-                            <div id="mapid"></div>
-                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="mapid"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection
 
 @push('js')

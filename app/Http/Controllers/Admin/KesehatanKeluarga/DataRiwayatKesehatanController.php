@@ -77,6 +77,16 @@ class DataRiwayatKesehatanController extends Controller
                 $ibu[] = $data;
             }
         }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_anak->where('id_posyandu', $item) as $data) {
+                $anak[] = $data;
+            }
+        }
+        foreach ($id_posyandu as $item) {
+            foreach ($data_lansia->where('id_posyandu', $item) as $data) {
+                $lansia[] = $data;
+            }
+        }
 
         return view('pages/admin/kesehatan-keluarga/data-kesehatan/data-kesehatan', compact('ibu', 'anak', 'lansia'));
     }

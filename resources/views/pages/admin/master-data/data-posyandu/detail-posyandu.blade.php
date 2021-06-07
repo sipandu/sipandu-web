@@ -16,7 +16,7 @@
           @if (auth()->guard('admin')->user()->role != 'pegawai')  
             <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Posyandu') }}">Data Posyandu</a></li>
           @else  
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
           @endif
           <li class="breadcrumb-item active" aria-current="page">Detail Posyandu</li>
         </ol>

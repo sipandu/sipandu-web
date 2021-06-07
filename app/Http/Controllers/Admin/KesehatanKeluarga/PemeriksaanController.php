@@ -258,7 +258,7 @@ class PemeriksaanController extends Controller
 
         $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
 
-        $berat_badan = $request->berat_badan/100;
+        $berat_badan = $request->berat_badan;
 
         if ($tanggal_kembali <= $today) {
             return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk ibu hamil tidak sesuai']);
@@ -681,6 +681,8 @@ class PemeriksaanController extends Controller
             'nama_alergi.max' => "Nama alergi maksimal berjumlah 50 huruf",
             'kategori.required' => "Kategori alergi wajib dipilih",
         ]);
+
+        // return($request);
 
         $alergi = Alergi::create([
             'id_user' => $user->id,

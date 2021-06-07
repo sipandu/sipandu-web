@@ -14,7 +14,7 @@
     <div class="col-auto ml-auto text-right my-auto mt-n1">
       <nav aria-label="breadcrumb text-center">
         <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-          <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Smart Posyandu 5.0</a></li>
+          <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
           <li class="breadcrumb-item active" aria-current="page">Data Nakes</li>
         </ol>
       </nav>
@@ -73,8 +73,8 @@
                       <td class="align-middle">{{ $data->username_telegram }}</td>
                     @endempty
                     <td class="align-middle text-start">
-                      @foreach ($nakesPosyandu->where('id_nakes', $data->id) as $data)
-                        {{ $data->posyandu->nama_posyandu }}. 
+                      @foreach ($nakesPosyandu->where('id_nakes', $data->id) as $item)
+                        {{ $item->posyandu->nama_posyandu }}. 
                       @endforeach
                     </td>
                     @if (auth()->guard('admin')->user()->role == 'super admin')

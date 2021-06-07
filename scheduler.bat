@@ -1,0 +1,1 @@
+C:\xampp_\php\php.exe artisan schedule:run

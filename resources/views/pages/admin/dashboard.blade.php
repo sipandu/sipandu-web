@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Smart Posyandu 5.0</li>
+                    <li class="breadcrumb-item active" aria-current="page">Posyandu 5.0</li>
                 </ol>
             </nav>
         </div>
@@ -17,7 +17,7 @@
     @if (auth()->guard('admin')->user()->role != "super admin")
         <div class="container-fluid px-0">
             <div class="row text-center">
-                <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Anak</h5>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Bumil</h5>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Lansia</h5>
