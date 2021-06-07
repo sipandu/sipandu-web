@@ -21,6 +21,9 @@ use App\Posyandu;
 use App\Kegiatan;
 use App\Pegawai;
 use App\Pengumuman;
+use App\Alergi;
+use App\PenyakitBawaan;
+use App\RiwayatPenyakit;
 
 class ApiKesehatanDataController extends Controller
 {
@@ -148,6 +151,79 @@ class ApiKesehatanDataController extends Controller
                 'message' => 'success',
             ]);
         }
+    }
+
+    public function getKesehatanSummaryLansia(Request $request)
+    {
+        $idUser = User::where('email', $request->email)->first();
+        $lansia = Lansia::where('id_user', $idUser->id)->first();
+        $imunisasi = PemberianImunisasi::where('id_user', $idUser->id)->orderby('created_at','desc')->get()->count();
+        $vitamin = PemberianVitamin::where('id_user', $idUser->id)->orderby('created_at','desc')->get()->count();
+        $konsultasi = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan', 'Konsultasi')->orderby('created_at','desc')->get()->count();
+        $pemeriksaanLansia = PemeriksaanLansia::where('id_lansia', $lansia->id)->where('jenis_pemeriksaan', 'Pemeriksaan')->orderby('created_at','desc')->get();
+
+        /*
+        send 1 -> if theres pemeriksaan data exist
+        send 0 -> if theres none pemeriksaan data exist
+        */
+        if ($pemeriksaanLansia != null) {
+            return response()->json([
+                'status_code' => 200,
+                'nama_ibu' => $lansia->nama_lansia,
+                'flag' => 1,
+                'riwayat_pemeriksaan_lansia' => $pemeriksaanLansia,
+                'jumlah_vitamin' => $vitamin,
+                'jumlah_konsultasi' => $konsultasi,
+                'jumlah_imunisasi' => $imunisasi,
+                'jumlah_pemeriksaan' => $pemeriksaanLansia->count(),
+                'message' => 'success'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status_code' => 200,
+                'nama_anak' => $lansia->nama_lansia,
+                'flag' => 0,
+                'riwayat_pemeriksaan_lansia' => null,
+                'jumlah_vitamin' => $vitamin,
+                'jumlah_konsultasi' => $konsultasi,
+                'jumlah_imunisasi' => $imunisasi,
+                'jumlah_pemeriksaan' => $pemeriksaanLansia->count(),
+                'message' => 'success',
+            ]);
+        }
+    }
+
+    public function getAlergi(Request $request) {
+        $idUser = User::where('email', $request->email)->first();
+        $alergi = Alergi::where('id_user', $idUser->id)->orderby('created_at','desc')->get();
+        return response()->json([
+            'status_code' => 200,
+            'alergi' => $alergi,
+            'message' => 'success',
+        ]);
+
+    }
+
+    public function getPenyakitBawaan(Request $request) {
+        $idUser = User::where('email', $request->email)->first();
+        $penyakitBawaan = PenyakitBawaan::where('id_user', $idUser->id)->orderby('created_at','desc')->get();
+        return response()->json([
+            'status_code' => 200,
+            'penyakit_bawaan' => $penyakitBawaan,
+            'message' => 'success',
+        ]);
+    }
+
+    public function getMasalahKesehatanLansia(Request $request) {
+        $idUser = User::where('email', $request->email)->first();
+        $lansia = Lansia::where('id_user', $idUser->id)->first();
+        $masalahKesehatan = RiwayatPenyakit::where('id_lansia', $lansia->id)->orderby('created_at','desc')->get();
+        return response()->json([
+            'status_code' => 200,
+            'masalah_kesehatan_lansia' => $masalahKesehatan,
+            'message' => 'success',
+        ]);
     }
 
     public function getKeluargakuAnak(Request $request)
