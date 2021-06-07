@@ -559,7 +559,7 @@
                                                 <div class="collapse my-3" id="pemeriksaan{{ $loop->iteration }}">
                                                     <div class="card card-body">
                                                         <span class="fw-bold">Usia Anak :</span>
-                                                        <p>{{ $usia }}</p>
+                                                        <p>{{ $data->usia_anak }}</p>
                                                         <span class="fw-bold">Hasil Pemeriksaan :</span>
                                                         <p>{{ $data->diagnosa }}</p>
                                                         <span class="fw-bold">Pengobatan :</span>
@@ -591,7 +591,7 @@
                                                         <div class="row text-center">
                                                             <div class="col-6">
                                                                 <span class="fw-bold">Lingkar Kelapa :</span>
-                                                                <p>{{ $data->langkar_kepala }} Sentimeter</p>
+                                                                <p>{{ $data->lingkar_kepala }} Sentimeter</p>
                                                             </div>
                                                             @if ( $usia < 2)
                                                                 <div class="col-6">
