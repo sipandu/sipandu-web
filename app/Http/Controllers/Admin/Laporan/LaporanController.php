@@ -19,20 +19,34 @@ class LaporanController extends Controller
     
     public function laporankegiatan()
     {
-      $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
+
+      $id_posyandu = null;
+      
+      if( in_array(auth('admin')->user()->role , ['super admin' , 'tenaga kesehatan']) === false ){
+        $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
+      }
+      
       return view('pages.admin.laporan.laporan-kegiatan' , compact('id_posyandu'));
     } 
 
     public function laporanbulanan()
     {
-      $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
-
+      $id_posyandu = null;
+      if( in_array(auth('admin')->user()->role , ['super admin' , 'tenaga kesehatan']) === false  ){
+        $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
+      }
+      
       return view('pages.admin.laporan.laporan-bulanan' , compact('id_posyandu'));
     } 
 
     public function laporantahunan()
     {
-      $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
+      $id_posyandu = null;
+      
+      if( in_array(auth('admin')->user()->role , ['super admin' , 'tenaga kesehatan']) === false  ){
+        $id_posyandu = auth('admin')->user()->pegawai->posyandu->id;
+      }
+
       if( ($this->getCurrentYear() - $this->getLastYear()) <= 3){
         $latestyear = $this->getCurrentYear() - 3;
         $currentyear = $this->getCurrentYear();
@@ -44,15 +58,31 @@ class LaporanController extends Controller
       return view('pages.admin.laporan.laporan-tahunan' , compact('latestyear' , 'currentyear' , 'id_posyandu'));
     } 
     
-    public function ajaxposyandu()
+    public function ajaxposyandu(Request $request)
     {
+
       $posyandu = new Posyandu();
       $arr_posyandu = [];
-      foreach($posyandu->all() as $posyandu_){
-        $arr_posyandu[] = [
-          'id' => $posyandu_->id,
-          'posyandu' => $posyandu_->nama_posyandu
-        ];
+      
+      if( $request->tk == 1 ) {
+        $id = auth('admin')->user()->nakes->id;
+        $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+          $nakes->where('id' , $id);
+        })->get();
+
+        foreach($posyandu as $posyandu_){
+          $arr_posyandu[] = [
+            'id' => $posyandu_->id,
+            'posyandu' => $posyandu_->nama_posyandu
+          ];
+        }
+      }else{
+        foreach($posyandu->all() as $posyandu_){
+          $arr_posyandu[] = [
+            'id' => $posyandu_->id,
+            'posyandu' => $posyandu_->nama_posyandu
+          ];
+        }
       }
 
       return response()->json( $arr_posyandu , 200 );
@@ -147,12 +177,12 @@ class LaporanController extends Controller
             $queryYear = $queryYear->where('id_posyandu' , $request->posyandu);
           }
 
-          $queryYear = $queryYear->get();
+          $queryYear = $queryYear->withTrashed()->get();
           
           if( $queryYear->isEmpty() === false ){
             $temp_arr = [ 'cancel' => [] , 'passed' => [] , 'not_yet' => [] , 'in_progress' => [] ];
             foreach( $queryYear as $kegiatan_){
-              if($kegiatan_->alasan_cancel !== null){
+              if($kegiatan_->trashed()){
                $temp_arr['cancel'][] = $kegiatan_;
               }else if ( $kegiatan_->end_at < date('Y-m-d') ){
                 $temp_arr['passed'][] = $kegiatan_;
@@ -206,12 +236,12 @@ class LaporanController extends Controller
             $queryMonth = $queryMonth->where('id_posyandu' , $request->posyandu);
           }
           
-          $queryMonth = $queryMonth->get();
+          $queryMonth = $queryMonth->withTrashed()->get();
           
           if($queryMonth->isEmpty() === false){
             $temp_arr = [ 'cancel' => [] , 'passed' => [] , 'not_yet' => [] , 'in_progress' => [] ];
             foreach( $queryMonth as $kegiatan_){
-              if($kegiatan_->alasan_cancel !== null){
+              if($kegiatan_->trashed()){
                $temp_arr['cancel'][] = $kegiatan_;
               }else if ( $kegiatan_->end_at < date('Y-m-d') ){
                 $temp_arr['passed'][] = $kegiatan_;
@@ -257,7 +287,7 @@ class LaporanController extends Controller
           $weekQuery = $weekQuery->where('id_posyandu' , $request->posyandu);
         }
         
-        $weekQuery = $weekQuery->get();
+        $weekQuery = $weekQuery->withTrashed()->get();
         if($weekQuery->isEmpty() === false){
 
           foreach($weekQuery as $kegiatan_){
@@ -265,7 +295,7 @@ class LaporanController extends Controller
             $date = (new Carbon( new Carbon(date('Y-m-d' , strtotime($kegiatan_->start_at))) ));
             $weekNumber = $date->weekNumberInMonth;
 
-            if(($kegiatan_->alasan_cancel !== null)){
+            if( $kegiatan_->trashed() ){
               $temp_arr['cancel'][$weekNumber][] = $kegiatan_;
             }else if ( ($kegiatan_->end_at < date('Y-m-d')) ){
               $temp_arr['passed'][$weekNumber][] = $kegiatan_;
@@ -624,6 +654,746 @@ class LaporanController extends Controller
 
       return response()->json( $arr_chart ,200);
 
+    }
+
+    public function loadchartkegiatan(Request $request){
+      
+      $arr_chart = [];
+      $kegiatan = new Kegiatan;
+
+      $arr_chart['labels'] = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Des'
+      ];
+
+      $thisYear = date('Y');
+
+      if( $request->tk == 1 ) {
+        $posyandu = new Posyandu;
+        $id = auth('admin')->user()->nakes->id;
+        $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+          $nakes->where('id' , $id);
+        })->get();
+
+        foreach($posyandu as $posyandu_){
+          foreach (array_keys($arr_chart['labels']) as $month){
+
+            $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+    
+            $queryMonth = $kegiatan->whereYear( 'start_at' , $thisYear )
+              ->whereMonth('start_at' ,  $monthIndex)
+              ->where('id_posyandu' , $posyandu_->id);
+            
+            $queryMonth = $queryMonth->withTrashed()->get();
+            
+            if($queryMonth->isEmpty() === false){
+              $temp_arr = [ 'cancel' => [] , 'passed' => [] , 'not_yet' => [] , 'in_progress' => [] ];
+              foreach( $queryMonth as $kegiatan_){
+                if($kegiatan_->trashed()){
+                 $temp_arr['cancel'][] = $kegiatan_;
+                }else if ( $kegiatan_->end_at < date('Y-m-d') ){
+                  $temp_arr['passed'][] = $kegiatan_;
+                }else if ($kegiatan_->start_at > date('Y-m-d')) {
+                  $temp_arr['not_yet'][] = $kegiatan_;
+                }else{
+                  $temp_arr['in_progress'][] = $kegiatan_;
+                }
+              }
+              $arr_chart_value['cancel'][] = count($temp_arr['cancel']) ?? 0;
+              $arr_chart_value['passed'][] = count($temp_arr['passed']) ?? 0;
+              $arr_chart_value['not_yet'][] = count($temp_arr['not_yet']) ?? 0;
+              $arr_chart_value['in_progress'][] = count($temp_arr['in_progress']) ?? 0;
+            }else{
+              $arr_chart_value['cancel'][] = 0;
+              $arr_chart_value['passed'][] = 0;
+              $arr_chart_value['not_yet'][] = 0;
+              $arr_chart_value['in_progress'][] = 0;
+            }
+    
+          }
+        }
+
+      }else{
+        foreach (array_keys($arr_chart['labels']) as $month){
+
+          $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+  
+          $queryMonth = $kegiatan->whereYear( 'start_at' , $thisYear )
+            ->whereMonth('start_at' ,  $monthIndex);
+          
+          if($request->posyandu !== null ){
+            $queryMonth = $queryMonth->where('id_posyandu' , $request->posyandu);
+          }
+          
+          $queryMonth = $queryMonth->withTrashed()->get();
+
+          if($queryMonth->isEmpty() === false){
+            $temp_arr = [ 'cancel' => [] , 'passed' => [] , 'not_yet' => [] , 'in_progress' => [] ];
+            foreach( $queryMonth as $kegiatan_){
+              if($kegiatan_->trashed()){
+               $temp_arr['cancel'][] = $kegiatan_;
+              }else if ( $kegiatan_->end_at < date('Y-m-d') ){
+                $temp_arr['passed'][] = $kegiatan_;
+              }else if ($kegiatan_->start_at > date('Y-m-d')) {
+                $temp_arr['not_yet'][] = $kegiatan_;
+              }else{
+                $temp_arr['in_progress'][] = $kegiatan_;
+              }
+            }
+            $arr_chart_value['cancel'][] = count($temp_arr['cancel']) ?? 0;
+            $arr_chart_value['passed'][] = count($temp_arr['passed']) ?? 0;
+            $arr_chart_value['not_yet'][] = count($temp_arr['not_yet']) ?? 0;
+            $arr_chart_value['in_progress'][] = count($temp_arr['in_progress']) ?? 0;
+          }else{
+            $arr_chart_value['cancel'][] = 0;
+            $arr_chart_value['passed'][] = 0;
+            $arr_chart_value['not_yet'][] = 0;
+            $arr_chart_value['in_progress'][] = 0;
+          }
+  
+        }
+  
+      }
+
+      
+      $arr_chart['datasets'] = [
+        [
+          'label' => 'Batal',
+          'backgroundColor' => '#de2141',
+          'data' => $arr_chart_value['cancel']
+        ],
+        [
+          'label' => 'Terlaksana',
+          'backgroundColor' => '#06c710',
+          'data'=> $arr_chart_value['passed']
+        ],
+        [
+          'label' => 'Belum Terlaksana',
+          'backgroundColor' => '#c5c9c6',
+          'data' => $arr_chart_value['not_yet']
+        ],
+        [
+          'label' => 'Dalam Pelaksanaan',
+          'backgroundColor' => '#e8e161',
+          'data' => $arr_chart_value['in_progress']
+        ]
+      ];
+
+      return response()->json( $arr_chart , 200);
+
+    }
+
+    public function loadchartbulanan(Request $request){
+      $arr_chart = [];
+      $arr_chart_value = [];
+
+      $month = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Des'
+      ];
+      $arr_chart['labels'] = $month;
+      $tahun = date('Y');
+      $modelName = $request->model;
+
+      if($modelName === 'pemeriksaan'){
+        
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach (array_keys($arr_chart['labels']) as $month){
+          
+              $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+              $idpos = $posyandu_->id;
+              
+              $pemereiksaanAnak = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                ->where('id_posyandu' , $idpos)->count();
+              $pemereiksaanIbu = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                ->where('id_posyandu' , $idpos)->count();
+              $pemereiksaanLansia = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                ->where('id_posyandu' , $idpos)->count();
+              
+              $arr_chart_value['bumil'][] = $pemereiksaanIbu;
+              $arr_chart_value['anak'][] = $pemereiksaanAnak;
+              $arr_chart_value['lansia'][] = $pemereiksaanLansia;
+
+            }
+          }
+        }else{
+          foreach (array_keys($arr_chart['labels']) as $month){
+          
+            $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+  
+            $pemereiksaanAnak = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            $pemereiksaanIbu = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            $pemereiksaanLansia = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            
+            $arr_chart_value['bumil'][] = $pemereiksaanIbu;
+            $arr_chart_value['anak'][] = $pemereiksaanAnak;
+            $arr_chart_value['lansia'][] = $pemereiksaanLansia;
+          }
+        }
+
+      }
+
+      if($modelName === 'konsul'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach (array_keys($arr_chart['labels']) as $month){
+          
+              $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+              $idpos = $posyandu_->id;
+              
+              $pemereiksaanAnak = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                ->where('id_posyandu' , $idpos)->count();
+              $pemereiksaanIbu = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                ->where('id_posyandu' , $idpos)->count();
+              $pemereiksaanLansia = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                ->where('id_posyandu' , $idpos)->count();
+            
+              $arr_chart_value['bumil'][] = $pemereiksaanIbu;
+              $arr_chart_value['anak'][] = $pemereiksaanAnak;
+              $arr_chart_value['lansia'][] = $pemereiksaanLansia;
+
+            }
+          }
+        }else{
+          foreach (array_keys($arr_chart['labels']) as $month){
+          
+            $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+            
+            $pemereiksaanAnak = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+            $pemereiksaanIbu = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+            $pemereiksaanLansia = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereMonth('tanggal_pemeriksaan' , $monthIndex)
+              ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+
+            $arr_chart_value['bumil'][] = $pemereiksaanIbu;
+            $arr_chart_value['anak'][] = $pemereiksaanAnak;
+            $arr_chart_value['lansia'][] = $pemereiksaanLansia;
+      
+          }
+        }
+        
+      }
+
+      if($modelName === 'vitamin'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach (array_keys($arr_chart['labels']) as $month){
+          
+              $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+              $idpos = $posyandu_->id;
+
+              $pemberianVitamin = PemberianVitamin::whereYear('tanggal_pemberian' , $tahun)
+                ->whereMonth('tanggal_pemberian' , $monthIndex)->where('id_posyandu' , $idpos)->with('user')->get();
+              
+              if($pemberianVitamin->isEmpty() === false){
+                $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+                foreach($pemberianVitamin as $user){
+    
+                  if($user->user->ibu) {
+                    $tmp_arr['bumil'][] = $user;
+                  }else if($user->user->anak){
+                    $tmp_arr['anak'][] = $user;
+                  }else if($user->user->lansia){
+                    $tmp_arr['lansia'][] = $user;
+                  }
+    
+                }
+    
+                $arr_chart_value['bumil'][] = count($tmp_arr['bumil']);
+                $arr_chart_value['anak'][] = count($tmp_arr['anak']);
+                $arr_chart_value['lansia'][] = count($tmp_arr['lansia']);
+    
+              }else{
+                $arr_chart_value['bumil'][] = 0;
+                $arr_chart_value['lansia'][] = 0;
+                $arr_chart_value['anak'][] = 0;
+              }
+    
+            }
+          }
+        }else{
+          foreach (array_keys($arr_chart['labels']) as $month){
+          
+            $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+  
+            $pemberianVitamin = PemberianVitamin::whereYear('tanggal_pemberian' , $tahun)
+              ->whereMonth('tanggal_pemberian' , $monthIndex)->with('user')->get();
+            
+            if($pemberianVitamin->isEmpty() === false){
+              $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+              foreach($pemberianVitamin as $user){
+  
+                if($user->user->ibu) {
+                  $tmp_arr['bumil'][] = $user;
+                }else if($user->user->anak){
+                  $tmp_arr['anak'][] = $user;
+                }else if($user->user->lansia){
+                  $tmp_arr['lansia'][] = $user;
+                }
+  
+              }
+  
+              $arr_chart_value['bumil'][] = count($tmp_arr['bumil']);
+              $arr_chart_value['anak'][] = count($tmp_arr['anak']);
+              $arr_chart_value['lansia'][] = count($tmp_arr['lansia']);
+  
+            }else{
+              $arr_chart_value['bumil'][] = 0;
+              $arr_chart_value['lansia'][] = 0;
+              $arr_chart_value['anak'][] = 0;
+            }
+  
+          }
+        }
+      }
+
+
+      if($modelName === 'imunisasi'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach (array_keys($arr_chart['labels']) as $month){
+          
+              $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+              $idpos = $posyandu_->id;
+              
+              $pemberianImunisasi = PemberianImunisasi::whereYear('tanggal_imunisasi' , $tahun)
+                ->whereMonth('tanggal_imunisasi' , $monthIndex)->where('id_posyandu' , $idpos)->with('user')->get();
+              
+              if($pemberianImunisasi->isEmpty() === false){
+                $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+                foreach($pemberianImunisasi as $user){
+    
+                  if($user->user->ibu) {
+                    $tmp_arr['bumil'][] = $user;
+                  }else if($user->user->anak){
+                    $tmp_arr['anak'][] = $user;
+                  }else if($user->user->lansia){
+                    $tmp_arr['lansia'][] = $user;
+                  }
+    
+                }
+    
+                $arr_chart_value['bumil'][] = count($tmp_arr['bumil']);
+                $arr_chart_value['anak'][] = count($tmp_arr['anak']);
+                $arr_chart_value['lansia'][] = count($tmp_arr['lansia']);
+    
+              }else{
+                $arr_chart_value['bumil'][] = 0;
+                $arr_chart_value['lansia'][] = 0;
+                $arr_chart_value['anak'][] = 0;
+              }
+                
+            }
+          }
+        }else{
+          foreach (array_keys($arr_chart['labels']) as $month){
+          
+            $monthIndex = $month < 10 ? '0'. ($month+1) : ($month+1);
+  
+            $pemberianImunisasi = PemberianImunisasi::whereYear('tanggal_imunisasi' , $tahun)
+              ->whereMonth('tanggal_imunisasi' , $monthIndex)->with('user')->get();
+            
+            if($pemberianImunisasi->isEmpty() === false){
+              $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+              foreach($pemberianImunisasi as $user){
+  
+                if($user->user->ibu) {
+                  $tmp_arr['bumil'][] = $user;
+                }else if($user->user->anak){
+                  $tmp_arr['anak'][] = $user;
+                }else if($user->user->lansia){
+                  $tmp_arr['lansia'][] = $user;
+                }
+  
+              }
+  
+              $arr_chart_value['bumil'][] = count($tmp_arr['bumil']);
+              $arr_chart_value['anak'][] = count($tmp_arr['anak']);
+              $arr_chart_value['lansia'][] = count($tmp_arr['lansia']);
+  
+            }else{
+              $arr_chart_value['bumil'][] = 0;
+              $arr_chart_value['lansia'][] = 0;
+              $arr_chart_value['anak'][] = 0;
+            }
+              
+          }
+        }
+        
+      }
+
+      $arr_chart['datasets'] = [
+        [
+          'label' => 'Ibu Hamil',
+          'backgroundColor' => '#de2141',
+          'data' => $arr_chart_value['bumil']
+        ],
+        [
+          'label' => 'Lansia',
+          'backgroundColor' => '#4d4d4d',
+          'data'=> $arr_chart_value['lansia']
+        ],
+        [
+          'label' => 'Anak',
+          'backgroundColor' => '#15d128',
+          'data' => $arr_chart_value['anak']
+        ],
+      ];
+
+      return response()->json( $arr_chart ,200);
+    }
+
+    public function loadcharttahunan(Request $request){
+      $arr_chart = [];
+      $arr_chart_value = [];
+      $tahun = date('Y');
+      $arr_chart['labels'] = [ 'Ibu Hamil' ,'Lansia' ,'Anak' ];
+
+      $modelName = $request->model;
+
+      if($modelName === 'pemeriksaan'){
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach ($arr_chart['labels'] as $keyLabel){
+              $data = 0;
+              $idPos = $posyandu_->id;
+              if($keyLabel === 'Ibu Hamil'){
+                $data = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                ->where('id_posyandu' , $idPos)->count();
+              }else if($keyLabel === 'Lansia'){
+                $data = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                ->where('id_posyandu' , $idPos)->count();;
+              }else{
+                $data = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                  ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )
+                  ->where('id_posyandu' , $idPos)->count();;
+              }
+              
+              $arr_chart_value['data'][] = $data;
+    
+            }
+          }
+        }else{
+          foreach ($arr_chart['labels'] as $keyLabel){
+            $data = 0;
+  
+            if($keyLabel === 'Ibu Hamil'){
+              $data = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            }else if($keyLabel === 'Lansia'){
+              $data = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+              ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            }else{
+              $data = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Pemeriksaan' , 'pemeriksaan'] )->count();
+            }
+            
+            $arr_chart_value['data'][] = $data;
+  
+          }
+        }
+      }
+
+      if($modelName === 'konsul'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+          foreach($posyandu as $posyandu_){
+            
+            foreach ($arr_chart['labels'] as $keyLabel){
+          
+              $data = 0;
+              $idPos = $posyandu_->id;
+              
+              if($keyLabel === 'Ibu Hamil'){
+                $data = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+                  ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                  ->where('id_posyandu' , $idPos)->count();
+              }else if($keyLabel === 'Lansia'){
+                $data = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+                  ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                  ->where('id_posyandu' , $idPos)->count();
+              }else{
+                $data = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                  ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )
+                  ->where('id_posyandu' , $idPos)->count();
+              }
+              
+              $arr_chart_value['data'][] = $data;
+    
+            }
+          }
+        }else{
+          foreach ($arr_chart['labels'] as $keyLabel){
+          
+            $data = 0;
+            
+            if($keyLabel === 'Ibu Hamil'){
+              $data = PemeriksaanAnak::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+            }else if($keyLabel === 'Lansia'){
+              $data = PemeriksaanIbu::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+            }else{
+              $data = PemeriksaanLansia::whereYear('tanggal_pemeriksaan' , $tahun)
+                ->whereIn('jenis_pemeriksaan' , ['Konsultasi' , 'konsultasi'] )->count();
+            }
+            
+            $arr_chart_value['data'][] = $data;
+  
+          }
+        }
+      }
+
+      if($modelName === 'vitamin'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+          
+          foreach($posyandu as $posyandu_){
+            foreach ( $arr_chart['labels'] as $keyLabel){
+              $idPos = $posyandu_->id;
+              $pemberianVitamin = PemberianVitamin::whereYear('tanggal_pemberian' , $tahun)
+              ->where('id_posyandu' , $idPos)->with('user')->get();
+              
+              if($pemberianVitamin->isEmpty() === false){
+                $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+                foreach($pemberianVitamin as $user){
+    
+                  if($user->user->ibu) {
+                    $tmp_arr['bumil'][] = $user;
+                  }else if($user->user->anak){
+                    $tmp_arr['anak'][] = $user;
+                  }else if($user->user->lansia){
+                    $tmp_arr['lansia'][] = $user;
+                  }
+    
+                }
+    
+                if($keyLabel === 'Ibu Hamil'){
+                  $arr_chart_value['data'][] = count($tmp_arr['bumil']);
+                }else if($keyLabel === 'Lansia'){
+                  $arr_chart_value['data'][] = count($tmp_arr['anak']);
+                }else{
+                  $arr_chart_value['data'][] = count($tmp_arr['lansia']);
+                }
+    
+              }else{
+                $arr_chart_value['data'][] = 0;
+              }
+    
+            }
+          }
+        }else{
+          foreach ( $arr_chart['labels'] as $keyLabel){
+          
+            $pemberianVitamin = PemberianVitamin::whereYear('tanggal_pemberian' , $tahun)->with('user')->get();
+            
+            if($pemberianVitamin->isEmpty() === false){
+              $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+              foreach($pemberianVitamin as $user){
+  
+                if($user->user->ibu) {
+                  $tmp_arr['bumil'][] = $user;
+                }else if($user->user->anak){
+                  $tmp_arr['anak'][] = $user;
+                }else if($user->user->lansia){
+                  $tmp_arr['lansia'][] = $user;
+                }
+  
+              }
+  
+              if($keyLabel === 'Ibu Hamil'){
+                $arr_chart_value['data'][] = count($tmp_arr['bumil']);
+              }else if($keyLabel === 'Lansia'){
+                $arr_chart_value['data'][] = count($tmp_arr['anak']);
+              }else{
+                $arr_chart_value['data'][] = count($tmp_arr['lansia']);
+              }
+  
+            }else{
+              $arr_chart_value['data'][] = 0;
+            }
+  
+          }
+        }
+
+      }
+
+      if($modelName === 'imunisasi'){
+
+        if( $request->tk == 1 ){
+          $posyandu = new Posyandu;
+          $id = auth('admin')->user()->nakes->id;
+          $posyandu = $posyandu->whereHas('nakesPosyandu' , function($nakes) use ($id) {
+            $nakes->where('id' , $id);
+          })->get();
+
+          foreach($posyandu as $posyandu_){
+            foreach ($arr_chart['labels'] as $keyLabel){
+              $idPos = $posyandu_->id;
+              $pemberianImunisasi = PemberianImunisasi::whereYear('tanggal_imunisasi' , $tahun)
+              ->where('id_posyandu' , $idPos)->with('user')->get();
+              
+              if($pemberianImunisasi->isEmpty() === false){
+                $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+                foreach($pemberianImunisasi as $user){
+    
+                  if($user->user->ibu) {
+                    $tmp_arr['bumil'][] = $user;
+                  }else if($user->user->anak){
+                    $tmp_arr['anak'][] = $user;
+                  }else if($user->user->lansia){
+                    $tmp_arr['lansia'][] = $user;
+                  }
+    
+                }
+    
+                if($keyLabel === 'Ibu Hamil'){
+                  $arr_chart_value['data'][] = count($tmp_arr['bumil']);
+                }else if($keyLabel === 'Lansia'){
+                  $arr_chart_value['data'][] = count($tmp_arr['anak']);
+                }else{
+                  $arr_chart_value['data'][] = count($tmp_arr['lansia']);
+                }
+    
+              }else{
+                $arr_chart_value['data'][] = 0;
+              }
+                
+            }
+          }
+        }else{
+          foreach ($arr_chart['labels'] as $keyLabel){
+
+            $pemberianImunisasi = PemberianImunisasi::whereYear('tanggal_imunisasi' , $tahun)->with('user')->get();
+            
+            if($pemberianImunisasi->isEmpty() === false){
+              $tmp_arr = ['bumil' => [] , 'anak' => [] , 'lansia' => []];
+              foreach($pemberianImunisasi as $user){
+  
+                if($user->user->ibu) {
+                  $tmp_arr['bumil'][] = $user;
+                }else if($user->user->anak){
+                  $tmp_arr['anak'][] = $user;
+                }else if($user->user->lansia){
+                  $tmp_arr['lansia'][] = $user;
+                }
+  
+              }
+  
+              if($keyLabel === 'Ibu Hamil'){
+                $arr_chart_value['data'][] = count($tmp_arr['bumil']);
+              }else if($keyLabel === 'Lansia'){
+                $arr_chart_value['data'][] = count($tmp_arr['anak']);
+              }else{
+                $arr_chart_value['data'][] = count($tmp_arr['lansia']);
+              }
+  
+            }else{
+              $arr_chart_value['data'][] = 0;
+            }
+              
+          }
+        }
+
+      }
+
+      $arr_chart['datasets'] = [
+        [
+          'label' => 'Laporan Tahunan',
+          'backgroundColor' => '#de2141',
+          'data' => $arr_chart_value['data']
+        ],
+      ];
+
+      return response()->json( $arr_chart ,200);
     }
 
     private function getLastYear()

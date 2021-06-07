@@ -325,6 +325,9 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
+      Route::get('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
+      Route::post('/default/bulanan' , 'LaporanController@loadchartbulanan');
+      Route::post('/default/tahunan' , 'LaporanController@loadcharttahunan');
     });
 
   });
