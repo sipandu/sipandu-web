@@ -5,11 +5,6 @@ namespace App\Http\Controllers;
 use App\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\NotifikasiUser;
-use App\User;
-use App\Anak;
-use App\Ibu;
-use App\Lansia;
 
 class KegiatanController extends Controller
 {
@@ -49,8 +44,6 @@ class KegiatanController extends Controller
         $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->save();
 
-        /* notif mobile user shit start here */
-
         $notiftitle = "Ada pengumuman kegiatan baru!";
         $notifcontent = $kegiatan->nama_kegiatan;
 
@@ -86,30 +79,6 @@ class KegiatanController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         curl_exec($ch);
         curl_close($ch);
-
-        $user = User::get();
-        foreach( $user as $item) {
-            if ( $item->role == '0' ) {
-                $duar = Anak::where("id_user", $item->id)->get()->first();
-            }
-
-            else if ( $item->role == '1' ) {
-                $duar = Ibu::where("id_user", $item->id)->get()->first();
-            }
-
-            else if ( $item->role == '2' ) {
-                $duar = Lansia::where("id_user", $item->id)->get()->first();
-            }
-            if ( $duar->id_posyandu == $kegiatan->id_posyandu ) {
-                $notif = NotifikasiUser::create([
-                    'id_user' => $item->id,
-                    'notif_title' => $notiftitle,
-                    'notif_content' => $notifcontent
-                ]);
-            }
-        }
-
-        /* notif mobile user shit end here */
 
 
         return redirect()->route('kegiatan.home')->with(['success' => 'Data Berhasil Disimpan']);

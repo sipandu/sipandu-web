@@ -510,7 +510,7 @@ class RegisController extends Controller
                     'file_bumil'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
-                    'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK ",
+                    'file_bumil.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK "
                     'file.image' => "File yang diunggah harus berupa gambar",
                     'file.mimes' => "Format gambar harus jpeg, png atau jpg",
                     'file.size' => "Gambar maksimal berukuran 5 Mb",
@@ -717,7 +717,7 @@ class RegisController extends Controller
                     'file_anak'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
-                    'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK",
+                    'file_anak.required' => "Nomor KK belum terdaftar,Wajib Upload Scan KK"
                     'file.image' => "File yang diunggah harus berupa gambar",
                     'file.mimes' => "Format gambar harus jpeg, png atau jpg",
                     'file.size' => "Gambar maksimal berukuran 5 Mb",
@@ -913,7 +913,7 @@ class RegisController extends Controller
                     'file_lansia'=> 'required|image|mimes:jpeg,png,jpg|max:5000',
                 ],
                 [
-                    'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK",
+                    'file_lansia.required' => "Nomor KK belum terdaftar, silahkan unggah Scan KK"
                     'file.image' => "File yang diunggah harus berupa gambar",
                     'file.mimes' => "Format gambar harus jpeg, png atau jpg",
                     'file.size' => "Gambar maksimal berukuran 5 Mb",

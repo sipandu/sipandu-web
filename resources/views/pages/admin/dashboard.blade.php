@@ -14,10 +14,10 @@
             </nav>
         </div>
     </div>
-    @if (auth()->guard('admin')->user()->role != "super admin")
+    @if (auth()->guard('admin')->user()->role != "super admin" && auth()->guard('admin')->user()->role != "tenaga kesehatan")
         <div class="container-fluid px-0">
             <div class="row text-center">
-                <div class="col-sm-12 col-lg-4">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Anak</h5>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-lg-4">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Bumil</h5>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-lg-4">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="text-center">Jumlah Lansia</h5>
@@ -51,7 +51,7 @@
                 </div> --}}
             </div>
         </div>
-        {{-- <div class="container-fluid px-0">
+         <div class="container-fluid px-0">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="card">
@@ -74,9 +74,9 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     @endif
-    @if (auth()->guard('admin')->user()->role == "super admin")
+    @if (auth()->guard('admin')->user()->role == "super admin" || auth()->guard('admin')->user()->role == "tenaga kesehatan" )
         <div class="container-fluid px-0">
             <div class="row text-center">
                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="container-fluid px-0">
+       <div class="container-fluid px-0">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     @endif
 @endsection
 
@@ -136,8 +136,8 @@
             $('#admin-dashboard').addClass('active');
         });
     </script>
-
-    {{-- @if (auth()->guard('admin')->user()->role == "super admin")
+    
+     @if ($admin->role == 'super admin')
         <script>
             var ctx3 = document.getElementById('pertambahanAnggota');
             var myChart3 = new Chart(ctx3, {
@@ -146,7 +146,42 @@
                     labels: ['Bumil', 'Anak', 'Lansia'],
                     datasets: [{
                         label: 'Pertambahan',
-                        data: ["{{$jumlahIbu}}", "{{$jumlahAnak}}", "{{$jumlahLansia}}"],
+                        data: ["{{$jumlahIbu}}" , "{{$jumlahAnak}}" , "{{$jumlahLansia}}"],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 1
+                            }
+                         }]
+                    }
+                }
+            });
+        </script>
+    @elseif($admin->role == 'tenaga kesehatan')
+        <script>
+            var ctx3 = document.getElementById('pertambahanAnggota');
+            var myChart3 = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Bumil', 'Anak', 'Lansia'],
+                    datasets: [{
+                        label: 'Pertambahan',
+                        data: ["{{$jumlahIbu}}" , "{{$jumlahAnak}}" , "{{$jumlahLansia}}"],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -239,6 +274,8 @@
                     }
                 }
             });
+
+            
         </script>
-    @endif --}}
+    @endif 
 @endpush

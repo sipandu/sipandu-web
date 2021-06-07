@@ -286,12 +286,11 @@ Route::get('nakes/data-kesehatan', 'Admin\KesehatanKeluarga\DataRiwayatKesehatan
 Route::get('nakes/data-kesehatan/kesehatan-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbu')->name("Data Kesehatan Ibu")->middleware("cek:param1,param2,admin,kader,tenaga kesehatan");
 Route::get('nakes/data-kesehatan/kesehatan-anak/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnak')->name("Data Kesehatan Anak")->middleware("cek:param1,param2,admin,kader,tenaga kesehatan");
 Route::get('nakes/data-kesehatan/kesehatan-lansia/{lansia}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanLansia')->name("Data Kesehatan Lansia")->middleware("cek:param1,param2,admin,kader,tenaga kesehatan");
-
-Route::get('mobile/data-kesehatan/graph-anak-1/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob1')->name('mobile-anak-1');
-Route::get('mobile/data-kesehatan/graph-anak-2/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob2')->name('mobile-anak-2');
-Route::get('mobile/data-kesehatan/graph-anak-3/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob3')->name('mobile-anak-3');
-Route::get('mobile/data-kesehatan/graph-anak-4/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob4')->name('mobile-anak-4');
-Route::get('mobile/data-kesehatan/graph-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanIbuMob')->name('mobile-ibu');
+Route::get('mobile/data-kesehatan/graph-anak-1/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnakMob1')->name('mobile-anak-1');
+Route::get('mobile/data-kesehatan/graph-anak-2/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnakMob2')->name('mobile-anak-2');
+Route::get('mobile/data-kesehatan/graph-anak-3/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnakMob3')->name('mobile-anak-3');
+Route::get('mobile/data-kesehatan/graph-anak-4/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanAnakMob4')->name('mobile-anak-4');
+Route::get('mobile/data-kesehatan/graph-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanController@kesehatanIbuMob')->name('mobile-ibu');
 
 //Imunisasi
 Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
@@ -310,6 +309,7 @@ Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminControl
 Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
 
@@ -325,10 +325,8 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
-      Route::get('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
-      Route::post('/default/bulanan' , 'LaporanController@loadchartbulanan');
-      Route::post('/default/tahunan' , 'LaporanController@loadcharttahunan');
     });
+
   });
 
   // File Update ----

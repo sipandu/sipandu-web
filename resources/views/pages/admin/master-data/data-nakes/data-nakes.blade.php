@@ -73,8 +73,8 @@
                       <td class="align-middle">{{ $data->username_telegram }}</td>
                     @endempty
                     <td class="align-middle text-start">
-                      @foreach ($nakesPosyandu->where('id_nakes', $data->id) as $item)
-                        {{ $item->posyandu->nama_posyandu }}. 
+                      @foreach ($nakesPosyandu->where('id_nakes', $data->id) as $data)
+                        {{ $data->posyandu->nama_posyandu }}. 
                       @endforeach
                     </td>
                     @if (auth()->guard('admin')->user()->role == 'super admin')

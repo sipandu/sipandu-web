@@ -8,8 +8,6 @@ use App\Mover;
 use Illuminate\Support\Str;
 use File;
 use Illuminate\Support\Facades\Auth;
-use App\NotifikasiUser;
-use App\User;
 
 class InformasiPentingController extends Controller
 {
@@ -57,8 +55,6 @@ class InformasiPentingController extends Controller
 
         $informasi->broadcastToAllUser();
 
-        /* notif mobile shit start here */
-
         $notiftitle = "Ada informasi baru!";
         $notifcontent = $informasi->judul_informasi;
 
@@ -92,17 +88,6 @@ class InformasiPentingController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         curl_exec($ch);
         curl_close($ch);
-
-        $user = User::get();
-        foreach( $user as $item) {
-            $notif = NotifikasiUser::create([
-                'id_user' => $item->id,
-                'notif_title' => $notiftitle,
-                'notif_content' => $notifcontent
-            ]);
-        }
-
-        /* notif mobile shit end here */
 
         return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
     }

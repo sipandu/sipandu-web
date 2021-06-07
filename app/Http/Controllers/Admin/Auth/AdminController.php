@@ -35,7 +35,18 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        // $idPosyandu = Auth::guard('admin')->user()->pegawai->id_posyandu;
+        $idAdmin = Auth::guard('admin')->user()->id;
+        $admin = Admin::where('id', $idAdmin)->get()->first();
+        $pegawai = Pegawai::Where('id_admin', $admin->id)->first();
+        // dd($idAdmin);
+        if($pegawai != null){
+            $idPosyandu = $pegawai->id_posyandu;
+            $nakes = Pegawai::where('id_posyandu', $idPosyandu)->where('jabatan', 'tenaga kesehatan')->get();
+        }else{
+            $idPosyandu = null;
+            $nakes = null;
+        }
+        
         $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
             ->select('tb_anak.*')
             ->where('tb_user.is_verified', 1)
@@ -51,41 +62,71 @@ class AdminController extends Controller
             ->where('tb_user.is_verified', 1)
             ->where('tb_user.keterangan', NULL)
         ->get();
-        // $nakes = Pegawai::where('id_posyandu', $idPosyandu)->where('jabatan', 'tenaga kesehatan')->get();
+        
         $nakesAll = Nakes::get();
         $kaderAll = Pegawai::where('jabatan', 'kader')->get();
         $anggota = User::where('is_verified', 1)->get();
         $posyandu = Posyandu::get();
         // dd($posyandu);
-        // $indicateUser = Pegawai::where('id_admin', Auth()->user()->id)->first();
-        // if($indicateUser != null){
-        //     if($indicateUser->jabatan == "super admin"){
-        //         $datIbu = Ibu::whereMonth('created_at', date("m") )->get();
-        //         $jumlahIbu = count($datIbu);
-        //         $datAnak = Anak::whereMonth('created_at', date("m") )->get();
-        //         $jumlahAnak = count($datAnak);
-        //         $datLansia = Lansia::whereMonth('created_at', date("m") )->get();
-        //         $jumlahLansia = count($datLansia);
-        //         // dd($jumlahIbu);
-        //         return view('pages/admin/dashboard', compact('jumlahIbu', 'jumlahAnak', 'jumlahLansia', 'anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
-        //     }else{
-        //         $datKonIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
-        //         $datKonAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
-        //         $datKonLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
-        //         $datPemIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
-        //         $datPemAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m') )->get();
-        //         $datPemLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
-        //         // dd($datKonIbu);
-        //         $jumlahKonIbu = count($datKonIbu);
-        //         $jumlahKonAnak = count($datKonAnak);
-        //         $jumlahKonLansia = count($datKonLansia);
-        //         $jumlahPemIbu = count($datPemIbu);
-        //         $jumlahPemAnak = count($datPemAnak);
-        //         $jumlahPemLansia = count($datPemLansia);
-        //         return view('pages/admin/dashboard', compact('jumlahKonIbu', 'jumlahKonAnak','jumlahKonLansia','jumlahPemIbu','jumlahPemAnak','jumlahPemLansia','anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
-        //     }
-        // }
-        return view('pages/admin/dashboard', compact('anak', 'bumil', 'lansia', 'posyandu', 'anggota', 'nakesAll', 'kaderAll'));
+        if($admin->role == "super admin"){
+            $indicateUser = SuperAdmin::where('id_admin', Auth()->user()->id)->first();
+        }elseif($admin->role == "pegawai"){
+            $indicateUser = Pegawai::where('id_admin', Auth()->user()->id)->first();
+        }else{
+            $indicateUser = Nakes::where('id_admin', Auth()->user()->id)->first();
+        }
+        
+        if($indicateUser != null){
+            if($admin->role == "super admin"){
+                $superadmin = SuperAdmin::where('id_admin', $indicateUser->id)->get();
+                $datIbu = Ibu::whereMonth('created_at', date("m") )->get();
+                $jumlahIbu = count($datIbu);
+                $datAnak = Anak::whereMonth('created_at', date("m") )->get();
+                $jumlahAnak = count($datAnak);
+                $datLansia = Lansia::whereMonth('created_at', date("m") )->get();
+                $jumlahLansia = count($datLansia);
+                // dd($jumlahIbu);
+                return view('pages/admin/dashboard', compact('admin','jumlahIbu', 'jumlahAnak', 'jumlahLansia', 'anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+            }elseif($admin->role == "tenaga kesehatan"){
+                $nakes = Nakes::where('id_admin', $admin->id)->first();
+                // dd($nakes->id);
+                $nakespos = NakesPosyandu::where('id_nakes', $nakes->id)->get();
+                $jumlahIbu = 0;
+                $jumlahAnak = 0;
+                $jumlahLansia = 0;
+                   
+                foreach($nakespos as $np){
+                    
+                    $datIbu = Ibu::where('id_posyandu', $np->id_posyandu)->whereMonth('created_at', date("m") )->get();
+                    $jumlahIbu += count($datIbu);
+                    $datAnak = Anak::where('id_posyandu', $np->id_posyandu)->whereMonth('created_at', date("m") )->get();
+                    $jumlahAnak += count($datAnak);
+                    $datLansia = Lansia::where('id_posyandu', $np->id_posyandu)->whereMonth('created_at', date("m") )->get();
+                    $jumlahLansia += count($datLansia);
+                }
+                
+                $datIbus = Ibu::where('id_posyandu', $nakespos[0]->id_posyandu)->whereMonth('created_at', date("m") )->get();
+                $datIbuss = Ibu::where('id_posyandu', $nakespos[1]->id_posyandu)->whereMonth('created_at', date("m") )->get();
+                // dd($jumlahIbu);
+                return view('pages/admin/dashboard', compact('admin','jumlahIbu', 'jumlahAnak', 'jumlahLansia', 'anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+            }else{
+                $datKonIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datKonLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Konsultasi")->whereMonth('created_at', date('m'))->get();
+                $datPemIbu = PemeriksaanIbu::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
+                $datPemAnak = PemeriksaanAnak::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m') )->get();
+                $datPemLansia = PemeriksaanLansia::where('jenis_pemeriksaan', "Pemeriksaan")->whereMonth('created_at', date('m'))->get();
+                // dd($datKonIbu);
+                $jumlahKonIbu = count($datKonIbu);
+                $jumlahKonAnak = count($datKonAnak);
+                $jumlahKonLansia = count($datKonLansia);
+                $jumlahPemIbu = count($datPemIbu);
+                $jumlahPemAnak = count($datPemAnak);
+                $jumlahPemLansia = count($datPemLansia);
+                return view('pages/admin/dashboard', compact('jumlahKonIbu', 'jumlahKonAnak','jumlahKonLansia','jumlahPemIbu','jumlahPemAnak','jumlahPemLansia','anak', 'bumil', 'lansia', 'nakes', 'nakesAll', 'kaderAll', 'kaderAll', 'anggota', 'posyandu'));
+            }
+        }
+        // return view('pages/admin/dashboard', compact('anak', 'bumil', 'lansia', 'posyandu', 'anggota', 'nakesAll', 'kaderAll'));
     }
 
     public function getProfileImage()

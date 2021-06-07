@@ -549,13 +549,13 @@
                                                             </div>
                                                             <div class="col-6">
                                                                 <span class="fw-bold">Tekanan Darah :</span>
-                                                                <p>{{ $data->tekanan_darah }} mmHG</p>
+                                                                <p>{{ $data->tekanan_darah }}</p>
                                                             </div>
                                                         </div>
                                                         <div class="row text-center">
                                                             <div class="col-6">
                                                                 <span class="fw-bold">Denyut Nadi :</span>
-                                                                <p>{{ $data->denyut_nadi }} BPM</p>
+                                                                <p>{{ $data->denyut_nadi }}</p>
                                                             </div>
                                                             <div class="col-6">
                                                                 <span class="fw-bold">IMT :</span>
