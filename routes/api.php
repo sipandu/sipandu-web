@@ -80,11 +80,11 @@ Route::prefix('mobileuser')->group(function(){
 
 
     // other
+    Route::post('/get-notifikasi', 'User\Auth\Api\ApiNotifikasiController@getNotifikasi');
+    Route::post('/read-notifikasi', 'User\Auth\Api\ApiNotifikasiController@markReadNotifikasi');
+    Route::post('/get-unread-notifikasi', 'User\Auth\Api\ApiNotifikasiController@getUnreadNotification');
     Route::get('/get-loginbg-video', 'User\Auth\Api\ApiLoginController@videoBg');
     Route::get('/get-informasi-img/{id}', 'User\Auth\Api\ApiGetImageController@getInformasiImage');
     Route::get('/get-user-img/{id}', 'User\Auth\Api\ApiGetImageController@getUserProfilePict');
     Route::get('/get-pengumuman-img/{id}', 'User\Auth\Api\ApiGetImageController@getPengumumanImage');
 });
-
-
-
