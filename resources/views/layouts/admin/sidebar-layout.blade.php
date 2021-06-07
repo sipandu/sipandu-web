@@ -2,8 +2,8 @@
 
   {{-- Brand Logo Start --}}
     <a href="{{ route("Admin Home") }}" class="brand-link text-decoration-none">
-      <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Smart Posyandu 5.0 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text fw-bold fs-6">Smart Posyandu 5.0</span>
+      <img src="{{ asset('/images/sipandu-logo.png') }}" alt="Posyandu 5.0 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text fw-bold fs-6">Posyandu 5.0</span>
     </a>
   {{-- Brand Logo End --}}
 
@@ -130,7 +130,7 @@
 										</a>
 									</li>
 								@endif
-								
+
 								{{-- @if (Auth::guard('admin')->user()->role == 'super admin')
 										<li class="nav-item">
 												<a href="{{ route('Add Super Admin') }}" id="new-super-admin" class="nav-link">
@@ -306,6 +306,12 @@
                                   <p>Data Kesehatan</p>
                               </a>
                           </li>
+                          <li class="nav-item" >
+                            <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
+                                <i class="nav-icon fas fa-user-md"></i>
+                                <p>Konsultasi Bot</p>
+                            </a>
+                        </li>
                       </ul>
                   </li>
               </li>
@@ -374,15 +380,16 @@
                       </p>
                   </a>
                   <ul class="nav nav-treeview ms-3">
-                      @if (Auth::guard('admin')->user()->role == 'super admin')
-                          <li class="nav-item">
-                              <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-                                  <i class="fas fa-exclamation nav-icon"></i>
-                                  <p>Informasi Penting</p>
-                              </a>
-                          </li>
-                          @endif
+                      {{-- @if (Auth::guard('admin')->user()->role == 'super admin')
+                          
+                          @endif --}}
                       @if (Auth::guard('admin')->user()->role == 'pegawai')
+                        <li class="nav-item">
+                            <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
+                                <i class="fas fa-exclamation nav-icon"></i>
+                                <p>Informasi Penting</p>
+                            </a>
+                        </li>
                           <li class="nav-item">
                               <a href="{{ route('penyuluhan.home') }}" class="nav-link" id="penyuluhan">
                                   <i class="fas fa-chalkboard-teacher nav-icon"></i>
@@ -464,6 +471,33 @@
                   </ul>
               </li>
           </li>
+          @if (auth()->guard('admin')->user()->role == 'super admin')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="setting-bot">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-robot"></i>
+                        <p>
+                            Setting Bot
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        <li class="nav-item">
+                            <a href="{{ route('pertanyaan-konsultasi.home') }}" class="nav-link" id="pertanyaan-konsultasi">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Pertanyaan Konsultasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('pertanyaan-satu-arah.home') }}" class="nav-link" id="pertanyaan-statis">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Pertanyaan Statis</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </li>
+            @endif
           <li class="nav-item">
               <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-info-circle"></i>

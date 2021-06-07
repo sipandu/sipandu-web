@@ -1,12 +1,11 @@
-<footer class="footer pt-100 img-bg" style="background-image:url('/index-template/img/bg/footer-bg.jpg')">
-    <div class="container">
-        <div class="footer-widget-wrapper">
-            <div class="row">
+<footer class="footer img-bg" style="background-image:url('/index-template/img/bg/footer-bg.jpg')">
+    {{-- <div class="container"> --}}
+        {{-- <div class="footer-widget-wrapper"> --}}
+            {{-- <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="footer-widget mb-30">
                         <a href="index.html" class="logo">
-                            {{-- <img src="index-template/img/logo/logo.svg" alt=""> --}}
-                            <img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="90" height="90" class="d-inline-block align-top" alt="Logo Smart Posyandu 5.0">
+                            <img src="{{ asset('/images/sipandu-logo.ico') }}" alt="" width="90" height="90" class="d-inline-block align-top" alt="Logo Posyandu 5.0">
                         </a>
                         <p>Lorem ipsum dolor serit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
                             labore dolore magna
@@ -46,10 +45,12 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="copyright-area">
-            <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}  <a class="text-decoration-none" href="https://uideck.com/" rel="nofollow">Smart Posyandu 5.0</a></p>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
+    {{-- </div> --}}
+    <div class="copyright-area border-0">
+        <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}
+            <a class="text-decoration-none" href="" rel="nofollow">Posyandu 5.0</a>
+        </p>
     </div>
 </footer>

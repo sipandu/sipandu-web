@@ -4,7 +4,7 @@
 
 @section('content')
 @php
-  $user_role = auth()->guard('admin')->user()->pegawai->jabatan;
+  $user_role = auth()->guard('admin')->user()->role;
 @endphp
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h3 col-lg-auto text-center text-md-start">Laporan Kegiatan</h1>
@@ -32,9 +32,10 @@
     </form>
     
     <div>
-      <center><div id="wait" style="font-weight: bold; padding : 10px"></div></center>
       <center>
-        <h4 style="padding: 20px 0px;" id="__default_text">Tekan Tombol Buat Laporan Untuk Menampilkan Grafik</h4>
+        <div id="wait" style="font-weight: bold; padding : 10px">
+          <img src="{{url('/images/loader.gif')}}" id="loader-laporan" />
+        </div>
       </center>
       <canvas id="myChart"></canvas>
     </div>
@@ -48,7 +49,7 @@
           </div>
           <div class="modal-body">
             <form>
-              @if($user_role === 'super admin')
+              @if($user_role === 'super admin' || $user_role === 'tenaga kesehatan')
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Posyandu :</label>
                 <select id="posyandu_laporan_filter_super_admin" class="form-control">
@@ -82,7 +83,7 @@
 
   $.ajax({
     method: 'GET',
-    url : '/admin/ajax/posyandu',
+    url : '/admin/ajax/posyandu?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
     success : ( data ) => {
       data.map( (val , i) => {
         $('#posyandu_laporan_filter_super_admin')
@@ -93,6 +94,35 @@
     $('#posyandu_laporan_filter_super_admin').removeAttr('disabled')
     $('#_btn_txt_filter').text('Filter')
     $('#filter_button').removeAttr('disabled')
+  })
+
+  $.ajax({
+    method : 'GET',
+    url : '/admin/ajax/default/kegiatan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
+    success : (res) => {
+      if(window.bar != undefined) window.bar.destroy();
+      window.bar = new Chart( ctx , {
+        type : 'bar',
+        data : {
+          labels : [...res.labels],
+          datasets : [ ...res.datasets ]
+        },
+        options : {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                stepSize : 3,
+                suggestedMax: 10,
+              }
+            }]
+          }
+        }
+      } )
+      
+    }
+  }).done(() => {
+    $('#loader-laporan').css({ display : 'none' })
   })
 
   $('#filter_type_laporan_kegiatan').on('change' , () => {
@@ -173,6 +203,8 @@
   $('#generate_laporan_kegiatan').on('click' , (e) => {
     
     e.preventDefault()
+    
+    $('#loader-laporan').css({ display : 'block' })
 
     $('#__default_text').text('')
     $('#generate_laporan_kegiatan').attr('disabled' , true)
@@ -183,6 +215,8 @@
     const filter = $('#filter_type_laporan_kegiatan').val()
     const tahun = $('#filter_value_year_laporan_kegiatan').val()
     const bulan = $('#filter_value_month_laporan_kegiatan').val()
+
+    if(window.bar != undefined) window.bar.destroy();
     
     $.ajax({
       method : 'POST',
@@ -196,7 +230,7 @@
       },
       success : (res) => {
         
-        var ChartKegiatan = new Chart( ctx , {
+        window.bar = new Chart( ctx , {
           type : 'bar',
           data : {
             labels : [...res.labels],
@@ -220,11 +254,8 @@
       $('#generate_laporan_kegiatan').removeAttr('disabled')
       $('#generate_laporan_kegiatan').text('Buat Laporan')
       $('#filter_type_laporan_kegiatan').removeAttr('disabled')
+      $('#loader-laporan').css({ display : 'none' })
     })
-
-    if(window.bar != undefined)
-      window.bar.destroy();
-      window.bar = new Chart(ctx , {});
   })
 
 </script>
