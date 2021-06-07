@@ -91,15 +91,15 @@ class PengumumanController extends Controller
         $user = User::get();
         foreach( $user as $item) {
             if ( $item->role == '0' ) {
-                $duar = Anak::where("id_user", $item->role)->get()->first();
+                $duar = Anak::where("id_user", $item->id)->get()->first();
             }
 
             else if ( $item->role == '1' ) {
-                $duar = Ibu::where("id_user", $item->role)->get()->first();
+                $duar = Ibu::where("id_user", $item->id)->get()->first();
             }
 
             else if ( $item->role == '2' ) {
-                $duar = Lansia::where("id_user", $item->role)->get()->first();
+                $duar = Lansia::where("id_user", $item->id)->get()->first();
             }
             if ( $duar->id_posyandu == $pengumuman->id_posyandu ) {
                 $notif = NotifikasiUser::create([
