@@ -40,7 +40,7 @@
             <div class="row mb-5">
                 <div class="col-sm-12 col-md-6 text-md-center">
                     <p class="card-text text-center text-md-start small">
-                        <span class="text-muted">{{ $informasi->author->pegawai->nama_pegawai }}</span>
+                        <span class="text-muted">{{ $informasi->author->pegawai->nama_pegawai ?? "no name" }}</span>
                         <span class="fw-bold mx-2"> | </span>
                         <span class="text-muted">Pada {{ date('d F Y', strtotime($informasi->tanggal)) }}</span>
                     </p>
@@ -65,7 +65,7 @@
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">{{ $item->judul_informasi }}</a></h5>
-                                <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai }}</span> | <span>Pada {{ date('d F Y', strtotime($item->tanggal)) }}</span></p>
+                                <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai ?? "no name" }}</span> | <span>Pada {{ date('d F Y', strtotime($item->tanggal)) }}</span></p>
                                 <p class="card-text">{{ strip_tags(substr($item->informasi, 0, 100)) }} ...</p>
                                 <p class="card-text small">
                                 <span><i class="fas fa-eye"></i> {{ $item->dilihat }}</span>

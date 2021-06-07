@@ -27,7 +27,7 @@
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">{{ $item->judul_informasi }}</a></h5>
-                                <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai }}</span> | <span>{{ date('d F Y', strtotime($item->created_at)) }}</span></p>
+                                <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai ?? "no name" }}</span> | <span>{{ date('d F Y', strtotime($item->created_at)) }}</span></p>
                                 <p class="card-text">{{ strip_tags(substr($item->informasi, 0, 100)) }} ...</p>
                                 <p class="card-text small">
                                 <span><i class="fas fa-eye"></i> {{ $item->dilihat }}</span>
