@@ -13,12 +13,12 @@ class InformasiPentingController extends Controller
 {
     public function index()
     {
-        if(Auth::guard('admin')->user()->role == 'super admin') {
-            $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
-        } else {
+        // if(Auth::guard('admin')->user()->role == 'super admin') {
+        //     $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
+        // } else {
             $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)
                 ->orderby('tanggal', 'desc')->get();
-        }
+        // }
         return view('pages.admin.informasi.informasi-penting.home', compact('informasi'));
     }
 
