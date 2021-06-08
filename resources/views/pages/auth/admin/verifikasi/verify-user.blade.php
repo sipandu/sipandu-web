@@ -40,7 +40,7 @@
                     <button class="nav-link btn btn-info active text-left" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
                       <i class="fas fa-female nav-icon"></i> Ibu Hamil
                       @if (count($ibu) > 0)
-                        <span class="badge bg-warning float-right">{{ $ibu->count() }}</span>
+                        <span class="badge bg-warning float-right">{{ count($ibu) }}</span>
                       @endif
                     </button>
                   </li>
