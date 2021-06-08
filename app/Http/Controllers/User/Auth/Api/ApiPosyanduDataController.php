@@ -113,7 +113,7 @@ class ApiPosyanduDataController extends Controller
             $userdata = Lansia::where('id_user', $idUser->id)->get()->first();
         }
         $posyandu = Posyandu::where('id', $userdata->id_posyandu)->get()->first();
-        $pengumuman = Pengumuman::where('id_posyandu', $posyandu->id)->orderby('created_at', 'desc')->get()->map(function($item){
+        $pengumuman = Pengumuman::where('id_posyandu', $posyandu->id)->orderby('created_at', 'desc')->limit(10)->get()->map(function($item){
             $item->foto = $item->getUrlImage();
             return $item;
         });
