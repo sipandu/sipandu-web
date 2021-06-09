@@ -10,7 +10,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $informasi = InformasiPenting::orderby('created_at', 'desc')->paginate(8);
+        $informasi = InformasiPenting::orderby('created_at', 'desc')->paginate(6);
         $populer_informasi = InformasiPenting::orderby('dilihat', 'desc')->limit(5)->get();
         return view('pages.user.content.news', compact('informasi', 'populer_informasi'));
     }

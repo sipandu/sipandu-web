@@ -35,7 +35,6 @@
             <div class="row">
                 <div class="col-xl-8 mx-auto">
                     <div class="section-title text-center mb-55">
-                        <span class="wow fadeInDown" data-wow-delay=".2s"><a class="text-decoration-none" href="{{ route("Berita") }}">Lihat Semua Berita</a></span>
                         <h2 class="mb-15 wow fadeInUp" data-wow-delay=".4s">Berita Terbaru</h2>
                         <p class="wow fadeInUp" data-wow-delay=".4s">Simak berita terkini terkait kesehatan dan jangan lewatkan informasi mengenai kegiatan-kegiatan yang dilaksanakan oleh Posyandu 5.0</p>
                     </div>
@@ -56,6 +55,9 @@
                     </div>
                 </div>
                 @endforeach
+                <div class="section-title text-center mb-55">
+                    <span class="wow fadeInDown text-center" data-wow-delay=".2s"><a class="text-decoration-none" href="{{ route("Berita") }}">Lihat Semua Berita</a></span>
+                </div>
             </div>
         </div>
     </section>

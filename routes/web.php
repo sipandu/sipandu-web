@@ -345,6 +345,10 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
   });
   // ------
 
+
+
+
+
 //Informasi Penting
 Route::get('/admin/informasi-penting/home', 'InformasiPentingController@index')->name('informasi_penting.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('/admin/informasi-penting/create', 'InformasiPentingController@create')->name('informasi_penting.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
@@ -368,6 +372,9 @@ Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('pe
 Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
 Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+
+
+
 
 //Pengumuman
 Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);

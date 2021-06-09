@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-xl-8 mx-auto">
                 <div class="section-title text-center mb-55">
-                    <span class="wow fadeInDown" data-wow-delay=".2s"><a href="" class="text-decoration-none link-primary">Mulai Gunakan Posyandu 5.0</a></span>
+                    {{-- <span class="wow fadeInDown" data-wow-delay=".2s"><a href="" class="text-decoration-none link-primary">Mulai Gunakan Posyandu 5.0</a></span> --}}
                     <h2 class="mb-15 wow fadeInUp" data-wow-delay=".4s">Posyandu 5.0 Mempermudah Kesehatan Keluarga</h2>
                 </div>
             </div>
