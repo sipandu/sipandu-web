@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\InformasiPenting;
 use App\TagBerita;
 
-class BlogController extends Controller
+class NewsController extends Controller
 {
     public function index()
     {

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Kegiatan;
 
-use App\Kegiatan;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\NotifikasiUser;
+use App\Kegiatan;
 use App\User;
 use App\Anak;
 use App\Ibu;
