@@ -1,15 +1,19 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Tambah Informasi Penting')
+@section('title', 'Buat Berita')
+
+@push('css')
+  <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+@endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Tambah Informasi Penting</h1>
+        <h1 class="h3">Buat Berita Baru</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Informasi Penting</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Tambah Informasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Berita</li>
                 </ol>
             </nav>
         </div>
@@ -31,8 +35,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Judul</label>
-                                        <input type="text" class="form-control @error('judul_informasi') is-invalid @enderror" value="{{ old('judul_informasi') }}"
-                                        placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
+                                        <input type="text" class="form-control @error('judul_informasi') is-invalid @enderror" value="{{ old('judul_informasi') }}" placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
                                         @error('judul_informasi')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -40,9 +43,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Kontent</label>
-                                        <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content"
-                                        placeholder="Masukkan Konten" cols="30" rows="10">{!! old('informasi') !!}</textarea>
+                                        <label for="content">Kontent</label>
+                                        <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content" placeholder="Masukkan Konten" cols="30" rows="10">{!! old('informasi') !!}</textarea>
                                         @error('informasi')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -70,7 +72,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Gambar Informasi</label>
-                                        <img id="img-preview" src="/admin-template/dist/img/img-preview-800x400.png" width="100%" style="margin-bottom: 10px;" alt="">
+                                        <img id="img-preview" src="" width="100%" style="margin-bottom: 10px;" alt="">
                                         <input type="file" id="input-file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" id="">
                                         @error('gambar')
                                             <span class="invalid-feedback">
@@ -78,6 +80,14 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <label>Tempat Tugas</label>
+                                        <select class="select2" multiple="multiple" data-placeholder="Pilih tag" name="tag_berita[]" style="width: 100%;">
+                                            @foreach ($tag as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama_tag }}</option>
+                                            @endforeach
+                                        </select>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -90,39 +100,39 @@
 
 @push('js')
     <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script>
-        $(function () {
-          $('.ckeditor').each(function(e){
-              CKEDITOR.replace(this.id ,{
-                  height : 800,
-                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
-              });
-          });
-        });
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#informasi-penting').addClass('active');
         });
+
         $(function () {
-          $('.ckeditor').each(function(e){
-              CKEDITOR.replace(this.id ,{
-                  height : 800,
-                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
-              });
-          });
-        });
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        })
+
+        // $(function () {
+        //   $('.ckeditor').each(function(e){
+        //       CKEDITOR.replace(this.id ,{
+        //           height : 800,
+        //           filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+        //       });
+        //   });
+        // });
+
         $('#input-file').on('change', function(){
             var filedata = this.files[0];
             var imgtype = filedata.type;
             var match = ['image/jpg', 'image/jpeg', 'image/png'];
             if (!(filedata.type==match[0]||filedata.type==match[1]||filedata.type==match[2])) {
                 var msg = "Format Gambar Salah";
-                alertWarning(msg);
+                // alertWarning(msg);
                 $(this).val('');
             }else{
                 var reader=new FileReader();
@@ -134,15 +144,6 @@
                 postData.append('file', this.files[0]);
             }
         });
-
-        ClassicEditor
-            .create( document.querySelector( '#content' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
     </script>
     @if($message = Session::get('success'))
         <script>

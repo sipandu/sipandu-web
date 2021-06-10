@@ -41,25 +41,6 @@
                     </div>
                 @endforeach
             </div>
-            {{-- @foreach($informasi as $item)
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-5 my-auto">
-                            <img src="{{ route('informasi_penting.get_img', $item->id) }}" class="w-100 h-100" alt="...">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold"><a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">{{ $item->judul_informasi }}</a></h5>
-                                <p class="card-text small"><span class="text-muted">Oleh {{ $item->author->pegawai->nama_pegawai ?? "no name" }}</span> | <span>{{ date('d F Y', strtotime($item->created_at)) }}</span></p>
-                                <p class="card-text">{{ strip_tags(substr($item->informasi, 0, 100)) }} ...</p>
-                                <p class="card-text small">
-                                <span><i class="fas fa-eye"></i> {{ $item->dilihat }}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach --}}
             @if($informasi->lastPage() > 1)
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center mt-5 mb-4">
@@ -97,19 +78,6 @@
                         </div>
                     </div>
                 </div>
-                    {{-- <div class="border-0 border-0">
-                        <div class="row g-0">
-                            <div class="col-5 my-auto">
-                                <img src="{{ route('informasi_penting.get_img', $item->id) }}" class="w-100 h-100" alt="...">
-                            </div>
-                            <div class="col-7">
-                                <div class="card-body">
-                                    <h6 class="card-title fw-bold"><a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">{{ $item->judul_informasi }}</a></h6>
-                                    <span class="text-muted mx-auto"><i class="fas fa-eye"></i> {{ $item->dilihat }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                 @endforeach
             </div>
         </div>

@@ -14,6 +14,11 @@ class InformasiPenting extends Model
         return $this->belongsTo(Admin::class, 'author_id', 'id');
     }
 
+    public function tagBerita()
+    {
+        return $this->hasMany(TagBerita::class,'id_tag','id');
+    }
+
 
     public function getUrlImage() {
         return url('/api/mobileuser/get-informasi-img/'.$this->id);

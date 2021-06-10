@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Informasi\Berita;
 
-use App\InformasiPenting;
-use Illuminate\Http\Request;
-use App\Mover;
-use Illuminate\Support\Str;
-use File;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\NotifikasiUser;
+use File;
+use App\Mover;
+use App\InformasiPenting;
 use App\User;
+use App\Tag;
+use App\TagBerita;
 
-class InformasiPentingController extends Controller
+class BeritaController extends Controller
 {
     public function index()
     {
-        // if(Auth::guard('admin')->user()->role == 'super admin') {
-        //     $informasi = InformasiPenting::orderby('tanggal', 'desc')->get();
-        // } else {
-            $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)
-                ->orderby('tanggal', 'desc')->get();
-        // }
-        return view('pages.admin.informasi.informasi-penting.home', compact('informasi'));
+        $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)->orderby('tanggal', 'desc')->get();
+        return view('admin.informasi.berita.home', compact('informasi'));
     }
 
     public function create()
     {
-        return view('pages.admin.informasi.informasi-penting.create');
+        $tag = Tag::where('status', 'Aktif')->get();
+        return view('admin.informasi.berita.create', compact('tag'));
     }
 
     public function store(Request $request)
     {
+        // return ($request);
         $messages = [
             'required' => ':attribute Wajib Diisi',
             'min' => ':attribute Harus Diisi minimum :min karakter',
@@ -52,8 +52,16 @@ class InformasiPentingController extends Controller
         $informasi->image = $filename;
         $informasi->slug = Str::slug($request->judul_informasi);
         $informasi->dilihat = 0;
+        $informasi->status = 'Aktif';
         $informasi->author_id = Auth::guard('admin')->user()->id;
         $informasi->save();
+
+        foreach ($request->tag_berita as $data => $value) {
+            $tag = TagBerita::create([
+                'id_informasi' => $informasi->id,
+                'id_tag' => $request->tag_berita[$data],
+            ]);
+        }
 
         $informasi->broadcastToAllUser();
 
@@ -111,7 +119,7 @@ class InformasiPentingController extends Controller
     public function show($id)
     {
         $informasi = InformasiPenting::find($id);
-        return view('pages.admin.informasi.informasi-penting.show', compact('informasi'));
+        return view('admin.informasi.berita.show', compact('informasi'));
     }
 
     public function update(Request $request, $id)
@@ -152,12 +160,13 @@ class InformasiPentingController extends Controller
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
 
-    public function delete(Request $request)
+    public function statusBerita(Request $request, InformasiPenting $informasiPenting)
     {
-        $informasi = InformasiPenting::find($request->id);
-        File::delete(storage_path($informasi->image));
-        $informasi->delete();
-        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus']);
+        $informasi = InformasiPenting::find($informasiPenting->id);
+        $informasi->status = $request->status;
+        $informasi->save();
+
+        return redirect()->back()->with(['success' => 'Status publikasi berhasil diubah']);
     }
 
     public function getImage($id)

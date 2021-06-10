@@ -68,6 +68,8 @@
     <script src="{{url('base-template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{url('base-template/dist/js/adminlte.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> --}}
+    
     <script>
         function alertSuccess(msg){
           swal({
@@ -95,6 +97,22 @@
             button: "Ok",
           });
         }
+
+        // JS bawaan dari Bootstrap 5 untuk melakukan realtime validation ketika form required
+        (function () {
+          'use strict'
+          var forms = document.querySelectorAll('.needs-validation')
+          Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                      if (!form.checkValidity()) {
+                          event.preventDefault()
+                          event.stopPropagation()
+                      }
+                      form.classList.add('was-validated')
+                  }, false)
+              })
+        })()
     </script>
 
     @stack('js')

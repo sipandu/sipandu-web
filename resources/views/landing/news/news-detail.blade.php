@@ -1,5 +1,14 @@
 @extends('layouts/index/index-layout')
 
+@push('css')
+    <style>
+        .chipers{
+            border-radius: 150px;
+            opacity: 0.5;
+        }
+    </style>
+@endpush
+
 @section('content')
 <div class="container mt-5 pt-5">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap my-auto">
@@ -24,13 +33,18 @@
                         <p class="card-text text-center text-md-start small">
                             <span class="text-muted">Diposting Oleh : {{ $informasi->author->pegawai->nama_pegawai ?? "no name" }}</span>
                             <span class="fw-bold mx-2"> | </span>
-                            <span class="text-muted">Pada {{ date('d F Y', strtotime($informasi->tanggal)) }}</span>
+                            <span class="text-muted">Pada {{ date('d M Y', strtotime($informasi->tanggal)) }}</span>
                         </p>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <p class="card-text small text-center text-md-end text-end">
                             <span class="text-muted"><i class="fas fa-eye"></i> {{ $informasi->dilihat }} kali</span>
                         </p>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block">
+                        @foreach ($tag_berita->where('id_informasi', $informasi->id) as $data)
+                            <a class="btn btn-sm btn-secondary chipers">{{ $data->tag->nama_tag }}</a>
+                        @endforeach
                     </div>
                 </div>
                 {!! $informasi->informasi !!}
@@ -46,7 +60,9 @@
                         <div class="card h-100">
                             <img src="{{ route('informasi_penting.get_img', $item->id) }}" class="card-img-top" alt="berita-terbaru-{{ $loop->iteration }}">
                             <div class="card-body">
-                                <h5 class="card-title text-center">{{ $item->judul_informasi }}</h5>
+                                <h5 class="card-title text-center">
+                                    <a href="{{ route('Detail Berita', $item->slug) }}" class="text-decoration-none page-scroll">{{ $item->judul_informasi }}</a>
+                                </h5>
                             </div>
                             <div class="card-footer text-center">
                                 <div class="row">
