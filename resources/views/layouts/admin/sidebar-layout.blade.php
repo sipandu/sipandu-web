@@ -232,7 +232,7 @@
                 <ul class="nav nav-treeview ms-3">
                     @if (Auth::guard('admin')->user()->role == 'pegawai')
                         <li class="nav-item">
-                            <a href="{{ url('/admin/kegiatan/home') }}" class="nav-link" id="tambah-kegiatan">
+                            <a href="{{ route('kegiatan.home') }}" class="nav-link" id="tambah-kegiatan">
                                 <i class="nav-icon fas fa-notes-medical"></i>
                                 <p>Kegiatan</p>
                             </a>
