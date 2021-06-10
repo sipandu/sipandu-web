@@ -68,7 +68,7 @@
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <div class="col-5 my-auto">
-                                        <img src="{{ route('informasi_penting.get_img', $item->id) }}" class="w-100" alt="berita-populer-{{ $loop->iteration }}">
+                                        <img src="{{ route('informasi_penting.get_img', $item->id) }}" class="w-100 h-100" alt="berita-populer-{{ $loop->iteration }}">
                                     </div>
                                     <div class="col-7">
                                         <div class="card-body px-2 py-1">
