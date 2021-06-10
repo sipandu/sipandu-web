@@ -29,19 +29,19 @@
             <div class="card border-0">
                 <h2 class="fw-bold text-start">{{ $informasi->judul_informasi }}</h4>
                 <div class="row mb-5">
-                    <div class="col-sm-12 col-md-6 text-md-center">
-                        <p class="card-text text-center text-md-start small">
+                    <div class="col-sm-12 col-md-9">
+                        <p class="card-text text-start small">
                             <span class="text-muted">Diposting Oleh : {{ $informasi->author->pegawai->nama_pegawai ?? "no name" }}</span>
                             <span class="fw-bold mx-2"> | </span>
                             <span class="text-muted">Pada {{ date('d M Y', strtotime($informasi->tanggal)) }}</span>
                         </p>
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <p class="card-text small text-center text-md-end text-end">
+                    <div class="col-sm-12 col-md-3">
+                        <p class="card-text small text-start text-md-end">
                             <span class="text-muted"><i class="fas fa-eye"></i> {{ $informasi->dilihat }} kali</span>
                         </p>
                     </div>
-                    <div class="d-grid gap-2 d-md-block">
+                    <div class="d-inline mt-2">
                         @foreach ($tag_berita->where('id_informasi', $informasi->id) as $data)
                             <a class="btn btn-sm btn-secondary chipers">{{ $data->tag->nama_tag }}</a>
                         @endforeach
