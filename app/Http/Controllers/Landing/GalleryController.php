@@ -14,9 +14,9 @@ class GalleryController extends Controller
     {
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
 
-        if(File::exists(storage_path($$dokumentasi_kegiatan->image))) {
+        if(File::exists(storage_path($dokumentasi_kegiatan->image))) {
             return response()->file(
-                storage_path($$dokumentasi_kegiatan->image)
+                storage_path($dokumentasi_kegiatan->image)
             );
         } else {
             return response()->file(
