@@ -1,4 +1,4 @@
-<footer class="footer img-bg fixed-bottom" style="background-image:url('/index-template/img/bg/footer-bg.jpg'); height: 10vh">
+<footer class="footer img-bg fixed-bottom" style="background-image:url('/index-template/img/bg/footer-bg.jpg'); height: 7vh">
     {{-- <div class="container"> --}}
         {{-- <div class="footer-widget-wrapper"> --}}
             {{-- <div class="row">
@@ -48,8 +48,8 @@
             </div> --}}
         {{-- </div> --}}
     {{-- </div> --}}
-    <div class="copyright-area border-0">
-        <p class="mb-0 text-center">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}
+    <div class="copyright-area border-0 p-0">
+        <p class="mb-0 text-center my-2">Copyright &copy; {{ date('Y', strtotime(date('Y-m-d H:i:s'))) }}
             <a class="text-decoration-none" href="" rel="nofollow">Posyandu 5.0</a>
         </p>
     </div>

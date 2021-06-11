@@ -44,15 +44,15 @@
         </ol>
     </nav>
 </div>
-<div class="container mt-5 mb-5 pb-100">
+<div class="container mb-5 pb-100">
     <div class="row row-cols-1 mt-5">
           @foreach ($dokumentasi_kegiatan as $data)
-              <div class="col mx-auto">
-                  <div class="card w-50 mx-auto">
-                      <img src="{{ route('Dokumentasi Kegiatan', $data->id) }}" class="card-img-top h-50" alt="">
-                      <div class="card-footer text-center">
-                          <small class="text-muted">{{ $data->kegiatan->nama_kegiatan }}</small>
-                      </div>
+              <div class="col mx-auto my-3">
+                  <div class="card mx-auto" style="width: 70vh">
+					<div class="card-header text-center">
+						<small class="text-muted fs-5">{{ $data->deskripsi }}</small>
+					</div>
+					<img src="{{ route('Dokumentasi Kegiatan', $data->id) }}" class="card-img-bottom h-50" alt="">
                   </div>
               </div>
           @endforeach
