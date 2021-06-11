@@ -100,6 +100,7 @@ class KegiatanController extends Controller
             else if ( $item->role == '2' ) {
                 $duar = Lansia::where("id_user", $item->id)->get()->first();
             }
+
             if ( $duar->id_posyandu == $kegiatan->id_posyandu ) {
                 $notif = NotifikasiUser::create([
                     'id_user' => $item->id,
