@@ -15,6 +15,7 @@ class DokumentasiKegiatanController extends Controller
     {
         $this->middleware('auth:admin');
     }
+    
     public function createDokumentasi($id)
     {
         $kegiatan = Kegiatan::find($id);

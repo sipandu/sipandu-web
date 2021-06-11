@@ -12,7 +12,7 @@
         </ol>
     </nav>
 </div>
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 pb-100">
     <div class="row">
         <div class="col-md-12 col-lg-8 mb-3">
             <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -48,7 +48,7 @@
                             <a class="page-link" href="{{ $informasi->url($informasi->currentPage()-1) }}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
                         </li>
                         @for($i=1; $i <= $informasi->lastPage(); $i++)
-                            <li class="page-item"><a class="page-link" href="{{$informasi->url($i)}}">{{ $i }}</a></li>
+                            <li class="page-item <?php if($kegiatan->currentPage()): ?> bg-primary <?php endif; ?>"><a class="page-link" href="{{$informasi->url($i)}}">{{ $i }}</a></li>
                         @endfor
                         <li class="page-item <?php if($informasi->currentPage() == $informasi->lastPage()): ?> disabled <?php endif; ?>">
                             <a class="page-link" href="{{ $informasi->url($informasi->currentPage()+1) }}">Berikutnya</a>
@@ -94,7 +94,6 @@
         $(document).ready(function(){
             $('#menu-berita').addClass('active');
             $('#menu-berita').attr("href", "{{ route('Berita') }}");
-            $('#menu-penyuluhan').attr("href", "{{ route('Penyuluhan') }}");
         });
     </script>
 @endpush

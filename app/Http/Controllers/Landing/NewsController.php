@@ -6,9 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\InformasiPenting;
 use App\TagBerita;
+use File;
 
 class NewsController extends Controller
 {
+    public function getImage($id)
+    {
+        $informasi = InformasiPenting::find($id);
+
+        if(File::exists(storage_path($informasi->image))) {
+            return response()->file(
+                storage_path($informasi->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
+    }
+
     public function index()
     {
         $informasi = InformasiPenting::where('status', 'Aktif')->orderby('created_at', 'desc')->paginate(6);

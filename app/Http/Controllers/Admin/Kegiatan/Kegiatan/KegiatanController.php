@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Kegiatan\Kegiatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\NotifikasiUser;
 use Carbon\Carbon;
 use App\Kegiatan;
@@ -65,6 +66,7 @@ class KegiatanController extends Controller
             $kegiatan->end_at = $request->end_at;
             $kegiatan->deskripsi = $request->deskripsi;
             $kegiatan->status = 'Tampil';
+            $kegiatan->slug = Str::slug($request->nama_kegiatan);
             $kegiatan->save();
     
             /* notif mobile user shit start here */

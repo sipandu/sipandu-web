@@ -1,4 +1,4 @@
-<footer class="footer img-bg" style="background-image:url('/index-template/img/bg/footer-bg.jpg')">
+<footer class="footer img-bg fixed-bottom" style="background-image:url('/index-template/img/bg/footer-bg.jpg'); height: 10vh">
     {{-- <div class="container"> --}}
         {{-- <div class="footer-widget-wrapper"> --}}
             {{-- <div class="row">

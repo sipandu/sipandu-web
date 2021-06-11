@@ -168,19 +168,4 @@ class BeritaController extends Controller
 
         return redirect()->back()->with(['success' => 'Status publikasi berhasil diubah']);
     }
-
-    public function getImage($id)
-    {
-        $informasi = InformasiPenting::find($id);
-
-        if(File::exists(storage_path($informasi->image))) {
-            return response()->file(
-                storage_path($informasi->image)
-            );
-        } else {
-            return response()->file(
-                public_path('images/default-img.jpg')
-            );
-        }
-    }
 }

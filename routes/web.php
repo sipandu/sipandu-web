@@ -19,8 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Landing\LandingController@index')->name('Landing Page');
 
 //Berita di Landing Page User
+Route::get('admin/informasi/get-img/{id}', 'Landing\NewsController@getImage')->name('informasi_penting.get_img');
 Route::get('/blog', 'Landing\NewsController@index')->name("Berita");
 Route::get('/blog/detail/{slug}', 'Landing\NewsController@show')->name("Detail Berita");
+
+//Galeri dari Dokumentasi Kegiatan
+Route::get('galeri/get-img/{id}', 'Landing\GalleryController@getImage')->name('Dokumentasi Kegiatan');
+Route::get('/galeri', 'Landing\GalleryController@semuaGaleri')->name("Galeri");
+Route::get('/galeri/detail/{slug}', 'Landing\GalleryController@detailGaleri')->name("Detail Galeri");
 
 //Penyuluhan
 Route::get('/penyuluhan', 'Landing\PenyuluhanController@index')->name('Penyuluhan');
@@ -355,7 +361,6 @@ Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@cr
 Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('admin/informasi/get-img/{id}', 'Admin\Informasi\Berita\BeritaController@getImage')->name('informasi_penting.get_img');
 Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita');
 
 

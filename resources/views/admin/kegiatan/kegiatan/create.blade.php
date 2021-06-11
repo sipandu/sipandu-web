@@ -31,7 +31,7 @@
                                     <div class="form-group">
                                         <label for="tempat">Lokasi Kegiatan<span class="text-danger">*</span></label>
                                         <input type="text" name="tempat" class="form-control @error('tempat') is-invalid @enderror"
-                                        value="{{ old('tempat') }}" placeholder="Masukkan tempat kegiatan" id="tempat" required>
+                                        value="{{ old('tempat') }}" placeholder="Masukkan tempat kegiatan" id="tempat" required autocomplete="off">
                                         @error('tempat')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -82,7 +82,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="nama_kegiatan">Nama Kegiatan<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Kegiatan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="nama_kegiatan" required>
+                                        <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" placeholder="Masukkan Nama Kegiatan" value="{{ old('nama_kegiatan') }}" name="nama_kegiatan" id="nama_kegiatan" required autocomplete="off">
                                         @error('nama_kegiatan')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}

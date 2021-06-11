@@ -49,7 +49,7 @@
 	{{-- Footer End --}}
 
 	{{-- Scroll Up Buttom Start --}}
-	<a href="#" class="scroll-top">
+	<a href="#" class="scroll-top" style="z-index: 99999">
 		<i class="lni lni-arrow-up"></i>
 	</a>
 	{{-- Scroll Up Buttom End --}}

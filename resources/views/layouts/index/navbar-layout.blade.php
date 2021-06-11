@@ -45,9 +45,9 @@
                                     <li class="nav-item" id="berita">
                                         <a class="text-decoration-none" id="menu-berita" href="#blog">Berita</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="text-decoration-none" id="menu-penyuluhan" href="#penyuluhan">Penyuluhan</a>
-                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="text-decoration-none" id="menu-galeri" href="{{ route('Galeri') }}">Galeri</a>
+                                    </li>
                                     {{-- <li class="nav-item">
                                         <a class="text-decoration-none" href="{{ route('landing.regis') }}">Registrasi</a>
                                     </li> --}}

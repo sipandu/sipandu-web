@@ -22,7 +22,7 @@
         </ol>
     </nav>
 </div>
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 pb-100">
     <img src="{{ route('informasi_penting.get_img', $informasi->id) }}" class="img-fluid w-100 ratio ratio-16x9 mb-5" alt="...">
     <div class="row">
         <div class="col-sm-12 col-md-8 col-lg-8">

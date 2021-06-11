@@ -1,4 +1,4 @@
-<section id="about" class="about-section pt-150">
+<section id="about" class="about-section pt-150 pb-150">
     <div class="shape shape-2">
         <img src="index-template/img/shapes/shape-2.svg" alt="">
     </div>
