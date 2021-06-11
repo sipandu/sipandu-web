@@ -58,7 +58,7 @@
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
-                                            <button class="btn btn-danger btn-sm my-1" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fas fa-times"></i></button>
+                                            <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
                                         </td>
                                     </tr>
                                     @include('admin.kegiatan.kegiatan.modal.batalkan-kegiatan')
@@ -81,10 +81,9 @@
 
     <script>
         $(document).ready(function(){
-        $('#list-admin-dashboard').removeClass('menu-open');
-        $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
-        $('#kegiatan').addClass('active');
-        $('#tambah-kegiatan').addClass('active');
+            $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+            $('#kegiatan').addClass('active');
+            $('#tambah-kegiatan').addClass('active');
         });
 
         $(function () {
@@ -105,8 +104,29 @@
                     },
                     "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
                 }
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
         });
+
+        function batalkanKegiatan(id, nama_kegiatan) {
+            $('#delete-modal').modal('show');
+            $('#formBatalkanKegiatan').attr("action", "{{ route('kegiatan.delete', '') }}"+"/"+id);
+            $('#nama-kegiatan').val(nama_kegiatan);
+            // $('#formBatalkanKegiatan').attr("action", "{{ route('kegiatan.delete', '') }}"+"/"+id);
+            // if (status == 'Tampil') {
+            //     $('#statusPublikasi option').remove();
+            //     $('#statusPublikasi').append(`<option selected value="${status}">${status}</option>`);
+            //     $('#statusPublikasi').append(`<option value="Tidak Tampil">Tidak Tampil</option>`);
+            // } else if ( status == 'Tidak Tampil' ) {
+            //     $('#statusPublikasi option').remove();
+            //     $('#statusPublikasi').append(`<option selected value="${status}">${status}</option>`);
+            //     $('#statusPublikasi').append(`<option value="Tampil">Tampil</option>`);
+            // } else if ( status == '') {
+            //     $('#statusPublikasi option').remove();
+            //     $('#statusPublikasi').append(`<option selected disable>Pilih status publikasi</option>`);
+            //     $('#statusPublikasi').append(`<option value="Tampil">Tampil</option>`);
+            //     $('#statusPublikasi').append(`<option value="Tidak Tampil">Tidak Tampil</option>`);
+            // }
+        }
 
         function broadcastMessage(id){
             swal({

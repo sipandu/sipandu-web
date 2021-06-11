@@ -1,24 +1,24 @@
 @extends('layouts/admin/admin-layout')
-@section('title', 'Detail Riwayat Kegiatan')
+
+@section('title', 'Dokumentasi Kegiatan')
+
 @push('css')
-    <!-- DataTables -->
     <link rel="stylesheet" href="{{url('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{url('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Detail Riwayat Kegiatan</h1>
+        <h1 class="h3">Dokumentasi Kegiatan</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.home') }}">Riwayat Kegiatan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $kegiatan->nama_kegiatan }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Dokumentasi</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- Main content -->
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
@@ -36,15 +36,13 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        <table id="data" class="table table-bordered table-hover">
+                        <table id="data" class="table table-bordered table-responsive-md table-hover">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Foto</th>
-                                    <th>Deskripsi</th>
-                                    @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
-                                        <th>Tindakan</th>
-                                    @endif
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">Foto</th>
+                                    <th class="text-center">Deskripsi</th>
+                                    <th class="text-center">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,34 +52,32 @@
                                         <td class="align-middle">
                                             <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
                                         </td>
-                                        <td class="align-middle">{{ $item->deskripsi }}</td>
-                                        @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
-                                            <td class="align-middle">
-                                                <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-                                                <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        @endif
+                                        <td class="align-middle">{{ $item->deskripsi }}</td>                                        
+                                        <td class="text-center align-middle">
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="dokumentasiKegiatan('{{ $item->id }}', '{{ $item->deskripsi }}')">
+                                                <i class="fas fa-image"></i>
+                                            </button>
+                                            <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
+                                @include('admin.kegiatan.riwayat.dokumentasi.modal.dokumentasi')
                             </tbody>
-                            <tfoot>
-                              <tr>
-                                <th>No</th>
-                                <th>Foto</th>
-                                <th>Deskripsi</th>
-                                <th>Tindakan</th>
-                              </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<form id="form-delete" action="{{ route('dokumentasi.delete') }}" method="POST">
-    @csrf
-    <input type="hidden" name="id" id="id-delete">
-</form>
+    <form id="form-delete" action="{{ route('dokumentasi.delete') }}" method="POST">
+        @csrf
+        <input type="hidden" name="id" id="id-delete">
+    </form>
 @endsection
 
 @push('js')
@@ -94,7 +90,6 @@
 
     <script>
         $(document).ready(function(){
-          $('#list-admin-dashboard').removeClass('menu-open');
           $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
           $('#kegiatan').addClass('active');
           $('#riwayat-kegiatan').addClass('active');
@@ -106,8 +101,8 @@
                 "oLanguage": {
                     "sSearch": "Cari: ",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "emptyTable": "Tidak Terdapat Data Dokumentasi Kegiatan",
-                    "sSearchPlaceholder": "Cari dokumentasi kegiatan....",
+                    "emptyTable": "Tidak Terdapat Dokumentasi Kegiatan",
+                    "sSearchPlaceholder": "Cari dokumentasi kegiatan ...",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)",
                 },
@@ -134,7 +129,21 @@
                 }
             });
         }
+
+        function dokumentasiKegiatan(id, deskripsi){
+            $('#dokumentasiKegiatan').modal('show');
+            $('#fotoDokumentasi').attr("src", "{{ route('dokumentasi.get_img', '') }}"+"/"+id);
+            $('#deskripsiFoto').html(deskripsi);
+        }
     </script>
+
+    @if($message = Session::get('failed'))
+        <script>
+            $(document).ready(function(){
+                alertError('{{$message}}');
+            });
+        </script>
+    @endif
 
     @if($message = Session::get('success'))
         <script>

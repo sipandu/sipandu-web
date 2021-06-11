@@ -74,9 +74,9 @@
                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                         <td class="align-middle">{{ $data->nama_tag }}</td>
                                         <td class="text-center align-middle d-md-none">
-                                            <a href="{{route('Hapus Tag', $data->id)}}" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
+                                            <button onclick="hapusTag()" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </td>
                                         <td class="text-center align-middle d-none d-md-table-cell">
                                             <button onclick="hapusTag()" class="btn btn-sm btn-danger">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Kegiatan;
+namespace App\Http\Controllers\Admin\Kegiatan\Kegiatan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +64,7 @@ class KegiatanController extends Controller
             $kegiatan->start_at = $request->start_at;
             $kegiatan->end_at = $request->end_at;
             $kegiatan->deskripsi = $request->deskripsi;
+            $kegiatan->status = 'Tampil';
             $kegiatan->save();
     
             /* notif mobile user shit start here */

@@ -395,23 +395,26 @@ Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pe
 Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
 
 //Kegiatan Posyandu
-Route::get('admin/kegiatan', 'Admin\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('/admin/kegiatan/detail/{id}', 'Admin\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/kegiatan/update/{id}', 'Admin\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('/admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("cek:param1,head admin,admin,kader,param5");
 
 //Riwayat Kegiatan
-Route::get('/admin/riwayat-kegiatan/home', 'RiwayatAdmin\Kegiatan\KegiatanController@index')->name('riwayat_kegiatan.home');
-Route::get('/admin/riwayat-kegiatan/home/{id}', 'RiwayatAdmin\Kegiatan\KegiatanController@show')->name('riwayat_kegiatan.show');
-Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/create/{id}', 'RiwayatAdmin\Kegiatan\KegiatanController@createDokumentasi')->name('dokumentasi.create');
-Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/show/{id}', 'RiwayatAdmin\Kegiatan\KegiatanController@showDokumentasi')->name('dokumentasi.show');
-Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/store', 'RiwayatAdmin\Kegiatan\KegiatanController@storeDokumentasi')->name('dokumentasi.store');
-Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/update/{id}', 'RiwayatAdmin\Kegiatan\KegiatanController@updateDokumentasi')->name('dokumentasi.update');
-Route::post('/admin/riwayat-kegiatan/dokumentasi-kegiatan/delete', 'RiwayatAdmin\Kegiatan\KegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
-Route::get('/admin/riwayat-kegiatan/dokumentasi-kegiatan/get-img/{id}', 'RiwayatAdmin\Kegiatan\KegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
+Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');
+Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show');
+Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi');
+
+// Dokumentasi Kegiatan
+Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create');
+Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show');
+Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store');
+Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update');
+Route::post('admin/riwayat-kegiatan/dokumentasi/hapus', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
+Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
 //Command Bot
 Route::get('/admin/command-bot/pertanyaan-konsultasi/home', 'BotCommandController@index')->name('pertanyaan-konsultasi.home');

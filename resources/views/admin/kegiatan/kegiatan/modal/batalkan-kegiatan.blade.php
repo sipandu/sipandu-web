@@ -5,12 +5,12 @@
                 <h5 class="modal-title" id="delete-modal">Batalkan Kegiatan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('kegiatan.delete', $item->id) }}" method="POST" class="needs-validation" novalidate>
+            <form action="" id="formBatalkanKegiatan" method="POST" class="needs-validation" novalidate>
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="nama-kegiatan" value="{{ $item->nama_kegiatan }}" readonly>
+                        <input type="text" class="form-control" id="nama-kegiatan" value="" readonly>
                     </div>
                     <div class="form-group">
                         <label for="alasan">Pesan Pembatalan</label>
