@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use File;
 use App\InformasiPenting;
 use App\TagBerita;
-use File;
 
 class NewsController extends Controller
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use File;
 use App\Kegiatan;
 use App\DokumentasiKegiatan;
 
@@ -12,10 +13,14 @@ class GalleryController extends Controller
     public function getImage($id)
     {
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
-        
-        if(File::exists(storage_path($dokumentasi_kegiatan->image))) {
+
+        return response()->file(
+            storage_path($dokumentasi_kegiatan->image)
+        );
+
+        if(File::exists(storage_path($informasi->image))) {
             return response()->file(
-                storage_path($dokumentasi_kegiatan->image)
+                storage_path($informasi->image)
             );
         } else {
             return response()->file(
