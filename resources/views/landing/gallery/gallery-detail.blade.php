@@ -49,10 +49,10 @@
           @foreach ($dokumentasi_kegiatan as $data)
               <div class="col mx-auto my-3">
                   <div class="card mx-auto" style="width: 70vh">
-					<div class="card-header text-center">
+					<img src="{{ route('Dokumentasi Kegiatan', $data->id) }}" class="card-img-top h-50" alt="">
+					<div class="card-footer text-center">
 						<small class="text-muted fs-5">{{ $data->deskripsi }}</small>
 					</div>
-					<img src="{{ route('Dokumentasi Kegiatan', $data->id) }}" class="card-img-bottom h-50" alt="">
                   </div>
               </div>
           @endforeach
