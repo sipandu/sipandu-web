@@ -1,54 +1,62 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Edit Informasi Penting')
+@section('title', 'Rincian Berita')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Edit Informasi Penting</h1>
+        <h1 class="h3">Rincian Berita</h1>
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Informasi Penting</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail Informasi</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Berita</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Berita</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- Main content -->
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('informasi_penting.update', $informasi->id) }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ route('informasi_penting.update', $informasi->id) }}" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
                     @csrf
                     <div class="form-row">
                         <div class="col-md-8 col-sm-12">
                             <div class="card">
                                 <div class="card-header my-auto">
                                     <h4 class="card-title my-auto">
-                                        Konten Informasi Penting
+                                        Isi Berita
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Judul</label>
+                                        <label for="judul_informasi">Judul<span class="text-danger">*</span></label>
                                         <input type="text" value="{{ $informasi->judul_informasi }}" class="form-control @error('judul_informasi') is-invalid @enderror"
-                                        placeholder="Masukkan Judul Informasi" name="judul_informasi" id="">
+                                        placeholder="Masukkan Judul Informasi" name="judul_informasi" id="judul_informasi" required>
                                         @error('judul_informasi')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Judul Berita Wajib Diisi
+                                            </div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Kontent</label>
-                                        <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content" placeholder="Masukkan Konten" cols="30" rows="10">{!! $informasi->informasi !!}</textarea>
+                                        <label for="content">Isi<span class="text-danger">*</span></label>
+                                        <textarea name="informasi" class="ckeditor @error('informasi') is-invalid @enderror" id="content" placeholder="Masukkan Konten" cols="30" rows="10" required>{!! $informasi->informasi !!}</textarea>
                                         @error('informasi')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Isi Berita Wajib Diisi
+                                            </div>
                                         @enderror
                                     </div>
                                     <div class="row">
+                                        <p class="text-danger text-end"><span>*</span> Data wajib diisi</p>
                                         <div class="col-6">
                                             <a href="{{ route('informasi_penting.home') }}" class="btn btn-danger">Kembali</a>
                                         </div>
@@ -63,19 +71,25 @@
                             <div class="card">
                                 <div class="card-header my-auto">
                                     <h4 class="card-title my-auto">
-                                        Setting Informasi Penting
+                                        Rincian Berita
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Gambar Informasi</label>
-                                        <img id="img-preview" src="{{ route('informasi_penting.get_img', $informasi->id) }}" width="100%" style="margin-bottom: 10px;" alt="">
-                                        <input type="file" id="input-file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" id="">
+                                        <label for="gambar">Gambar Berita<span class="text-danger">*</span></label>
+                                        <input type="file" id="input-file" name="gambar" class="form-control @error('gambar') is-invalid @enderror" id="gambar">
                                         @error('gambar')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Gambar Berita Wajib Diisi
+                                            </div>
                                         @enderror
+                                        <div class="text-center my-3">
+                                            <img id="img-preview" src="{{ route('informasi_penting.get_img', $informasi->id) }}" class="w-75 rounded" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,27 +111,27 @@
             $('#informasi-penting').addClass('active');
         });
 
-        $(function () {
-          $('.ckeditor').each(function(e){
-              CKEDITOR.replace(this.id ,{
-                  height : 800,
-                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
-              });
-          });
-        });
+        // $(function () {
+        //   $('.ckeditor').each(function(e){
+        //       CKEDITOR.replace(this.id ,{
+        //           height : 800,
+        //           filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+        //       });
+        //   });
+        // });
 
-        $(function () {
-          $('.ckeditor').each(function(e){
-              CKEDITOR.replace(this.id ,{
-                  height : 800,
-                  filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
-                  filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
-              });
-          });
-        });
+        // $(function () {
+        //   $('.ckeditor').each(function(e){
+        //       CKEDITOR.replace(this.id ,{
+        //           height : 800,
+        //           filebrowserBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserUploadUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=2&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr=',
+        //           filebrowserImageBrowseUrl : '{{url("ckeditor")}}/filemanager/dialog.php?type=1&editor=ckeditor&akey={{ md5('goestoe_ari_2905') }}&fldr='
+        //       });
+        //   });
+        // });
 
         $('#input-file').on('change', function(){
             var filedata = this.files[0];

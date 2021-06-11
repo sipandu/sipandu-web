@@ -75,8 +75,15 @@ class DokumentasiKegiatanController extends Controller
     public function showImgDokumentasi($id)
     {
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
-        return response()->file(
-            storage_path($dokumentasi_kegiatan->image)
-        );
+
+        if(File::exists(storage_path($dokumentasi_kegiatan->image))) {
+            return response()->file(
+                storage_path($dokumentasi_kegiatan->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
     }
 }
