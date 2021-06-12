@@ -2,6 +2,10 @@
 
 @section('title', 'Rincian Berita')
 
+@push('css')
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+@endpush
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Rincian Berita</h1>
@@ -88,8 +92,30 @@
                                             </div>
                                         @enderror
                                         <div class="text-center my-3">
-                                            <img id="img-preview" src="{{ route('informasi_penting.get_img', $informasi->id) }}" class="w-75 rounded" alt="">
+                                            <img id="img-preview" src="{{ route('informasi_penting.get_img', $informasi->id) }}" class="w-100 rounded" alt="">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tag Berita<span class="text-danger">*</span></label>
+                                        <select class="select2 form-control @error('tag_berita[]') is-invalid @enderror" multiple="multiple" name="tag_berita[]" style="width: 100%;" data-placeholder="Pilih tag berita" required>
+                                            @foreach ($tag as $data)
+                                                {{-- <option value="{{ $data->id }}">{{ $data->nama_tag }}</option> --}}
+                                                @if (in_array($data->id, $tag_berita))
+                                                    <option selected value="{{ $data->id }}">{{ $data->nama_tag }}</option>
+                                                @else
+                                                    <option value="{{ $data->id }}">{{ $data->nama_tag }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('tag_berita[]')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Tag Berita Wajib Dipilih
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -103,6 +129,7 @@
 
 @push('js')
     <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -110,6 +137,13 @@
             $('#informasi-link').addClass('active');
             $('#informasi-penting').addClass('active');
         });
+
+        $(function () {
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        })
 
         // $(function () {
         //   $('.ckeditor').each(function(e){
@@ -161,9 +195,16 @@
                     console.error( error );
             } );
     </script>
+
     @if($message = Session::get('success'))
         <script>
             alertSuccess('{{ $message }}');
+        </script>
+    @endif
+
+    @if($message = Session::get('failed'))
+        <script>
+            alertError('{{ $message }}');
         </script>
     @endif
 @endpush

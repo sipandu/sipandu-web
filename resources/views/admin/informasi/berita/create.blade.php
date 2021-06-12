@@ -3,7 +3,7 @@
 @section('title', 'Buat Berita')
 
 @push('css')
-  <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
 @endpush
 
 @section('content')
@@ -79,8 +79,8 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Gambar Berita<span class="text-danger">*</span></label>
-                                        <input type="file" id="input-file" name="gambar" class="form-control @error('gambar') is-invalid @enderror" id="" required>
+                                        <label for="gambar">Gambar Berita<span class="text-danger">*</span></label>
+                                        <input type="file" id="input-file" name="gambar" class="form-control @error('gambar') is-invalid @enderror" id="gambar" required>
                                         @error('gambar')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -91,12 +91,12 @@
                                             </div>
                                         @enderror
                                         <div class="text-center my-1">
-                                            <img id="img-preview" src="" class="w-75 rounded" alt="">
+                                            <img id="img-preview" src="" class="w-100 rounded" alt="">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Tag Berita<span class="text-danger">*</span></label>
-                                        <select class="select2 form-control @error('tab_berita[]') is-invalid @enderror" multiple="multiple" name="tag_berita[]" style="width: 100%;" data-placeholder="Pilih tag berita" required>
+                                        <select class="select2 form-control @error('tag_berita[]') is-invalid @enderror" multiple="multiple" name="tag_berita[]" style="width: 100%;" data-placeholder="Pilih tag berita" required>
                                             @foreach ($tag as $data)
                                                 <option value="{{ $data->id }}">{{ $data->nama_tag }}</option>
                                             @endforeach
@@ -124,6 +124,7 @@
 @push('js')
     <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+
     <script>
         $(document).ready(function(){
             $('#informasi').addClass('menu-is-opening menu-open');

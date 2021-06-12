@@ -19,12 +19,14 @@ class RiwayatKegiatanController extends Controller
     
     public function index()
     {
+        $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+
         if(Auth::guard('admin')->user()->role == 'super admin') {
-            $kegiatan_lewat = Kegiatan::where('end_at', '<', date('Y-m-d'))
+            $kegiatan_lewat = Kegiatan::where('end_at', '<', $today)
                 ->orderby('end_at', 'desc')->get();
             $kegiatan_cancel = Kegiatan::onlyTrashed()->orderby('end_at', 'desc')->get();
         } else {
-            $kegiatan_lewat = Kegiatan::where('end_at', '<', date('Y-m-d'))
+            $kegiatan_lewat = Kegiatan::where('end_at', '<', $today)
                 ->where('id_posyandu', Auth::guard('admin')->user()->pegawai->id_posyandu)
                 ->orderby('end_at', 'desc')->get();
             $kegiatan_cancel = Kegiatan::

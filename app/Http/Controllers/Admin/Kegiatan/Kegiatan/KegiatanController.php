@@ -23,7 +23,9 @@ class KegiatanController extends Controller
 
     public function index()
     {
-        $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->orderby('created_at', 'desc')->get();
+        $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->orderby('created_at', 'desc')->where('end_at', '<', $today)->get();
+
         return view('admin.kegiatan.kegiatan.home', compact('kegiatan'));
     }
 
@@ -185,7 +187,7 @@ class KegiatanController extends Controller
             'alasan' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:150',
         ],[
             'alasan.required' => "Alasan pembatalan kegiatan wajib diisi",
-            'alasan.regex' => "Forma alasan pembatalan kegiatan tidak sesuai",
+            'alasan.regex' => "Format alasan pembatalan kegiatan tidak sesuai",
             'alasan.min' => "Alasan pembatalan kegiatan minimal berjumlah 2 karakter",
             'alasan.max' => "Alasan pembatalan kegiatan maksimal berjumlah 150 karakter",
         ]);
