@@ -230,20 +230,22 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'pegawai')
+                    @permission('Lihat Kegiatan')
                         <li class="nav-item">
                             <a href="{{ route('kegiatan.home') }}" class="nav-link" id="tambah-kegiatan">
                                 <i class="nav-icon fas fa-notes-medical"></i>
                                 <p>Kegiatan</p>
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
-                            <i class="nav-icon fas fa-history"></i>
-                            <p>Riwayat Kegiatan</p>
-                        </a>
-                    </li>
+                    @endpermission
+                    @permission('Lihat Riwayat Kegiatan')
+                        <li class="nav-item">
+                            <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
+                                <i class="nav-icon fas fa-history"></i>
+                                <p>Riwayat Kegiatan</p>
+                            </a>
+                        </li>
+                    @endpermission
                 </ul>
             </li>
         </li>
@@ -257,32 +259,30 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'pegawai')
+                    @permission('Lihat Berita')
                         <li class="nav-item">
                             <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
                                 <i class="fas fa-newspaper nav-icon"></i>
                                 <p>Berita</p>
                             </a>
                         </li>
+                    @endpermission
+                    @permission('Lihat Tag')
                         <li class="nav-item">
                             <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
                                 <i class="fas fa-tags nav-icon"></i>
                                 <p>Tag</p>
                             </a>
                         </li>
+                    @endpermission
+                    @permission('Lihat Pengumuman')
                         <li class="nav-item">
                             <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
                                 <i class="fas fa-bullhorn nav-icon"></i>
                                 <p>Pengumuman</p>
                             </a>
                         </li>
-                    @endif
-                    {{-- <li class="nav-item">
-                        <a href="{{ route("sig-posyandu.home")}}" id="sig-posyandu" class="nav-link">
-                            <i class="fas fa-map-marked-alt nav-icon"></i>
-                            <p>Persebaran Posyandu</p>
-                        </a>
-                    </li> --}}
+                    @endpermission
                 </ul>
             </li>
         </li>
