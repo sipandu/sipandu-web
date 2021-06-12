@@ -47,15 +47,13 @@ class RiwayatKegiatanController extends Controller
     public function statusPublikasi(Request $request, Kegiatan $kegiatan)
     {
         $status_kegiatan = Kegiatan::find($kegiatan->id);
-        // return ($kegiatan);
-
         $status_kegiatan->status = $request->status;
         $status_kegiatan->save();
 
         if ($status_kegiatan) {
             return redirect()->back()->with(['success' => 'Status Publikasi Kegiatan Posyandu Berhasil Diperbaharui']);
         } else {
-            return redirect()->back()->with(['failed' => 'Status Publikasi Kegiatan Posyandu Berhasil Diperbaharui']);
+            return redirect()->back()->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Diperbaharui']);
         }
         
 
