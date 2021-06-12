@@ -148,7 +148,6 @@ class RegisController extends Controller
                 'tanggal_lahir' => $tgl_lahir,
                 'jenis_kelamin' => $request->gender,
                 'alamat' => $request->alamat,
-                'jabatan' => 'super admin',
                 'nomor_telepon' => $request->tlpn,
                 'username_telegram' => $request->telegram,
                 'nik' => $request->nik,

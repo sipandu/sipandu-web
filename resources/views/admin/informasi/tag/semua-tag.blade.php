@@ -40,7 +40,7 @@
                             <div class="card card-body">
                                 <form action="{{ route('Simpan Tag') }}" method="POST" class="needs-validation" novalidate>
                                     @csrf
-                                    <div class="input-group mb-3">
+                                    <div class="input-group">
                                         <input type="text" class="form-control @error('nama_tag') is-invalid @enderror" placeholder="Masukan nama tag" name="nama_tag" autocomplete="off" required>
                                         <button class="btn btn-outline-primary" type="submit" id="button-addon2">Simpan Tag</button>
                                         @error('nama_tag')

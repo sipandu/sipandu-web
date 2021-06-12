@@ -17,7 +17,6 @@ class SuperAdmin extends Model
         'tanggal_lahir',
         'jenis_kelamin',
         'alamat',
-        'jabatan',
         'nomor_telepon',
         'username_telegram',
         'nik',

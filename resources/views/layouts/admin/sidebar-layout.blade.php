@@ -55,10 +55,10 @@
         </li>
         <div class="dropdown-divider"></div>
         <li class="nav-item">
-        <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
-            <i class="nav-icon fas fa-house-user"></i>
-            <p>Dashboard</p>
-        </a>
+            <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
+                <i class="nav-icon fas fa-house-user"></i>
+                <p>Dashboard</p>
+            </a>
         </li>
         @if (auth()->guard('admin')->user()->role != 'pegawai')
         <li class="nav-item">
@@ -99,7 +99,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
-                            <i class="nav-icon fas fa-user-lock"></i>
+                            <i class="nav-icon fas fa-user-shield"></i>
                             <p>Data Admin</p>
                         </a>
                     </li>
@@ -287,6 +287,37 @@
             </li>
         </li>
         <div class="dropdown-divider"></div>
+        <li class="nav-item">
+            <a href="{{ route('Semua Permission') }}" id="permission" class="nav-link">
+                <i class="nav-icon fas fa-key"></i>
+                <p>Hak Akses</p>
+            </a>
+        </li>
+        {{-- <li class="nav nav-treeview">
+            <li class="nav-item" id="manajemen-permission">
+                <a href="#" class="nav-link" id="permission">
+                    <i class="nav-icon fas fa-key"></i>
+                    <p>
+                        Hak Akses
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ms-3">
+                    <li class="nav-item">
+                        <a href="{{ route('Semua Permission') }}" class="nav-link" id="data-permission">
+                            <i class="fas fa-unlock-alt nav-icon"></i>
+                            <p>Data Hak Akses</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link" id="initial-permission">
+                            <i class="fas fa-user-lock nav-icon"></i>
+                            <p>Inisiasi Hak Akses</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </li> --}}
         <li class="nav nav-treeview">
             <li class="nav-item">
                 <a href="#" class="nav-link">

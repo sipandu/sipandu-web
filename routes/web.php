@@ -143,6 +143,11 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
 
 
 
+Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission");
+Route::get('admin/hak-akses/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
+
+
+
 //Dashboard User
 Route::prefix('user')->namespace('User\Auth')->group(function(){
     Route::get('/anak', 'UserController@anakhome')->name('anak.home')->middleware(['userAkses:0','user:anak']);
