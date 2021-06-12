@@ -43,7 +43,11 @@ class DokumentasiKegiatanController extends Controller
         $dokumentasi_kegiatan->image = $filename;
         $dokumentasi_kegiatan->save();
 
-        return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['success' => 'Dokumentasi berhasil dibuat']);
+        if ($dokumentasi_kegiatan) {
+            return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['success' => 'Dokumentasi Kegiatan Berhasil Dibuat']);
+        } else {
+            return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Dibuat']);
+        }
     }
 
     public function showDokumentasi($id)
@@ -85,7 +89,11 @@ class DokumentasiKegiatanController extends Controller
         $dokumentasi_kegiatan->deskripsi = $request->deskripsi;
         $dokumentasi_kegiatan->save();
 
-        return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['success' => 'Dokumentasi kegiatan berhasil diperbaharui']);
+        if ($dokumentasi_kegiatan) {
+            return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['success' => 'Dokumentasi Kegiatan Berhasil Diperbaharui']);
+        } else {
+            return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Diperbaharui']);
+        }
     }
 
     public function deleteDokumentasi(Request $request)

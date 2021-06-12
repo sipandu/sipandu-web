@@ -55,8 +55,5 @@ class RiwayatKegiatanController extends Controller
         } else {
             return redirect()->back()->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Diperbaharui']);
         }
-        
-
     }
-
 }

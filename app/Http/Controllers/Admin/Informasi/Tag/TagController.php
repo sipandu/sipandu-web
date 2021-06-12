@@ -29,7 +29,7 @@ class TagController extends Controller
         $cek_tag = Tag::where('nama_tag', $request->nama_tag)->get();
 
         if (count($cek_tag) > 0) {
-            return redirect()->back()->with('success', 'Tag berhasil ditambahkan');
+            return redirect()->back()->with('success', 'Tag Berhasil Ditambahkan');
         } else {
             $simpan_tag = Tag::create([
                 'nama_tag' => $request->nama_tag,
@@ -37,13 +37,11 @@ class TagController extends Controller
             ]);
 
             if ($simpan_tag) {
-                return redirect()->back()->with('success', 'Tag berhasil ditambahkan');
+                return redirect()->back()->with('success', 'Tag Berhasil Ditambahkan');
             } else {
-                return redirect()->back()->with('failed', 'Tag gagal ditambahkan');
+                return redirect()->back()->with('failed', 'Tag Gagal Ditambahkan');
             }
-            
         }
-        
     }
 
     public function hapusTag(Tag $tag)
@@ -53,10 +51,9 @@ class TagController extends Controller
         ]);
 
         if ($hapus_tag) {
-            return redirect()->back()->with('success', 'Tag berhasil dihapus');
+            return redirect()->back()->with('success', 'Tag Barhasil Dihapus');
         } else {
-            return redirect()->back()->with('failed', 'Tag gagal dihapus');
+            return redirect()->back()->with('failed', 'Tag Gagal Dihapus');
         }
-        
     }
 }

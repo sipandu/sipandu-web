@@ -133,11 +133,12 @@ class KegiatanController extends Controller
     
             /* notif mobile user shit end here */
     
-    
-            return redirect()->route('kegiatan.home')->with(['success' => 'Kegiatan posyandu berhasil ditambahkan']);
+            if ($kegiatan) {
+                return redirect()->back()->with(['success' => 'Kegiatan Posyandu Berhasil Ditambahkan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Kegiatan Posyandu Gagal Ditambahkan']);
+            }
         }
-        
-
     }
 
     public function show($id)
@@ -178,7 +179,11 @@ class KegiatanController extends Controller
 
         $kegiatan->broadcastKegiatanUpdate();
 
-        return redirect()->back()->with(['success' => 'Data Berhasil Diupdate']);
+        if ($kegiatan) {
+            return redirect()->back()->with(['success' => 'Kegiatan Posyandu Berhasil Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Kegiatan Posyandu Gagal Diperbaharui']);
+        }
     }
 
     public function delete(Request $request, Kegiatan $kegiatan)
@@ -198,7 +203,11 @@ class KegiatanController extends Controller
         $kegiatan->broadcastKegiatanCancel($request->alasan);
         $kegiatan->delete();
 
-        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus']);
+        if ($kegiatan) {
+            return redirect()->back()->with(['success' => 'Kegiatan Posyandu Berhasil Dibatalkan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Kegiatan Posyandu Gagal Dibatalkan']);
+        }
     }
 
     public function broadcast($id)

@@ -120,7 +120,11 @@ class BeritaController extends Controller
 
         /* notif mobile shit end here */
 
-        return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Berita Berhasil Ditambahkan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Berita Gagal Ditambahkan']);
+        }
     }
 
     public function show($id)
@@ -191,7 +195,11 @@ class BeritaController extends Controller
             //throw $th;
         }
 
-        return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Berita Berhasil Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Berita Gagal Diperbaharui']);
+        }
     }
 
     public function statusBerita(Request $request, InformasiPenting $informasiPenting)
@@ -200,6 +208,10 @@ class BeritaController extends Controller
         $informasi->status = $request->status;
         $informasi->save();
 
-        return redirect()->back()->with(['success' => 'Status publikasi berhasil diubah']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Status Publikasi Berita Berhasil Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Status Publikasi Berita Gagal Diperbaharui']);
+        }
     }
 }
