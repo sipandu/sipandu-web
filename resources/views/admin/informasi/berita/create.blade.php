@@ -12,7 +12,7 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('informasi_penting.home') }}">Berita</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tambah Berita</li>
                 </ol>
             </nav>
@@ -64,7 +64,7 @@
                                             <a href="{{ route('informasi_penting.home') }}" class="btn btn-danger">Kembali</a>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-primary float-right" type="submit">Submit</button>
+                                            <button class="btn btn-primary float-right" type="submit">Simpan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -130,13 +130,14 @@
             $('#informasi').addClass('menu-is-opening menu-open');
             $('#informasi-link').addClass('active');
             $('#informasi-penting').addClass('active');
-        });
 
-        $(function () {
             $('.select2').select2()
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
+        });
+
+        $(function () {
         })
 
         // $(function () {
@@ -169,9 +170,16 @@
             }
         });
     </script>
+
     @if($message = Session::get('success'))
         <script>
             alertSuccess('{{ $message }}');
+        </script>
+    @endif
+
+    @if($message = Session::get('failed'))
+        <script>
+            alertError('{{ $message }}');
         </script>
     @endif
 @endpush

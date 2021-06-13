@@ -293,7 +293,7 @@
                                 <p>Berita</p>
                             </a>
                         </li>
-                        @permission('Lihat Tag')
+                        @permission('Lihat Tag Berita')
                             <li class="nav-item">
                                 <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
                                     <i class="fas fa-tags nav-icon"></i>
@@ -341,6 +341,28 @@
                         </ul>
                     </li>
                 </li>
+            @else
+                @permission('Lihat Pengumuman')
+                    <li class="nav nav-treeview">
+                        <li class="nav-item" id="informasi">
+                            <a href="#" class="nav-link" id="informasi-link">
+                                <i class="nav-icon fas fa-info"></i>
+                                <p>
+                                    Informasi
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ms-3">
+                                <li class="nav-item">
+                                    <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
+                                        <i class="fas fa-bullhorn nav-icon"></i>
+                                        <p>Pengumuman</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                @endpermission
             @endpermission
         @endpermission
         {{-- End Menu Informasi --}}

@@ -17,6 +17,11 @@ use App\TagBerita;
 
 class BeritaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
         $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)->orderby('tanggal', 'desc')->get();
@@ -49,7 +54,7 @@ class BeritaController extends Controller
             'tag_berita.*.required' => "Tag berita wajib dipilih",
         ]);
 
-        $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
         $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
 

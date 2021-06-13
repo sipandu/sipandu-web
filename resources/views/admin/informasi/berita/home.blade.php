@@ -25,16 +25,22 @@
                     <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6 my-auto">
-                                <h3 class="card-title my-auto">Daftar Berita</h3>
-                            </div>
-                            <div class="col-6">
-                                <a class="btn btn-success float-right" href="{{ route('informasi_penting.create') }}"><i class="fa fa-plus"></i> Tambah</a>
-                            </div>
+                            @permission('Tambah Berita')
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Daftar Berita</h3>
+                                </div>
+                                <div class="col-6">
+                                    <a class="btn btn-success float-right" href="{{ route('informasi_penting.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                                </div>
+                            @else
+                                <div class="col-12 my-auto">
+                                    <h3 class="card-title my-auto">Daftar Berita</h3>
+                                </div>
+                            @endpermission
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
-                        <table id="tbBerita" class="table table-bordered table-hover">
+                        <table id="tbBerita" class="table table-bordered table-responsive-sm table-hover">
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
@@ -52,24 +58,51 @@
                                         <th class="fw-normal align-middle">{{ $item->judul_informasi }}</th>
                                         <th class="fw-normal align-middle">{{ date('d M Y', strtotime($item->tanggal)) }}</th>
                                         <th class="fw-normal align-middle">{{ $item->status }}</th>
-                                        <td class="text-center align-middle d-md-none">
-                                            <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
-                                                <i class="fas fa-external-link-square-alt"></i>
-                                            </button>
-                                        </td>
-                                        <td class="text-center align-middle d-none d-md-table-cell">
-                                            <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                                Detail
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
-                                                <i class="fas fa-external-link-square-alt"></i> 
-                                                Publikasi
-                                            </button>
-                                        </td>
+                                        @permission('Ubah Berita')
+                                            <td class="text-center align-middle d-md-none">
+                                                <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                @permission('Ubah Status Publikasi Berita')
+                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
+                                                        <i class="fas fa-external-link-square-alt"></i>
+                                                    </button>
+                                                @endpermission
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
+                                                <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                    Detail
+                                                </a>
+                                                @permission('Ubah Status Publikasi Berita')
+                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
+                                                        <i class="fas fa-external-link-square-alt"></i> 
+                                                        Publikasi
+                                                    </button>
+                                                @endpermission
+                                            </td>
+                                        @else
+                                            @permission('Ubah Status Publikasi Berita')
+                                                <td class="text-center align-middle d-md-none">
+                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
+                                                        <i class="fas fa-external-link-square-alt"></i>
+                                                    </button>
+                                                </td>
+                                                <td class="text-center align-middle d-none d-md-table-cell">
+                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#published">
+                                                        <i class="fas fa-external-link-square-alt"></i> 
+                                                        Publikasi
+                                                    </button>
+                                                </td>
+                                            @else
+                                                <td class="text-center align-middle d-md-none">
+                                                    -
+                                                </td>
+                                                <td class="text-center align-middle d-none d-md-table-cell">
+                                                    -
+                                                </td>
+                                            @endpermission
+                                        @endpermission
                                     </tr>
                                     @include('admin.informasi.berita.modal.published')
                                 @endforeach

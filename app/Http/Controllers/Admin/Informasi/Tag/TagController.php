@@ -17,7 +17,7 @@ class TagController extends Controller
     public function simpanTag(Request $request)
     {
         $this->validate($request,[
-            'nama_tag' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:25",
+            'nama_tag' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:25",
         ],
         [
             'nama_tag.required' => "Nama tag wajib diisi",

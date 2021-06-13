@@ -364,19 +364,19 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
 
 //Informasi Penting (Ganti jadi Berita)
-Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita');
+Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware("permission:Lihat Berita");
+Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware("permission:Tambah Berita");
+Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware("permission:Tambah Berita");
+Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware("permission:Ubah Berita");
+Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware("permission:Ubah Berita");
+Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita')->middleware("permission:Ubah Status Publikasi Berita");
 
 
 
 //Tag Berita
-Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag');
-Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag');
-Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag');
+Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag')->middleware("permission:Lihat Tag Berita");
+Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag')->middleware("permission:Tambah Tag Berita");
+Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag')->middleware("permission:Hapus Tag Berita");
 
 
 
