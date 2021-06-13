@@ -417,16 +417,16 @@ Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\Kegiatan
 Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("permission:Broadcast Kegiatan");
 
 //Riwayat Kegiatan
-Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');
-Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show');
-Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi');
+Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home')->middleware("permission:Lihat Riwayat Kegiatan");
+Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show')->middleware("permission:Lihat Dokumentasi Kegiatan");
+Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi')->middleware("permission:Ubah Status Publikasi Kegiatan");
 
 // Dokumentasi Kegiatan
-Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create');
-Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show');
-Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store');
-Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update');
-Route::post('admin/riwayat-kegiatan/dokumentasi/hapus', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
+Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create')->middleware("permission:Tambah Dokumentasi Kegiatan");
+Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store')->middleware("permission:Tambah Dokumentasi Kegiatan");
+Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show')->middleware("permission:Ubah Dokumentasi Kegiatan");
+Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update')->middleware("permission:Ubah Dokumentasi Kegiatan");
+Route::post('admin/riwayat-kegiatan/dokumentasi/hapus/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete')->middleware("permission:Hapus Dokumentasi Kegiatan");
 Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
 //Command Bot

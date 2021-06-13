@@ -14,10 +14,10 @@ class PermissionController extends Controller
     {
         $this->middleware('auth:admin');
     }
-    
+
     public function semuaPermission()
     {
-        $permission = Permission::get();
+        $permission = Permission::orderBy('nama_permission', 'asc')->get();
         $admin_permission = AdminPermission::get();
 
         return view('admin.permission.semua-permission', compact('permission', 'admin_permission'));

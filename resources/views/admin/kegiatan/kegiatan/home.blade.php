@@ -67,7 +67,7 @@
                                                 @permission('Broadcast Kegiatan')
                                                     <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
                                                 @endpermission
-                                                @permission('Ubah Kegiatan')
+                                                @permission('Batalkan Kegiatan')
                                                     <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
                                                 @endpermission
                                             </td>
@@ -78,6 +78,10 @@
                                                     @permission('Batalkan Kegiatan')
                                                         <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
                                                     @endpermission
+                                                </td>
+                                            @else
+                                                <td class="align-middle">
+                                                    -
                                                 </td>
                                             @endpermission
                                         @endpermission

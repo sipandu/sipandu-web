@@ -10,13 +10,12 @@
         <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.home') }}">Riwayat Kegiatan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Dokumentasi Kegiatan</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan) }}">Dokumentasi Kegiatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ubah</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- Main content -->
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">

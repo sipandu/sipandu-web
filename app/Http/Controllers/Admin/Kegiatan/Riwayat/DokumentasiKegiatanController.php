@@ -96,12 +96,14 @@ class DokumentasiKegiatanController extends Controller
         }
     }
 
-    public function deleteDokumentasi(Request $request)
+    public function deleteDokumentasi($id)
     {
-        $dokumentasi_kegiatan = DokumentasiKegiatan::find($request->id);
+        $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
+
+        // return($dokumentasi_kegiatan);
         File::delete(storage_path($dokumentasi_kegiatan->image));
         $dokumentasi_kegiatan->delete();
-        return redirect()->back()->with(['success' => 'Dokumentasi berhasil dihapus']);
+        return redirect()->back()->with(['success' => 'Foto Dokumentasi Kegiatan Berhasil Dihapus']);
     }
 
     public function showImgDokumentasi($id)

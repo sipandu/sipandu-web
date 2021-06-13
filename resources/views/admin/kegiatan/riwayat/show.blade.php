@@ -25,14 +25,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6 my-auto">
-                                <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
-                            </div>
-                            @if(auth()->guard('admin')->user()->role != 'tenaga kesehatan')
+                            @permission('Tambah Dokumentasi Kegiatan')
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
+                                </div>
                                 <div class="col-6">
                                     <a class="btn btn-success float-right" href="{{ route('dokumentasi.create', $kegiatan->id) }}"><i class="fa fa-plus"></i> Tambah</a>
                                 </div>
-                            @endif
+                            @else
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Dokumentasi Kegiatan</h3>
+                                </div>
+                            @endpermission
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
@@ -52,18 +56,25 @@
                                         <td class="align-middle">
                                             <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
                                         </td>
-                                        <td class="align-middle">{{ $item->deskripsi }}</td>                                        
+                                        <td class="align-middle">{{ $item->deskripsi }}</td>
                                         <td class="text-center align-middle">
                                             <button type="button" class="btn btn-sm btn-primary" onclick="dokumentasiKegiatan('{{ $item->id }}', '{{ $item->deskripsi }}')">
                                                 <i class="fas fa-image"></i>
                                             </button>
-                                            <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteDokumentasi('{{ $item->id }}')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            @permission('Ubah Dokumentasi Kegiatan')
+                                                <a href="{{ route('dokumentasi.show', $item->id) }}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            @endpermission
+                                            @permission('Hapus Dokumentasi Kegiatan')
+                                                <button class="btn btn-sm btn-danger" type="button" onclick="hapusDokumentasi('{{ $item->id }}')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endpermission
                                         </td>
+                                        <form id="hapus-dokumentasi" action="" method="POST">
+                                            @csrf
+                                        </form>
                                     </tr>
                                 @endforeach
                                 @include('admin.kegiatan.riwayat.dokumentasi.modal.dokumentasi')
@@ -74,10 +85,6 @@
             </div>
         </div>
     </div>
-    <form id="form-delete" action="{{ route('dokumentasi.delete') }}" method="POST">
-        @csrf
-        <input type="hidden" name="id" id="id-delete">
-    </form>
 @endsection
 
 @push('js')
@@ -87,6 +94,8 @@
     <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <script>
         $(document).ready(function(){
@@ -116,18 +125,36 @@
             });
         });
 
-        function deleteDokumentasi(id){
-            $('#id-delete').val(id);
-            swal({
-                title: 'Anda yakin ingin menghapus data?',
-                text: 'Data yang dihapus tidak akan bisa dikembalikan lagi!',
-                icon: 'warning',
-                buttons: ["Tidak", "Ya"],
-            }).then(function(value) {
-                if (value) {
-                    $('#form-delete').submit();
+        // function deleteDokumentasi(id){
+        //     $('#id-delete').val(id);
+        //     swal({
+        //         title: 'Anda yakin ingin menghapus data?',
+        //         text: 'Data yang dihapus tidak akan bisa dikembalikan lagi!',
+        //         icon: 'warning',
+        //         buttons: ["Tidak", "Ya"],
+        //     }).then(function(value) {
+        //         if (value) {
+        //             $('#form-delete').submit();
+        //         }
+        //     });
+        // }
+
+        function hapusDokumentasi(id) {
+            Swal.fire({
+            title: 'Peringatan',
+            text: 'Apakah anda yakin akan menghapus foto dokumentasi ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Ya, hapus",
+            cancelButtonText: 'Tidak, batalkan',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#hapus-dokumentasi').attr('action', "{{ route('dokumentasi.delete', '') }}"+"/"+id);
+                    $('#hapus-dokumentasi').submit();
                 }
-            });
+            })
         }
 
         function dokumentasiKegiatan(id, deskripsi){
@@ -140,7 +167,11 @@
     @if($message = Session::get('failed'))
         <script>
             $(document).ready(function(){
-                alertError('{{$message}}');
+                Swal.fire(
+                    'Gagal',
+                    '{{$message}}',
+                    'error'
+                )
             });
         </script>
     @endif
@@ -148,7 +179,11 @@
     @if($message = Session::get('success'))
         <script>
             $(document).ready(function(){
-                alertSuccess('{{$message}}');
+                Swal.fire(
+                    'Berhasil',
+                    '{{$message}}',
+                    'success'
+                )
             });
         </script>
     @endif

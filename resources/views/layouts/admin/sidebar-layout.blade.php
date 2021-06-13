@@ -220,35 +220,60 @@
                 </ul>
             </li>
         </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="kegiatan-posyandu">
-                <a href="#" class="nav-link" id="kegiatan">
-                    <i class="nav-icon fas fa-briefcase-medical"></i>
-                    <p>
-                        Kegiatan Posyandu
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @permission('Lihat Kegiatan')
+
+        {{-- Start Menu Kegiatan Posyandu --}}
+        @permission('Lihat Kegiatan')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="kegiatan-posyandu">
+                    <a href="#" class="nav-link" id="kegiatan">
+                        <i class="nav-icon fas fa-briefcase-medical"></i>
+                        <p>
+                            Kegiatan Posyandu
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
                             <a href="{{ route('kegiatan.home') }}" class="nav-link" id="tambah-kegiatan">
                                 <i class="nav-icon fas fa-notes-medical"></i>
                                 <p>Kegiatan</p>
                             </a>
                         </li>
-                    @endpermission
-                    @permission('Lihat Riwayat Kegiatan')
-                        <li class="nav-item">
-                            <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
-                                <i class="nav-icon fas fa-history"></i>
-                                <p>Riwayat Kegiatan</p>
-                            </a>
-                        </li>
-                    @endpermission
-                </ul>
+                        @permission('Lihat Riwayat Kegiatan')
+                            <li class="nav-item">
+                                <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
+                                    <i class="nav-icon fas fa-history"></i>
+                                    <p>Riwayat Kegiatan</p>
+                                </a>
+                            </li>
+                        @endpermission
+                    </ul>
+                </li>
             </li>
-        </li>
+        @else
+            @permission('Lihat Riwayat Kegiatan')
+                <li class="nav nav-treeview">
+                    <li class="nav-item" id="kegiatan-posyandu">
+                        <a href="#" class="nav-link" id="kegiatan">
+                            <i class="nav-icon fas fa-briefcase-medical"></i>
+                            <p>
+                                Kegiatan Posyandu
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
+                                    <i class="nav-icon fas fa-history"></i>
+                                    <p>Riwayat Kegiatan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </li>
+            @endpermission
+        @endpermission
+        {{-- End Menu Kegiatan Posyandu --}}
 
         {{-- Start Menu Informasi --}}
         @permission('Lihat Berita')
