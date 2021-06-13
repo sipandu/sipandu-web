@@ -74,17 +74,17 @@
                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                         <td class="align-middle">{{ $data->nama_tag }}</td>
                                         <td class="text-center align-middle d-md-none">
-                                            <button onclick="hapusTag()" class="btn btn-sm btn-danger">
+                                            <button onclick="hapusTag('{{ $data->id }}')" class="btn btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                         <td class="text-center align-middle d-none d-md-table-cell">
-                                            <button onclick="hapusTag()" class="btn btn-sm btn-danger">
+                                            <button onclick="hapusTag('{{ $data->id }}')" class="btn btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                                 Hapus
                                             </button>
                                         </td>
-                                        <form action="{{ route('Hapus Tag', $data->id) }}" id="hapus-tag" method="POST" class="d-inline">
+                                        <form action="" id="hapus-tag" method="POST" class="d-inline">
                                             @csrf
                                         </form>
                                     </tr>
@@ -148,6 +148,7 @@
             cancelButtonText: 'Tidak, batalkan',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $('#hapus-tag').attr('action', "{{ route('Hapus Tag', '') }}"+"/"+id);
                     $('#hapus-tag').submit();
                 }
             })

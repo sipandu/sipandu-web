@@ -37,11 +37,11 @@
                     </div>
                     <div class="collapse my-4" id="tambahPermission">
                         <div class="card card-body d-flex justify-content-end">
-                            <form action="{{ route('Simpan Tag') }}" method="POST" class="needs-validation my-auto" novalidate>
+                            <form action="{{ route('Simpan Permission', $permission->id) }}" method="POST" class="needs-validation my-auto" novalidate>
                                 @csrf
                                 <div class="row my-auto">
                                     <div class="col-sm-12 col-md-9 py-1">
-                                        <select class="select2 form-control @error('tag_berita[]') is-invalid @enderror" multiple="multiple" name="tag_berita[]" data-placeholder="Pilih tag berita" required style="width: 100%">
+                                        <select class="select2 form-control @error('admin[]') is-invalid @enderror" multiple="multiple" name="admin[]" data-placeholder="Pilih akun admin" required style="width: 100%">
                                             @foreach ($admin as $data)
                                                 @if (!in_array($data->id, $id_admin))
                                                     <option value="{{ $data->id }}">{{ $data->email }}</option>
@@ -58,7 +58,7 @@
                                         </div>
                                     @else
                                         <div class="invalid-feedback">
-                                            Nama Tag Wajib Diisi
+                                            Akun Admin Wajib Dipilih
                                         </div>
                                     @enderror
                                 </div>
@@ -82,17 +82,17 @@
                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                 <td class="align-middle">{{ $data->admin->email }}</td>
                                 <td class="text-center align-middle d-md-none">
-                                    <button onclick="hapusTag()" class="btn btn-sm btn-danger">
+                                    <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                                 <td class="text-center align-middle d-none d-md-table-cell">
-                                    <button onclick="hapusTag()" class="btn btn-sm btn-danger">
+                                    <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                         Hapus Hak Akses
                                     </button>
                                 </td>
-                                <form action="{{ route('Hapus Tag', $data->id) }}" id="hapus-tag" method="POST" class="d-inline">
+                                <form action="" id="hapus-akses" method="POST" class="d-inline" hidden>
                                     @csrf
                                 </form>
                             </tr>
@@ -107,45 +107,87 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('base-template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('base-template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#permission').addClass('active');
-    });
-
-    $(function () {
-        $("#tbInitialPermission").DataTable({
-        "responsive": false, "lengthChange": false, "autoWidth": false,
-        "oLanguage": {
-            "sSearch": "Cari:",
-            "sZeroRecords": "Data Tidak Ditemukan",
-            "emptyTable": "Tidak Terdapat Pengguna Hak Akses",
-            "sSearchPlaceholder": "Cari pengguna hak akses ...",
-            "infoEmpty": "Menampilkan 0 Data",
-            "infoFiltered": "(dari _MAX_ data)",
-        },
-        "language": {
-            "paginate": {
-            "previous": 'Sebelumnya',
-            "next": 'Berikutnya'
-            },
-            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
-        }
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#permission').addClass('active');
         });
-    });
 
-    $(function () {
-        $('.select2').select2()
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
+        $(function () {
+            $("#tbInitialPermission").DataTable({
+            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "oLanguage": {
+                "sSearch": "Cari:",
+                "sZeroRecords": "Data Tidak Ditemukan",
+                "emptyTable": "Tidak Terdapat Pengguna Hak Akses",
+                "sSearchPlaceholder": "Cari pengguna hak akses ...",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "(dari _MAX_ data)",
+            },
+            "language": {
+                "paginate": {
+                "previous": 'Sebelumnya',
+                "next": 'Berikutnya'
+                },
+                "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            }
+            });
+        });
+
+        $(function () {
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
         })
-    })
-</script>
+
+        function hapusAkses(id) {
+            Swal.fire({
+            title: 'Peringatan',
+            text: 'Apakah anda yakin akan menghapus akses pengguna ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Ya, hapus",
+            cancelButtonText: 'Tidak, batalkan',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#hapus-akses').attr('action', "{{ route('Hapus Akses', '') }}"+"/"+id);
+                    $('#hapus-akses').submit();
+                }
+            })
+        }
+    </script>
+
+    @if($message = Session::get('failed'))
+        <script>
+            $(document).ready(function(){
+                Swal.fire(
+                    'Gagal',
+                    '{{$message}}',
+                    'error'
+                )
+            });
+        </script>
+    @endif
+
+    @if($message = Session::get('success'))
+        <script>
+            $(document).ready(function(){
+                Swal.fire(
+                    'Berhasil',
+                    '{{$message}}',
+                    'success'
+                )
+            });
+        </script>
+    @endif
 @endpush
 

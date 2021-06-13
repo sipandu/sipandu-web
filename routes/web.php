@@ -143,8 +143,11 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
 
 
 
+// Manajemen Hak Akses
 Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission");
-Route::get('admin/hak-akses/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
+Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
+Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission");
+Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses");
 
 
 
