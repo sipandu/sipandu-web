@@ -3,9 +3,9 @@
 @section('title', 'Detail Hak Akses')
 
 @push('css')
-    <link rel="stylesheet" href="{{ url('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ url('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/select2/css/select2.min.css')}}">
 @endpush
 
 @section('content')
@@ -111,15 +111,13 @@
     <script src="{{ asset('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
             $('#permission').addClass('active');
-        });
 
-        $(function () {
             $("#tbInitialPermission").DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": false,
             "oLanguage": {
@@ -138,14 +136,12 @@
                 "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
             }
             });
-        });
-
-        $(function () {
+            
             $('.select2').select2()
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
-        })
+        });
 
         function hapusAkses(id) {
             Swal.fire({

@@ -2,6 +2,21 @@
 
 @section('title', 'Tambah Kegiatan')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/select2/css/select2.min.css')}}">
+    <style>
+        .select2-selection__rendered {
+            line-height: 30px !important;
+        }
+        .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Tambah Kegiatan Posyandu</h1>
@@ -28,10 +43,14 @@
                                     </h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group">
+                                    <div class="form-group" id="field_lokasi">
                                         <label for="tempat">Lokasi Kegiatan<span class="text-danger">*</span></label>
-                                        <input type="text" name="tempat" class="form-control @error('tempat') is-invalid @enderror"
-                                        value="{{ old('tempat') }}" placeholder="Masukkan tempat kegiatan" id="tempat" required autocomplete="off">
+                                        <select class="select2 select2-primary form-select border @error('tempat') is-invalid @enderror" data-dropdown-css-class="select2-primary" id="tempat" name="tempat" data-placeholder="Masukan lokasi kegiatan" required style="width: 100%">
+                                            @foreach ($posyandu as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama_posyandu }}</option>
+                                            @endforeach
+                                            <option value="manual" id="insertManual">Masukan manual</option>
+                                        </select>
                                         @error('tempat')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
@@ -39,6 +58,27 @@
                                         @else
                                             <div class="invalid-feedback">
                                                 Lokasi Kegiatan Wajib Diisi
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group" id="field_detail_lokasi">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <label for="detail_tempat">Detail Tempat Kegiatan<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-2 d-flex justify-content-end">
+                                                <i class="far fa-times-circle small text-danger" style="cursor: pointer" onclick="tampilkanLokasiPosyandu()"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="detail_tempat" class="form-control @error('detail_tempat') is-invalid @enderror"
+                                        value="{{ old('detail_tempat') }}" placeholder="Masukkan detail tempat kegiatan" id="detail_tempat" required autocomplete="off">
+                                        @error('detail_tempat')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Detail Tempat Kegiatan Wajib Diisi
                                             </div>
                                         @enderror
                                     </div>
@@ -126,15 +166,43 @@
 @endsection
 
 @push('js')
-    <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('base-template/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
         $(document).ready(function(){
-          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
-          $('#kegiatan').addClass('active');
-          $('#tambah-kegiatan').addClass('active');
+            $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+            $('#kegiatan').addClass('active');
+            $('#tambah-kegiatan').addClass('active');
+
+            $('#field_detail_lokasi').hide();
+            $('#tempat').prop('required', true);
+            $('#detail_tempat').prop('required', false);
+
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+            
+            $('.select2').on('select2:select', function (e) {
+                if (e.params.data.id == 'manual') {
+                    $('#field_detail_lokasi').show();
+                    $('#detail_tempat').prop('required', true);
+
+                    $('#field_lokasi').hide();
+                    $('#tempat').prop('required', false);
+                }
+            });
         });
+
+        function tampilkanLokasiPosyandu() {
+            $('#field_lokasi').show();
+            $('#tempat').prop('required', true);
+
+            $('#field_detail_lokasi').hide();
+            $('#detail_tempat').prop('required', false);
+        }
 
         // $(function () {
         //   $('.ckeditor').each(function(e){

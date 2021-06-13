@@ -13,6 +13,7 @@ use App\User;
 use App\Anak;
 use App\Ibu;
 use App\Lansia;
+use App\Posyandu;
 
 class KegiatanController extends Controller
 {
@@ -23,22 +24,70 @@ class KegiatanController extends Controller
 
     public function index()
     {
-        $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
-        $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->orderby('created_at', 'desc')->where('end_at', '<', $today)->get();
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $kegiatan = Kegiatan::orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $data_nakes = [];
+            $kegiatan = [];
+
+            $data_kegiatan = Kegiatan::orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $data_nakes = $nakes;
+
+            foreach ($data_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_kegiatan->where('id_posyandu', $item) as $data) {
+                    $kegiatan[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
+        }
+
 
         return view('admin.kegiatan.kegiatan.home', compact('kegiatan'));
     }
 
     public function create()
     {
-        return view('admin.kegiatan.kegiatan.create');
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $posyandu = Posyandu::get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $data_nakes = [];
+            $posyandu = [];
+
+            $data_posyandu = Posyandu::get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $data_nakes = $nakes;
+
+            foreach ($data_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_posyandu->where('id', $item) as $data) {
+                    $posyandu[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
+        }
+
+        return view('admin.kegiatan.kegiatan.create', compact('posyandu'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nama_kegiatan' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:100',
-            'tempat' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:100|min:2',
+            'tempat' => 'required',
             'deskripsi' => 'required|min:2',
             'start_at' => 'required',
             'end_at' => 'required',
@@ -48,22 +97,32 @@ class KegiatanController extends Controller
             'nama_kegiatan.min' => "Nama kegiatan minimal berjumlah 2 karakter",
             'nama_kegiatan.max' => "Nama kegiatan maksimal berjumlah 100 karakter",
             'tempat.required' => "Tempat kegiatan wajib diisi",
-            'tempat.regex' => "Format tempat kegiatan tidak sesuai",
-            'tempat.min' => "Tempat kegiatan minimal berjumlah 2 karakter",
-            'tempat.max' => "Tempat kegiatan maksimal berjumlah 100 karakter",
             'start_at.required' => "Waktu mulai kegiatan kegiatan wajib diisi",
             'end_at.required' => "Waktu berakhir kegiatan wajib diisi",
         ]);
 
         $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
+        if (auth()->guard('admin')->user()->role != 'pegawai') {
+            $posyandu = $request->tempat;
+        } else {
+            $posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
+        }
+
+        if ($request->tempat != NULL) {
+            $data_posyandu = Posyandu::where('id', $request->tempat)->first();
+            $tempat = $data_posyandu->nama_posyandu;
+        } elseif ($request->tempat == NULL) {
+            $tempat = $request->detail_tempat;
+        }
+
         if ($request->start_at <= $today || $request->end_at <= $today) {
             return redirect()->back()->with(['failed' => 'Tanggal kegiatan tidak sesuai']);
         } else {
             $kegiatan = new Kegiatan();
-            $kegiatan->id_posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
+            $kegiatan->id_posyandu = $posyandu;
             $kegiatan->nama_kegiatan = $request->nama_kegiatan;
-            $kegiatan->tempat = $request->tempat;
+            $kegiatan->tempat = $tempat;
             $kegiatan->start_at = $request->start_at;
             $kegiatan->end_at = $request->end_at;
             $kegiatan->deskripsi = $request->deskripsi;

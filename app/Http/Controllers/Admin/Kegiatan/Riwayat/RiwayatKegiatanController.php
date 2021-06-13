@@ -20,7 +20,7 @@ class RiwayatKegiatanController extends Controller
     
     public function index()
     {
-        $today = Carbon::now()->setTimezone('GMT+8')->toTimeString();
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
         if(Auth::guard('admin')->user()->role == 'super admin') {
             $kegiatan_lewat = Kegiatan::where('end_at', '<', $today)

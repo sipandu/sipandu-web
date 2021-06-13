@@ -409,12 +409,12 @@ Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->n
 
 //Kegiatan Posyandu
 Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");
-Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("permission:Tambah Kegiatan");
+Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("permission:Tambah Kegiatan");
+Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("permission:Ubah Kegiatan");
+Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("permission:Ubah Kegiatan");
+Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("permission:Batalkan Kegiatan");
+Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("permission:Broadcast Kegiatan");
 
 //Riwayat Kegiatan
 Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');

@@ -10,6 +10,11 @@ use App\Admin;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function semuaPermission()
     {
         $permission = Permission::get();
@@ -57,7 +62,7 @@ class PermissionController extends Controller
     }
 
     public function hapusAkses(AdminPermission $adminPermission)
-    {
+    {   
         $admin_permission = AdminPermission::where('id', $adminPermission->id)->delete();
 
         if ($admin_permission) {

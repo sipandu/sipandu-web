@@ -249,43 +249,77 @@
                 </ul>
             </li>
         </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="informasi">
-                <a href="#" class="nav-link" id="informasi-link">
-                    <i class="nav-icon fas fa-info"></i>
-                    <p>
-                        Informasi
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @permission('Lihat Berita')
+
+        {{-- Start Menu Informasi --}}
+        @permission('Lihat Berita')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="informasi">
+                    <a href="#" class="nav-link" id="informasi-link">
+                        <i class="nav-icon fas fa-info"></i>
+                        <p>
+                            Informasi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
                             <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
                                 <i class="fas fa-newspaper nav-icon"></i>
                                 <p>Berita</p>
                             </a>
                         </li>
-                    @endpermission
-                    @permission('Lihat Tag')
-                        <li class="nav-item">
-                            <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
-                                <i class="fas fa-tags nav-icon"></i>
-                                <p>Tag</p>
-                            </a>
-                        </li>
-                    @endpermission
-                    @permission('Lihat Pengumuman')
-                        <li class="nav-item">
-                            <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
-                                <i class="fas fa-bullhorn nav-icon"></i>
-                                <p>Pengumuman</p>
-                            </a>
-                        </li>
-                    @endpermission
-                </ul>
+                        @permission('Lihat Tag')
+                            <li class="nav-item">
+                                <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
+                                    <i class="fas fa-tags nav-icon"></i>
+                                    <p>Tag</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Pengumuman')
+                            <li class="nav-item">
+                                <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
+                                    <i class="fas fa-bullhorn nav-icon"></i>
+                                    <p>Pengumuman</p>
+                                </a>
+                            </li>
+                        @endpermission
+                    </ul>
+                </li>
             </li>
-        </li>
+        @else
+            @permission('Lihat Tag')
+                <li class="nav nav-treeview">
+                    <li class="nav-item" id="informasi">
+                        <a href="#" class="nav-link" id="informasi-link">
+                            <i class="nav-icon fas fa-info"></i>
+                            <p>
+                                Informasi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
+                                    <i class="fas fa-tags nav-icon"></i>
+                                    <p>Tag</p>
+                                </a>
+                            </li>
+                            @permission('Lihat Pengumuman')
+                                <li class="nav-item">
+                                    <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
+                                        <i class="fas fa-bullhorn nav-icon"></i>
+                                        <p>Pengumuman</p>
+                                    </a>
+                                </li>
+                            @endpermission
+                        </ul>
+                    </li>
+                </li>
+            @endpermission
+        @endpermission
+        {{-- End Menu Informasi --}}
+
         <div class="dropdown-divider"></div>
         <li class="nav-item">
             <a href="{{ route('Semua Permission') }}" id="permission" class="nav-link">
