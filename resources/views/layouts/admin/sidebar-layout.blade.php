@@ -313,7 +313,7 @@
                 </li>
             </li>
         @else
-            @permission('Lihat Tag')
+            @permission('Lihat Tag Berita')
                 <li class="nav nav-treeview">
                     <li class="nav-item" id="informasi">
                         <a href="#" class="nav-link" id="informasi-link">

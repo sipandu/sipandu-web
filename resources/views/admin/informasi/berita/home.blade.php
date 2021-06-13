@@ -54,10 +54,10 @@
                             <tbody>
                                 @foreach ($informasi as $item)
                                     <tr class="text-center">
-                                        <th class="fw-normal align-middle">{{ $loop->iteration }}</th>
-                                        <th class="fw-normal align-middle">{{ $item->judul_informasi }}</th>
-                                        <th class="fw-normal align-middle">{{ date('d M Y', strtotime($item->tanggal)) }}</th>
-                                        <th class="fw-normal align-middle">{{ $item->status }}</th>
+                                        <td class="fw-normal align-middle">{{ $loop->iteration }}</td>
+                                        <td class="fw-normal align-middle">{{ $item->judul_informasi }}</td>
+                                        <td class="fw-normal align-middle">{{ date('d M Y', strtotime($item->tanggal)) }}</td>
+                                        <td class="fw-normal align-middle">{{ $item->status }}</td>
                                         @permission('Ubah Berita')
                                             <td class="text-center align-middle d-md-none">
                                                 <a href="{{ route('informasi_penting.show', $item->id) }}" class="btn btn-warning btn-sm">

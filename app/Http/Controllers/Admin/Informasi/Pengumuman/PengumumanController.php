@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Informasi\Pengumuman;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\NotifikasiUser;
+use File;
+use App\Mover;
 use App\Pegawai;
 use App\Pengumuman;
 use App\Posyandu;
-use Illuminate\Http\Request;
-use App\Mover;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use File;
-use App\NotifikasiUser;
 use App\User;
 use App\Anak;
 use App\Ibu;
@@ -18,12 +19,39 @@ use App\Lansia;
 
 class PengumumanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
-        $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
-        $posyandu = Posyandu::find($pegawai->id_posyandu);
-        $pengumuman = Pengumuman::where('id_posyandu', $posyandu->id)->orderby('created_at', 'desc')->get();
-        return view('pages.admin.informasi.pengumuman.home', compact('pengumuman', 'posyandu'));
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $pengumuman = Pengumuman::orderby('created_at', 'desc')->get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $data_nakes = [];
+            $pengumuman = [];;
+
+            $data_pengumuman = Pengumuman::get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $data_nakes = $nakes;
+
+            foreach ($data_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_pengumuman->where('id_posyandu', $item) as $data) {
+                    $pengumuman[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $id_posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
+            $pengumuman = Pengumuman::where('id_posyandu', $id_posyandu)->orderby('created_at', 'desc')->get();
+        }
+        
+        return view('admin.informasi.pengumuman.home', compact('pengumuman'));
     }
 
     public function create()
@@ -146,12 +174,19 @@ class PengumumanController extends Controller
         return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        $pengumuman = Pengumuman::find($request->id);
+        $pengumuman = Pengumuman::find($id);
         File::delete(storage_path($pengumuman->image));
         $pengumuman->delete();
-        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus']);
+        
+        if ($pengumuman) {
+            return redirect()->back()->with(['success' => 'Pengumuman Berhasil Dihapus']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Pengumuman Gagal Dihapus']);
+        }
+        
+
     }
 
     public function getImage($id)

@@ -399,13 +399,13 @@ Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('pe
 
 
 //Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
-Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
-Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
+Route::get('/admin/pengumuman/home', 'Admin\Informasi\Pengumuman\PengumumanController@index')->name('pengumuman.home');
+Route::get('/admin/pengumuman/create', 'Admin\Informasi\Pengumuman\PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
+Route::post('/admin/pengumuman/store', 'Admin\Informasi\Pengumuman\PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
+Route::get('/admin/pengumuman/show/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
+Route::post('/admin/pengumuman/update/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@update')->name('pengumuman.update')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
+Route::post('/admin/pengumuman/delete/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@delete')->name('pengumuman.delete');
+Route::get('/admin/pengumuman/get-img/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@getImage')->name('pengumuman.get_img');
 
 //Kegiatan Posyandu
 Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");
