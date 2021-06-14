@@ -1,7 +1,8 @@
 @extends('layouts/admin/admin-layout')
+
 @section('title', 'Manajemen Pengumuman')
+
 @push('css')
-    <!-- DataTables -->
     <link rel="stylesheet" href="{{url('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{url('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 @endpush
@@ -47,6 +48,7 @@
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Judul</th>
+                                    <th>Posyandu Tujuan</th>
                                     <th>Tanggal</th>
                                     <th class="d-md-none">Tindakan</th>
                                     <th class="d-none d-md-table-cell">Tindakan</th>
@@ -57,6 +59,7 @@
                                     <tr class="text-center">
                                         <td class="fw-normal align-middle">{{ $loop->iteration }}</td>
                                         <td class="fw-normal align-middle">{{ $item->judul_pengumuman }}</td>
+                                        <td class="fw-normal align-middle">{{ $item->posyandu->nama_posyandu }}</td>
                                         <td class="fw-normal align-middle">{{ date('d M Y', strtotime($item->tanggal)) }}</td>
                                         @permission('Ubah Pengumuman')
                                             <td class="fw-normal align-middle d-md-none">

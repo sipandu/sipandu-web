@@ -143,14 +143,6 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
 
 
 
-// Manajemen Hak Akses
-Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission");
-Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
-Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission");
-Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses");
-
-
-
 //Dashboard User
 Route::prefix('user')->namespace('User\Auth')->group(function(){
     Route::get('/anak', 'UserController@anakhome')->name('anak.home')->middleware(['userAkses:0','user:anak']);
@@ -362,21 +354,74 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
 
 
+// Start Menu Kegiatan Posyandu
 
-//Informasi Penting (Ganti jadi Berita)
-Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware("permission:Lihat Berita");
-Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware("permission:Tambah Berita");
-Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware("permission:Tambah Berita");
-Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware("permission:Ubah Berita");
-Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware("permission:Ubah Berita");
-Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita')->middleware("permission:Ubah Status Publikasi Berita");
+    //Kegiatan
+    Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");
+    Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("permission:Tambah Kegiatan");
+    Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("permission:Tambah Kegiatan");
+    Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("permission:Ubah Kegiatan");
+    Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("permission:Ubah Kegiatan");
+    Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("permission:Batalkan Kegiatan");
+    Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("permission:Broadcast Kegiatan");
+
+    //Riwayat Kegiatan
+    Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home')->middleware("permission:Lihat Riwayat Kegiatan");
+    Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show')->middleware("permission:Lihat Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi')->middleware("permission:Ubah Status Publikasi Kegiatan");
+
+    // Dokumentasi Kegiatan
+    Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create')->middleware("permission:Tambah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store')->middleware("permission:Tambah Dokumentasi Kegiatan");
+    Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show')->middleware("permission:Ubah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update')->middleware("permission:Ubah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/hapus/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete')->middleware("permission:Hapus Dokumentasi Kegiatan");
+    Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
+
+// End Menu Kegiatan Posyandu
 
 
 
-//Tag Berita
-Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag')->middleware("permission:Lihat Tag Berita");
-Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag')->middleware("permission:Tambah Tag Berita");
-Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag')->middleware("permission:Hapus Tag Berita");
+
+// Start Route Menu Informasi
+
+    // Berita
+    Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware("permission:Lihat Berita");
+    Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware("permission:Tambah Berita");
+    Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware("permission:Tambah Berita");
+    Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware("permission:Ubah Berita");
+    Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware("permission:Ubah Berita");
+    Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita')->middleware("permission:Ubah Status Publikasi Berita");
+
+
+    // Tag Berita
+    Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag')->middleware("permission:Lihat Tag Berita");
+    Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag')->middleware("permission:Tambah Tag Berita");
+    Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag')->middleware("permission:Hapus Tag Berita");
+
+
+    // Pengumuman
+    Route::get('/admin/pengumuman', 'Admin\Informasi\Pengumuman\PengumumanController@index')->name('pengumuman.home')->middleware("permission:Lihat Pengumuman");
+    Route::get('/admin/pengumuman/create', 'Admin\Informasi\Pengumuman\PengumumanController@create')->name('pengumuman.create')->middleware("permission:Tambah Pengumuman");
+    Route::post('/admin/pengumuman/store', 'Admin\Informasi\Pengumuman\PengumumanController@store')->name('pengumuman.store')->middleware("permission:Tambah Pengumuman");
+    Route::get('/admin/pengumuman/show/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@show')->name('pengumuman.show')->middleware("permission:Ubah Pengumuman");
+    Route::post('/admin/pengumuman/update/{pengumuman}', 'Admin\Informasi\Pengumuman\PengumumanController@update')->name('pengumuman.update')->middleware("permission:Ubah Pengumuman");
+    Route::post('/admin/pengumuman/delete/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@delete')->name('pengumuman.delete')->middleware("permission:Hapus Pengumuman");
+    Route::get('/admin/pengumuman/get-img/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@getImage')->name('pengumuman.get_img');
+
+// End Route Menu Informasi
+
+
+
+// Start Route Menu Hak Akses
+
+    // Hak Akses
+    Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission");
+    Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
+    Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission");
+    Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses");
+
+// End Route Menu Hak Akses
 
 
 
@@ -387,47 +432,15 @@ Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduControll
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
 //Penyuluhan
-Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
-Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
+// Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 
 
-
-
-//Pengumuman
-Route::get('/admin/pengumuman/home', 'Admin\Informasi\Pengumuman\PengumumanController@index')->name('pengumuman.home');
-Route::get('/admin/pengumuman/create', 'Admin\Informasi\Pengumuman\PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/store', 'Admin\Informasi\Pengumuman\PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::get('/admin/pengumuman/show/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/update/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@update')->name('pengumuman.update')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
-Route::post('/admin/pengumuman/delete/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@delete')->name('pengumuman.delete');
-Route::get('/admin/pengumuman/get-img/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@getImage')->name('pengumuman.get_img');
-
-//Kegiatan Posyandu
-Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");
-Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("permission:Tambah Kegiatan");
-Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("permission:Tambah Kegiatan");
-Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("permission:Ubah Kegiatan");
-Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("permission:Ubah Kegiatan");
-Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("permission:Batalkan Kegiatan");
-Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("permission:Broadcast Kegiatan");
-
-//Riwayat Kegiatan
-Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home')->middleware("permission:Lihat Riwayat Kegiatan");
-Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show')->middleware("permission:Lihat Dokumentasi Kegiatan");
-Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi')->middleware("permission:Ubah Status Publikasi Kegiatan");
-
-// Dokumentasi Kegiatan
-Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create')->middleware("permission:Tambah Dokumentasi Kegiatan");
-Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store')->middleware("permission:Tambah Dokumentasi Kegiatan");
-Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show')->middleware("permission:Ubah Dokumentasi Kegiatan");
-Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update')->middleware("permission:Ubah Dokumentasi Kegiatan");
-Route::post('admin/riwayat-kegiatan/dokumentasi/hapus/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete')->middleware("permission:Hapus Dokumentasi Kegiatan");
-Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
 //Command Bot
 Route::get('/admin/command-bot/pertanyaan-konsultasi/home', 'BotCommandController@index')->name('pertanyaan-konsultasi.home');

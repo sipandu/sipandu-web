@@ -81,20 +81,29 @@
                             <tr class="text-center align-middle my-auto">
                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                 <td class="align-middle">{{ $data->admin->email }}</td>
-                                <td class="text-center align-middle d-md-none">
-                                    <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                                <td class="text-center align-middle d-none d-md-table-cell">
-                                    <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                        Hapus Hak Akses
-                                    </button>
-                                </td>
-                                <form action="" id="hapus-akses" method="POST" class="d-inline" hidden>
-                                    @csrf
-                                </form>
+                                @if ($data->id_admin != auth()->guard('admin')->user()->id)
+                                    <td class="text-center align-middle d-md-none">
+                                        <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center align-middle d-none d-md-table-cell">
+                                        <button onclick="hapusAkses('{{$data->id}}')" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                            Hapus Hak Akses
+                                        </button>
+                                    </td>
+                                    <form action="" id="hapus-akses" method="POST" class="d-inline" hidden>
+                                        @csrf
+                                    </form>
+                                @else
+                                    <td class="text-center align-middle d-md-none">
+                                        -
+                                    </td>
+                                    <td class="text-center align-middle d-none d-md-table-cell">
+                                        -
+                                    </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

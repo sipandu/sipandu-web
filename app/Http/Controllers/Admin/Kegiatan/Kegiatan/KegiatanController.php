@@ -86,7 +86,7 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kegiatan' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:100',
+            'nama_kegiatan' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:100",
             'tempat' => 'required',
             'deskripsi' => 'required|min:2',
             'start_at' => 'required',
@@ -209,8 +209,8 @@ class KegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_kegiatan' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:100',
-            'tempat' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:100|min:2',
+            'nama_kegiatan' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:100",
+            'tempat' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:100|min:2",
             'deskripsi' => 'required|min:2',
             'start_at' => 'required',
             'end_at' => 'required',
@@ -248,7 +248,7 @@ class KegiatanController extends Controller
     public function delete(Request $request, Kegiatan $kegiatan)
     {
         $request->validate([
-            'alasan' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:150',
+            'alasan' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150",
         ],[
             'alasan.required' => "Alasan pembatalan kegiatan wajib diisi",
             'alasan.regex' => "Format alasan pembatalan kegiatan tidak sesuai",

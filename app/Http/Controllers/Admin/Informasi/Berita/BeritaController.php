@@ -37,7 +37,7 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul_informasi' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:150',
+            'judul_informasi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150", 
             'informasi' => 'required|min:2|',
             'gambar' => 'required|mimes:png,jpg,jpeg|max:2000',
             'tag_berita.*' => 'required',
@@ -149,7 +149,7 @@ class BeritaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'judul_informasi' => 'required|regex:/^[a-z,. 0-9]+$/i|min:2|max:150',
+            'judul_informasi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150",
             'informasi' => 'required|min:2|',
             'gambar' => 'nullable|mimes:png,jpg,jpeg|max:2000',
             'tag_berita.*' => 'required',

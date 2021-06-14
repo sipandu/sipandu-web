@@ -10,6 +10,15 @@ class Pengumuman extends Model
 {
     protected $table = 'tb_pengumuman';
 
+    protected $fillable = [
+        'id_posyandu',
+        'judul_pengumuman',
+        'pengumuman',
+        'tanggal',
+        'image',
+        'slug',
+    ];
+
     public function posyandu()
     {
         return $this->belongsTo(Posyandu::class, 'id_posyandu', 'id');

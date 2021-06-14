@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\NotifikasiUser;
+use Carbon\Carbon;
 use File;
 use App\Mover;
 use App\Pegawai;
@@ -56,32 +57,88 @@ class PengumumanController extends Controller
 
     public function create()
     {
-        return view('pages.admin.informasi.pengumuman.create');
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $posyandu = Posyandu::get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $data_nakes = [];
+            $posyandu = [];
+
+            $data_posyandu = Posyandu::get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $data_nakes = $nakes;
+
+            foreach ($data_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_posyandu->where('id', $item) as $data) {
+                    $posyandu[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
+        }
+
+        return view('admin.informasi.pengumuman.create', compact('posyandu'));
     }
 
     public function store(Request $request)
     {
-        $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
-        $posyandu = Posyandu::find($pegawai->id_posyandu);
         $request->validate([
-            'judul_pengumuman' => 'required|min:2',
-            'pengumuman' => 'required|min:2',
-            'image' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
+            'judul_pengumuman' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150",
+            'pengumuman' => 'required|min:2|',
+            'posyandu.*' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ],[
+            'judul_informasi.required' => "Judul pengumuman wajib diisi",
+            'judul_informasi.regex' => "Format judul pengumuman tidak sesuai",
+            'judul_informasi.min' => "Judul pengumuman minimal berjumlah 2 karakter",
+            'judul_informasi.max' => "Judul pengumuman maksimal berjumlah 150 karakter",
+            'pengumuman.required' => "Isi pengumuman wajib diisi",
+            'pengumuman.min' => "Isi pengumuman minimal berjumlah 2 karakter",
+            'posyandu.*.required' => "Posyandu tujuan wajib dipilih",
+            'image.required' => "Gambar wajib dipilih",
+            'image.mimes' => "Format gambar tidak sesuai",
+            'image.max' => "Ukuran gambar maksimal 2 Mb",
         ]);
 
         $filename = Mover::slugFile($request->file('image'), 'app/informasi/pengumuman/');
-        $pengumuman = new Pengumuman();
-        $pengumuman->judul_pengumuman = $request->judul_pengumuman;
-        $pengumuman->id_posyandu = $posyandu->id;
-        $pengumuman->pengumuman = $request->pengumuman;
-        $pengumuman->tanggal = NOW();
-        $pengumuman->image = $filename;
-        $pengumuman->slug = Str::slug($request->judul_pengumuman);
-        $pengumuman->save();
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+
+        foreach ($request->posyandu as $data => $value) {
+            $pengumuman = Pengumuman::create([
+                'id_posyandu' => $request->posyandu[$data],
+                'judul_pengumuman' => $request->judul_pengumuman,
+                'pengumuman' => $request->pengumuman,
+                'tanggal' => $today,
+                'image' => $filename,
+                'slug' => Str::slug($request->judul_pengumuman),
+            ]);
+        }
+
+
+        // $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
+        // $posyandu = Posyandu::find($pegawai->id_posyandu);
+        // $request->validate([
+        //     'judul_pengumuman' => 'required|min:2',
+        //     'pengumuman' => 'required|min:2',
+        //     'image' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
+        // ]);
+
+        // $pengumuman = new Pengumuman();
+        // $pengumuman->judul_pengumuman = $request->judul_pengumuman;
+        // $pengumuman->id_posyandu = $posyandu->id;
+        // $pengumuman->pengumuman = $request->pengumuman;
+        // $pengumuman->tanggal = NOW();
+        // $pengumuman->image = $filename;
+        // $pengumuman->slug = Str::slug($request->judul_pengumuman);
+        // $pengumuman->save();
 
         /* notif mobile user shit start here */
 
-        $notiftitle = "Ada pengumuman baru!";
+         /* $notiftitle = "Ada pengumuman baru!";
         $notifcontent = $pengumuman->judul_pengumuman;
 
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -136,42 +193,92 @@ class PengumumanController extends Controller
                     'notif_content' => $notifcontent
                 ]);
             }
-        }
+        } */
 
         /* notif mobile user shit end here */
 
-        $pengumuman->broadcastPengumumanToMember();
-        return redirect()->route('pengumuman.home')->with(['success' => 'Data Berhasil Disimpan']);
+        
+        if ($pengumuman) {
+            $pengumuman->broadcastPengumumanToMember();
+            return redirect()->back()->with(['success' => 'Pengumuman Berhasil Dibuat']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Pengumuman Gagal Dibuat']);
+        }
     }
 
     public function show($id)
     {
         $pengumuman = Pengumuman::find($id);
-        return view('pages.admin.informasi.pengumuman.show', compact('pengumuman'));
+
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            $posyandu = Posyandu::get();
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = [];
+            $data_nakes = [];
+            $posyandu = [];
+
+            $data_posyandu = Posyandu::get();
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $data_nakes = $nakes;
+
+            foreach ($data_nakes as $data) {
+                $id_posyandu[] = $data->id_posyandu;
+            }
+            
+            foreach ($id_posyandu as $item) {
+                foreach ($data_posyandu->where('id', $item) as $data) {
+                    $posyandu[] = $data;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
+        }
+
+        return view('admin.informasi.pengumuman.show', compact('pengumuman', 'posyandu'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Pengumuman $pengumuman)
     {
         $request->validate([
-            'judul_pengumuman' => 'required|min:2',
-            'pengumuman' => 'required|min:2',
-            'image' => 'max:2000|mimes:png,jpg,svg,jpeg',
+            'judul_pengumuman' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150",
+            'pengumuman' => 'required|min:2|',
+            'posyandu' => 'required',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+        ],[
+            'judul_informasi.required' => "Judul pengumuman wajib diisi",
+            'judul_informasi.regex' => "Format judul pengumuman tidak sesuai",
+            'judul_informasi.min' => "Judul pengumuman minimal berjumlah 2 karakter",
+            'judul_informasi.max' => "Judul pengumuman maksimal berjumlah 150 karakter",
+            'pengumuman.required' => "Isi pengumuman wajib diisi",
+            'pengumuman.min' => "Isi pengumuman minimal berjumlah 2 karakter",
+            'posyandu.required' => "Posyandu tujuan wajib dipilih",
+            'image.mimes' => "Format gambar tidak sesuai",
+            'image.max' => "Ukuran gambar maksimal 2 Mb",
         ]);
-
-        $pengumuman = Pengumuman::find($id);
 
         if($request->file('image') != null) {
             File::delete(storage_path($pengumuman->image));
             $filename = Mover::slugFile($request->file('image'), 'app/informasi/pengumuman/');
-            $pengumuman->image = $filename;
+        } else {
+            $filename = $pengumuman->image;
         }
 
-        $pengumuman->judul_pengumuman = $request->judul_pengumuman;
-        $pengumuman->pengumuman = $request->pengumuman;
-        $pengumuman->slug = Str::slug($request->judul_pengumuman);
-        $pengumuman->save();
-        $pengumuman->broadcastUpdatePengumumanToMember();
-        return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
+        $simpan_pengumuman = Pengumuman::where('id', $pengumuman->id)->update([
+            'id_posyandu' => $request->posyandu,
+            'judul_pengumuman' => $request->judul_pengumuman,
+            'pengumuman' => $request->pengumuman,
+            'tanggal' => $today,
+            'image' => $filename,
+            'slug' => Str::slug($request->judul_pengumuman),
+        ]);
+
+        
+        if ($simpan_pengumuman) {
+            $simpan_pengumuman->broadcastUpdatePengumumanToMember();
+            return redirect()->back()->with(['success' => 'Pengumuman Berhasil Diubah']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Pengumuman Gagal Diubah']);
+        }
     }
 
     public function delete($id)
@@ -185,8 +292,6 @@ class PengumumanController extends Controller
         } else {
             return redirect()->back()->with(['failed' => 'Pengumuman Gagal Dihapus']);
         }
-        
-
     }
 
     public function getImage($id)

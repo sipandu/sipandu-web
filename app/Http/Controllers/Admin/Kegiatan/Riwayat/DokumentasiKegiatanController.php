@@ -26,12 +26,13 @@ class DokumentasiKegiatanController extends Controller
     {
         $request->validate([
             'image' => 'required|mimes:png,jpg,jpeg|max:2000',
-            'deskripsi' => 'required|min:2',
+            'deskripsi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2",
         ],[
             'image.required' => 'Gambar dokumentasi kegiatan wajib diunggah',
             'image.mimes' => 'Format gambar dokumentasi kegiatan wajib diunggah',
             'image.max' => 'Gambar dokumentasi kegiatan maksimal berukuran 2 Mb',
             'deskripsi.required' => 'Deskripsi gambar dokumentasi kegiatan wajib diisi',
+            'deskripsi.regex' => 'Format Deskripsi gambar dokumentasi kegiatan tidak sesuai',
             'deskripsi.min' => 'Deskripsi gambar dokumentasi kegiatan minimal berjumlah 2 karakter',
         ]);
 
