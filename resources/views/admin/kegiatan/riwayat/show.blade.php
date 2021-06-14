@@ -54,7 +54,7 @@
                                     <tr class="text-center">
                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                         <td class="align-middle">
-                                            <img src="{{ route('dokumentasi.get_img', $item->id) }}" width="100" alt="">
+                                            <img src="{{ route('dokumentasi.get_img', $item->id) }}?{{date('YmdHis')}}" width="100" alt="">
                                         </td>
                                         <td class="align-middle">{{ $item->deskripsi }}</td>
                                         <td class="text-center align-middle">
@@ -88,12 +88,10 @@
 @endsection
 
 @push('js')
-    <!-- DataTables  & Plugins -->
     <script src="{{url('base-template/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
@@ -124,20 +122,6 @@
                 }
             });
         });
-
-        // function deleteDokumentasi(id){
-        //     $('#id-delete').val(id);
-        //     swal({
-        //         title: 'Anda yakin ingin menghapus data?',
-        //         text: 'Data yang dihapus tidak akan bisa dikembalikan lagi!',
-        //         icon: 'warning',
-        //         buttons: ["Tidak", "Ya"],
-        //     }).then(function(value) {
-        //         if (value) {
-        //             $('#form-delete').submit();
-        //         }
-        //     });
-        // }
 
         function hapusDokumentasi(id) {
             Swal.fire({

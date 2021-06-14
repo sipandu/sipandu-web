@@ -170,11 +170,11 @@ class BeritaController extends Controller
         if($request->file('gambar') != null) {
             File::delete(storage_path($informasi->image));
             $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
-            $informasi->image = $filename;
         } else {
-            $informasi->image = $informasi->image;
+            $filename = $informasi->image;
         }
         
+        $informasi->image = $filename;
         $informasi->judul_informasi = $request->judul_informasi;
         $informasi->informasi = $request->informasi;
         $informasi->slug = Str::slug($request->judul_informasi);

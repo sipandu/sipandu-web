@@ -43,7 +43,7 @@
                                             </div>
                                         @enderror
                                         <div class="text-center my-3">
-                                            <img id="img-preview" src="{{ route('dokumentasi.get_img', $dokumentasi_kegiatan->id) }}" class="w-75 rounded" alt="">
+                                            <img id="img-preview" src="{{ route('dokumentasi.get_img', $dokumentasi_kegiatan->id) }}?{{date('YmdHis')}}" class="w-75 rounded" alt="">
                                         </div>
                                     </div>
                                     <div class="form-group">

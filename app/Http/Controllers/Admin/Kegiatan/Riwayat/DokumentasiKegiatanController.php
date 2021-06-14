@@ -59,6 +59,7 @@ class DokumentasiKegiatanController extends Controller
 
     public function updateDokumentasi(Request $request, $id)
     {
+        // return($request);
         $request->validate([
             'image' => 'required|mimes:png,jpg,jpeg|max:2000',
             'deskripsi' => 'required|min:2',
@@ -72,21 +73,14 @@ class DokumentasiKegiatanController extends Controller
 
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
 
-        if($request->file('gambar') != null) {
-            File::delete(storage_path($informasi->image));
-            $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
-            $informasi->image = $filename;
-        } else {
-            $informasi->image = $informasi->image;
-        }
-
         if($request->file('image') != null) {
             File::delete(storage_path($dokumentasi_kegiatan->image));
             $filename = Mover::slugFile($request->file('image'), 'app/dokumentasi-kegiatan/');
         } else {
-            $dokumentasi_kegiatan->image = $dokumentasi_kegiatan->image;
+            $filename = $dokumentasi_kegiatan->image;
         }
 
+        $dokumentasi_kegiatan->image = $filename;
         $dokumentasi_kegiatan->deskripsi = $request->deskripsi;
         $dokumentasi_kegiatan->save();
 
@@ -101,7 +95,6 @@ class DokumentasiKegiatanController extends Controller
     {
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
 
-        // return($dokumentasi_kegiatan);
         File::delete(storage_path($dokumentasi_kegiatan->image));
         $dokumentasi_kegiatan->delete();
         return redirect()->back()->with(['success' => 'Foto Dokumentasi Kegiatan Berhasil Dihapus']);
