@@ -19,13 +19,13 @@
             <div class="col-12">
                 <div class="card card-outline card-primary p-3">
                     <p class="text-center fs-5">Tambah Jenis Imunisasi Baru</p>
-                    <form action="{{ route('Store Imunisasi') }}" method="POST">
+                    <form action="{{ route('Store Imunisasi') }}" method="POST" class="needs-validation" novalidate>
                         @csrf
                         <div class="row">
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="nama_imunisasi">Nama Imunisasi<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('nama_imunisasi') is-invalid @enderror" id="nama_imunisasi" name="nama_imunisasi" value="{{ old('nama_imunisasi') }}" placeholder="Nama Imunisasi">
+                                    <input type="text" autocomplete="off" class="form-control @error('nama_imunisasi') is-invalid @enderror" id="nama_imunisasi" name="nama_imunisasi" value="{{ old('nama_imunisasi') }}" placeholder="Nama Imunisasi" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-syringe"></span>
@@ -35,13 +35,17 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Nama Imunisasi Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="usia_pemberian">Usia Pemberian<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian') }}" placeholder="Usia pemberian">
+                                    <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian') }}" placeholder="Usia pemberian" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-calendar-check"></span>
@@ -51,13 +55,17 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Usia Pemberian Imunisasi Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="perulangan">Frekuensi Perulangan<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan') }}" placeholder="Frekuensi perulangan">
+                                    <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan') }}" placeholder="Frekuensi perulangan" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-redo-alt"></span>
@@ -67,6 +75,10 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Frekuensi Perulangan Imunisasi Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
@@ -75,7 +87,7 @@
                                     <div class="col-12 col-md-6">
                                         <label for="status">Status<span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <select name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" id="status">
+                                            <select name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" id="status" aria-placeholder="Pilih status imunisasi" required>
                                                 @if (old('status'))
                                                     @if (old('status') == 'Wajib')
                                                         <option selected value="Wajib">Wajib</option>
@@ -100,13 +112,17 @@
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
+                                            @else
+                                                <div class="invalid-feedback">
+                                                    Status Imunisasi Wajib Dipilih
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label for="penerima">Penerima<span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" value="{{ old('penerima') }}" id="penerima">
+                                            <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" value="{{ old('penerima') }}" id="penerima" aria-placeholder="Pilih penerima imunisasi">
                                                 @if (old('penerima'))
                                                     @if (old('penerima') == 'Ibu Hamil')
                                                         <option selected value="Ibu Hamil">Ibu Hamil</option>
@@ -124,7 +140,6 @@
                                                         <option selected value="Lansia">Lansia</option>
                                                     @endif
                                                 @else
-                                                    <option selected disabled>Penerima Imunisasi....</option>
                                                     <option value="Ibu Hamil">Ibu Hamil</option>
                                                     <option value="Anak">Anak</option>
                                                     <option value="Lansia">Lansia</option>
@@ -139,6 +154,10 @@
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
+                                            @else
+                                                <div class="invalid-feedback">
+                                                    Penerima Imunisasi Wajib Dipilih
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -146,11 +165,15 @@
                             </div>
                             <div class="col-12 my-2">
                                 <div class="form-floating">
-                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">{{ old('keterangan') }}</textarea>
+                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan" autocomplete="off" required style="height: 120px">{{ old('keterangan') }}</textarea>
                                     <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
                                     @error('keterangan')
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
+                                        </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Keterangan Imunisasi Wajib Diisi
                                         </div>
                                     @enderror
                                 </div>
@@ -170,7 +193,6 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-imunisasi').addClass('menu-is-opening menu-open');
             $('#imunisasi').addClass('active');
             $('#tambah-imunisasi').addClass('active');
@@ -178,19 +200,19 @@
     </script>
 
     @if($message = Session::get('failed'))
-    <script>
-        $(document).ready(function(){
-            alertDanger('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertError('{{$message}}');
+            });
+        </script>
     @endif
 
     @if($message = Session::get('success'))
-    <script>
-        $(document).ready(function(){
-            alertSuccess('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
     @endif
 @endpush
 

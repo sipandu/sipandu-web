@@ -299,15 +299,6 @@ Route::get('mobile/data-kesehatan/graph-anak-3/{anak}', 'Admin\KesehatanKeluarga
 Route::get('mobile/data-kesehatan/graph-anak-4/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob4')->name('mobile-anak-4');
 Route::get('mobile/data-kesehatan/graph-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanIbuMob')->name('mobile-ibu');
 
-//Imunisasi
-Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-
-
 
 
 //Laporan
@@ -345,6 +336,19 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
   });
   // ------
 
+
+
+// Start Route Menu Imunisasi
+
+    //Imunisasi
+    Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\Imunisasi\ImunisasiController@semuaJenisImunisasi')->name("Semua Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+    Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\Imunisasi\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+    Route::post('nakes/imunisasi/tambah', 'Admin\Imunisasi\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+    Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+    Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+    Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+
+// End Route Menu Imunisasi
 
 
 

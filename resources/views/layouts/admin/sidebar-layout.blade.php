@@ -166,34 +166,60 @@
                 </li>
             </li>
         @endif
-        
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="list-imunisasi">
-                <a href="#" class="nav-link" id="imunisasi">
-                    <i class="nav-icon fas fa-syringe"></i>
-                    <p>
-                        Imunisasi
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'super admin')
+
+        {{-- Start Menu Imunisasi --}}
+        @permission('Lihat Imunisasi')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="list-imunisasi">
+                    <a href="#" class="nav-link" id="imunisasi">
+                        <i class="nav-icon fas fa-syringe"></i>
+                        <p>
+                            Imunisasi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Tambah Imunisasi')
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
+                                </a>
+                            </li>
+                        @endpermission
                         <li class="nav-item">
-                            <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
-                                <i class="fas fa-vials nav-icon"></i>
-                                <p>Tambah Imunisasi</p>
+                            <a href="{{ route('Semua Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
+                                <i class="fas fa-crutch nav-icon"></i>
+                                <p>Jenis Imunisasi</p>
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
-                            <i class="fas fa-crutch nav-icon"></i>
-                            <p>Jenis Imunisasi</p>
-                        </a>
-                    </li>
-                </ul>
+                    </ul>
+                </li>
             </li>
-        </li>
+        @else
+            @permission('Tambah Imunisasi')
+                <li class="nav nav-treeview">
+                    <li class="nav-item" id="list-imunisasi">
+                        <a href="#" class="nav-link" id="imunisasi">
+                            <i class="nav-icon fas fa-syringe"></i>
+                            <p>
+                                Imunisasi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </li>
+            @endpermission
+        @endpermission
+        {{-- End Menu Imunisasi --}}
 
         {{-- Start Menu Vitamin --}}
         @permission('Lihat Vitamin')

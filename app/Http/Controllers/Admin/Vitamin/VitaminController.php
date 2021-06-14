@@ -93,45 +93,37 @@ class VitaminController extends Controller
                 'penerima' => "required",
             ],
             [
-                'nama_vitamin.required' => "Nama Vitamin wajib diisi",
+                'nama_vitamin.required' => "Nama vitamin wajib diisi",
                 'nama_vitamin.unique' => "Vitamin telah ditambahkan sebelumnya",
-                'nama_vitamin.regex' => "Format nama Vitamin tidak sesuai",
-                'nama_vitamin.min' => "Nama Vitamin minimal berjumlah 1 huruf",
-                'nama_vitamin.max' => "Nama Vitamin maksimal berjumlah 50 huruf",
+                'nama_vitamin.regex' => "Format nama vitamin tidak sesuai",
+                'nama_vitamin.min' => "Nama vitamin minimal berjumlah 1 karakter",
+                'nama_vitamin.max' => "Nama vitamin maksimal berjumlah 50 karakter",
                 'usia_pemberian.required' => "Usia pemberian Imunisasai wajib diisi",
                 'usia_pemberian.regex' => "Format usia pemberian Imunisasai tidak sesuai",
-                'usia_pemberian.min' => "Penulisan usia pemberian Vitamin minimal berjumlah 5 karakter",
-                'usia_pemberian.max' => "Penulisan usia pemberian Vitamin maksimal berjumlah 50 karakter",
+                'usia_pemberian.min' => "Penulisan usia pemberian vitamin minimal berjumlah 5 karakter",
+                'usia_pemberian.max' => "Penulisan usia pemberian vitamin maksimal berjumlah 50 karakter",
                 'perulangan.required' => "Frekuensi perulangan Imunisasai wajib diisi",
                 'perulangan.regex' => "Format perulangan Imunisasai tidak sesuai",
-                'perulangan.min' => "Penulisan perulangan Vitamin minimal berjumlah 5 karakter",
-                'perulangan.max' => "Penulisan perulangan Vitamin maksimal berjumlah 50 karakter",
-                'keterangan.required' => "Deskripsi Vitamin wajib diisi",
-                'status.required' => "Status Vitamin wajib diisi",
-                'penerima.required' => "Penerima Vitamin wajib diisi",
+                'perulangan.min' => "Penulisan perulangan vitamin minimal berjumlah 5 karakter",
+                'perulangan.max' => "Penulisan perulangan vitamin maksimal berjumlah 50 karakter",
+                'keterangan.required' => "Deskripsi vitamin wajib diisi",
+                'status.required' => "Status vitamin wajib diisi",
+                'penerima.required' => "Penerima vitamin wajib diisi",
             ]);
 
-            if ($request->status == "Wajib" || $request->status == "Tidak Wajib") {
-                if ($request->penerima == "Ibu Hamil" || $request->penerima == "Anak" || $request->penerima == "Lansia") {
-                    $updateVitamin = Vitamin::where('id', $vitamin->id)->update([
-                        'nama_vitamin' => $request->nama_vitamin,
-                        'usia_pemberian' => $request->usia_pemberian,
-                        'perulangan' => $request->perulangan,
-                        'deskripsi' => $request->keterangan,
-                        'status' => $request->status,
-                        'penerima' => $request->penerima,
-                    ]);
-                } else {
-                    return redirect()->back()->with(['failed' => 'Penerima Vitamin Tidak Terdaftar']);
-                }
-            } else {
-                return redirect()->back()->with(['failed' => 'Status Vitamin Tidak Terdaftar']);
-            }
+            $updateVitamin = Vitamin::where('id', $vitamin->id)->update([
+                'nama_vitamin' => $request->nama_vitamin,
+                'usia_pemberian' => $request->usia_pemberian,
+                'perulangan' => $request->perulangan,
+                'deskripsi' => $request->keterangan,
+                'status' => $request->status,
+                'penerima' => $request->penerima,
+            ]);
 
             if ($updateVitamin) {
-                return redirect()->back()->with(['success' => 'Data Vitamin '.$request->nama_vitamin.' berhasil diperbaharui']);
+                return redirect()->back()->with(['success' => 'Vitamin Berhasil Diperbaharui']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Vitamin gagal diperbaharui']);
+                return redirect()->back()->with(['failed' => 'Vitamin Gagal Diperbaharui']);
             }
         } else {
             $this->validate($request,[
@@ -143,44 +135,36 @@ class VitaminController extends Controller
                 'penerima' => "required",
             ],
             [
-                'nama_vitamin.required' => "Nama Vitamin wajib diisi",
-                'nama_vitamin.regex' => "Format nama Vitamin tidak sesuai",
-                'nama_vitamin.min' => "Nama Vitamin minimal berjumlah 1 huruf",
-                'nama_vitamin.max' => "Nama Vitamin maksimal berjumlah 50 huruf",
+                'nama_vitamin.required' => "Nama vitamin wajib diisi",
+                'nama_vitamin.regex' => "Format nama vitamin tidak sesuai",
+                'nama_vitamin.min' => "Nama vitamin minimal berjumlah 1 karakter",
+                'nama_vitamin.max' => "Nama vitamin maksimal berjumlah 50 karakter",
                 'usia_pemberian.required' => "Usia pemberian Imunisasai wajib diisi",
                 'usia_pemberian.regex' => "Format usia pemberian Imunisasai tidak sesuai",
-                'usia_pemberian.min' => "Penulisan usia pemberian Vitamin minimal berjumlah 5 karakter",
-                'usia_pemberian.max' => "Penulisan usia pemberian Vitamin maksimal berjumlah 50 karakter",
+                'usia_pemberian.min' => "Penulisan usia pemberian vitamin minimal berjumlah 5 karakter",
+                'usia_pemberian.max' => "Penulisan usia pemberian vitamin maksimal berjumlah 50 karakter",
                 'perulangan.required' => "Frekuensi perulangan Imunisasai wajib diisi",
                 'perulangan.regex' => "Format perulangan Imunisasai tidak sesuai",
-                'perulangan.min' => "Penulisan perulangan Vitamin minimal berjumlah 5 karakter",
-                'perulangan.max' => "Penulisan perulangan Vitamin maksimal berjumlah 50 karakter",
-                'keterangan.required' => "Deskripsi Vitamin wajib diisi",
-                'status.required' => "Status Vitamin wajib diisi",
-                'penerima.required' => "Penerima Vitamin wajib diisi",
+                'perulangan.min' => "Penulisan perulangan vitamin minimal berjumlah 5 karakter",
+                'perulangan.max' => "Penulisan perulangan vitamin maksimal berjumlah 50 karakter",
+                'keterangan.required' => "Deskripsi vitamin wajib diisi",
+                'status.required' => "Status vitamin wajib diisi",
+                'penerima.required' => "Penerima vitamin wajib diisi",
             ]);
 
-            if ($request->status == "Wajib" || $request->status == "Tidak Wajib") {
-                if ($request->penerima == "Ibu Hamil" || $request->penerima == "Anak" || $request->penerima == "Lansia") {
-                    $updateVitamin = Vitamin::where('id', $vitamin->id)->update([
-                        'nama_vitamin' => $request->nama_vitamin,
-                        'usia_pemberian' => $request->usia_pemberian,
-                        'perulangan' => $request->perulangan,
-                        'deskripsi' => $request->keterangan,
-                        'status' => $request->status,
-                        'penerima' => $request->penerima,
-                    ]);
-                } else {
-                    return redirect()->back()->with(['failed' => 'Penerima Vitamin Tidak Terdaftar']);
-                }
-            } else {
-                return redirect()->back()->with(['failed' => 'Status Vitamin Tidak Terdaftar']);
-            }
+            $updateVitamin = Vitamin::where('id', $vitamin->id)->update([
+                'nama_vitamin' => $request->nama_vitamin,
+                'usia_pemberian' => $request->usia_pemberian,
+                'perulangan' => $request->perulangan,
+                'deskripsi' => $request->keterangan,
+                'status' => $request->status,
+                'penerima' => $request->penerima,
+            ]);
 
             if ($updateVitamin) {
-                return redirect()->back()->with(['success' => 'Data Vitamin '.$request->nama_vitamin.' berhasil diperbaharui']);
+                return redirect()->back()->with(['success' => 'Vitamin Berhasil Diperbaharui']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Vitamin gagal diperbaharui']);
+                return redirect()->back()->with(['failed' => 'Vitamin Gagal Diperbaharui']);
             }
         }
     }
@@ -194,9 +178,9 @@ class VitaminController extends Controller
         ]);
 
         if ($updateVitamin) {
-            return redirect()->back()->with(['success' => 'Data Vitamin berhasil dihapus']);
+            return redirect()->back()->with(['success' => 'Vitamin Berhasil Dihapus']);
         } else {
-            return redirect()->back()->with(['failed' => 'Data Vitamin gagal dihapus']);
+            return redirect()->back()->with(['failed' => 'Vitamin Gagal Dihapus']);
         }
     }
 }
