@@ -15,8 +15,8 @@
     <div class="col-auto ml-auto text-right mt-n1">
     <nav aria-label="breadcrumb text-center">
         <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-        <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Hak Akses</li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Hak Akses</li>
         </ol>
     </nav>
     </div>
@@ -45,17 +45,26 @@
                                         {{$admin_permission->where('id_permission', $data->id)->count()}}
                                         Pengguna
                                     </td>
-                                    <td class="text-center align-middle d-md-none">
-                                        <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-user-lock"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center align-middle d-none d-md-table-cell">
-                                        <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-user-lock"></i>
-                                            Detail Akses
-                                        </a>
-                                    </td>
+                                    @permission('Lihat Hak Akses')
+                                        <td class="text-center align-middle d-md-none">
+                                            <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-user-lock"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                            <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-user-lock"></i>
+                                                Detail Akses
+                                            </a>
+                                        </td>
+                                    @else
+                                        <td class="text-center align-middle d-md-none">
+                                            -
+                                        </td>
+                                        <td class="text-center align-middle d-none d-md-table-cell">
+                                            -
+                                        </td>
+                                    @endpermission
                                 </tr>
                             @endforeach
                         </tbody>

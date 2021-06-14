@@ -416,10 +416,10 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 // Start Route Menu Hak Akses
 
     // Hak Akses
-    Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission");
-    Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission");
-    Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission");
-    Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses");
+    Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission")->middleware("permission:Lihat Hak Akses");
+    Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission")->middleware("permission:Lihat Hak Akses");
+    Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission")->middleware("permission:Tambah Hak Akses");
+    Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses")->middleware("permission:Ubah Hak Akses");
 
 // End Route Menu Hak Akses
 

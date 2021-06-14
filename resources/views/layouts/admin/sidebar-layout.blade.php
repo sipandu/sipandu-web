@@ -368,12 +368,18 @@
         {{-- End Menu Informasi --}}
 
         <div class="dropdown-divider"></div>
-        <li class="nav-item">
-            <a href="{{ route('Semua Permission') }}" id="permission" class="nav-link">
-                <i class="nav-icon fas fa-key"></i>
-                <p>Hak Akses</p>
-            </a>
-        </li>
+
+        {{-- Start Menu Hak Akses --}}
+        @permission('Lihat Hak Akses')
+            <li class="nav-item">
+                <a href="{{ route('Semua Permission') }}" id="permission" class="nav-link">
+                    <i class="nav-icon fas fa-key"></i>
+                    <p>Hak Akses</p>
+                </a>
+            </li>
+        @endpermission
+        {{-- End Menu Hak Akses --}}
+
         {{-- <li class="nav nav-treeview">
             <li class="nav-item" id="manajemen-permission">
                 <a href="#" class="nav-link" id="permission">
