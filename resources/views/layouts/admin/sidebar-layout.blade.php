@@ -166,6 +166,7 @@
                 </li>
             </li>
         @endif
+        
         <li class="nav nav-treeview">
             <li class="nav-item" id="list-imunisasi">
                 <a href="#" class="nav-link" id="imunisasi">
@@ -193,33 +194,60 @@
                 </ul>
             </li>
         </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="list-vitamin">
-                <a href="#" class="nav-link" id="vitamin">
-                    <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                    <p>
-                        Vitamin
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'super admin')
+
+        {{-- Start Menu Vitamin --}}
+        @permission('Lihat Vitamin')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="list-vitamin">
+                    <a href="#" class="nav-link" id="vitamin">
+                        <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                        <p>
+                            Vitamin
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Tambah Vitamin')
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
+                                    <i class="fas fa-pills nav-icon"></i>
+                                    <p>Tambah Vitamin</p>
+                                </a>
+                            </li>
+                        @endpermission
                         <li class="nav-item">
-                            <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
-                                <i class="fas fa-pills nav-icon"></i>
-                                <p>Tambah Vitamin</p>
+                            <a href="{{ route('Semua Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
+                                <i class="fas fa-capsules nav-icon"></i>
+                                <p>Jenis Vitamin</p>
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
-                            <i class="fas fa-capsules nav-icon"></i>
-                            <p>Jenis Vitamin</p>
-                        </a>
-                    </li>
-                </ul>
+                    </ul>
+                </li>
             </li>
-        </li>
+        @else
+            @permission('Tambah Vitamin')
+                <li class="nav nav-treeview">
+                    <li class="nav-item" id="list-vitamin">
+                        <a href="#" class="nav-link" id="vitamin">
+                            <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                            <p>
+                                Vitamin
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ms-3">
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
+                                    <i class="fas fa-pills nav-icon"></i>
+                                    <p>Tambah Vitamin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </li>
+            @endpermission
+        @endpermission
+        {{-- End Menu Vitamin --}}
 
         {{-- Start Menu Kegiatan Posyandu --}}
         @permission('Lihat Kegiatan')

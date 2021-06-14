@@ -309,13 +309,7 @@ Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\ImunisasiVitamin\Imunis
 
 
 
-//Vitamin
-Route::get('nakes/vitamin/tambah-vitamin', 'Admin\ImunisasiVitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/vitamin/tambah', 'Admin\ImunisasiVitamin\VitaminController@storeVitamin')->name("Store Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
+
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
 
@@ -354,7 +348,21 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
 
 
-// Start Menu Kegiatan Posyandu
+// Start Route Menu Vitamin
+
+    //Vitamin
+    Route::get('nakes/vitamin/jenis-vitamin', 'Admin\Vitamin\VitaminController@semuaJenisVitamin')->name("Semua Jenis Vitamin")->middleware("permission:Lihat Vitamin");
+    Route::get('nakes/vitamin/tambah-vitamin', 'Admin\Vitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin")->middleware("permission:Tambah Vitamin");
+    Route::post('nakes/vitamin/tambah', 'Admin\Vitamin\VitaminController@storeVitamin')->name("Store Vitamin")->middleware("permission:Tambah Vitamin");
+    Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\Vitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("permission:Ubah Vitamin");
+    Route::post('nakes/vitamin/update/{vitamin}', 'Admin\Vitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("permission:Ubah Vitamin");
+    Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\Vitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("permission:Hapus Vitamin");
+
+// End Route Menu Vitamin
+
+
+
+// Start Route Menu Kegiatan Posyandu
 
     //Kegiatan
     Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");

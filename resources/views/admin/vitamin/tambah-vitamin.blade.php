@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Jenis Vitamin Baru</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Vitamin Baru</li>
                 </ol>
             </nav>
         </div>
@@ -19,13 +19,13 @@
             <div class="col-12">
                 <div class="card card-outline card-primary p-3">
                     <p class="text-center fs-5">Tambah Jenis Vitamin Baru</p>
-                    <form action="{{ route('Store Vitamin') }}" method="POST">
+                    <form action="{{ route('Store Vitamin') }}" method="POST" class="needs-validation" novalidate>
                         @csrf
                         <div class="row">
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="nama_vitamin">Nama Vitamin<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('nama_vitamin') is-invalid @enderror" id="nama_vitamin" name="nama_vitamin" value="{{ old('nama_vitamin') }}" placeholder="Nama vitamin">
+                                    <input type="text" autocomplete="off" class="form-control @error('nama_vitamin') is-invalid @enderror" id="nama_vitamin" name="nama_vitamin" value="{{ old('nama_vitamin') }}" placeholder="Nama vitamin" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-syringe"></span>
@@ -35,13 +35,17 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Nama Vitamin Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="usia_pemberian">Usia Pemberian<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian') }}" placeholder="Usia pemberian">
+                                    <input type="text" autocomplete="off" class="form-control @error('usia_pemberian') is-invalid @enderror" id="usia_pemberian" name="usia_pemberian" value="{{ old('usia_pemberian') }}" placeholder="Usia pemberian" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-calendar-check"></span>
@@ -51,13 +55,17 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Usia Pemberian Vitamin Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 my-2">
                                 <label for="perulangan">Frekuensi Perulangan<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan') }}" placeholder="Frekuensi perulangan">
+                                    <input type="text" autocomplete="off" class="form-control @error('perulangan') is-invalid @enderror" id="perulangan" name="perulangan" value="{{ old('perulangan') }}" placeholder="Frekuensi perulangan" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-redo-alt"></span>
@@ -67,6 +75,10 @@
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Frekuensi Perulangan Vitamin Wajib Diisi
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
@@ -75,7 +87,7 @@
                                     <div class="col-12 col-md-6">
                                         <label for="status">Status<span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <select name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" id="status">
+                                            <select name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" id="status" required aria-placeholder="Pilih status vitamin">
                                                 @if (old('status'))
                                                     @if (old('status') == 'Wajib')
                                                         <option selected value="Wajib">Wajib</option>
@@ -86,7 +98,6 @@
                                                         <option selected value="Tidak Wajib">Tidak Wajib</option>
                                                     @endif
                                                 @else
-                                                    <option selected disabled>Status Imunisasi ...</option>
                                                     <option value="Wajib">Wajib</option>
                                                     <option value="Tidak Wajib">Tidak Wajib</option>
                                                 @endif
@@ -100,13 +111,17 @@
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
+                                            @else
+                                                <div class="invalid-feedback">
+                                                    Status Vitamin Wajib Dipilih
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label for="penerima">Penerima<span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" value="{{ old('penerima') }}" id="penerima">
+                                            <select name="penerima" class="form-control @error('penerima') is-invalid @enderror" value="{{ old('penerima') }}" id="penerima" aria-placeholder="Pilih penerima vitamin" required>
                                                 @if (old('penerima'))
                                                     @if (old('penerima') == 'Ibu Hamil')
                                                         <option selected value="Ibu Hamil">Ibu Hamil</option>
@@ -124,7 +139,6 @@
                                                         <option selected value="Lansia">Lansia</option>
                                                     @endif
                                                 @else
-                                                    <option selected disabled>Penerima Imunisasi....</option>
                                                     <option value="Ibu Hamil">Ibu Hamil</option>
                                                     <option value="Anak">Anak</option>
                                                     <option value="Lansia">Lansia</option>
@@ -139,6 +153,10 @@
                                                 <div class="invalid-feedback text-start">
                                                     {{ $message }}
                                                 </div>
+                                            @else
+                                                <div class="invalid-feedback">
+                                                    Penerima Vitamin Wajib Dipilih
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -146,11 +164,15 @@
                             </div>
                             <div class="col-12 my-2">
                                 <div class="form-floating">
-                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan">{{ old('keterangan') }}</textarea>
+                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukan keterangan tambahan" style="height: 120px" required autocomplete="off">{{ old('keterangan') }}</textarea>
                                     <label for="keterangan">Keterangan Tambahan<span class="text-danger">*</span></label>
                                     @error('keterangan')
                                         <div class="invalid-feedback text-start">
                                             {{ $message }}
+                                        </div>
+                                    @else
+                                        <div class="invalid-feedback">
+                                            Keterangan Vitamin Wajib Diisi
                                         </div>
                                     @enderror
                                 </div>
@@ -170,7 +192,6 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-vitamin').addClass('menu-is-opening menu-open');
             $('#vitamin').addClass('active');
             $('#tambah-vitamin').addClass('active');
@@ -178,19 +199,19 @@
     </script>
 
     @if($message = Session::get('failed'))
-    <script>
-        $(document).ready(function(){
-            alertDanger('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertError('{{$message}}');
+            });
+        </script>
     @endif
 
     @if($message = Session::get('success'))
-    <script>
-        $(document).ready(function(){
-            alertSuccess('{{$message}}');
-        });
-    </script>
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
     @endif
 @endpush
 
