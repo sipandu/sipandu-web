@@ -341,12 +341,12 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::get('manajemen-akun/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
 
     // Super Admin
-    Route::get('manajemen-akun/super-admin', 'Admin\ManajemenAkun\Admin\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin");
-    Route::get('manajemen-akun/super-admin/tambah', 'Admin\ManajemenAkun\Admin\SuperAdminController@tambahSuperAdmin')->name("Tambah Super Admin");
-    Route::post('manajemen-akun/super-admin/simpan', 'Admin\ManajemenAkun\Admin\SuperAdminController@simpanSuperAdmin')->name("Simpan Super Admin");
-    Route::get('manajemen-akun/super-admin/file-ktp/{superAdmin}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPSuperAdmin')->name('Get KTP Super Admin');
-    Route::get('manajemen-akun/super-admin/detail/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@detailSuperAdmin')->name("Detail Super Admin");
-    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Super Admin");
+    Route::get('manajemen-akun/super-admin', 'Admin\ManajemenAkun\Admin\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin")->middleware("permission:Lihat Super Admin");
+    Route::get('manajemen-akun/super-admin/tambah', 'Admin\ManajemenAkun\Admin\SuperAdminController@tambahSuperAdmin')->name("Tambah Super Admin")->middleware("permission:Tambah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan', 'Admin\ManajemenAkun\Admin\SuperAdminController@simpanSuperAdmin')->name("Simpan Super Admin")->middleware("permission:Tambah Super Admin");
+    Route::get('manajemen-akun/super-admin/file-ktp/{superAdmin}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPSuperAdmin')->name('Get KTP Super Admin')->middleware("permission:Ubah Super Admin");
+    Route::get('manajemen-akun/super-admin/detail/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@detailSuperAdmin')->name("Detail Super Admin")->middleware("permission:Ubah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Super Admin")->middleware("permission:Ubah Super Admin");
 
 // End Route Menu Manajemen Akun
 
@@ -355,12 +355,12 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 // Start Route Menu Imunisasi
 
     //Imunisasi
-    Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\Imunisasi\ImunisasiController@semuaJenisImunisasi')->name("Semua Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-    Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\Imunisasi\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-    Route::post('nakes/imunisasi/tambah', 'Admin\Imunisasi\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-    Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-    Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-    Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
+    Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\Imunisasi\ImunisasiController@semuaJenisImunisasi')->name("Semua Jenis Imunisasi")->middleware("permission:Lihat Imunisasi");
+    Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\Imunisasi\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("permission:Tambah Imunisasi");
+    Route::post('nakes/imunisasi/tambah', 'Admin\Imunisasi\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("permission:Tambah Imunisasi");
+    Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("permission:Ubah Imunisasi");
+    Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("permission:Ubah Imunisasi");
+    Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("permission:Hapus Imunisasi");
 
 // End Route Menu Imunisasi
 

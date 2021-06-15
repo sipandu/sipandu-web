@@ -46,7 +46,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::if('menu', function ($expression) {
-            // eval("\$permissions = [$expression];");
             $admin_id = Auth::guard('admin')->user()->id;
             $permission_id = Permission::whereIn('nama_permission', $expression)->select('id')->get();
             $permission = AdminPermission::where('id_admin', $admin_id)->whereIn('id_permission', $permission_id->toArray())->first();
