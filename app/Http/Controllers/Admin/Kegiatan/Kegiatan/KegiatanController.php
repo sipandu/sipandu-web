@@ -29,27 +29,11 @@ class KegiatanController extends Controller
         if (auth()->guard('admin')->user()->role == 'super admin') {
             $kegiatan = Kegiatan::orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $data_nakes = [];
-            $kegiatan = [];
-
-            $data_kegiatan = Kegiatan::orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $data_nakes = $nakes;
-
-            foreach ($data_nakes as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
-            
-            foreach ($id_posyandu as $item) {
-                foreach ($data_kegiatan->where('id_posyandu', $item) as $data) {
-                    $kegiatan[] = $data;
-                }
-            }
+            $kegiatan = Kegiatan::orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->whereIn('id_posyandu', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $kegiatan = Kegiatan::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->orderby('created_at', 'desc')->where('end_at', '>', $today)->where('deleted_at', NULL)->get();
         }
-
 
         return view('admin.kegiatan.kegiatan.home', compact('kegiatan'));
     }
@@ -59,23 +43,8 @@ class KegiatanController extends Controller
         if (auth()->guard('admin')->user()->role == 'super admin') {
             $posyandu = Posyandu::get();
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $data_nakes = [];
-            $posyandu = [];
-
-            $data_posyandu = Posyandu::get();
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $data_nakes = $nakes;
-
-            foreach ($data_nakes as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
-            
-            foreach ($id_posyandu as $item) {
-                foreach ($data_posyandu->where('id', $item) as $data) {
-                    $posyandu[] = $data;
-                }
-            }
+            $posyandu = Posyandu::whereIn('id', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
         }

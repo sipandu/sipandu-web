@@ -30,23 +30,8 @@ class PengumumanController extends Controller
         if (auth()->guard('admin')->user()->role == 'super admin') {
             $pengumuman = Pengumuman::orderby('created_at', 'desc')->get();
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $data_nakes = [];
-            $pengumuman = [];;
-
-            $data_pengumuman = Pengumuman::get();
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $data_nakes = $nakes;
-
-            foreach ($data_nakes as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
-            
-            foreach ($id_posyandu as $item) {
-                foreach ($data_pengumuman->where('id_posyandu', $item) as $data) {
-                    $pengumuman[] = $data;
-                }
-            }
+            $pengumuman = Pengumuman::whereIn('id_posyandu', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $id_posyandu = auth()->guard('admin')->user()->pegawai->id_posyandu;
             $pengumuman = Pengumuman::where('id_posyandu', $id_posyandu)->orderby('created_at', 'desc')->get();
@@ -60,23 +45,8 @@ class PengumumanController extends Controller
         if (auth()->guard('admin')->user()->role == 'super admin') {
             $posyandu = Posyandu::get();
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $data_nakes = [];
-            $posyandu = [];
-
-            $data_posyandu = Posyandu::get();
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $data_nakes = $nakes;
-
-            foreach ($data_nakes as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
-            
-            foreach ($id_posyandu as $item) {
-                foreach ($data_posyandu->where('id', $item) as $data) {
-                    $posyandu[] = $data;
-                }
-            }
+            $posyandu = Posyandu::whereIn('id', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
         }
@@ -117,24 +87,6 @@ class PengumumanController extends Controller
                 'slug' => Str::slug($request->judul_pengumuman),
             ]);
         }
-
-
-        // $pegawai = Pegawai::where('id_admin', Auth::guard('admin')->user()->id)->first();
-        // $posyandu = Posyandu::find($pegawai->id_posyandu);
-        // $request->validate([
-        //     'judul_pengumuman' => 'required|min:2',
-        //     'pengumuman' => 'required|min:2',
-        //     'image' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
-        // ]);
-
-        // $pengumuman = new Pengumuman();
-        // $pengumuman->judul_pengumuman = $request->judul_pengumuman;
-        // $pengumuman->id_posyandu = $posyandu->id;
-        // $pengumuman->pengumuman = $request->pengumuman;
-        // $pengumuman->tanggal = NOW();
-        // $pengumuman->image = $filename;
-        // $pengumuman->slug = Str::slug($request->judul_pengumuman);
-        // $pengumuman->save();
 
         /* notif mobile user shit start here */
 
@@ -213,23 +165,8 @@ class PengumumanController extends Controller
         if (auth()->guard('admin')->user()->role == 'super admin') {
             $posyandu = Posyandu::get();
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $data_nakes = [];
-            $posyandu = [];
-
-            $data_posyandu = Posyandu::get();
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $data_nakes = $nakes;
-
-            foreach ($data_nakes as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
-            
-            foreach ($id_posyandu as $item) {
-                foreach ($data_posyandu->where('id', $item) as $data) {
-                    $posyandu[] = $data;
-                }
-            }
+            $posyandu = Posyandu::whereIn('id', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
         }

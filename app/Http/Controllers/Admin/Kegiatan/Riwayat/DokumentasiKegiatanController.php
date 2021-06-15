@@ -59,7 +59,6 @@ class DokumentasiKegiatanController extends Controller
 
     public function updateDokumentasi(Request $request, $id)
     {
-        // return($request);
         $request->validate([
             'image' => 'required|mimes:png,jpg,jpeg|max:2000',
             'deskripsi' => 'required|min:2',
