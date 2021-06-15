@@ -25,17 +25,10 @@ class PermissionController extends Controller
 
     public function initialPermission(Permission $permission)
     {
-        $admin_permission = AdminPermission::where('id_permission', $permission->id)->orderBy('created_at', 'desc')->get();
-        $admin = Admin::get();
-        
-        $id_admin_permission = AdminPermission::where('id_permission', $permission->id)->pluck('id_admin');
-        $id_admin = [];
+        $admin_permission = AdminPermission::where('id_permission', $permission->id)->select('id_admin')->get();
+        $admin = Admin::where('is_verified', '1')->whereNotIn('id', $admin_permission->toArray())->get();
 
-        foreach ($id_admin_permission as $data => $value) {
-            $id_admin[] = $id_admin_permission[$data];
-        }
-
-        return view('admin.permission.initial-permission', compact('permission', 'admin_permission', 'admin', 'id_admin'));
+        return view('admin.permission.initial-permission', compact('permission', 'admin', 'admin_permission'));
     }
 
     public function simpanPermission(Request $request, Permission $permission)

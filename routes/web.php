@@ -111,13 +111,13 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
     // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
-    Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
+    // Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
     Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
 
     //Store Account
     Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
-    Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
+    // Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
     Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
     Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
@@ -209,11 +209,11 @@ Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderCon
 
 
 
-Route::get('/admin/data-nakes/all', 'Admin\MasterData\DataNakesController@listNakes')->name("Data Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::get('/admin/data-nakes/all', 'Admin\MasterData\DataNakesController@listNakes')->name("Data Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 Route::get('/get-img/data-nakes/{id}', 'Admin\MasterData\DataNakesController@getImage')->name('Get Image Data Nakes')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 Route::get('/get-img/data-nakes/ktp/{id}', 'Admin\MasterData\DataNakesController@getImageKTP')->name('Get Image Data Nakes KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-nakes/detail/{nakes}', 'Admin\MasterData\DataNakesController@detailNakes')->name("Detail Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-nakes/update/{nakes}', 'Admin\MasterData\DataNakesController@updateNakes')->name("Update Data Nakes")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::get('/admin/data-nakes/detail/{nakes}', 'Admin\MasterData\DataNakesController@detailNakes')->name("Detail Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::post('/admin/data-nakes/update/{nakes}', 'Admin\MasterData\DataNakesController@updateNakes')->name("Update Data Nakes")->middleware("cek:super admin,head admin,admin,param4,param5");
 
 
 
@@ -330,7 +330,7 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
           Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
       });
   });
-  // ------
+// ------
 
 
 
@@ -346,7 +346,15 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::post('manajemen-akun/super-admin/simpan', 'Admin\ManajemenAkun\Admin\SuperAdminController@simpanSuperAdmin')->name("Simpan Super Admin")->middleware("permission:Tambah Super Admin");
     Route::get('manajemen-akun/super-admin/file-ktp/{superAdmin}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPSuperAdmin')->name('Get KTP Super Admin')->middleware("permission:Ubah Super Admin");
     Route::get('manajemen-akun/super-admin/detail/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@detailSuperAdmin')->name("Detail Super Admin")->middleware("permission:Ubah Super Admin");
-    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Super Admin")->middleware("permission:Ubah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Profile Super Admin")->middleware("permission:Ubah Super Admin");
+
+    // Tenaga Kesehatan
+    Route::get('manajemen-akun/nakes', 'Admin\ManajemenAkun\Admin\NakesController@semuaNakes')->name("Data Nakes");
+    Route::get('manajemen-akun/nakes/tambah', 'Admin\ManajemenAkun\Admin\NakesController@tambahNakes')->name('Tambah Nakes');
+    Route::post('manajemen-akun/nakes/simpan', 'Admin\ManajemenAkun\Admin\NakesController@simpanNakes')->name('Simpan Nakes');
+    Route::get('manajemen-akun/nakes/file-ktp/{nakes}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPNakes')->name('Get KTP Nakes')->middleware("permission:Ubah Super Admin");
+    Route::get('manajemen-akun/nakes/detail/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@detailNakes')->name("Detail Nakes");
+    Route::post('manajemen-akun/nakes/update/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@updateNakes')->name("Update Profile Nakes");
 
 // End Route Menu Manajemen Akun
 
@@ -405,7 +413,6 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
 // End Menu Kegiatan Posyandu
-
 
 
 

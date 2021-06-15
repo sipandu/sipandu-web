@@ -50,16 +50,16 @@
                                         <div class="col-sm-12 col-md-9 py-1">
                                             <select class="select2 form-control @error('admin[]') is-invalid @enderror" multiple="multiple" name="admin[]" data-placeholder="Pilih akun admin" required style="width: 100%">
                                                 @foreach ($admin as $data)
-                                                    @if (!in_array($data->id, $id_admin))
+                                                    {{-- @if (!in_array($data->id, $id_admin)) --}}
                                                         <option value="{{ $data->id }}">{{ $data->email }}</option>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 @endforeach
                                             </select>                                    
                                         </div>
                                         <div class="col-sm-12 col-md-3 d-grid py-1">
                                             <button class="btn btn-outline-primary" type="submit" id="button-addon2">Tambahkan</button>
                                         </div>
-                                        @error('nama_tag')
+                                        @error('admin[]')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
                                             </div>

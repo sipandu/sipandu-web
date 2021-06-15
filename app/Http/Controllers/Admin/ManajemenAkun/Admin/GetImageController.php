@@ -46,4 +46,17 @@ class GetImageController extends Controller
             );
         }
     }
+
+    public function getImageKTPNakes(Nakes $nakes)
+    {
+        if( File::exists(storage_path($nakes->file_ktp)) && $nakes->file_ktp != NULL ) {
+            return response()->file(
+                storage_path($nakes->file_ktp)
+            );
+        } else {
+            return response()->file(
+                public_path('images/forms-logo.jpg')
+            );
+        }
+    }
 }

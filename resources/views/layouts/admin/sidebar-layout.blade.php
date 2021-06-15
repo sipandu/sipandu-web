@@ -87,18 +87,22 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ms-3">
-                        <li class="nav-item">
-                            <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>Data Super Admin</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
-                                <i class="nav-icon fas fa-user-nurse"></i>
-                                <p>Data Nakes</p>
-                            </a>
-                        </li>
+                        @permission('Lihat Super Admin')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>Data Super Admin</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Tenaga Kesehatan')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
+                                    <i class="nav-icon fas fa-user-nurse"></i>
+                                    <p>Data Nakes</p>
+                                </a>
+                            </li>
+                        @endpermission
                         <li class="nav-item">
                             <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                 <i class="nav-icon fas fa-user-shield"></i>
