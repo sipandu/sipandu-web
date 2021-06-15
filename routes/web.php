@@ -110,7 +110,7 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 //Management Account
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
-    Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
+    // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
     Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
     Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
@@ -187,10 +187,6 @@ Route::post('/admin/posyandu/update/{posyandu}', 'Admin\MasterData\DataPosyanduC
 Route::get('/admin/profile-posyandu/profile', 'Admin\MasterData\ProfilePosyanduController@profilePosyandu')->name("Profile Posyandu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 Route::get('/admin/profile-posyandu/edit/{posyandu}', 'Admin\MasterData\ProfilePosyanduController@editProfilePosyandu')->name("Edit Profile Posyandu")->middleware("cek:head admin,admin,param3,param4,param5");
 Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\ProfilePosyanduController@updateProfilePosyandu')->name("Update Profile Posyandu")->middleware("cek:head admin,admin,param3,param4,param5");
-
-
-
-Route::get('/admin/data-super-admin/all', 'Admin\Auth\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
 
 
 
@@ -335,6 +331,24 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       });
   });
   // ------
+
+
+
+// Start Route Menu Manajemen Akun
+
+    //Global Route Manajemen Akun
+    Route::post('manajemen-akun/disable/{admin}', 'Admin\ManajemenAkun\Admin\DisableAccountController@disableAccount')->name("Disable Account");
+    Route::get('manajemen-akun/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
+
+    // Super Admin
+    Route::get('manajemen-akun/super-admin', 'Admin\ManajemenAkun\Admin\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin");
+    Route::get('manajemen-akun/super-admin/tambah', 'Admin\ManajemenAkun\Admin\SuperAdminController@tambahSuperAdmin')->name("Tambah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan', 'Admin\ManajemenAkun\Admin\SuperAdminController@simpanSuperAdmin')->name("Simpan Super Admin");
+    Route::get('manajemen-akun/super-admin/file-ktp/{superAdmin}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPSuperAdmin')->name('Get KTP Super Admin');
+    Route::get('manajemen-akun/super-admin/detail/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@detailSuperAdmin')->name("Detail Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Super Admin");
+
+// End Route Menu Manajemen Akun
 
 
 

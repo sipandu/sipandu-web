@@ -11,6 +11,7 @@ class SuperAdmin extends Model
     protected $fillable = [
         'id_kabupaten',
         'id_kecamatan',
+        'id_desa',
         'id_admin',
         'nama_super_admin',
         'tempat_lahir',
@@ -21,6 +22,7 @@ class SuperAdmin extends Model
         'username_telegram',
         'nik',
         'file_ktp',
+        'area_tugas',
     ];
 
     public function posyandu(){
@@ -33,5 +35,9 @@ class SuperAdmin extends Model
 
     public function kecamatan(){
         return $this->belongsTo(Kecamatan::class,'id_kecamatan','id');
+    }
+
+    public function kabupaten(){
+        return $this->belongsTo(Kabupaten::class,'id_kabupaten','id');
     }
 }

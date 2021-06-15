@@ -75,64 +75,68 @@
             </a>
             </li>
         @endif
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="account-management">
-                <a href="#" class="nav-link" id="account">
-                    <i class="nav-icon fas fa-users-cog"></i>
-                    <p>
-                        Manajemen Akun
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item">
-                        <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
-                            <i class="nav-icon fas fa-user-cog"></i>
-                            <p>Data Super Admin</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
-                            <i class="nav-icon fas fa-user-nurse"></i>
-                            <p>Data Nakes</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
-                            <i class="nav-icon fas fa-user-shield"></i>
-                            <p>Data Admin</p>
-                        </a>
-                    </li>
-                    @if (auth()->guard('admin')->user()->role != 'super admin')
+
+        @permission('Lihat Super Admin')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="account-management">
+                    <a href="#" class="nav-link" id="account">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Manajemen Akun
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
-                            <a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
-                                <i class="nav-icon fas fa-user-tag"></i>
-                                <p>Data Kader</p>
+                            <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>Data Super Admin</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
+                                <i class="nav-icon fas fa-user-nurse"></i>
+                                <p>Data Nakes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+                                <i class="nav-icon fas fa-user-shield"></i>
+                                <p>Data Admin</p>
+                            </a>
+                        </li>
+                        @if (auth()->guard('admin')->user()->role != 'super admin')
                             <li class="nav-item">
-                                <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Anggota Posyandu</p>
+                                <a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
+                                    <i class="nav-icon fas fa-user-tag"></i>
+                                    <p>Data Kader</p>
                                 </a>
-                        </li>
-                        <li class="nav-item" id="list-data-user-verify">
-                            <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
-                                <i class="nav-icon fas fa-user-check"></i>
-                                <p>Konfirmasi Anggota</p>
-                            </a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
-                                <i class="nav-icon fas fa-people-arrows"></i>
-                                <p>Ganti Jabatan</p>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
+                            </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>Anggota Posyandu</p>
+                                    </a>
+                            </li>
+                            <li class="nav-item" id="list-data-user-verify">
+                                <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
+                                    <i class="nav-icon fas fa-user-check"></i>
+                                    <p>Konfirmasi Anggota</p>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
+                                    <i class="nav-icon fas fa-people-arrows"></i>
+                                    <p>Ganti Jabatan</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
             </li>
-        </li>
+        @endpermission
+
         @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
             <li class="nav nav-treeview">
                 <li class="nav-item" id="list-kesehatan">

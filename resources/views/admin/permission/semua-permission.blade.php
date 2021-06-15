@@ -25,6 +25,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12 my-auto">
+                            <h3 class="card-title my-auto">Daftar Hak Akses</h3>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body table-responsive-md">
                     <table id="tbPermission" class="table table-bordered table-responsive-sm table-hover">
                         <thead class="text-center">
@@ -45,26 +52,17 @@
                                         {{$admin_permission->where('id_permission', $data->id)->count()}}
                                         Pengguna
                                     </td>
-                                    @permission('Lihat Hak Akses')
-                                        <td class="text-center align-middle d-md-none">
-                                            <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-user-lock"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-center align-middle d-none d-md-table-cell">
-                                            <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-user-lock"></i>
-                                                Detail Akses
-                                            </a>
-                                        </td>
-                                    @else
-                                        <td class="text-center align-middle d-md-none">
-                                            -
-                                        </td>
-                                        <td class="text-center align-middle d-none d-md-table-cell">
-                                            -
-                                        </td>
-                                    @endpermission
+                                    <td class="text-center align-middle d-md-none">
+                                        <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-user-lock"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center align-middle d-none d-md-table-cell">
+                                        <a href="{{ route('Initial Permission', $data->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-user-lock"></i>
+                                            Detail Akses
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

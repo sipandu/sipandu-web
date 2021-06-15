@@ -27,8 +27,8 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center justify-content-md-start my-auto">
-                            <h3 class="card-title my-auto">Daftar Jenis Vitamin</h3>
-                        </div>
+                                <h3 class="card-title my-auto">Daftar Jenis Vitamin</h3>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
