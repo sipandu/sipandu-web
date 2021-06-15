@@ -76,7 +76,7 @@
             </li>
         @endif
 
-        @permission('Lihat Super Admin')
+        @menu(["Lihat Super Admin", "Lihat Tenaga Kesehatan", "Lihat Admin", "Lihat Kader", "Lihat Anggota"])
             <li class="nav nav-treeview">
                 <li class="nav-item" id="account-management">
                     <a href="#" class="nav-link" id="account">
@@ -135,7 +135,7 @@
                     </ul>
                 </li>
             </li>
-        @endpermission
+        @endmenu
 
         @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
             <li class="nav nav-treeview">
@@ -172,7 +172,7 @@
         @endif
 
         {{-- Start Menu Imunisasi --}}
-        @permission('Lihat Imunisasi')
+        @menu(["Tambah Imunisasi", "Lihat Imunisasi"])
             <li class="nav nav-treeview">
                 <li class="nav-item" id="list-imunisasi">
                     <a href="#" class="nav-link" id="imunisasi">
@@ -191,42 +191,22 @@
                                 </a>
                             </li>
                         @endpermission
-                        <li class="nav-item">
-                            <a href="{{ route('Semua Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
-                                <i class="fas fa-crutch nav-icon"></i>
-                                <p>Jenis Imunisasi</p>
-                            </a>
-                        </li>
+                        @permission('Tambah Imunisasi')
+                            <li class="nav-item">
+                                <a href="{{ route('Semua Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
+                                    <i class="fas fa-crutch nav-icon"></i>
+                                    <p>Jenis Imunisasi</p>
+                                </a>
+                            </li>
+                        @endpermission
                     </ul>
                 </li>
             </li>
-        @else
-            @permission('Tambah Imunisasi')
-                <li class="nav nav-treeview">
-                    <li class="nav-item" id="list-imunisasi">
-                        <a href="#" class="nav-link" id="imunisasi">
-                            <i class="nav-icon fas fa-syringe"></i>
-                            <p>
-                                Imunisasi
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
-                                    <i class="fas fa-vials nav-icon"></i>
-                                    <p>Tambah Imunisasi</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </li>
-            @endpermission
-        @endpermission
+        @endmenu
         {{-- End Menu Imunisasi --}}
 
         {{-- Start Menu Vitamin --}}
-        @permission('Lihat Vitamin')
+        @menu(["Tambah Vitamin", "Lihat Vitamin"])
             <li class="nav nav-treeview">
                 <li class="nav-item" id="list-vitamin">
                     <a href="#" class="nav-link" id="vitamin">
@@ -254,33 +234,11 @@
                     </ul>
                 </li>
             </li>
-        @else
-            @permission('Tambah Vitamin')
-                <li class="nav nav-treeview">
-                    <li class="nav-item" id="list-vitamin">
-                        <a href="#" class="nav-link" id="vitamin">
-                            <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                            <p>
-                                Vitamin
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
-                                    <i class="fas fa-pills nav-icon"></i>
-                                    <p>Tambah Vitamin</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </li>
-            @endpermission
-        @endpermission
+        @endmenu
         {{-- End Menu Vitamin --}}
 
         {{-- Start Menu Kegiatan Posyandu --}}
-        @permission('Lihat Kegiatan')
+        @menu(["Lihat Kegiatan", "Lihat Riwayat Kegiatan"])
             <li class="nav nav-treeview">
                 <li class="nav-item" id="kegiatan-posyandu">
                     <a href="#" class="nav-link" id="kegiatan">
@@ -308,33 +266,11 @@
                     </ul>
                 </li>
             </li>
-        @else
-            @permission('Lihat Riwayat Kegiatan')
-                <li class="nav nav-treeview">
-                    <li class="nav-item" id="kegiatan-posyandu">
-                        <a href="#" class="nav-link" id="kegiatan">
-                            <i class="nav-icon fas fa-briefcase-medical"></i>
-                            <p>
-                                Kegiatan Posyandu
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
-                                    <i class="nav-icon fas fa-history"></i>
-                                    <p>Riwayat Kegiatan</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </li>
-            @endpermission
-        @endpermission
+        @endmenu
         {{-- End Menu Kegiatan Posyandu --}}
 
         {{-- Start Menu Informasi --}}
-        @permission('Lihat Berita')
+        @menu(["Lihat Berita", "Lihat Tag Berita", "Lihat Pengumuman"])
             <li class="nav nav-treeview">
                 <li class="nav-item" id="informasi">
                     <a href="#" class="nav-link" id="informasi-link">
@@ -345,12 +281,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ms-3">
-                        <li class="nav-item">
-                            <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-                                <i class="fas fa-newspaper nav-icon"></i>
-                                <p>Berita</p>
-                            </a>
-                        </li>
+                        @permission('Lihat Berita')
+                            <li class="nav-item">
+                                <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
+                                    <i class="fas fa-newspaper nav-icon"></i>
+                                    <p>Berita</p>
+                                </a>
+                            </li>
+                        @endpermission
                         @permission('Lihat Tag Berita')
                             <li class="nav-item">
                                 <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
@@ -370,59 +308,7 @@
                     </ul>
                 </li>
             </li>
-        @else
-            @permission('Lihat Tag Berita')
-                <li class="nav nav-treeview">
-                    <li class="nav-item" id="informasi">
-                        <a href="#" class="nav-link" id="informasi-link">
-                            <i class="nav-icon fas fa-info"></i>
-                            <p>
-                                Informasi
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ms-3">
-                            <li class="nav-item">
-                                <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
-                                    <i class="fas fa-tags nav-icon"></i>
-                                    <p>Tag</p>
-                                </a>
-                            </li>
-                            @permission('Lihat Pengumuman')
-                                <li class="nav-item">
-                                    <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
-                                        <i class="fas fa-bullhorn nav-icon"></i>
-                                        <p>Pengumuman</p>
-                                    </a>
-                                </li>
-                            @endpermission
-                        </ul>
-                    </li>
-                </li>
-            @else
-                @permission('Lihat Pengumuman')
-                    <li class="nav nav-treeview">
-                        <li class="nav-item" id="informasi">
-                            <a href="#" class="nav-link" id="informasi-link">
-                                <i class="nav-icon fas fa-info"></i>
-                                <p>
-                                    Informasi
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview ms-3">
-                                <li class="nav-item">
-                                    <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
-                                        <i class="fas fa-bullhorn nav-icon"></i>
-                                        <p>Pengumuman</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </li>
-                @endpermission
-            @endpermission
-        @endpermission
+        @endmenu
         {{-- End Menu Informasi --}}
 
         <div class="dropdown-divider"></div>

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use App\Admin;
 use App\Permission;
@@ -40,6 +41,17 @@ class AppServiceProvider extends ServiceProvider
             // Check permission
             $permission = AdminPermission::where('id_admin', $admin_id)->where('id_permission', $permission_id->id)->first();
             if ($permission) {
+                return true;
+            }
+        });
+
+        Blade::if('menu', function ($expression) {
+            // eval("\$permissions = [$expression];");
+            $admin_id = Auth::guard('admin')->user()->id;
+            $permission_id = Permission::whereIn('nama_permission', $expression)->select('id')->get();
+            $permission = AdminPermission::where('id_admin', $admin_id)->whereIn('id_permission', $permission_id->toArray())->first();
+
+            if($permission != NULL){
                 return true;
             }
         });
