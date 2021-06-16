@@ -192,26 +192,26 @@ Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\Profi
 
 //CRUD Data Admin
 // Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
-Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 // Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
-Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
+// Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
 
 
 
 //CRUD Data Kader
-Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('account/new-kader/show', 'Admin\Auth\RegisController@tambahKader')->name('Tambah Kader')->middleware('cek:tenaga kesehatan,admin,head admin,param4,param5');
-Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::get('account/new-kader/show', 'Admin\Auth\RegisController@tambahKader')->name('Tambah Kader')->middleware('cek:tenaga kesehatan,admin,head admin,param4,param5');
+// Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
 
 
 
 // Route::get('/admin/data-nakes/all', 'Admin\MasterData\DataNakesController@listNakes')->name("Data Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('/get-img/data-nakes/{id}', 'Admin\MasterData\DataNakesController@getImage')->name('Get Image Data Nakes')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-nakes/ktp/{id}', 'Admin\MasterData\DataNakesController@getImageKTP')->name('Get Image Data Nakes KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-nakes/{id}', 'Admin\MasterData\DataNakesController@getImage')->name('Get Image Data Nakes')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-nakes/ktp/{id}', 'Admin\MasterData\DataNakesController@getImageKTP')->name('Get Image Data Nakes KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 // Route::get('/admin/data-nakes/detail/{nakes}', 'Admin\MasterData\DataNakesController@detailNakes')->name("Detail Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
 // Route::post('/admin/data-nakes/update/{nakes}', 'Admin\MasterData\DataNakesController@updateNakes')->name("Update Data Nakes")->middleware("cek:super admin,head admin,admin,param4,param5");
 
@@ -368,9 +368,17 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::get('manajemen-akun/admin', 'Admin\ManajemenAkun\Admin\AdminController@semuaAdmin')->name("Data Admin")->middleware("permission:Lihat Admin");
     Route::get('manajemen-akun/admin/tambah', 'Admin\ManajemenAkun\Admin\AdminController@tambahAdmin')->name("Tambah Admin")->middleware("permission:Tambah Admin");
     Route::post('manajemen-akun/admin/simpan', 'Admin\ManajemenAkun\Admin\AdminController@simpanAdmin')->name("Simpan Admin")->middleware("permission:Tambah Admin");
-    Route::get('manajemen-akun/admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPAdmin')->name('Get KTP Admin')->middleware("permission:Ubah Admin");
+    Route::get('manajemen-akun/admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPAdmin')->name('Get KTP Kader')->middleware("permission:Ubah Admin");
     Route::get('manajemen-akun/admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@detailAdmin')->name("Detail Admin")->middleware("permission:Ubah Admin");
     Route::post('manajemen-akun/admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@updateAdmin')->name("Update Admin")->middleware("permission:Ubah Admin");
+
+    // Kader
+    Route::get('manajemen-akun/kader', 'Admin\ManajemenAkun\Admin\KaderController@semuaKader')->name("Data Kader")->middleware("permission:Lihat Kader");
+    Route::get('manajemen-akun/kader/tambah', 'Admin\ManajemenAkun\Admin\KaderController@tambahKader')->name("Tambah Kader")->middleware("permission:Tambah Kader");
+    Route::post('manajemen-akun/kader/simpan', 'Admin\ManajemenAkun\Admin\KaderController@simpanKader')->name("Simpan Kader")->middleware("permission:Tambah Kader");
+    Route::get('manajemen-akun/kader/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPKader')->name('Get KTP Admin')->middleware("permission:Ubah Kader");
+    Route::get('manajemen-akun/kader/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@detailKader')->name("Detail Kader")->middleware("permission:Ubah Kader");
+    Route::post('manajemen-akun/kader/update/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@updateKader')->name("Update Kader")->middleware("permission:Ubah Kader");
 
 // End Route Menu Manajemen Akun
 

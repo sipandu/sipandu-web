@@ -25,32 +25,32 @@ class DataKaderController extends Controller
         $this->middleware('auth:admin');
     }
     
-    public function listKader()
-    {
-        if (auth()->guard('admin')->user()->role == 'pegawai') {
-            $kader = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'kader')->orderBy('id', 'desc')->get();
-        } else if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $id_posyandu = [];
-            $login_user = [];
-            $kader = [];
+    // public function listKader()
+    // {
+    //     if (auth()->guard('admin')->user()->role == 'pegawai') {
+    //         $kader = Pegawai::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->where('jabatan', 'kader')->orderBy('id', 'desc')->get();
+    //     } else if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+    //         $id_posyandu = [];
+    //         $login_user = [];
+    //         $kader = [];
 
-            $data_kader = Pegawai::where('jabatan', 'kader')->get();
-            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $login_user = $nakes;
+    //         $data_kader = Pegawai::where('jabatan', 'kader')->get();
+    //         $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+    //         $login_user = $nakes;
 
-            foreach ($login_user as $data) {
-                $id_posyandu[] = $data->id_posyandu;
-            }
+    //         foreach ($login_user as $data) {
+    //             $id_posyandu[] = $data->id_posyandu;
+    //         }
             
-            foreach ($id_posyandu as $item) {
-                foreach ($data_kader->where('id_posyandu', $item) as $data) {
-                    $kader[] = $data;
-                }
-            }
-        }
+    //         foreach ($id_posyandu as $item) {
+    //             foreach ($data_kader->where('id_posyandu', $item) as $data) {
+    //                 $kader[] = $data;
+    //             }
+    //         }
+    //     }
 
-        return view('pages/admin/master-data/data-kader/data-kader', compact('kader'));
-    }
+    //     return view('pages/admin/master-data/data-kader/data-kader', compact('kader'));
+    // }
 
     public function getImage($id)
     {
@@ -84,14 +84,6 @@ class DataKaderController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function detailKader(Pegawai $pegawai)
-    {
-        $dataPegawai = Pegawai::where('id', $pegawai->id)->first();
-        $dataAdmin = Admin::where('id', $dataPegawai->id_admin)->first();
-
-        return view('pages/admin/master-data/data-kader/detail-kader', compact('dataAdmin'));
     }
 
     public function updateKader(Request $request, Pegawai $pegawai)

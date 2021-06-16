@@ -29,13 +29,6 @@ class RegisController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function tambahKader()
-    {
-        $posyandu = Posyandu::all();
-        $nakesPosyandu = NakesPosyandu::all();
-        return view('pages/auth/admin/manajemen-akun/new-kader',compact('posyandu', 'nakesPosyandu'));
-    }
-
     public function formAddUser(Request $request)
     {
         $posyandu = Posyandu::all();

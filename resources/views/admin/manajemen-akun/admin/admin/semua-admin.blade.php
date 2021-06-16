@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive-xl">
-                        <table id="tbSuperAdmin" class="table table-responsive-lg table-bordered table-hover">
+                        <table id="tbAdmin" class="table table-responsive-lg table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
@@ -122,7 +122,7 @@
             $('#account').addClass('active');
             $('#data-admin').addClass('active');
 
-            $("#tbSuperAdmin").DataTable({
+            $("#tbAdmin").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",

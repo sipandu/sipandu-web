@@ -119,33 +119,32 @@
                                 </a>
                             </li>
                         @endpermission
-                        @if (auth()->guard('admin')->user()->role != 'super admin')
+                        @permission('Lihat Kader')
                             <li class="nav-item">
                                 <a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
                                     <i class="nav-icon fas fa-user-tag"></i>
                                     <p>Data Kader</p>
                                 </a>
                             </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
-                                        <i class="nav-icon fas fa-users"></i>
-                                        <p>Anggota Posyandu</p>
-                                    </a>
-                            </li>
-                            <li class="nav-item" id="list-data-user-verify">
-                                <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
-                                    <i class="nav-icon fas fa-user-check"></i>
-                                    <p>Konfirmasi Anggota</p>
-                                </a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
-                                    <i class="nav-icon fas fa-people-arrows"></i>
-                                    <p>Ganti Jabatan</p>
-                                </a>
-                            </li>
-                        @endif
+                        @endpermission
+                        <li class="nav-item">
+                            <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Anggota Posyandu</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="list-data-user-verify">
+                            <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
+                                <i class="nav-icon fas fa-user-check"></i>
+                                <p>Konfirmasi Anggota</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
+                                <i class="nav-icon fas fa-people-arrows"></i>
+                                <p>Ganti Jabatan</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </li>
