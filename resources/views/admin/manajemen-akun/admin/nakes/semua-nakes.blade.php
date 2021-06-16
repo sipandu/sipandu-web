@@ -56,52 +56,54 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($nakes as $data)
-                                    <tr class="text-center align-middle my-auto">
-                                        <td class="align-middle">{{ $loop->iteration }}</td>
-                                        <td class="align-middle">{{ $data->nama_nakes }}</td>
-                                        <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
-                                        <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
-                                        <td class="align-middle text-start">
-                                            @foreach ($nakesPosyandu as $item)
-                                                {{ $item->posyandu->nama_posyandu }}. 
-                                            @endforeach
-                                        </td>
-                                        @if ($data->admin->is_verified == '1')
-                                            <td class="align-middle">Aktif</td>
-                                        @else
-                                            <td class="align-middle">Non Aktif</td>
-                                        @endif
-                                        @permission('Ubah Tenaga Kesehatan')
-                                            <td class="text-center align-middle">
-                                                <a href="{{route('Detail Nakes', $data->id)}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
+                                @if ($nakes != NULL)
+                                    @foreach ($nakes as $data)
+                                        <tr class="text-center align-middle my-auto">
+                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                            <td class="align-middle">{{ $data->nama_nakes }}</td>
+                                            <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
+                                            <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
+                                            <td class="align-middle text-start">
+                                                @foreach ($nakesPosyandu as $item)
+                                                    {{ $item->posyandu->nama_posyandu }}. 
+                                                @endforeach
+                                            </td>
+                                            @if ($data->admin->is_verified == '1')
+                                                <td class="align-middle">Aktif</td>
+                                            @else
+                                                <td class="align-middle">Non Aktif</td>
+                                            @endif
+                                            @permission('Ubah Tenaga Kesehatan')
+                                                <td class="text-center align-middle">
+                                                    <a href="{{route('Detail Nakes', $data->id)}}" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    @if ($data->admin->is_verified == '1')
+                                                        @permission('Nonaktifkan Tenaga Kesehatan')
+                                                            <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
+                                                                <i class="fas fa-user-times"></i>
+                                                            </button>
+                                                        @endpermission
+                                                    @endif
+                                                </td>
+                                            @else
                                                 @if ($data->admin->is_verified == '1')
                                                     @permission('Nonaktifkan Tenaga Kesehatan')
-                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
-                                                            <i class="fas fa-user-times"></i>
-                                                        </button>
+                                                        <td class="text-center align-middle">
+                                                            <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
+                                                                <i class="fas fa-user-times"></i>
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-center align-middle">
+                                                            -
+                                                        </td>
                                                     @endpermission
                                                 @endif
-                                            </td>
-                                        @else
-                                            @if ($data->admin->is_verified == '1')
-                                                @permission('Nonaktifkan Tenaga Kesehatan')
-                                                    <td class="text-center align-middle">
-                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
-                                                            <i class="fas fa-user-times"></i>
-                                                        </button>
-                                                    </td>
-                                                @else
-                                                    <td class="text-center align-middle">
-                                                        -
-                                                    </td>
-                                                @endpermission
-                                            @endif
-                                        @endpermission
-                                    </tr>
-                                @endforeach
+                                            @endpermission
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

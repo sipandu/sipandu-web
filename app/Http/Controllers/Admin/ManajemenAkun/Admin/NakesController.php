@@ -13,6 +13,9 @@ use App\Admin;
 use App\Nakes;
 use App\NakesPosyandu;
 use App\Posyandu;
+use App\Kabupaten;
+use App\Kecamatan;
+use App\Desa;
 
 class NakesController extends Controller
 {
@@ -23,16 +26,109 @@ class NakesController extends Controller
 
     public function semuaNakes()
     {
-        $nakes = Nakes::get();
-        $nakes_id = Nakes::select('id')->get();
-        $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+
+            if(auth()->guard('admin')->user()->superAdmin->area_tugas == 'Provinsi'){
+                $nakes = Nakes::get();
+                if ( count($nakes) > 0 ) {
+                    $nakes_id = Nakes::select('id')->get();
+                    $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                } else {
+                    $nakes = NULL;
+                    $nakesPosyandu = NULL;
+                }
+                
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kabupaten') {
+
+                $id_kecamatan = Kecamatan::where('id_kabupaten', auth()->guard('admin')->user()->superAdmin->id_kabupaten)->select('id')->get();
+                $id_desa = Desa::whereIn('id_kecamatan', $id_kecamatan->toArray())->select('id')->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+
+                if ( count($id_posyandu) > 0 ) {
+                    $id_all_nakes = NakesPosyandu::whereIn('id_posyandu', $id_posyandu->toArray())->select('id_nakes')->get();
+                    if ( count($id_all_nakes) > 0) {
+                        $nakes = Nakes::whereIn('id', $id_all_nakes)->get();
+                        $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
+                        if ( count($nakes_id) > 0 ) {
+                            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                        } else {
+                            $nakes = NULL;
+                            $nakesPosyandu = NULL;
+                        }
+                        
+                    } else {
+                        $nakes = NULL;
+                        $nakesPosyandu = NULL;
+                    }
+                } else {
+                    $nakes = NULL;
+                    $nakesPosyandu = NULL;
+                }
+
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kecamatan') {
+                
+                $id_desa = Desa::where('id_kecamatan', auth()->guard('admin')->user()->superAdmin->id_kecamatan)->select('id')->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+
+                if ( count($id_posyandu) > 0 ) {
+                    $id_all_nakes = NakesPosyandu::whereIn('id_posyandu', $id_posyandu->toArray())->select('id_nakes')->get();
+                    if ( count($id_all_nakes) > 0) {
+                        $nakes = Nakes::whereIn('id', $id_all_nakes)->get();
+                        $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
+                        if ( count($nakes_id) > 0 ) {
+                            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                        } else {
+                            $nakes = NULL;
+                            $nakesPosyandu = NULL;
+                        }
+                    } else {
+                        $nakes = NULL;
+                        $nakesPosyandu = NULL;
+                    }
+                } else {
+                    $nakes = NULL;
+                    $nakesPosyandu = NULL;
+                }
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            
+            $id_posyandu = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $id_all_nakes = NakesPosyandu::whereIn('id_posyandu', $id_posyandu->toArray())->select('id_nakes')->get();
+            
+            $nakes = Nakes::whereIn('id', $id_all_nakes->toArray())->get();
+            $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
+            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+            
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $nakes_id = NakesPosyandu::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->select('id_nakes')->get();
+            $nakes = Nakes::whereIn('id', $nakes_id->toArray())->get();
+            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+        }
 
         return view('admin.manajemen-akun.admin.nakes.semua-nakes', compact('nakes', 'nakesPosyandu'));
     }
 
     public function tambahNakes()
     {
-        $posyandu = Posyandu::all();
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            if (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Provinsi') {
+                $posyandu = Posyandu::all();
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kabupaten') {
+                $id_kecamatan = Kecamatan::where('id_kabupaten', auth()->guard('admin')->user()->superAdmin->id_kabupaten)->select('id')->get();
+                $id_desa = Desa::whereIn('id_kecamatan', $id_kecamatan->toArray())->select('id')->get();
+
+                $posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->get();
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kecamatan') {
+                $id_desa = Desa::where('id_kecamatan', auth()->guard('admin')->user()->superAdmin->id_kecamatan)->select('id')->get();
+                $posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->get();
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $id_posyandu = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $posyandu = Posyandu::whereIn('id', $id_posyandu)->get();
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+        }
+
         return view('admin.manajemen-akun.admin.nakes.tambah-nakes', compact('posyandu'));
     }
 
