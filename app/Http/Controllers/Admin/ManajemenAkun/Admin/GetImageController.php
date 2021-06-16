@@ -59,4 +59,17 @@ class GetImageController extends Controller
             );
         }
     }
+
+    public function getImageKTPHeadAdmin(Pegawai $pegawai)
+    {
+        if( File::exists(storage_path($pegawai->file_ktp)) && $pegawai->file_ktp != NULL ) {
+            return response()->file(
+                storage_path($pegawai->file_ktp)
+            );
+        } else {
+            return response()->file(
+                public_path('images/forms-logo.jpg')
+            );
+        }
+    }
 }

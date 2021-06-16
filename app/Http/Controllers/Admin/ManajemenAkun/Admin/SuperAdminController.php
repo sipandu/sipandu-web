@@ -45,7 +45,7 @@ class SuperAdminController extends Controller
             'tempat_lahir' => "required|regex:/^[a-z ]+$/i|min:3|max:50",
             'tgl_lahir' => "required|date",
             'gender' => "required",
-            'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
+            'nik' => "required|numeric|unique:tb_super_admin,nik|digits:16",
             'file'=> 'required|image|mimes:jpeg,png,jpg|max:2000',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
             'tlpn' => "nullable|numeric|unique:tb_super_admin,nomor_telepon|digits_between:11,15",
@@ -99,7 +99,7 @@ class SuperAdminController extends Controller
 
         $umur = Carbon::parse($request->tgl_lahir)->age;
         if ($umur < 19) {
-            return redirect()->back()->with(['error' => 'Tidak dapat menambahkan akun. Usia Tidak Mencukupi']);
+            return redirect()->back()->with(['error' => 'Tidak Dapat Menambahkan Akun. Usia Tidak Mencukupi']);
         } else {
 
             // Ubah format tanggal //
@@ -215,7 +215,7 @@ class SuperAdminController extends Controller
         $umur = Carbon::parse($request->tgl_lahir)->age;
 
         if ($umur < 19) {
-            return redirect()->back()->with(['error' => 'Profil Super Admin Gagal Diubah. Usia Tidak Mencukupi']);
+            return redirect()->back()->with(['error' => 'Tidak Dapat Memperbaharui Akun. Usia Tidak Mencukupi']);
         } else {
         
             // Ubah format tanggal //

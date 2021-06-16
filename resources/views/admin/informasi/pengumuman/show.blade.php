@@ -4,17 +4,7 @@
 
 @push('css')
     <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
-    <style>
-        .select2-selection__rendered {
-            line-height: 30px !important;
-        }
-        .select2-container .select2-selection--single {
-            height: 40px !important;
-        }
-        .select2-selection__arrow {
-            height: 34px !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{url('base-template/dist/css/adminlte.min.css')}}">
 @endpush
 
 @section('content')

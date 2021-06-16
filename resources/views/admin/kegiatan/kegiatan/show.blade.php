@@ -1,13 +1,11 @@
 @extends('layouts/admin/admin-layout')
-@section('title', 'Detail Kegiatan')
-@push('css')
 
-@endpush
+@section('title', 'Detail Kegiatan')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Detail Kegiatan</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('kegiatan.home') }}">Kegiatan Posyandu</a></li>
@@ -125,9 +123,9 @@
     <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
-          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
-          $('#kegiatan').addClass('active');
-          $('#tambah-kegiatan').addClass('active');
+            $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+            $('#kegiatan').addClass('active');
+            $('#tambah-kegiatan').addClass('active');
         });
 
         // $(function () {

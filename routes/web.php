@@ -350,11 +350,19 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
     // Tenaga Kesehatan
     Route::get('manajemen-akun/nakes', 'Admin\ManajemenAkun\Admin\NakesController@semuaNakes')->name("Data Nakes")->middleware("permission:Lihat Tenaga Kesehatan");
-    Route::get('manajemen-akun/nakes/tambah', 'Admin\ManajemenAkun\Admin\NakesController@tambahNakes')->name('Tambah Nakes')->middleware("permission:Tambah Tenaga Kesehatan");;
-    Route::post('manajemen-akun/nakes/simpan', 'Admin\ManajemenAkun\Admin\NakesController@simpanNakes')->name('Simpan Nakes')->middleware("permission:Tambah Tenaga Kesehatan");;
+    Route::get('manajemen-akun/nakes/tambah', 'Admin\ManajemenAkun\Admin\NakesController@tambahNakes')->name('Tambah Nakes')->middleware("permission:Tambah Tenaga Kesehatan");
+    Route::post('manajemen-akun/nakes/simpan', 'Admin\ManajemenAkun\Admin\NakesController@simpanNakes')->name('Simpan Nakes')->middleware("permission:Tambah Tenaga Kesehatan");
     Route::get('manajemen-akun/nakes/file-ktp/{nakes}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPNakes')->name('Get KTP Nakes')->middleware("permission:Ubah Tenaga Kesehatan");
-    Route::get('manajemen-akun/nakes/detail/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@detailNakes')->name("Detail Nakes")->middleware("permission:Ubah Tenaga Kesehatan");;
-    Route::post('manajemen-akun/nakes/update/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@updateNakes')->name("Update Profile Nakes")->middleware("permission:Ubah Tenaga Kesehatan");;
+    Route::get('manajemen-akun/nakes/detail/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@detailNakes')->name("Detail Nakes")->middleware("permission:Ubah Tenaga Kesehatan");
+    Route::post('manajemen-akun/nakes/update/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@updateNakes')->name("Update Profile Nakes")->middleware("permission:Ubah Tenaga Kesehatan");
+
+    // Head Admin
+    Route::get('manajemen-akun/head-admin', 'Admin\ManajemenAkun\Admin\HeadAdminController@semuaHeadAdmin')->name("Data Head Admin")->middleware("permission:Lihat Head Admin");
+    Route::get('manajemen-akun/head-admin/tambah', 'Admin\ManajemenAkun\Admin\HeadAdminController@tambahHeadAdmin')->name("Tambah Head Admin")->middleware("permission:Tambah Head Admin");
+    Route::post('manajemen-akun/head-admin/simpan', 'Admin\ManajemenAkun\Admin\HeadAdminController@simpanHeadAdmin')->name("Simpan Head Admin")->middleware("permission:Tambah Head Admin");
+    Route::get('manajemen-akun/head-admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPHeadAdmin')->name('Get KTP Head Admin')->middleware("permission:Ubah Head Admin");
+    Route::get('manajemen-akun/head-admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@detailHeadAdmin')->name("Detail Head Admin")->middleware("permission:Ubah Head Admin");
+    Route::post('manajemen-akun/head-admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@updateHeadAdmin')->name("Update Head Admin")->middleware("permission:Ubah Head Admin");
 
 // End Route Menu Manajemen Akun
 

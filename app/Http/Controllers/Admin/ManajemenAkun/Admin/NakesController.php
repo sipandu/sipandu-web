@@ -47,9 +47,9 @@ class NakesController extends Controller
             'nik' => "required|numeric|unique:tb_pegawai,nik|digits:16",
             'file'=> 'required|image|mimes:jpeg,png,jpg|max:2048',
             'alamat' => "required|regex:/^[a-z0-9 ,.'-]+$/i",
-            'tlpn' => "nullable|numeric|unique:tb_pegawai,nomor_telepon|digits_between:11,15",
+            'tlpn' => "nullable|numeric|unique:tb_nakes,nomor_telepon|digits_between:11,15",
             'lokasi_posyandu' => "required",
-            'telegram' => "nullable|max:25|unique:tb_pegawai,username_telegram",
+            'telegram' => "nullable|max:25|unique:tb_nakes,username_telegram",
             'password' => 'required|min:8',
         ],
         [
@@ -91,7 +91,7 @@ class NakesController extends Controller
 
         $umur = Carbon::parse($request->tgl_lahir)->age;
         if ($umur < 19) {
-            return redirect()->back()->with(['error' => 'Tidak dapat menambahkan akun. Usia Tidak Mencukupi']);
+            return redirect()->back()->with(['error' => 'Tidak Dapat Menambahkan Akun. Usia Tidak Mencukupi']);
         } else {
 
             // Ubah format tanggal //
@@ -186,7 +186,7 @@ class NakesController extends Controller
         } else {
             $request->validate([
                 'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
-                'nik' => "required|numeric|digits:16|unique:tb_super_admin,nik",
+                'nik' => "required|numeric|digits:16|unique:tb_nakes,nik",
                 'tempat_lahir' => "required|min:3|max:50",
                 'tgl_lahir' => "required|date",
             ],
@@ -210,7 +210,7 @@ class NakesController extends Controller
         $umur = Carbon::parse($request->tgl_lahir)->age;
 
         if ($umur < 19) {
-            return redirect()->back()->with(['error' => 'Profil Tenaga Kesehatan Gagal Diubah. Usia Tidak Mencukupi']);
+            return redirect()->back()->with(['error' => 'Tidak Dapat Memperbaharui Akun. Usia Tidak Mencukupi']);
         } else {
 
             // Ubah format tanggal //

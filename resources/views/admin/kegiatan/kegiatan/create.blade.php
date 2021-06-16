@@ -3,24 +3,14 @@
 @section('title', 'Tambah Kegiatan')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('base-template/plugins/select2/css/select2.min.css')}}">
-    <style>
-        .select2-selection__rendered {
-            line-height: 30px !important;
-        }
-        .select2-container .select2-selection--single {
-            height: 40px !important;
-        }
-        .select2-selection__arrow {
-            height: 34px !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('base-template/dist/css/adminlte.min.css') }}">
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Tambah Kegiatan Posyandu</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('kegiatan.home') }}">Kegiatan Posyandu</a></li>

@@ -103,6 +103,14 @@
                                 </a>
                             </li>
                         @endpermission
+                        @permission('Lihat Head Admin')
+                        <li class="nav-item">
+                            <a href="{{ route("Data Head Admin") }}" class="nav-link" id="data-head-admin">
+                                <i class="nav-icon fas fa-user-lock"></i>
+                                <p>Data Head Admin</p>
+                            </a>
+                        </li>
+                        @endpermission
                         <li class="nav-item">
                             <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
                                 <i class="nav-icon fas fa-user-shield"></i>
