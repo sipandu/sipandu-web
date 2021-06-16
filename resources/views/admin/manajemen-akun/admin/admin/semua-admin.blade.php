@@ -1,20 +1,20 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Super Admin')
+@section('title', 'Data Admin')
 
 @push('css')
-    <link rel="stylesheet" href="{{ url('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ url('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Super Admin</h1>
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Admin</h1>
         <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Super Admi</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Admin</li>
                 </ol>
             </nav>
         </div>
@@ -25,19 +25,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            @permission('Tambah Super Admin')
+                            @permission('Tambah Admin')
                                 <div class="col-6 my-auto">
-                                    <h3 class="card-title my-auto">Daftar Super Admin</h3>
+                                    <h3 class="card-title my-auto">Daftar Admin</h3>
                                 </div>
-                                <div class="col-6 my-auto">
-                                    <a class="btn btn-success float-right" href="{{ route('Tambah Super Admin') }}">
-                                        <i class="fa fa-plus"></i>
-                                        Tambah
+                                <div class="col-6 text-end">
+                                    <a href="{{ route("Tambah Admin") }}" class="btn btn-success">
+                                        <i class="fa fa-plus"></i> Tambah
                                     </a>
                                 </div>
                             @else
                                 <div class="col-12 my-auto">
-                                    <h3 class="card-title my-auto">Daftar Super Admin</h3>
+                                    <h3 class="card-title my-auto">Daftar Admin</h3>
                                 </div>
                             @endpermission
                         </div>
@@ -47,7 +46,7 @@
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Super Admin</th>
+                                    <th>Nama Admin</th>
                                     <th>Nomor Telp</th>
                                     <th>Telegram</th>
                                     <th>Tempat Tugas</th>
@@ -56,33 +55,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($superAdmin as $data)
+                                @foreach ($admin as $data)
                                     <tr class="text-center align-middle my-auto">
                                         <td class="align-middle">{{ $loop->iteration }}</td>
-                                        <td class="align-middle text-start">{{ $data->nama_super_admin }}</td>
-                                        <td class="align-middle">{{ $data->nomor_telepon ?? '-'}}</td>
+                                        <td class="align-middle text-start">{{ $data->nama_pegawai }}</td>
+                                        <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
                                         <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
-                                        @if ($data->area_tugas == 'Provinsi')
-                                            <td class="align-middle">Provinsi Bali</td>
-                                        @endif
-                                        @if ($data->area_tugas == 'Kabupaten')
-                                            <td class="align-middle">{{ $data->kabupaten->nama_kabupaten }}</td>
-                                        @endif
-                                        @if ($data->area_tugas == 'Kecamatan')
-                                            <td class="align-middle">{{ $data->kecamatan->nama_kecamatan }}</td>
-                                        @endif
+                                        <td class="align-middle">{{ $data->posyandu->nama_posyandu}}</td>
                                         @if ($data->admin->is_verified == '1')
                                             <td class="align-middle">Aktif</td>
                                         @else
                                             <td class="align-middle">Non Aktif</td>
                                         @endif
-                                        @permission('Ubah Super Admin')
-                                            <td class="fw-normal align-middle">
-                                                <a href="{{ route('Detail Super Admin', $data->id) }}" class="btn btn-warning btn-sm my-1">
+                                        @permission('Ubah Admin')
+                                            <td class="text-center align-middle">
+                                                <a href="{{route('Detail Admin', $data->id)}}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 @if ($data->admin->is_verified == '1' && $data->admin->id != auth()->guard('admin')->user()->id)
-                                                    @permission('Nonaktifkan Super Admin')
+                                                    @permission('Nonaktifkan Admin')
                                                         <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
                                                             <i class="fas fa-user-times"></i>
                                                         </button>
@@ -91,14 +82,14 @@
                                             </td>
                                         @else
                                             @if ($data->admin->is_verified == '1' && $data->admin->id != auth()->guard('admin')->user()->id)
-                                                @permission('Nonaktifkan Super Admin')
-                                                    <td class="fw-normal align-middle">
+                                                @permission('Nonaktifkan Admin')
+                                                    <td class="text-center align-middle">
                                                         <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
                                                             <i class="fas fa-user-times"></i>
                                                         </button>
                                                     </td>
                                                 @else
-                                                    <td class="fw-normal align-middle">
+                                                    <td class="text-center align-middle">
                                                         -
                                                     </td>
                                                 @endpermission
@@ -129,22 +120,22 @@
         $(document).ready(function(){
             $('#account-management').addClass('menu-is-opening menu-open');
             $('#account').addClass('active');
-            $('#data-super-admin').addClass('active');
+            $('#data-admin').addClass('active');
 
             $("#tbSuperAdmin").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "sSearchPlaceholder": "Cari super admin ...",
-                    "emptyTable": "Tidak Terdapat Akun Super Admin",
+                    "sSearchPlaceholder": "Cari admin ...",
+                    "emptyTable": "Tidak Terdapat Akun Admin",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)"
                 },
                 "language": {
                     "paginate": {
-                    "previous": 'Sebelumnya',
-                    "next": 'Berikutnya'
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
                     },
                     "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
                 },

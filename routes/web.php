@@ -112,13 +112,13 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
     // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
     // Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
-    Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
+    // Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
 
     //Store Account
-    Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
+    // Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
     // Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
-    Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
+    // Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
     Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
     Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
@@ -191,10 +191,10 @@ Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\Profi
 
 
 //CRUD Data Admin
-Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
+// Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
 Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
 Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
 Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
 
 
@@ -363,6 +363,14 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::get('manajemen-akun/head-admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPHeadAdmin')->name('Get KTP Head Admin')->middleware("permission:Ubah Head Admin");
     Route::get('manajemen-akun/head-admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@detailHeadAdmin')->name("Detail Head Admin")->middleware("permission:Ubah Head Admin");
     Route::post('manajemen-akun/head-admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@updateHeadAdmin')->name("Update Head Admin")->middleware("permission:Ubah Head Admin");
+
+    // Admin
+    Route::get('manajemen-akun/admin', 'Admin\ManajemenAkun\Admin\AdminController@semuaAdmin')->name("Data Admin")->middleware("permission:Lihat Admin");
+    Route::get('manajemen-akun/admin/tambah', 'Admin\ManajemenAkun\Admin\AdminController@tambahAdmin')->name("Tambah Admin")->middleware("permission:Tambah Admin");
+    Route::post('manajemen-akun/admin/simpan', 'Admin\ManajemenAkun\Admin\AdminController@simpanAdmin')->name("Simpan Admin")->middleware("permission:Tambah Admin");
+    Route::get('manajemen-akun/admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPAdmin')->name('Get KTP Admin')->middleware("permission:Ubah Admin");
+    Route::get('manajemen-akun/admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@detailAdmin')->name("Detail Admin")->middleware("permission:Ubah Admin");
+    Route::post('manajemen-akun/admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@updateAdmin')->name("Update Admin")->middleware("permission:Ubah Admin");
 
 // End Route Menu Manajemen Akun
 

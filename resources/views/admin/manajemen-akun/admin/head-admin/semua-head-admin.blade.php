@@ -47,7 +47,7 @@
                             <thead class="text-center">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Admnistrator</th>
+                                    <th>Nama Head Admin</th>
                                     <th>Nomor Telp</th>
                                     <th>Telegram</th>
                                     <th>Tempat Tugas</th>
@@ -73,24 +73,28 @@
                                                 <a href="{{route('Detail Head Admin', $data->id)}}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                @permission('Nonaktifkan Head Admin')
-                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
-                                                        <i class="fas fa-user-times"></i>
-                                                    </button>
-                                                @endpermission
+                                                @if ($data->admin->is_verified == '1' && $data->admin->id != auth()->guard('admin')->user()->id)
+                                                    @permission('Nonaktifkan Head Admin')
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
+                                                            <i class="fas fa-user-times"></i>
+                                                        </button>
+                                                    @endpermission
+                                                @endif
                                             </td>
                                         @else
-                                            @permission('Nonaktifkan Head Admin')
-                                                <td class="text-center align-middle">
-                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
-                                                        <i class="fas fa-user-times"></i>
-                                                    </button>
-                                                </td>
-                                            @else
-                                                <td class="text-center align-middle">
-                                                    -
-                                                </td>
-                                            @endpermission
+                                            @if ($data->admin->is_verified == '1' && $data->admin->id != auth()->guard('admin')->user()->id)
+                                                @permission('Nonaktifkan Head Admin')
+                                                    <td class="text-center align-middle">
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->admin->id }}')">
+                                                            <i class="fas fa-user-times"></i>
+                                                        </button>
+                                                    </td>
+                                                @else
+                                                    <td class="text-center align-middle">
+                                                        -
+                                                    </td>
+                                                @endpermission
+                                            @endif
                                         @endpermission
                                     </tr>
                                 @endforeach

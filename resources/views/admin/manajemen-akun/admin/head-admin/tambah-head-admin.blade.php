@@ -245,38 +245,38 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                <label for="tlpn">Nomor Telp</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="tlpn" id="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
-                                                    <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-phone"></span>
+                                                    <label for="tlpn">Nomor Telp</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="tlpn" id="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan nomor telepon aktif">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-phone"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('tlpn')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    </div>
-                                                    @error('tlpn')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                <label for="telegram">Username Telegram</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="telegram" id="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}"  placeholder="Masukan Username Telegram aktif">
-                                                    <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fab fa-telegram-plane"></span>
+                                                    <label for="telegram">Username Telegram</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="telegram" id="telegram" autocomplete="off" class="form-control @error('telegram') is-invalid @enderror" value="{{ old('telegram') }}"  placeholder="Masukan username telegram aktif">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fab fa-telegram-plane"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('telegram')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    </div>
-                                                    @error('telegram')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
@@ -306,17 +306,10 @@
                                                             <label for="lokasi_posyandu">Tempat Tugas<span class="text-danger">*</span></label>
                                                             <div class="input-group mb-3">
                                                                 <select name="lokasi_posyandu" id="lokasi_posyandu" class="form-control select2 @error('lokasi_posyandu') is-invalid @enderror" value="{{ old('lokasi_posyandu') }}" style="width: 100%">
-                                                                    @if ( old('lokasi_posyandu') )
-                                                                        <option selected value="{{ old('lokasi_posyandu') }}">{{ old('lokasi_posyandu') }}</option>
-                                                                        @foreach ($posyandu as $p)
+                                                                    <option disabled>Pilih lokasi posyandu ...</option>
+                                                                    @foreach ($posyandu as $p)
                                                                         <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <option disabled>Pilih lokasi posyandu ...</option>
-                                                                        @foreach ($posyandu as $p)
-                                                                        <option value="{{$p->id}}">{{$p->nama_posyandu}}</option>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    @endforeach
                                                                 </select>
                                                                 @error('lokasi_posyandu[]')
                                                                     <div class="invalid-feedback text-start">
@@ -324,7 +317,7 @@
                                                                     </div>
                                                                 @else
                                                                     <div class="invalid-feedback">
-                                                                        Tempat tugas nakes wajib diisi
+                                                                        Tempat tugas head admin wajib diisi
                                                                     </div>
                                                                 @enderror
                                                             </div>
@@ -348,7 +341,7 @@
                                                             </div>
                                                         @else
                                                             <div class="invalid-feedback">
-                                                                Password nakes wajib diisi
+                                                                Password head admin wajib diisi
                                                             </div>
                                                         @enderror
                                                     </div>

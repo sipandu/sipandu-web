@@ -1,11 +1,10 @@
 @extends('layouts/admin/admin-layout')
 
-@section('title', 'Data Profile Head Admin')
+@section('title', 'Data Profile Admin')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
-    <link rel="stylesheet" href="{{url('base-template/plugins/select2/css/select2.min.css')}}">
-
+    <link rel="stylesheet" href="{{asset('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('base-template/plugins/select2/css/select2.min.css')}}">
     <style>
         .image {
             width: 150px;
@@ -18,15 +17,16 @@
             height: 150px;
         }
     </style>
+
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Administrator</h1>
-        <div class="col-auto ml-auto text-right my-auto mt-n1">
+        <h1 class="h3 col-lg-auto text-center text-md-start">Data Profile Admin</h1>
+        <div class="col-auto ml-auto text-right mt-n1">
             <nav aria-label="breadcrumb text-center">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Head Admin') }}">Data Admin</a></li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Data Admin') }}">Data Admin</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Data Profile Admin</li>
                 </ol>
             </nav>
@@ -39,7 +39,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
-                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Profile Image Admin', $pegawai->admin->id ) }}" alt="Profile Head Admin" width="150" height="150">
+                                <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Profile Image Admin', $pegawai->admin->id ) }}" alt="Profile Admin" width="150" height="150">
                             </div>
                         </div>
                         <h3 class="profile-username text-center">{{$pegawai->nama_pegawai}}</h3>
@@ -47,7 +47,7 @@
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b class="fw-bold">Jabatan</b>
-                                <a class="float-right text-decoration-none link-dark">Head Admin</a>
+                                <a class="float-right text-decoration-none link-dark">Admin</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Tempat Tugas</b>
@@ -112,14 +112,14 @@
                                     <div class="card-body bg-light my-auto">
                                         <p class="fs-5 fw-bold my-auto">Scan KTP</p>
                                     </div>
-                                    <img src="{{ route('Get KTP Head Admin', $pegawai->id ) }}" class="card-img-buttom" alt="KTP Head Admin">
+                                    <img src="{{ route('Get KTP Admin', $pegawai->id ) }}" class="card-img-buttom" alt="KTP Head Admin">
                                 </div>
                             </div>
                             <div class="tab-pane" id="ubahProfile">
-                                <form action="{{ route('Update Head Admin', $pegawai->id) }}" method="POST" class="needs-validation form-horizontal my-auto" novalidate>
+                                <form action="{{ route('Update Admin', $pegawai->id) }}" method="POST" class="needs-validation form-horizontal my-auto" novalidate>
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $pegawai->nama_pegawai) }}" placeholder="Nama Head Admin" required>
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="floatingInput" value="{{ old('nama', $pegawai->nama_pegawai) }}" placeholder="Nama Admin" required>
                                         <label for="floatingInput">Nama Lengkap<span class="text-danger">*</span></label>
                                         @error('nama')
                                             <div class="invalid-feedback text-start">
@@ -127,12 +127,12 @@
                                             </div>
                                         @else
                                             <div class="invalid-feedback">
-                                                Nama lengkap head admin wajib diisi
+                                                Nama lengkap admin wajib diisi
                                             </div>
                                         @enderror
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $pegawai->nik) }}" placeholder="NIK Head Admin" required>
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="floatingInput" value="{{ old('nik', $pegawai->nik) }}" placeholder="NIK Admin" required>
                                         <label for="floatingInput">Nomor Induk Kependudukan<span class="text-danger">*</span></label>
                                         @error('nik')
                                             <div class="invalid-feedback text-start">
@@ -147,7 +147,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $pegawai->tempat_lahir) }}" placeholder="Tempat Lahir Head Admin" required>
+                                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="floatingInput" value="{{ old('tempat_lahir', $pegawai->tempat_lahir) }}" placeholder="Tempat Lahir Admin" required>
                                                 <label for="floatingInput">Tempat Lahir<span class="text-danger">*</span></label>
                                                 @error('tempat_lahir')
                                                     <div class="invalid-feedback text-start">
@@ -155,7 +155,7 @@
                                                     </div>
                                                 @else
                                                     <div class="invalid-feedback">
-                                                        Tempat lahir head admin wajib diisi
+                                                        Tempat lahir admin wajib diisi
                                                     </div>
                                                 @enderror
                                             </div>
@@ -163,7 +163,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-YY', strtotime('tgl_lahir')), date('d-m-YY', strtotime($pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Head Admin" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask required>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-YY', strtotime('tgl_lahir')), date('d-m-YY', strtotime($pegawai->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Admin" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask required>
                                                     <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">
@@ -171,7 +171,7 @@
                                                         </div>
                                                     @else
                                                         <div class="invalid-feedback">
-                                                            Tanggal lahir head admin wajib diisi
+                                                            Tanggal lahir admin wajib diisi
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -197,17 +197,17 @@
 @endsection
 
 @push('js')
-    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
             $('#account-management').addClass('menu-is-opening menu-open');
             $('#account').addClass('active');
-            $('#data-head-admin').addClass('active');
-            
+            $('#data-admin').addClass('active');
+
             bsCustomFileInput.init();
             $('.select2').select2()
             $('.select2bs4').select2({
@@ -216,6 +216,10 @@
             $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
             $('[data-mask]').inputmask()
         });
+
+        // Custom Input Date
+        $(function () {
+        })
     </script>
 
     @if ($errors->any())

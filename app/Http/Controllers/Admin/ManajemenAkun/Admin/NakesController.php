@@ -221,14 +221,14 @@ class NakesController extends Controller
             $tgl = $tgl_lahir_eng[0];
             $tgl_lahir = $tahun.$bulan.$tgl;
             
-            $updateNakes = Nakes::where('id', $nakes->id)->update([
+            $update_nakes = Nakes::where('id', $nakes->id)->update([
                 'nama_nakes' => $request->nama,
                 'nik' => $request->nik,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tgl_lahir,
             ]);
             
-            if ($updateNakes) {
+            if ($update_nakes) {
                 return redirect()->back()->with(['success' => 'Profil Nakes Berhasil Diperbaharui']);
             } else {
                 return redirect()->back()->with(['failed' => 'Profile Nakes Gagal Diperbaharui']);

@@ -98,6 +98,7 @@ class HeadAdminController extends Controller
         ]);
 
         $umur = Carbon::parse($request->tgl_lahir)->age;
+
         if ($umur < 19) {
             return redirect()->back()->with(['error' => 'Tidak Dapat Menambahkan Akun. Usia Tidak Mencukupi']);
         } else {
@@ -147,7 +148,7 @@ class HeadAdminController extends Controller
             if ($filename && $admin && $pegawai) {
                 return redirect()->back()->with(['success' => 'Akun Head Admin Berhasil Ditambahkan']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Akun Gagal Ditambahkan']);
+                return redirect()->back()->with(['failed' => 'Akun Head Admin Gagal Ditambahkan']);
             }
         }
     }
@@ -227,11 +228,10 @@ class HeadAdminController extends Controller
             ]);
             
             if ($update_head_admin) {
-                return redirect()->back()->with(['success' => 'Akun Head Admin Berhasil Diperbaharui']);
+                return redirect()->back()->with(['success' => 'Profil Head Admin Berhasil Diperbaharui']);
             } else {
-                return redirect()->back()->with(['failed' => 'Data Akun Gagal Diperbaharui']);
+                return redirect()->back()->with(['failed' => 'Profile Head Admin Gagal Diperbaharui']);
             }
         }
-
     }
 }
