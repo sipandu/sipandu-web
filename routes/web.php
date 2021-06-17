@@ -113,13 +113,13 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
     // Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
     // Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
-    Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
+    // Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
 
     //Store Account
     // Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
     // Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
     // Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
-    Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
+    // Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
     Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
 
@@ -218,20 +218,20 @@ Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\Profi
 
 
 //CRUD Data Anggota
-Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::get('/get-img/data-anggota/{id}', 'Admin\MasterData\DataAnggotaController@getImage')->name('Get Image Data Anggota')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::get('/get-img/data-anggota/kk/{id}', 'Admin\MasterData\DataAnggotaController@getImageKK')->name('Get Image Data Anggota KK')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/admin/data-anggota/all', 'Admin\MasterData\DataAnggotaController@listAnggota')->name("Data Anggota")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/get-img/data-anggota/{id}', 'Admin\MasterData\DataAnggotaController@getImage')->name('Get Image Data Anggota')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/get-img/data-anggota/kk/{id}', 'Admin\MasterData\DataAnggotaController@getImageKK')->name('Get Image Data Anggota KK')->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
-Route::get('/admin/data-anggota/detail/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@detailAnggotaIbu')->name("Detail Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::post('/admin/data-anggota/update/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@updateAnggotaIbu')->name("Update Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/admin/data-anggota/detail/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@detailAnggotaIbu')->name("Detail Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::post('/admin/data-anggota/update/ibu/{ibu}', 'Admin\MasterData\DataAnggotaController@updateAnggotaIbu')->name("Update Anggota Ibu")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
-Route::get('/admin/data-anggota/detail/anak/{anak}', 'Admin\MasterData\DataAnggotaController@detailAnggotaAnak')->name("Detail Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::post('/admin/data-anggota/update/anak/{anak}', 'Admin\MasterData\DataAnggotaController@updateAnggotaAnak')->name("Update Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/admin/data-anggota/detail/anak/{anak}', 'Admin\MasterData\DataAnggotaController@detailAnggotaAnak')->name("Detail Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::post('/admin/data-anggota/update/anak/{anak}', 'Admin\MasterData\DataAnggotaController@updateAnggotaAnak')->name("Update Anggota Anak")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
-Route::get('/admin/data-anggota/detail/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@detailAnggotaLansia')->name("Detail Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@updateAnggotaLansia')->name("Update Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::post('/admin/data-anggota/pj/tambah/{lansia}', 'Admin\MasterData\DataAnggotaController@tambahPjLansia')->name("Tambah Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-Route::post('/admin/data-anggota/pj/update/{pjLansia}', 'Admin\MasterData\DataAnggotaController@updatePjLansia')->name("Update Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::get('/admin/data-anggota/detail/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@detailAnggotaLansia')->name("Detail Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::post('/admin/data-anggota/update/lansia/{lansia}', 'Admin\MasterData\DataAnggotaController@updateAnggotaLansia')->name("Update Anggota Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::post('/admin/data-anggota/pj/tambah/{lansia}', 'Admin\MasterData\DataAnggotaController@tambahPjLansia')->name("Tambah Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+// Route::post('/admin/data-anggota/pj/update/{pjLansia}', 'Admin\MasterData\DataAnggotaController@updatePjLansia')->name("Update Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
 
 
 
@@ -336,9 +336,11 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
 // Start Route Menu Manajemen Akun
 
-    //Global Route Manajemen Akun
+//Global Route Manajemen Akun
     Route::post('manajemen-akun/disable/{admin}', 'Admin\ManajemenAkun\Admin\DisableAccountController@disableAccount')->name("Disable Account");
-    Route::get('manajemen-akun/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
+    Route::get('manajemen-akun/admin/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
+    Route::get('manajemen-akun/anggota/kk-image/{kk}', 'Admin\ManajemenAkun\Anggota\GetImageController@getKkAnggota')->name('Get KK Anggota');
+    Route::get('manajemen-akun/anggota/profile-image/{user}', 'Admin\ManajemenAkun\Anggota\GetImageController@getProfileImage')->name('Get Profile Image Anggota');
 
     // Super Admin
     Route::get('manajemen-akun/super-admin', 'Admin\ManajemenAkun\Admin\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin")->middleware("permission:Lihat Super Admin");
@@ -380,6 +382,31 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::get('manajemen-akun/kader/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@detailKader')->name("Detail Kader")->middleware("permission:Ubah Kader");
     Route::post('manajemen-akun/kader/update/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@updateKader')->name("Update Kader")->middleware("permission:Ubah Kader");
 
+    // Data Anggota
+    Route::get('manajemen-akun/anggota', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@semuaAnggota')->name("Data Anggota");
+    Route::get('manajemen-akun/anggota/tambah', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@tambahAnggota')->name("Tambah Anggota");
+
+    // Ibu Hamil
+    Route::post('manajemen-akun/bumil/simpan', 'Admin\ManajemenAkun\Anggota\BumilController@simpanBumil')->name("Simpan Anggota Bumil");
+    Route::get('manajemen-akun/bumil/detail/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@detailBumil')->name("Detail Anggota Bumil");
+    Route::post('manajemen-akun/bumil/update/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@updateBumil')->name("Update Anggota Bumil");
+
+    // Anak
+    Route::post('manajemen-akun/anak/simpan', 'Admin\ManajemenAkun\Anggota\AnakController@simpanAnak')->name("Simpan Anggota Anak");
+    Route::get('manajemen-akun/anak/detail/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@detailAnak')->name("Detail Anggota Anak");
+    Route::post('manajemen-akun/anak/update/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@updateAnak')->name("Update Anggota Anak");
+    
+    // Lansia
+    Route::post('manajemen-akun/lansia/simpan', 'Admin\ManajemenAkun\Anggota\LansiaController@simpanLansia')->name("Simpan Anggota Lansia");
+    Route::get('manajemen-akun/lansia/detail/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@detailLansia')->name("Detail Anggota Lansia");
+    Route::post('manajemen-akun/lansia/update/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updateLansia')->name("Update Anggota Lansia");
+    Route::post('manajemen-akun/lansia/pj/tambah/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@tambahPjLansia')->name("Tambah PJ Lansia");
+    Route::post('manajemen-akun/lansia/pj/update/{pjLansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updatePjLansia')->name("Update PJ Lansia");
+
+    // Route::post('/admin/data-anggota/pj/tambah/{lansia}', 'Admin\MasterData\DataAnggotaController@tambahPjLansia')->name("Tambah Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+    // Route::post('/admin/data-anggota/pj/update/{pjLansia}', 'Admin\MasterData\DataAnggotaController@updatePjLansia')->name("Update Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
+
+    
 // End Route Menu Manajemen Akun
 
 
