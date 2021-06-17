@@ -14,6 +14,9 @@ use App\Pegawai;
 use App\Nakes;
 use App\NakesPosyandu;
 use App\Posyandu;
+use App\Kabupaten;
+use App\Kecamatan;
+use App\Desa;
 
 class AdminController extends Controller
 {
