@@ -20,7 +20,30 @@ class AdminController extends Controller
     public function semuaAdmin()
     {
         if (auth()->guard('admin')->user()->role == 'super admin') {
-            $admin = Pegawai::where('jabatan', 'admin')->orderBy('nama_pegawai', 'asc')->get();
+            if (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Provinsi') {
+
+                $admin = Pegawai::where('jabatan', 'admin')->orderBy('nama_pegawai', 'asc')->get();
+
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kabupaten') {
+                $id_kecamatan = Kecamatan::where('id_kabupaten', auth()->guard('admin')->user()->superAdmin->id_kabupaten)->select('id')->get();
+                $id_desa = Desa::whereIn('id_kecamatan', $id_kecamatan->toArray())->select('id')->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+
+                if ( count($id_posyandu) > 0 ) {
+                    $admin = Pegawai::where('jabatan', 'admin')->whereIn('id_posyandu', $id_posyandu->toArray())->orderBy('nama_pegawai', ' asc')->get();
+                } else {
+                    $admin = NULL;
+                }
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kecamatan') {
+                $id_desa = Desa::where('id_kecamatan', auth()->guard('admin')->user()->superAdmin->id_kecamatan)->select('id')->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+
+                if ( count($id_posyandu) > 0 ) {
+                    $admin = Pegawai::where('jabatan', 'admin')->whereIn('id_posyandu', $id_posyandu->toArray())->orderBy('nama_pegawai', ' asc')->get();
+                } else {
+                    $admin = NULL;
+                }
+            }
         } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
             $admin = Pegawai::where('jabatan', 'admin')->whereIn('id_posyandu', $nakes->toArray())->orderBy('nama_pegawai', 'asc')->get();
@@ -33,7 +56,24 @@ class AdminController extends Controller
 
     public function tambahAdmin()
     {
-        $posyandu = Posyandu::all();
+        if (auth()->guard('admin')->user()->role == 'super admin') {
+            if (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Provinsi') {
+                $posyandu = Posyandu::all();
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kabupaten') {
+                $id_kecamatan = Kecamatan::where('id_kabupaten', auth()->guard('admin')->user()->superAdmin->id_kabupaten)->select('id')->get();
+                $id_desa = Desa::whereIn('id_kecamatan', $id_kecamatan->toArray())->select('id')->get();
+                $posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->get();
+            } elseif (auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kecamatan') {
+                $id_desa = Desa::where('id_kecamatan', auth()->guard('admin')->user()->superAdmin->id_kecamatan)->select('id')->get();
+                $posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->get();
+            }
+        } elseif (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
+            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
+            $posyandu = Posyandu::whereIn('id', $nakes->toArray())->get();
+        } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+        }
+
         return view('admin.manajemen-akun.admin.admin.tambah-admin',compact('posyandu'));
     }
 
