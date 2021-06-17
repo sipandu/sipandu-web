@@ -3,14 +3,14 @@
 @section('title', 'Manajemen Kegiatan')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{url('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 @endpush
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Manajemen Kegiatan Posyandu</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
@@ -25,12 +25,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6 my-auto">
-                                <h3 class="card-title my-auto">Data Kegiatan</h3>
-                            </div>
-                            <div class="col-6">
-                                <a class="btn btn-success float-right" href="{{ route('kegiatan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
-                            </div>
+                            @permission('Tambah Kegiatan')
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Data Kegiatan</h3>
+                                </div>
+                                <div class="col-6">
+                                    <a class="btn btn-success float-right" href="{{ route('kegiatan.create') }}"><i class="fa fa-plus"></i> Tambah</a>
+                                </div>
+                            @else
+                                <div class="col-12 my-auto">
+                                    <h3 class="card-title my-auto">Data Kegiatan</h3>
+                                </div>
+                            @endpermission
                         </div>
                     </div>
                     <div class="card-body table-responsive-md">
@@ -53,13 +59,32 @@
                                         <td class="align-middle">{{ $item->tempat }}</td>
                                         <td class="align-middle">{{ date('d M Y', strtotime($item->start_at)) }}</td>
                                         <td class="align-middle">{{ date('d M Y', strtotime($item->end_at)) }}</td>
-                                        <td class="align-middle">
-                                            <a href="{{ route('kegiatan.show', $item->id) }}" class="btn btn-warning btn-sm my-1">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
-                                            <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
-                                        </td>
+                                        @permission('Ubah Kegiatan')
+                                            <td class="align-middle">
+                                                <a href="{{ route('kegiatan.show', $item->id) }}" class="btn btn-warning btn-sm my-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                @permission('Broadcast Kegiatan')
+                                                    <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
+                                                @endpermission
+                                                @permission('Batalkan Kegiatan')
+                                                    <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
+                                                @endpermission
+                                            </td>
+                                        @else
+                                            @permission('Broadcast Kegiatan')
+                                                <td class="align-middle">
+                                                    <button class="btn btn-primary btn-sm my-1" onclick="broadcastMessage('{{ $item->id }}')"><i class="fab fa-telegram"></i></button>
+                                                    @permission('Batalkan Kegiatan')
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="batalkanKegiatan('{{ $item->id }}', '{{ $item->nama_kegiatan }}')"><i class="fas fa-times"></i></button>
+                                                    @endpermission
+                                                </td>
+                                            @else
+                                                <td class="align-middle">
+                                                    -
+                                                </td>
+                                            @endpermission
+                                        @endpermission
                                     </tr>
                                     @include('admin.kegiatan.kegiatan.modal.batalkan-kegiatan')
                                 @endforeach
@@ -73,20 +98,18 @@
 @endsection
 
 @push('js')
-    <script src="{{url('base-template/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{url('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 
     <script>
         $(document).ready(function(){
             $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
             $('#kegiatan').addClass('active');
             $('#tambah-kegiatan').addClass('active');
-        });
 
-        $(function () {
             $('#tbKegiatanPosyandu').DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
@@ -105,6 +128,9 @@
                     "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
                 }
             });
+        });
+
+        $(function () {
         });
 
         function batalkanKegiatan(id, nama_kegiatan) {
@@ -142,8 +168,8 @@
         }
 
         function broadcast(id){
-        var url = '/admin/kegiatan/broadcast/'+id;
-        $.ajax({
+            var url = '/admin/kegiatan/broadcast/'+id;
+            $.ajax({
                 url: url,
                 method: 'GET',
                 success: function(response){

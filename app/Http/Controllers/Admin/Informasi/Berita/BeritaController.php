@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\NotifikasiUser;
+use Carbon\Carbon;
 use File;
 use App\Mover;
 use App\InformasiPenting;
@@ -16,6 +17,11 @@ use App\TagBerita;
 
 class BeritaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
         $informasi = InformasiPenting::where('author_id', Auth::guard('admin')->user()->id)->orderby('tanggal', 'desc')->get();
@@ -30,25 +36,32 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        // return ($request);
-        $messages = [
-            'required' => ':attribute Wajib Diisi',
-            'min' => ':attribute Harus Diisi minimum :min karakter',
-            'max' => ':attribute Ukuran Maksimal File :value',
-            'mimes' => ':attribute Format file yang boleh adalah :value'
-        ];
-
         $request->validate([
-            'judul_informasi' => 'required|min:2',
-            'informasi' => 'required|min:2',
-            'gambar' => 'required|max:2000|mimes:png,jpg,svg,jpeg',
-        ], $messages);
+            'judul_informasi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150", 
+            'informasi' => 'required|min:2|',
+            'gambar' => 'required|mimes:png,jpg,jpeg|max:2000',
+            'tag_berita.*' => 'required',
+        ],[
+            'judul_informasi.required' => "Judul berita wajib diisi",
+            'judul_informasi.regex' => "Format judul berita tidak sesuai",
+            'judul_informasi.min' => "Judul berita minimal berjumlah 2 karakter",
+            'judul_informasi.max' => "Judul berita maksimal berjumlah 150 karakter",
+            'informasi.required' => "Isi berita wajib diisi",
+            'informasi.min' => "Isi berita minimal berjumlah 2 karakter",
+            'gambar.required' => "Gambar wajib diunggah",
+            'gambar.mimes' => "Format gambar tidak sesuai",
+            'gambar.max' => "Ukuran gambar maksimal 5 Mb",
+            'tag_berita.*.required' => "Tag berita wajib dipilih",
+        ]);
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
 
         $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
+
         $informasi = new InformasiPenting();
         $informasi->judul_informasi = $request->judul_informasi;
         $informasi->informasi = $request->informasi;
-        $informasi->tanggal = NOW();
+        $informasi->tanggal = $today;
         $informasi->image = $filename;
         $informasi->slug = Str::slug($request->judul_informasi);
         $informasi->dilihat = 0;
@@ -112,44 +125,74 @@ class BeritaController extends Controller
 
         /* notif mobile shit end here */
 
-        return redirect()->route('informasi_penting.home')->with(['success' => 'Data Berhasil Disimpan']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Berita Berhasil Ditambahkan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Berita Gagal Ditambahkan']);
+        }
     }
-
 
     public function show($id)
     {
         $informasi = InformasiPenting::find($id);
-        return view('admin.informasi.berita.show', compact('informasi'));
+        $tag = Tag::where('status', 'Aktif')->get();
+        $data_tag_berita = TagBerita::where('id_informasi', $informasi->id)->pluck('id_tag');
+
+        $tag_berita = [];
+        foreach ($data_tag_berita as $data => $value) {
+            $tag_berita[] = $data_tag_berita[$data];
+        }
+
+        return view('admin.informasi.berita.show', compact('informasi', 'tag', 'tag_berita'));
     }
 
     public function update(Request $request, $id)
     {
-        $messages = [
-            'required' => ':attribute Wajib Diisi',
-            'min' => ':attribute Harus Diisi minimum :min karakter',
-            'max' => ':attribute Ukuran Maksimal File :value',
-            'mimes' => ':attribute Format file yang boleh adalah :value'
-        ];
-
         $request->validate([
-            'judul_informasi' => 'required|min:2',
-            'informasi' => 'required|min:2',
-            'gambar' => 'max:2000|mimes:png,jpg,svg,jpeg',
+            'judul_informasi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2|max:150",
+            'informasi' => 'required|min:2|',
+            'gambar' => 'nullable|mimes:png,jpg,jpeg|max:2000',
+            'tag_berita.*' => 'required',
+        ],[
+            'judul_informasi.required' => "Judul berita wajib diisi",
+            'judul_informasi.regex' => "Format judul berita tidak sesuai",
+            'judul_informasi.min' => "Judul berita minimal berjumlah 2 karakter",
+            'judul_informasi.max' => "Judul berita maksimal berjumlah 150 karakter",
+            'informasi.required' => "Isi berita wajib diisi",
+            'informasi.min' => "Isi berita minimal berjumlah 2 karakter",
+            'gambar.mimes' => "Format gambar tidak sesuai",
+            'gambar.max' => "Ukuran gambar maksimal 5 Mb",
+            'tag_berita.*.required' => "Tag berita wajib dipilih",
         ]);
 
         $informasi = InformasiPenting::find($id);
 
-        if($request->file('image') != null) {
+        if($request->file('gambar') != null) {
             File::delete(storage_path($informasi->image));
             $filename = Mover::slugFile($request->file('gambar'), 'app/informasi/informasi-penting/');
-            $informasi->image = $filename;
+        } else {
+            $filename = $informasi->image;
         }
-
+        
+        $informasi->image = $filename;
         $informasi->judul_informasi = $request->judul_informasi;
         $informasi->informasi = $request->informasi;
         $informasi->slug = Str::slug($request->judul_informasi);
         $informasi->author_id = Auth::guard('admin')->user()->id;
         $informasi->save();
+
+        $tag_berita = TagBerita::where('id_informasi', $informasi->id)->get();
+    
+        foreach ($tag_berita as $data => $value) {
+            $tag[$data] = TagBerita::where('id_informasi', $informasi->id)->delete();
+        }
+
+        foreach ($request->tag_berita as $data => $value) {
+            $tag = TagBerita::create([
+                'id_informasi' => $informasi->id,
+                'id_tag' => $request->tag_berita[$data],
+            ]);
+        }
 
         try {
             $informasi->broadcastUpdateToAllUser();
@@ -157,7 +200,11 @@ class BeritaController extends Controller
             //throw $th;
         }
 
-        return redirect()->back()->with(['success' => 'Data Berhasil Disimpan']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Berita Berhasil Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Berita Gagal Diperbaharui']);
+        }
     }
 
     public function statusBerita(Request $request, InformasiPenting $informasiPenting)
@@ -166,6 +213,10 @@ class BeritaController extends Controller
         $informasi->status = $request->status;
         $informasi->save();
 
-        return redirect()->back()->with(['success' => 'Status publikasi berhasil diubah']);
+        if ($informasi) {
+            return redirect()->back()->with(['success' => 'Status Publikasi Berita Berhasil Diperbaharui']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Status Publikasi Berita Gagal Diperbaharui']);
+        }
     }
 }

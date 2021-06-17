@@ -12,13 +12,13 @@
     @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3 col-lg-auto text-center text-md-start">Tag Berita</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
-        <nav aria-label="breadcrumb text-center">
-            <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tag</li>
-            </ol>
-        </nav>
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
+            <nav aria-label="breadcrumb text-center">
+                <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tag</li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="container-fluid px-0">
@@ -27,73 +27,86 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6 my-auto">
-                                <h3 class="card-title my-auto">Daftar Tag Berita</h3>
-                            </div>
-                            <div class="col-6 text-end">
-                                <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#tambahTag" aria-expanded="false" aria-controls="tambahTag">
-                                    <i class="fa fa-plus"></i> Tambah
-                                </button>
-                            </div>
+                            @permission('Tambah Tag Berita')
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Daftar Tag Berita</h3>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#tambahTag" aria-expanded="false" aria-controls="tambahTag">
+                                        <i class="fa fa-plus"></i> Tambah
+                                    </button>
+                                </div>
+                            @else
+                                <div class="col-6 my-auto">
+                                    <h3 class="card-title my-auto">Daftar Tag Berita</h3>
+                                </div>
+                            @endpermission
                         </div>
-                        <div class="collapse my-4" id="tambahTag">
-                            <div class="card card-body">
-                                <form action="{{ route('Simpan Tag') }}" method="POST" class="needs-validation" novalidate>
-                                    @csrf
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control @error('nama_tag') is-invalid @enderror" placeholder="Masukan nama tag" name="nama_tag" autocomplete="off" required>
-                                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Simpan Tag</button>
-                                        @error('nama_tag')
-                                            <div class="invalid-feedback text-start">
-                                                {{ $message }}
-                                            </div>
-                                        @else
-                                            <div class="invalid-feedback">
-                                                Nama Tag Wajib Diisi
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </form>
+                        @permission('Tambah Tag Berita')
+                            <div class="collapse my-4" id="tambahTag">
+                                <div class="card card-body">
+                                    <form action="{{ route('Simpan Tag') }}" method="POST" class="needs-validation" novalidate>
+                                        @csrf
+                                        <div class="input-group">
+                                            <input type="text" class="form-control @error('nama_tag') is-invalid @enderror" placeholder="Masukan nama tag" name="nama_tag" autocomplete="off" required>
+                                            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Simpan Tag</button>
+                                            @error('nama_tag')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @else
+                                                <div class="invalid-feedback">
+                                                    Nama Tag Wajib Diisi
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endpermission
                     </div>
-                    <div class="card-body table-responsive-md">
-                        @if ($tag->count() > 0)
-                            <table id="tbTagBerita" class="table table-bordered table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tag</th>
-                                        <th class="d-md-none">Tindakan</th>
-                                        <th class="d-none d-md-table-cell">Tindakan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tag as $data)
+                    <div class="card-body table-responsive-sm">
+                        <table id="tbTagBerita" class="table table-bordered table-hover">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tag</th>
+                                    <th class="d-md-none">Tindakan</th>
+                                    <th class="d-none d-md-table-cell">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($tag as $data)
                                     <tr class="text-center align-middle my-auto">
                                         <td class="align-middle">{{ $loop->iteration }}</td>
                                         <td class="align-middle">{{ $data->nama_tag }}</td>
-                                        <td class="text-center align-middle d-md-none">
-                                            <button onclick="hapusTag()" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
-                                        <td class="text-center align-middle d-none d-md-table-cell">
-                                            <button onclick="hapusTag()" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                                Hapus
-                                            </button>
-                                        </td>
-                                        <form action="{{ route('Hapus Tag', $data->id) }}" id="hapus-tag" method="POST" class="d-inline">
-                                            @csrf
-                                        </form>
+                                        @permission('Hapus Tag Berita')
+                                            <td class="text-center align-middle d-md-none">
+                                                <button onclick="hapusTag('{{ $data->id }}')" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
+                                                <button onclick="hapusTag('{{ $data->id }}')" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                    Hapus
+                                                </button>
+                                            </td>
+                                            <form action="" id="hapus-tag" method="POST" class="d-inline">
+                                                @csrf
+                                            </form>
+                                        @else
+                                            <td class="text-center align-middle d-md-none">
+                                                -
+                                            </td>
+                                            <td class="text-center align-middle d-none d-md-table-cell">
+                                                -
+                                            </td>
+                                        @endpermission
                                     </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <p class="my-auto text-center fs-5">Tidak Terdapat Tag Berita</p>
-                        @endif
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -136,7 +149,7 @@
             });
         });
 
-        function hapusTag() {
+        function hapusTag(id) {
             Swal.fire({
             title: 'Peringatan',
             text: 'Apakah anda yakin akan menghapus Tag Berita ?',
@@ -148,6 +161,7 @@
             cancelButtonText: 'Tidak, batalkan',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $('#hapus-tag').attr('action', "{{ route('Hapus Tag', '') }}"+"/"+id);
                     $('#hapus-tag').submit();
                 }
             })

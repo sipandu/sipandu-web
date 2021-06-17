@@ -55,10 +55,10 @@
         </li>
         <div class="dropdown-divider"></div>
         <li class="nav-item">
-        <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
-            <i class="nav-icon fas fa-house-user"></i>
-            <p>Dashboard</p>
-        </a>
+            <a href="{{ route("Admin Home") }}" id="admin-dashboard" class="nav-link">
+                <i class="nav-icon fas fa-house-user"></i>
+                <p>Dashboard</p>
+            </a>
         </li>
         @if (auth()->guard('admin')->user()->role != 'pegawai')
         <li class="nav-item">
@@ -75,46 +75,63 @@
             </a>
             </li>
         @endif
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="account-management">
-                <a href="#" class="nav-link" id="account">
-                    <i class="nav-icon fas fa-users-cog"></i>
-                    <p>
-                        Manajemen Akun
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item">
-                        <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
-                            <i class="nav-icon fas fa-user-cog"></i>
-                            <p>Data Super Admin</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
-                            <i class="nav-icon fas fa-user-nurse"></i>
-                            <p>Data Nakes</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
-                            <i class="nav-icon fas fa-user-lock"></i>
-                            <p>Data Admin</p>
-                        </a>
-                    </li>
-                    @if (auth()->guard('admin')->user()->role != 'super admin')
-                        <li class="nav-item">
-                            <a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
-                                <i class="nav-icon fas fa-user-tag"></i>
-                                <p>Data Kader</p>
-                            </a>
-                        </li>
+
+        @menu(["Lihat Super Admin", "Lihat Tenaga Kesehatan", "Lihat Admin", "Lihat Kader", "Lihat Anggota"])
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="account-management">
+                    <a href="#" class="nav-link" id="account">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Manajemen Akun
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Lihat Super Admin')
                             <li class="nav-item">
-                                <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Anggota Posyandu</p>
+                                <a href="{{ route("Data Super Admin") }}" class="nav-link" id="data-super-admin">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>Data Super Admin</p>
                                 </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Tenaga Kesehatan')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Nakes") }}" class="nav-link" id="data-nakes">
+                                    <i class="nav-icon fas fa-user-nurse"></i>
+                                    <p>Data Nakes</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Head Admin')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Head Admin") }}" class="nav-link" id="data-head-admin">
+                                    <i class="nav-icon fas fa-user-lock"></i>
+                                    <p>Data Head Admin</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Admin')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Admin") }}" class="nav-link" id="data-admin">
+                                    <i class="nav-icon fas fa-user-shield"></i>
+                                    <p>Data Admin</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Kader')
+                            <li class="nav-item">
+                                <a href="{{ route("Data Kader") }}" class="nav-link" id="data-kader">
+                                    <i class="nav-icon fas fa-user-tag"></i>
+                                    <p>Data Kader</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        <li class="nav-item">
+                            <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Anggota Posyandu</p>
+                            </a>
                         </li>
                         <li class="nav-item" id="list-data-user-verify">
                             <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
@@ -122,17 +139,17 @@
                                 <p>Konfirmasi Anggota</p>
                             </a>
                         </li>
-                    @else
                         <li class="nav-item">
                             <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
                                 <i class="nav-icon fas fa-people-arrows"></i>
                                 <p>Ganti Jabatan</p>
                             </a>
                         </li>
-                    @endif
-                </ul>
+                    </ul>
+                </li>
             </li>
-        </li>
+        @endmenu
+
         @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
             <li class="nav nav-treeview">
                 <li class="nav-item" id="list-kesehatan">
@@ -166,127 +183,185 @@
                 </li>
             </li>
         @endif
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="list-imunisasi">
-                <a href="#" class="nav-link" id="imunisasi">
-                    <i class="nav-icon fas fa-syringe"></i>
-                    <p>
-                        Imunisasi
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'super admin')
+
+        {{-- Start Menu Imunisasi --}}
+        @menu(["Tambah Imunisasi", "Lihat Imunisasi"])
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="list-imunisasi">
+                    <a href="#" class="nav-link" id="imunisasi">
+                        <i class="nav-icon fas fa-syringe"></i>
+                        <p>
+                            Imunisasi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Tambah Imunisasi')
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
+                                    <i class="fas fa-vials nav-icon"></i>
+                                    <p>Tambah Imunisasi</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Tambah Imunisasi')
+                            <li class="nav-item">
+                                <a href="{{ route('Semua Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
+                                    <i class="fas fa-crutch nav-icon"></i>
+                                    <p>Jenis Imunisasi</p>
+                                </a>
+                            </li>
+                        @endpermission
+                    </ul>
+                </li>
+            </li>
+        @endmenu
+        {{-- End Menu Imunisasi --}}
+
+        {{-- Start Menu Vitamin --}}
+        @menu(["Tambah Vitamin", "Lihat Vitamin"])
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="list-vitamin">
+                    <a href="#" class="nav-link" id="vitamin">
+                        <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                        <p>
+                            Vitamin
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Tambah Vitamin')
+                            <li class="nav-item">
+                                <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
+                                    <i class="fas fa-pills nav-icon"></i>
+                                    <p>Tambah Vitamin</p>
+                                </a>
+                            </li>
+                        @endpermission
                         <li class="nav-item">
-                            <a href="{{ route('Tambah Imunisasi') }}" class="nav-link" id="tambah-imunisasi">
-                                <i class="fas fa-vials nav-icon"></i>
-                                <p>Tambah Imunisasi</p>
+                            <a href="{{ route('Semua Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
+                                <i class="fas fa-capsules nav-icon"></i>
+                                <p>Jenis Vitamin</p>
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('Jenis Imunisasi') }}" class="nav-link" id="jenis-imunisasi">
-                            <i class="fas fa-crutch nav-icon"></i>
-                            <p>Jenis Imunisasi</p>
-                        </a>
-                    </li>
-                </ul>
+                    </ul>
+                </li>
             </li>
-        </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="list-vitamin">
-                <a href="#" class="nav-link" id="vitamin">
-                    <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                    <p>
-                        Vitamin
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'super admin')
-                        <li class="nav-item">
-                            <a href="{{ route('Tambah Vitamin') }}" class="nav-link" id="tambah-vitamin">
-                                <i class="fas fa-pills nav-icon"></i>
-                                <p>Tambah Vitamin</p>
-                            </a>
-                        </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('Jenis Vitamin') }}" class="nav-link" id="jenis-vitamin">
-                            <i class="fas fa-capsules nav-icon"></i>
-                            <p>Jenis Vitamin</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="kegiatan-posyandu">
-                <a href="#" class="nav-link" id="kegiatan">
-                    <i class="nav-icon fas fa-briefcase-medical"></i>
-                    <p>
-                        Kegiatan Posyandu
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'pegawai')
+        @endmenu
+        {{-- End Menu Vitamin --}}
+
+        {{-- Start Menu Kegiatan Posyandu --}}
+        @menu(["Lihat Kegiatan", "Lihat Riwayat Kegiatan"])
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="kegiatan-posyandu">
+                    <a href="#" class="nav-link" id="kegiatan">
+                        <i class="nav-icon fas fa-briefcase-medical"></i>
+                        <p>
+                            Kegiatan Posyandu
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
                         <li class="nav-item">
                             <a href="{{ route('kegiatan.home') }}" class="nav-link" id="tambah-kegiatan">
                                 <i class="nav-icon fas fa-notes-medical"></i>
                                 <p>Kegiatan</p>
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
-                            <i class="nav-icon fas fa-history"></i>
-                            <p>Riwayat Kegiatan</p>
-                        </a>
-                    </li>
-                </ul>
+                        @permission('Lihat Riwayat Kegiatan')
+                            <li class="nav-item">
+                                <a href="{{ route('riwayat_kegiatan.home') }}" class="nav-link" id="riwayat-kegiatan">
+                                    <i class="nav-icon fas fa-history"></i>
+                                    <p>Riwayat Kegiatan</p>
+                                </a>
+                            </li>
+                        @endpermission
+                    </ul>
+                </li>
             </li>
-        </li>
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="informasi">
-                <a href="#" class="nav-link" id="informasi-link">
-                    <i class="nav-icon fas fa-info"></i>
+        @endmenu
+        {{-- End Menu Kegiatan Posyandu --}}
+
+        {{-- Start Menu Informasi --}}
+        @menu(["Lihat Berita", "Lihat Tag Berita", "Lihat Pengumuman"])
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="informasi">
+                    <a href="#" class="nav-link" id="informasi-link">
+                        <i class="nav-icon fas fa-info"></i>
+                        <p>
+                            Informasi
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        @permission('Lihat Berita')
+                            <li class="nav-item">
+                                <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
+                                    <i class="fas fa-newspaper nav-icon"></i>
+                                    <p>Berita</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Tag Berita')
+                            <li class="nav-item">
+                                <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
+                                    <i class="fas fa-tags nav-icon"></i>
+                                    <p>Tag</p>
+                                </a>
+                            </li>
+                        @endpermission
+                        @permission('Lihat Pengumuman')
+                            <li class="nav-item">
+                                <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
+                                    <i class="fas fa-bullhorn nav-icon"></i>
+                                    <p>Pengumuman</p>
+                                </a>
+                            </li>
+                        @endpermission
+                    </ul>
+                </li>
+            </li>
+        @endmenu
+        {{-- End Menu Informasi --}}
+
+        <div class="dropdown-divider"></div>
+
+        {{-- Start Menu Hak Akses --}}
+        @permission('Lihat Hak Akses')
+            <li class="nav-item">
+                <a href="{{ route('Semua Permission') }}" id="permission" class="nav-link">
+                    <i class="nav-icon fas fa-key"></i>
+                    <p>Hak Akses</p>
+                </a>
+            </li>
+        @endpermission
+        {{-- End Menu Hak Akses --}}
+
+        {{-- <li class="nav nav-treeview">
+            <li class="nav-item" id="manajemen-permission">
+                <a href="#" class="nav-link" id="permission">
+                    <i class="nav-icon fas fa-key"></i>
                     <p>
-                        Informasi
+                        Hak Akses
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview ms-3">
-                    @if (Auth::guard('admin')->user()->role == 'pegawai')
-                        <li class="nav-item">
-                            <a href="{{ route('informasi_penting.home') }}" class="nav-link" id="informasi-penting">
-                                <i class="fas fa-newspaper nav-icon"></i>
-                                <p>Berita</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('Semua Tag') }}" class="nav-link" id="tag">
-                                <i class="fas fa-tags nav-icon"></i>
-                                <p>Tag</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('pengumuman.home') }}" class="nav-link" id="pengumuman">
-                                <i class="fas fa-bullhorn nav-icon"></i>
-                                <p>Pengumuman</p>
-                            </a>
-                        </li>
-                    @endif
-                    {{-- <li class="nav-item">
-                        <a href="{{ route("sig-posyandu.home")}}" id="sig-posyandu" class="nav-link">
-                            <i class="fas fa-map-marked-alt nav-icon"></i>
-                            <p>Persebaran Posyandu</p>
+                    <li class="nav-item">
+                        <a href="{{ route('Semua Permission') }}" class="nav-link" id="data-permission">
+                            <i class="fas fa-unlock-alt nav-icon"></i>
+                            <p>Data Hak Akses</p>
                         </a>
-                    </li> --}}
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link" id="initial-permission">
+                            <i class="fas fa-user-lock nav-icon"></i>
+                            <p>Inisiasi Hak Akses</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
-        </li>
-        <div class="dropdown-divider"></div>
+        </li> --}}
         <li class="nav nav-treeview">
             <li class="nav-item">
                 <a href="#" class="nav-link">

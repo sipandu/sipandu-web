@@ -7,20 +7,19 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Edit Dokumentasi Kegiatan</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.home') }}">Riwayat Kegiatan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Dokumentasi Kegiatan</li>
+                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan) }}">Dokumentasi Kegiatan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ubah</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- Main content -->
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('dokumentasi.update', $dokumentasi_kegiatan->id) }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ route('dokumentasi.update', $dokumentasi_kegiatan->id) }}" enctype="multipart/form-data" method="POST" class="needs-validation" novalidate>
                     @csrf
                     <div class="form-row">
                         <div class="col-12">
@@ -32,27 +31,36 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Gambar Dokumentasi Kegiatan</label>
-                                        <div class="text-center">
-                                            <img id="img-preview" src="{{ route('dokumentasi.get_img', $dokumentasi_kegiatan->id) }}" width="200" style="margin-bottom: 10px;" alt="">
-                                        </div>
-                                        <input type="file" id="input-file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="">
+                                        <label for="image">Gambar Dokumentasi Kegiatan<span class="text-danger">*</span></label>
+                                        <input type="file" id="input-file" name="image" class="form-control @error('image') is-invalid @enderror" id="image" value="{{ $dokumentasi_kegiatan->image }}" required>
                                         @error('image')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Gambar Dokumentasi Kegiatan Wajib Diisi
+                                            </div>
                                         @enderror
+                                        <div class="text-center my-3">
+                                            <img id="img-preview" src="{{ route('dokumentasi.get_img', $dokumentasi_kegiatan->id) }}?{{date('YmdHis')}}" class="w-75 rounded" alt="">
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Deskripsi</label>
-                                        <textarea name="deskripsi" id="" class="form-control @error('deskripsi') is-invalid @enderror" cols="30" rows="10">{{ $dokumentasi_kegiatan->deskripsi }}</textarea>
+                                        <label for="deskripsi">Deskripsi<span class="text-danger">*</span></label>
+                                        <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" cols="30" rows="10" required>{{ $dokumentasi_kegiatan->deskripsi }}</textarea>
                                         @error('deskripsi')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="invalid-feedback text-start">
+                                                {{ $message }}
+                                            </div>
+                                        @else
+                                            <div class="invalid-feedback">
+                                                Deskripsi Gambar Dokumentasi Kegiatan Wajib Diisi
+                                            </div>
                                         @enderror
                                     </div>
                                     <div class="row">
+                                        <p class="text-danger text-end"><span>*</span> Data wajib diisi</p>
                                         <div class="col-6">
                                             <a href="{{ route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan) }}" class="btn btn-danger">Kembali</a>
                                         </div>

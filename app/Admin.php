@@ -48,4 +48,9 @@ class Admin extends Authenticatable
     {
         return $this->hasOne(Nakes::class,'id_admin','id');
     }
+
+    public function adminPermission()
+    {
+        return $this->hasMany(Admin::class,'id_admin','id');
+    }
 }

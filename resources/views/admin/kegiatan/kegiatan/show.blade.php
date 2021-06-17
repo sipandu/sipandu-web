@@ -1,13 +1,11 @@
 @extends('layouts/admin/admin-layout')
-@section('title', 'Detail Kegiatan')
-@push('css')
 
-@endpush
+@section('title', 'Detail Kegiatan')
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Detail Kegiatan</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('kegiatan.home') }}">Kegiatan Posyandu</a></li>
@@ -29,7 +27,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="tempat">Lokasi Kegiatan</label>
+                                        <label for="tempat">Lokasi Kegiatan<span class="text-danger">*</span></label>
                                         <input type="text" name="tempat" value="{{ $kegiatan->tempat }}" class="form-control @error('tempat') is-invalid @enderror" placeholder="Masukkan Tempat Kegiatan" id="tempat" required>
                                         @error('tempat')
                                             <div class="invalid-feedback text-start">
@@ -42,7 +40,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="start_at">Tanggal Mulai</label>
+                                        <label for="start_at">Tanggal Mulai<span class="text-danger">*</span></label>
                                         <input type="date" name="start_at" value="{{ $kegiatan->start_at }}" class="form-control @error('start_at') is-invalid @enderror" id="start_at" required>
                                         @error('start_at')
                                             <div class="invalid-feedback text-start">
@@ -55,7 +53,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="end_at">Tanggal Berakhir</label>
+                                        <label for="end_at">Tanggal Berakhir<span class="text-danger">*</span></label>
                                         <input type="date" name="end_at" value="{{ $kegiatan->end_at }}" class="form-control @error('end_at') is-invalid @enderror" id="end_at">
                                         @error('end_at')
                                             <div class="invalid-feedback text-start">
@@ -77,7 +75,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="nama_kegiatan">Nama Kegiatan</label>
+                                        <label for="nama_kegiatan">Nama Kegiatan<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" value="{{ $kegiatan->nama_kegiatan }}" placeholder="Masukkan Nama Kegiatan" name="nama_kegiatan" id="nama_kegiatan" required>
                                         @error('nama_kegiatan')
                                             <div class="invalid-feedback text-start">
@@ -90,7 +88,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="deskripsi">Kontent</label>
+                                        <label for="deskripsi">Kontent<span class="text-danger">*</span></label>
                                         <textarea name="deskripsi" class="ckeditor @error('deskripsi') is-invalid @enderror" id="deskripsi" placeholder="Masukkan Pesan Penyuluhan" cols="30" rows="10" required>{!! $kegiatan->deskripsi !!}</textarea>
                                         @error('deskripsi')
                                             <div class="invalid-feedback text-start">
@@ -103,6 +101,7 @@
                                         @enderror
                                     </div>
                                     <div class="row">
+                                        <p class="text-danger text-end"><span>*</span> Data wajib diisi</p>
                                         <div class="col-6">
                                             <a href="{{ route('kegiatan.home') }}" class="btn btn-danger">Kembali</a>
                                         </div>
@@ -124,9 +123,9 @@
     <script src="{{ url('base-template/plugins/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(document).ready(function(){
-          $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
-          $('#kegiatan').addClass('active');
-          $('#tambah-kegiatan').addClass('active');
+            $('#kegiatan-posyandu').addClass('menu-is-opening menu-open');
+            $('#kegiatan').addClass('active');
+            $('#tambah-kegiatan').addClass('active');
         });
 
         // $(function () {

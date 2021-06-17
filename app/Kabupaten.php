@@ -19,4 +19,9 @@ class Kabupaten extends Model
     {
         return $this->hasMany(Kecamatan::class, 'id_kabupaten', 'id');
     }
+
+    public function superAdmin()
+    {
+        return $this->hasMany(SuperAdmin::class,'id_posyandu','id');
+    }
 }

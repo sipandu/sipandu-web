@@ -10,7 +10,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Riwayat Kegiatan</h1>
-        <div class="col-auto ml-auto text-right mt-n1">
+        <div class="col-auto ml-auto my-auto text-right mt-n1">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
                     <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Admin Home') }}">Posyandu 5.0</a></li>
@@ -51,14 +51,28 @@
                                                 <td class="align-middle">{{ $item->tempat }}</td>
                                                 <td class="align-middle">{{ date('d M Y', strtotime($item->start_at)) }}</td>
                                                 <td class="align-middle">{{ date('d M Y', strtotime($item->end_at)) }}</td>
-                                                <td class="text-center align-middle">
-                                                    <a href="{{ route('riwayat_kegiatan.show', $item->id) }}" class="btn btn-success btn-sm">
-                                                        <i class="fas fa-images"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-sm btn-primary" onclick="statusPublikasi('{{ $item->id }}', '{{ $item->status }}')">
-                                                        <i class="fas fa-external-link-square-alt"></i>
-                                                    </button>
-                                                </td>
+                                                @permission('Lihat Dokumentasi Kegiatan')
+                                                    <td class="text-center align-middle">
+                                                        <a href="{{ route('riwayat_kegiatan.show', $item->id) }}" class="btn btn-success btn-sm">
+                                                            <i class="fas fa-images"></i>
+                                                        </a>
+                                                        @permission('Ubah Status Publikasi Kegiatan')
+                                                            <button type="button" class="btn btn-sm btn-primary" onclick="statusPublikasi('{{ $item->id }}', '{{ $item->status }}')">
+                                                                <i class="fas fa-external-link-square-alt"></i>
+                                                            </button>
+                                                        @endpermission
+                                                    </td>
+                                                @else
+                                                    <td class="text-center align-middle">
+                                                        @permission('Ubah Status Publikasi Kegiatan')
+                                                            <button type="button" class="btn btn-sm btn-primary" onclick="statusPublikasi('{{ $item->id }}', '{{ $item->status }}')">
+                                                                <i class="fas fa-external-link-square-alt"></i>
+                                                            </button>
+                                                        @else
+                                                            -
+                                                        @endpermission
+                                                    </td>
+                                                @endpermission
                                             </tr>
                                         @endforeach
                                     </tbody>

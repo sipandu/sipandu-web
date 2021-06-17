@@ -37,6 +37,7 @@
         }
         .img-link:hover{
             opacity: 1;
+            background-color: rgba(0, 0, 0, 0.5);
             transition: opacity 0.2s;
         }
     </style>

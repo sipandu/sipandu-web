@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Kegiatan\Riwayat;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\DokumentasiKegiatan;
 use App\Kegiatan;
 use App\Mover;
@@ -19,12 +20,14 @@ class RiwayatKegiatanController extends Controller
     
     public function index()
     {
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+
         if(Auth::guard('admin')->user()->role == 'super admin') {
-            $kegiatan_lewat = Kegiatan::where('end_at', '<', date('Y-m-d'))
+            $kegiatan_lewat = Kegiatan::where('end_at', '<', $today)
                 ->orderby('end_at', 'desc')->get();
             $kegiatan_cancel = Kegiatan::onlyTrashed()->orderby('end_at', 'desc')->get();
         } else {
-            $kegiatan_lewat = Kegiatan::where('end_at', '<', date('Y-m-d'))
+            $kegiatan_lewat = Kegiatan::where('end_at', '<', $today)
                 ->where('id_posyandu', Auth::guard('admin')->user()->pegawai->id_posyandu)
                 ->orderby('end_at', 'desc')->get();
             $kegiatan_cancel = Kegiatan::
@@ -45,18 +48,13 @@ class RiwayatKegiatanController extends Controller
     public function statusPublikasi(Request $request, Kegiatan $kegiatan)
     {
         $status_kegiatan = Kegiatan::find($kegiatan->id);
-        // return ($kegiatan);
-
         $status_kegiatan->status = $request->status;
         $status_kegiatan->save();
 
         if ($status_kegiatan) {
             return redirect()->back()->with(['success' => 'Status Publikasi Kegiatan Posyandu Berhasil Diperbaharui']);
         } else {
-            return redirect()->back()->with(['failed' => 'Status Publikasi Kegiatan Posyandu Berhasil Diperbaharui']);
+            return redirect()->back()->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Diperbaharui']);
         }
-        
-
     }
-
 }

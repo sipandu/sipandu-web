@@ -110,15 +110,15 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 //Management Account
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     //Add Account
-    Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
-    Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
-    Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
+    // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
+    // Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
+    // Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
     Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
 
     //Store Account
-    Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
-    Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
-    Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
+    // Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
+    // Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
+    // Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
     Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
     Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
@@ -190,34 +190,30 @@ Route::post('/admin/profile-posyandu/update/{posyandu}', 'Admin\MasterData\Profi
 
 
 
-Route::get('/admin/data-super-admin/all', 'Admin\Auth\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
-
-
-
 //CRUD Data Admin
-Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
-Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
-Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
+// Route::get('/admin/data-admin/all', 'Admin\MasterData\DataAdminController@listAdmin')->name("Data Admin")->middleware("cek:super admin,tenaga kesehatan,head admin,admin,kader");
+// Route::get('/get-img/data-admin/{id}', 'Admin\MasterData\DataAdminController@getImage')->name('Get Image Data Admin')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-admin/ktp/{id}', 'Admin\MasterData\DataAdminController@getImageKTP')->name('Get Image Data Admin KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/admin/data-admin/detail/{pegawai}', 'Admin\MasterData\DataAdminController@detailAdmin')->name("Detail Admin")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::post('/admin/data-admin/update/{pegawai}', 'Admin\MasterData\DataAdminController@updateAdmin')->name("Update Data Admin")->middleware("cek:super admin,head admin,param3,param4,param5");
 
 
 
 //CRUD Data Kader
-Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('account/new-kader/show', 'Admin\Auth\RegisController@tambahKader')->name('Tambah Kader')->middleware('cek:tenaga kesehatan,admin,head admin,param4,param5');
-Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::get('/admin/data-kader/all', 'Admin\MasterData\DataKaderController@listKader')->name("Data Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::get('account/new-kader/show', 'Admin\Auth\RegisController@tambahKader')->name('Tambah Kader')->middleware('cek:tenaga kesehatan,admin,head admin,param4,param5');
+// Route::get('/get-img/data-kader/{id}', 'Admin\MasterData\DataKaderController@getImage')->name('Get Image Data Kader')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-kader/ktp/{id}', 'Admin\MasterData\DataKaderController@getImageKTP')->name('Get Image Data Kader KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/admin/data-kader/detail/{pegawai}', 'Admin\MasterData\DataKaderController@detailKader')->name("Detail Kader")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::post('/admin/data-kader/update/{pegawai}', 'Admin\MasterData\DataKaderController@updateKader')->name("Update Data Kader")->middleware("cek:super admin,head admin,admin,param4,param5");
 
 
 
-Route::get('/admin/data-nakes/all', 'Admin\MasterData\DataNakesController@listNakes')->name("Data Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('/get-img/data-nakes/{id}', 'Admin\MasterData\DataNakesController@getImage')->name('Get Image Data Nakes')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/get-img/data-nakes/ktp/{id}', 'Admin\MasterData\DataNakesController@getImageKTP')->name('Get Image Data Nakes KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
-Route::get('/admin/data-nakes/detail/{nakes}', 'Admin\MasterData\DataNakesController@detailNakes')->name("Detail Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('/admin/data-nakes/update/{nakes}', 'Admin\MasterData\DataNakesController@updateNakes')->name("Update Data Nakes")->middleware("cek:super admin,head admin,admin,param4,param5");
+// Route::get('/admin/data-nakes/all', 'Admin\MasterData\DataNakesController@listNakes')->name("Data Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::get('/get-img/data-nakes/{id}', 'Admin\MasterData\DataNakesController@getImage')->name('Get Image Data Nakes')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/get-img/data-nakes/ktp/{id}', 'Admin\MasterData\DataNakesController@getImageKTP')->name('Get Image Data Nakes KTP')->middleware("cek:super admin,head admin,admin,tenaga kesehatan,kader");
+// Route::get('/admin/data-nakes/detail/{nakes}', 'Admin\MasterData\DataNakesController@detailNakes')->name("Detail Nakes")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
+// Route::post('/admin/data-nakes/update/{nakes}', 'Admin\MasterData\DataNakesController@updateNakes')->name("Update Data Nakes")->middleware("cek:super admin,head admin,admin,param4,param5");
 
 
 
@@ -299,23 +295,8 @@ Route::get('mobile/data-kesehatan/graph-anak-3/{anak}', 'Admin\KesehatanKeluarga
 Route::get('mobile/data-kesehatan/graph-anak-4/{anak}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanAnakMob4')->name('mobile-anak-4');
 Route::get('mobile/data-kesehatan/graph-ibu/{ibu}', 'Admin\KesehatanKeluarga\DataRiwayatKesehatanControllerMobile@kesehatanIbuMob')->name('mobile-ibu');
 
-//Imunisasi
-Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/imunisasi/tambah', 'Admin\ImunisasiVitamin\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\ImunisasiVitamin\ImunisasiController@jenisImunisasi')->name("Jenis Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\ImunisasiVitamin\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("cek:super admin,param2,param3,param4,param5");
 
 
-
-//Vitamin
-Route::get('nakes/vitamin/tambah-vitamin', 'Admin\ImunisasiVitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/vitamin/tambah', 'Admin\ImunisasiVitamin\VitaminController@storeVitamin')->name("Store Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::get('nakes/vitamin/jenis-vitamin', 'Admin\ImunisasiVitamin\VitaminController@jenisVitamin')->name("Jenis Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan");
-Route::post('nakes/vitamin/update/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
-Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\ImunisasiVitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("cek:super admin,param2,param3,param4,param5");
 //Laporan
 Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenaga kesehatan")->namespace('Admin\Laporan')->group(function() {
 
@@ -349,26 +330,155 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
           Route::get('/detail/lansia', 'RiwayatKeluargaController@riwayatKeluargaLansia')->name('Riwayat Keluarga Lansia');
       });
   });
-  // ------
+// ------
 
 
 
+// Start Route Menu Manajemen Akun
+
+    //Global Route Manajemen Akun
+    Route::post('manajemen-akun/disable/{admin}', 'Admin\ManajemenAkun\Admin\DisableAccountController@disableAccount')->name("Disable Account");
+    Route::get('manajemen-akun/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
+
+    // Super Admin
+    Route::get('manajemen-akun/super-admin', 'Admin\ManajemenAkun\Admin\SuperAdminController@semuaSuperAdmin')->name("Data Super Admin")->middleware("permission:Lihat Super Admin");
+    Route::get('manajemen-akun/super-admin/tambah', 'Admin\ManajemenAkun\Admin\SuperAdminController@tambahSuperAdmin')->name("Tambah Super Admin")->middleware("permission:Tambah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan', 'Admin\ManajemenAkun\Admin\SuperAdminController@simpanSuperAdmin')->name("Simpan Super Admin")->middleware("permission:Tambah Super Admin");
+    Route::get('manajemen-akun/super-admin/file-ktp/{superAdmin}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPSuperAdmin')->name('Get KTP Super Admin')->middleware("permission:Ubah Super Admin");
+    Route::get('manajemen-akun/super-admin/detail/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@detailSuperAdmin')->name("Detail Super Admin")->middleware("permission:Ubah Super Admin");
+    Route::post('manajemen-akun/super-admin/simpan/{superAdmin}', 'Admin\ManajemenAkun\Admin\SuperAdminController@updateSuperAdmin')->name("Update Profile Super Admin")->middleware("permission:Ubah Super Admin");
+
+    // Tenaga Kesehatan
+    Route::get('manajemen-akun/nakes', 'Admin\ManajemenAkun\Admin\NakesController@semuaNakes')->name("Data Nakes")->middleware("permission:Lihat Tenaga Kesehatan");
+    Route::get('manajemen-akun/nakes/tambah', 'Admin\ManajemenAkun\Admin\NakesController@tambahNakes')->name('Tambah Nakes')->middleware("permission:Tambah Tenaga Kesehatan");
+    Route::post('manajemen-akun/nakes/simpan', 'Admin\ManajemenAkun\Admin\NakesController@simpanNakes')->name('Simpan Nakes')->middleware("permission:Tambah Tenaga Kesehatan");
+    Route::get('manajemen-akun/nakes/file-ktp/{nakes}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPNakes')->name('Get KTP Nakes')->middleware("permission:Ubah Tenaga Kesehatan");
+    Route::get('manajemen-akun/nakes/detail/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@detailNakes')->name("Detail Nakes")->middleware("permission:Ubah Tenaga Kesehatan");
+    Route::post('manajemen-akun/nakes/update/{nakes}', 'Admin\ManajemenAkun\Admin\NakesController@updateNakes')->name("Update Profile Nakes")->middleware("permission:Ubah Tenaga Kesehatan");
+
+    // Head Admin
+    Route::get('manajemen-akun/head-admin', 'Admin\ManajemenAkun\Admin\HeadAdminController@semuaHeadAdmin')->name("Data Head Admin")->middleware("permission:Lihat Head Admin");
+    Route::get('manajemen-akun/head-admin/tambah', 'Admin\ManajemenAkun\Admin\HeadAdminController@tambahHeadAdmin')->name("Tambah Head Admin")->middleware("permission:Tambah Head Admin");
+    Route::post('manajemen-akun/head-admin/simpan', 'Admin\ManajemenAkun\Admin\HeadAdminController@simpanHeadAdmin')->name("Simpan Head Admin")->middleware("permission:Tambah Head Admin");
+    Route::get('manajemen-akun/head-admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPHeadAdmin')->name('Get KTP Head Admin')->middleware("permission:Ubah Head Admin");
+    Route::get('manajemen-akun/head-admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@detailHeadAdmin')->name("Detail Head Admin")->middleware("permission:Ubah Head Admin");
+    Route::post('manajemen-akun/head-admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\HeadAdminController@updateHeadAdmin')->name("Update Head Admin")->middleware("permission:Ubah Head Admin");
+
+    // Admin
+    Route::get('manajemen-akun/admin', 'Admin\ManajemenAkun\Admin\AdminController@semuaAdmin')->name("Data Admin")->middleware("permission:Lihat Admin");
+    Route::get('manajemen-akun/admin/tambah', 'Admin\ManajemenAkun\Admin\AdminController@tambahAdmin')->name("Tambah Admin")->middleware("permission:Tambah Admin");
+    Route::post('manajemen-akun/admin/simpan', 'Admin\ManajemenAkun\Admin\AdminController@simpanAdmin')->name("Simpan Admin")->middleware("permission:Tambah Admin");
+    Route::get('manajemen-akun/admin/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPAdmin')->name('Get KTP Kader')->middleware("permission:Ubah Admin");
+    Route::get('manajemen-akun/admin/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@detailAdmin')->name("Detail Admin")->middleware("permission:Ubah Admin");
+    Route::post('manajemen-akun/admin/update/{pegawai}', 'Admin\ManajemenAkun\Admin\AdminController@updateAdmin')->name("Update Admin")->middleware("permission:Ubah Admin");
+
+    // Kader
+    Route::get('manajemen-akun/kader', 'Admin\ManajemenAkun\Admin\KaderController@semuaKader')->name("Data Kader")->middleware("permission:Lihat Kader");
+    Route::get('manajemen-akun/kader/tambah', 'Admin\ManajemenAkun\Admin\KaderController@tambahKader')->name("Tambah Kader")->middleware("permission:Tambah Kader");
+    Route::post('manajemen-akun/kader/simpan', 'Admin\ManajemenAkun\Admin\KaderController@simpanKader')->name("Simpan Kader")->middleware("permission:Tambah Kader");
+    Route::get('manajemen-akun/kader/file-ktp/{pegawai}', 'Admin\ManajemenAkun\Admin\GetImageController@getImageKTPKader')->name('Get KTP Admin')->middleware("permission:Ubah Kader");
+    Route::get('manajemen-akun/kader/detail/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@detailKader')->name("Detail Kader")->middleware("permission:Ubah Kader");
+    Route::post('manajemen-akun/kader/update/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@updateKader')->name("Update Kader")->middleware("permission:Ubah Kader");
+
+// End Route Menu Manajemen Akun
 
 
-//Informasi Penting (Ganti jadi Berita)
-Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita');
+
+// Start Route Menu Imunisasi
+
+    //Imunisasi
+    Route::get('nakes/imunisasi/jenis-imunisasi', 'Admin\Imunisasi\ImunisasiController@semuaJenisImunisasi')->name("Semua Jenis Imunisasi")->middleware("permission:Lihat Imunisasi");
+    Route::get('nakes/imunisasi/tambah-imunisasi', 'Admin\Imunisasi\ImunisasiController@tambahImunisasi')->name("Tambah Imunisasi")->middleware("permission:Tambah Imunisasi");
+    Route::post('nakes/imunisasi/tambah', 'Admin\Imunisasi\ImunisasiController@storeImunisasi')->name("Store Imunisasi")->middleware("permission:Tambah Imunisasi");
+    Route::get('nakes/imunisasi/detail/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@detailImunisasi')->name("Detail Imunisasi")->middleware("permission:Ubah Imunisasi");
+    Route::post('nakes/imunisasi/update/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@updateImunisasi')->name("Update Imunisasi")->middleware("permission:Ubah Imunisasi");
+    Route::post('nakes/imunisasi/delete/{imunisasi}', 'Admin\Imunisasi\ImunisasiController@hapusImunisasi')->name("Hapus Imunisasi")->middleware("permission:Hapus Imunisasi");
+
+// End Route Menu Imunisasi
 
 
 
-//Tag Berita
-Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag');
-Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag');
-Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag');
+// Start Route Menu Vitamin
+
+    //Vitamin
+    Route::get('nakes/vitamin/jenis-vitamin', 'Admin\Vitamin\VitaminController@semuaJenisVitamin')->name("Semua Jenis Vitamin")->middleware("permission:Lihat Vitamin");
+    Route::get('nakes/vitamin/tambah-vitamin', 'Admin\Vitamin\VitaminController@tambahVitamin')->name("Tambah Vitamin")->middleware("permission:Tambah Vitamin");
+    Route::post('nakes/vitamin/tambah', 'Admin\Vitamin\VitaminController@storeVitamin')->name("Store Vitamin")->middleware("permission:Tambah Vitamin");
+    Route::get('nakes/vitamin/detail-vitamin/{vitamin}', 'Admin\Vitamin\VitaminController@detailVitamin')->name("Detail Vitamin")->middleware("permission:Ubah Vitamin");
+    Route::post('nakes/vitamin/update/{vitamin}', 'Admin\Vitamin\VitaminController@updateVitamin')->name("Update Vitamin")->middleware("permission:Ubah Vitamin");
+    Route::post('nakes/vitamin/delete/{vitamin}', 'Admin\Vitamin\VitaminController@hapusVitamin')->name("Hapus Vitamin")->middleware("permission:Hapus Vitamin");
+
+// End Route Menu Vitamin
+
+
+
+// Start Route Menu Kegiatan Posyandu
+
+    //Kegiatan
+    Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("permission:Lihat Kegiatan");
+    Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("permission:Tambah Kegiatan");
+    Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("permission:Tambah Kegiatan");
+    Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("permission:Ubah Kegiatan");
+    Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("permission:Ubah Kegiatan");
+    Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("permission:Batalkan Kegiatan");
+    Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("permission:Broadcast Kegiatan");
+
+    //Riwayat Kegiatan
+    Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home')->middleware("permission:Lihat Riwayat Kegiatan");
+    Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show')->middleware("permission:Lihat Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi')->middleware("permission:Ubah Status Publikasi Kegiatan");
+
+    // Dokumentasi Kegiatan
+    Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create')->middleware("permission:Tambah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store')->middleware("permission:Tambah Dokumentasi Kegiatan");
+    Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show')->middleware("permission:Ubah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update')->middleware("permission:Ubah Dokumentasi Kegiatan");
+    Route::post('admin/riwayat-kegiatan/dokumentasi/hapus/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete')->middleware("permission:Hapus Dokumentasi Kegiatan");
+    Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
+
+// End Menu Kegiatan Posyandu
+
+
+
+// Start Route Menu Informasi
+
+    // Berita
+    Route::get('admin/informasi/home', 'Admin\Informasi\Berita\BeritaController@index')->name('informasi_penting.home')->middleware("permission:Lihat Berita");
+    Route::get('admin/informasi/create', 'Admin\Informasi\Berita\BeritaController@create')->name('informasi_penting.create')->middleware("permission:Tambah Berita");
+    Route::post('admin/informasi/store', 'Admin\Informasi\Berita\BeritaController@store')->name('informasi_penting.store')->middleware("permission:Tambah Berita");
+    Route::get('admin/informasi/show/{id}', 'Admin\Informasi\Berita\BeritaController@show')->name('informasi_penting.show')->middleware("permission:Ubah Berita");
+    Route::post('admin/informasi/update/{id}', 'Admin\Informasi\Berita\BeritaController@update')->name('informasi_penting.update')->middleware("permission:Ubah Berita");
+    Route::post('admin/informasi/berita/status/{informasiPenting}', 'Admin\Informasi\Berita\BeritaController@statusBerita')->name('Status Berita')->middleware("permission:Ubah Status Publikasi Berita");
+
+
+    // Tag Berita
+    Route::get('admin/informasi/tag', 'Admin\Informasi\Tag\TagController@semuaTag')->name('Semua Tag')->middleware("permission:Lihat Tag Berita");
+    Route::post('admin/informasi/tag/simpan', 'Admin\Informasi\Tag\TagController@simpanTag')->name('Simpan Tag')->middleware("permission:Tambah Tag Berita");
+    Route::post('admin/informasi/tag/hapus/{tag}', 'Admin\Informasi\Tag\TagController@hapusTag')->name('Hapus Tag')->middleware("permission:Hapus Tag Berita");
+
+
+    // Pengumuman
+    Route::get('/admin/pengumuman', 'Admin\Informasi\Pengumuman\PengumumanController@index')->name('pengumuman.home')->middleware("permission:Lihat Pengumuman");
+    Route::get('/admin/pengumuman/create', 'Admin\Informasi\Pengumuman\PengumumanController@create')->name('pengumuman.create')->middleware("permission:Tambah Pengumuman");
+    Route::post('/admin/pengumuman/store', 'Admin\Informasi\Pengumuman\PengumumanController@store')->name('pengumuman.store')->middleware("permission:Tambah Pengumuman");
+    Route::get('/admin/pengumuman/show/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@show')->name('pengumuman.show')->middleware("permission:Ubah Pengumuman");
+    Route::post('/admin/pengumuman/update/{pengumuman}', 'Admin\Informasi\Pengumuman\PengumumanController@update')->name('pengumuman.update')->middleware("permission:Ubah Pengumuman");
+    Route::post('/admin/pengumuman/delete/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@delete')->name('pengumuman.delete')->middleware("permission:Hapus Pengumuman");
+    Route::get('/admin/pengumuman/get-img/{id}', 'Admin\Informasi\Pengumuman\PengumumanController@getImage')->name('pengumuman.get_img');
+
+// End Route Menu Informasi
+
+
+
+// Start Route Menu Hak Akses
+
+    // Hak Akses
+    Route::get('admin/hak-akses/', 'Admin\Permission\PermissionController@semuaPermission')->name("Semua Permission")->middleware("permission:Lihat Hak Akses");
+    Route::get('admin/hak-akses/inisiasi/{permission}', 'Admin\Permission\PermissionController@initialPermission')->name("Initial Permission")->middleware("permission:Lihat Hak Akses");
+    Route::post('admin/hak-akses/simpan/{permission}', 'Admin\Permission\PermissionController@simpanPermission')->name("Simpan Permission")->middleware("permission:Tambah Hak Akses");
+    Route::post('admin/hak-akses/hapus/{adminPermission}', 'Admin\Permission\PermissionController@hapusAkses')->name("Hapus Akses")->middleware("permission:Ubah Hak Akses");
+
+// End Route Menu Hak Akses
 
 
 
@@ -379,47 +489,15 @@ Route::get('/admin/informasi/persebaran-posyandu/get-data', 'SIGPosyanduControll
 Route::get('/api/kk/show-file/{no_kk}', 'User\Auth\RegisController@showKKFile')->name('kk.show_file');
 
 //Penyuluhan
-Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
-Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
-Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/home', 'PenyuluhanController@index')->name('penyuluhan.home')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/create', 'PenyuluhanController@create')->name('penyuluhan.create')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::post('/admin/penyuluhan/store', 'PenyuluhanController@store')->name('penyuluhan.store')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/show/{id}', 'PenyuluhanController@show')->name('penyuluhan.show')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::post('/admin/penyuluhan/update/{id}', 'PenyuluhanController@update')->name('penyuluhan.update')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
+// Route::get('/admin/penyuluhan/get-img/{id}', 'PenyuluhanController@getImage')->name('penyuluhan.get_img');
+// Route::post('/admin/penyuluhan/delete', 'PenyuluhanController@delete')->name('penyuluhan.delete')->middleware('auth:admin')->middleware("cek:super admin,head admin,admin,kader,param5");
 
 
-
-
-//Pengumuman
-Route::get('/admin/pengumuman/home', 'PengumumanController@index')->name('pengumuman.home')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
-Route::get('/admin/pengumuman/create', 'PengumumanController@create')->name('pengumuman.create')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/store', 'PengumumanController@store')->name('pengumuman.store')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::get('/admin/pengumuman/show/{id}', 'PengumumanController@show')->name('pengumuman.show')->middleware('auth:admin')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('/admin/pengumuman/update/{id}', 'PengumumanController@update')->name('pengumuman.update')->middleware(['auth:admin','cek:param1,head admin,admin,kader,param5']);
-Route::post('/admin/pengumuman/delete', 'PengumumanController@delete')->name('pengumuman.delete')->middleware('auth:admin')->middleware("cek:supparam1,head admin,admin,kader,param5");
-Route::get('/admin/pengumuman/get-img/{id}', 'PengumumanController@getImage')->name('pengumuman.get_img');
-
-//Kegiatan Posyandu
-Route::get('admin/kegiatan', 'Admin\Kegiatan\Kegiatan\KegiatanController@index')->name('kegiatan.home')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/tambah', 'Admin\Kegiatan\Kegiatan\KegiatanController@create')->name('kegiatan.create')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/simpan', 'Admin\Kegiatan\Kegiatan\KegiatanController@store')->name('kegiatan.store')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/detail/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@show')->name('kegiatan.show')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/ubah/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@update')->name('kegiatan.update')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::post('admin/kegiatan/hapus/{kegiatan}', 'Admin\Kegiatan\Kegiatan\KegiatanController@delete')->name('kegiatan.delete')->middleware("cek:param1,head admin,admin,kader,param5");
-Route::get('admin/kegiatan/broadcast/{id}', 'Admin\Kegiatan\Kegiatan\KegiatanController@broadcast')->name('kegiatan.broadcast')->middleware("cek:param1,head admin,admin,kader,param5");
-
-//Riwayat Kegiatan
-Route::get('admin/riwayat-kegiatan', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@index')->name('riwayat_kegiatan.home');
-Route::get('admin/riwayat-kegiatan/detail/{id}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@show')->name('riwayat_kegiatan.show');
-Route::post('admin/riwayat-kegiatan/publikasi/status/{kegiatan}', 'Admin\Kegiatan\Riwayat\RiwayatKegiatanController@statusPublikasi')->name('Publikasi Dokumentasi');
-
-// Dokumentasi Kegiatan
-Route::get('admin/riwayat-kegiatan/dokumentasi/tambah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@createDokumentasi')->name('dokumentasi.create');
-Route::get('admin/riwayat-kegiatan/dokumentasi/detail/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showDokumentasi')->name('dokumentasi.show');
-Route::post('admin/riwayat-kegiatan/dokumentasi/simpan/{kegiatan}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@storeDokumentasi')->name('dokumentasi.store');
-Route::post('admin/riwayat-kegiatan/dokumentasi/ubah/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@updateDokumentasi')->name('dokumentasi.update');
-Route::post('admin/riwayat-kegiatan/dokumentasi/hapus', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@deleteDokumentasi')->name('dokumentasi.delete');
-Route::get('admin/riwayat-kegiatan/dokumentasi/get-img/{id}', 'Admin\Kegiatan\Riwayat\DokumentasiKegiatanController@showImgDokumentasi')->name('dokumentasi.get_img');
 
 //Command Bot
 Route::get('/admin/command-bot/pertanyaan-konsultasi/home', 'BotCommandController@index')->name('pertanyaan-konsultasi.home');

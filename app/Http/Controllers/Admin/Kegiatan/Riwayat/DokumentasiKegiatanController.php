@@ -25,8 +25,15 @@ class DokumentasiKegiatanController extends Controller
     public function storeDokumentasi(Request $request, Kegiatan $kegiatan)
     {
         $request->validate([
-            'image' => 'required|mimes:png,jpg,jpeg,svg',
-            'deskripsi' => 'required|min:2',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2000',
+            'deskripsi' => "required|regex:/^[a-z0-9 ,.'-]+$/i|min:2",
+        ],[
+            'image.required' => 'Gambar dokumentasi kegiatan wajib diunggah',
+            'image.mimes' => 'Format gambar dokumentasi kegiatan wajib diunggah',
+            'image.max' => 'Gambar dokumentasi kegiatan maksimal berukuran 2 Mb',
+            'deskripsi.required' => 'Deskripsi gambar dokumentasi kegiatan wajib diisi',
+            'deskripsi.regex' => 'Format Deskripsi gambar dokumentasi kegiatan tidak sesuai',
+            'deskripsi.min' => 'Deskripsi gambar dokumentasi kegiatan minimal berjumlah 2 karakter',
         ]);
 
         $filename = Mover::slugFile($request->file('image'), 'app/dokumentasi-kegiatan/');
@@ -37,7 +44,11 @@ class DokumentasiKegiatanController extends Controller
         $dokumentasi_kegiatan->image = $filename;
         $dokumentasi_kegiatan->save();
 
-        return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['success' => 'Dokumentasi berhasil dibuat']);
+        if ($dokumentasi_kegiatan) {
+            return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['success' => 'Dokumentasi Kegiatan Berhasil Dibuat']);
+        } else {
+            return redirect()->route('riwayat_kegiatan.show', $kegiatan->id)->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Dibuat']);
+        }
     }
 
     public function showDokumentasi($id)
@@ -49,34 +60,57 @@ class DokumentasiKegiatanController extends Controller
     public function updateDokumentasi(Request $request, $id)
     {
         $request->validate([
-            'image' => 'mimes:png,jpg,jpeg,svg',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2000',
             'deskripsi' => 'required|min:2',
+        ],[
+            'image.required' => 'Gambar dokumentasi kegiatan wajib diunggah',
+            'image.mimes' => 'Format gambar dokumentasi kegiatan wajib diunggah',
+            'image.max' => 'Gambar dokumentasi kegiatan maksimal berukuran 2 Mb',
+            'deskripsi.required' => 'Deskripsi gambar dokumentasi kegiatan wajib diisi',
+            'deskripsi.min' => 'Deskripsi gambar dokumentasi kegiatan minimal berjumlah 2 karakter',
         ]);
+
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
+
         if($request->file('image') != null) {
             File::delete(storage_path($dokumentasi_kegiatan->image));
             $filename = Mover::slugFile($request->file('image'), 'app/dokumentasi-kegiatan/');
-            $dokumentasi_kegiatan->image = $filename;
+        } else {
+            $filename = $dokumentasi_kegiatan->image;
         }
+
+        $dokumentasi_kegiatan->image = $filename;
         $dokumentasi_kegiatan->deskripsi = $request->deskripsi;
         $dokumentasi_kegiatan->save();
 
-        return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['success' => 'Dokumentasi berhasil diupdate']);
+        if ($dokumentasi_kegiatan) {
+            return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['success' => 'Dokumentasi Kegiatan Berhasil Diperbaharui']);
+        } else {
+            return redirect()->route('riwayat_kegiatan.show', $dokumentasi_kegiatan->id_kegiatan)->with(['failed' => 'Status Publikasi Kegiatan Posyandu Gagal Diperbaharui']);
+        }
     }
 
-    public function deleteDokumentasi(Request $request)
+    public function deleteDokumentasi($id)
     {
-        $dokumentasi_kegiatan = DokumentasiKegiatan::find($request->id);
+        $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
+
         File::delete(storage_path($dokumentasi_kegiatan->image));
         $dokumentasi_kegiatan->delete();
-        return redirect()->back()->with(['success' => 'Dokumentasi berhasil dihapus']);
+        return redirect()->back()->with(['success' => 'Foto Dokumentasi Kegiatan Berhasil Dihapus']);
     }
 
     public function showImgDokumentasi($id)
     {
         $dokumentasi_kegiatan = DokumentasiKegiatan::find($id);
-        return response()->file(
-            storage_path($dokumentasi_kegiatan->image)
-        );
+
+        if(File::exists(storage_path($dokumentasi_kegiatan->image))) {
+            return response()->file(
+                storage_path($dokumentasi_kegiatan->image)
+            );
+        } else {
+            return response()->file(
+                public_path('images/default-img.jpg')
+            );
+        }
     }
 }
