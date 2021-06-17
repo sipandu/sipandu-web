@@ -3,7 +3,8 @@
 @section('title', 'Data Profile Lansia')
 
 @push('css')
-    <link rel="stylesheet" href="{{url('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('base-template/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('base-template/plugins/select2/css/select2.min.css')}}">
     <style>
         .image {
             width: 150px;
@@ -33,7 +34,7 @@
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-md-5">
-                <div class="card card-primary card-outline">
+                <div class="card card-primary card-outline sticky-top">
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <div class="image mx-auto d-block rounded">
@@ -289,8 +290,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
+                                                <div class="form-floating mb-3">
                                                     <select name="pendidikan_terakhir" class="form-select @error('pendidikan_terakhir') is-invalid @enderror" id="pendidikan_terakhir" required>
                                                         @if ( $anggota->lansia->pendidikan_terakhir == NULL )
                                                             <option selected disabled>Pendidikan Terakhir ...</option>
@@ -319,6 +319,7 @@
                                                             <option value="Tidak Bersekolah">Tidak Bersekolah</option>
                                                         @endif
                                                     </select>
+                                                    <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
                                                     @error('pendidikan_terakhir')
                                                         <div class="invalid-feedback text-start">
                                                             {{ $message }}
@@ -329,13 +330,12 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                            </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="input-group mb-3">
+                                            <div class="form-floating mb-3">
                                                 <select name="pekerjaan" class="form-select @error('pekerjaan') is-invalid @enderror" id="pekerjaan" required>
                                                     @if ( $anggota->lansia->pekerjaan == NULL )
-                                                        <option selected disabled>Pekerjaan Terakhir ...</option>
+                                                        <option selected disabled>Pilih pekerjaan terakhir ...</option>
                                                         <option value="Pegawai Swasta">Pegawai Swasta</option>
                                                         <option value="PNS">PNS</option>
                                                         <option value="Guru">Guru</option>
@@ -361,11 +361,7 @@
                                                         <option value="Lain-lain">Lain-lain</option>
                                                     @endif
                                                 </select>
-                                                @error('pekerjaan')
-                                                    <div class="invalid-feedback text-start">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                                <label for="pekerjaan">Pekerjaan Terakhir</label>
                                                 @error('pekerjaan')
                                                     <div class="invalid-feedback text-start">
                                                         {{ $message }}
@@ -380,212 +376,205 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <select name="status_perkawinan" class="form-select @error('status_perkawinan') is-invalid @enderror" id="status_perkawinan">
-                                                        @if ( $anggota->lansia->status_perkawinan == NULL )
-                                                            <option selected disabled>Pilih Status Perkawinan ...</option>
-                                                            <option value="Menikah/Kawin">Menikah/Kawin</option>
-                                                            <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
-                                                            <option value="Janda">Janda</option>
-                                                            <option value="Duda">Duda</option>
-                                                        @endif
-                                                        @if ( $anggota->lansia->status_perkawinan != NULL )
-                                                            <option selected value="{{ $anggota->lansia->status_perkawinan }}">{{ $anggota->lansia->status_perkawinan }}</option>
-                                                            <option value="Menikah/Kawin">Menikah/Kawin</option>
-                                                            <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
-                                                            <option value="Janda">Janda</option>
-                                                            <option value="Duda">Duda</option>
-                                                        @endif
-                                                    </select>
-                                                    @error('status_perkawinan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Status perkawinan lansia wajib dipilih
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                            <div class="form-floating mb-3">
+                                                <select name="status_perkawinan" class="form-select @error('status_perkawinan') is-invalid @enderror" id="status_perkawinan">
+                                                    @if ( $anggota->lansia->status_perkawinan == NULL )
+                                                        <option selected disabled>Pilih status perkawinan ...</option>
+                                                        <option value="Menikah/Kawin">Menikah/Kawin</option>
+                                                        <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
+                                                        <option value="Janda">Janda</option>
+                                                        <option value="Duda">Duda</option>
+                                                    @endif
+                                                    @if ( $anggota->lansia->status_perkawinan != NULL )
+                                                        <option selected value="{{ $anggota->lansia->status_perkawinan }}">{{ $anggota->lansia->status_perkawinan }}</option>
+                                                        <option value="Menikah/Kawin">Menikah/Kawin</option>
+                                                        <option value="Tidak Menikah/Kawin">Tidak Menikah/Kawin</option>
+                                                        <option value="Janda">Janda</option>
+                                                        <option value="Duda">Duda</option>
+                                                    @endif
+                                                </select>
+                                                <label for="floatingSelect">Status Perkawinan</label>
+                                                @error('status_perkawinan')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Status perkawinan lansia wajib dipilih
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('jumlah_anak') is-invalid @enderror" name="jumlah_anak" value="{{ old('jumlah_anak', $anggota->lansia->jumlah_anak) }}" placeholder="Jumlah Anak*">
-                                                    @error('jumlah_anak')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control @error('jumlah_anak') is-invalid @enderror" name="jumlah_anak" value="{{ old('jumlah_anak', $anggota->lansia->jumlah_anak) }}" placeholder="Jumlah Anak*">
+                                                <label for="jumlah_anak">Jumlah Anak</label>
+                                                @error('jumlah_anak')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
+                                            <div class="form-floating mb-3">
+                                                <select name="sumber_biaya_hidup" class="form-select @error('sumber_biaya_hidup') is-invalid @enderror" id="sumber_biaya_hidup">
                                                     @if ( $anggota->lansia->sumber_biaya_hidup == NULL )
-                                                        <select name="sumber_biaya_hidup" class="form-select @error('sumber_biaya_hidup') is-invalid @enderror" id="sumber_biaya_hidup">
-                                                            <option selected disabled>Sumber Biaya Hidup* ...</option>
-                                                            <option value="Uang Pensiunan">Uang Pensiunan</option>
-                                                            <option value="Ditanggung Anak">Ditanggung Anak</option>
-                                                            <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
-                                                            <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
-                                                            <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
-                                                            <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
-                                                        </select>
+                                                        <option selected disabled>Sumber biaya hidup ...</option>
+                                                        <option value="Uang Pensiunan">Uang Pensiunan</option>
+                                                        <option value="Ditanggung Anak">Ditanggung Anak</option>
+                                                        <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
+                                                        <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
+                                                        <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
+                                                        <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
                                                     @endif
                                                     @if ( $anggota->lansia->sumber_biaya_hidup != NULL )
-                                                        <select name="sumber_biaya_hidup" class="form-select @error('sumber_biaya_hidup') is-invalid @enderror" id="sumber_biaya_hidup">
-                                                            <option selected value="{{ $anggota->lansia->sumber_biaya_hidup }}">{{ $anggota->lansia->sumber_biaya_hidup }}</option>
-                                                            <option value="Uang Pensiunan">Uang Pensiunan</option>
-                                                            <option value="Ditanggung Anak">Ditanggung Anak</option>
-                                                            <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
-                                                            <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
-                                                            <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
-                                                            <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
-                                                        </select>
+                                                        <option selected value="{{ $anggota->lansia->sumber_biaya_hidup }}">{{ $anggota->lansia->sumber_biaya_hidup }}</option>
+                                                        <option value="Uang Pensiunan">Uang Pensiunan</option>
+                                                        <option value="Ditanggung Anak">Ditanggung Anak</option>
+                                                        <option value="Ditanggung Kerabat/Saudara">Ditanggung Kerabat/Saudara</option>
+                                                        <option value="Ditanggung Pemerintah">Ditanggung Pemerintah</option>
+                                                        <option value="Ditanggung Pihak Swasta">Ditanggung Pihak Swasta</option>
+                                                        <option value="Penghasilan Pribadi">Penghasilan Pribadi</option>
                                                     @endif
-                                                    @error('sumber_biaya_hidup')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                                </select>
+                                                <label for="sumber_biaya_hidup">Sumber Biaya Hidup</label>
+                                                @error('sumber_biaya_hidup')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Sumber biaya hidup lansia wajib dipilih
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('jumlah_keluarga_serumah') is-invalid @enderror" name="jumlah_keluarga_serumah" value="{{ old('jumlah_keluarga_serumah', $anggota->lansia->jumlah_keluarga_serumah) }}" placeholder="Jumlah keluarga serumah" required>
-                                                    {{-- <label for="tgl_lahir">Tanggal Lahir<span class="text-danger">*</span></label> --}}
-                                                    @error('jumlah_keluarga_serumah')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Jumlah keluarga serumah wajib diisi
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('jumlah_cucu') is-invalid @enderror" name="jumlah_cucu" value="{{ old('jumlah_cucu', $anggota->lansia->jumlah_cucu) }}" placeholder="Jumlah Cucu Kandung*" required>
-                                                    @error('jumlah_cucu')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Jumlah cucu wajib diisi
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control @error('jumlah_cicit') is-invalid @enderror" name="jumlah_cicit" value="{{ old('jumlah_cicit', $anggota->lansia->jumlah_cicit) }}" placeholder="Jumlah Cicit Kandung*" required>
-                                                    @error('jumlah_cicit')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Jumlah cicit wajib diisi
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control @error('jumlah_keluarga_serumah') is-invalid @enderror" name="jumlah_keluarga_serumah" id="jumlah_keluarga_serumah" value="{{ old('jumlah_keluarga_serumah', $anggota->lansia->jumlah_keluarga_serumah) }}" placeholder="Jumlah keluarga serumah" required>
+                                                <label for="jumlah_keluarga_serumah">Jumlah Keluarga Serumah</label>
+                                                @error('jumlah_keluarga_serumah')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Jumlah keluarga serumah wajib diisi
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <select name="tanggungan" class="form-select @error('tanggungan') is-invalid @enderror" id="tanggungan" required>
-                                                        @if ( $anggota->tanggungan == NULL )
-                                                            <option selected disabled>Pilih tanggungan ...</option>
-                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
-                                                        @endif
-                                                        @if ( $anggota->tanggungan == 'Dengan Tanggungan' )
-                                                            <option selected value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                            <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
-                                                        @endif
-                                                        @if ( $anggota->tanggungan == 'Tanpa Tanggungan' )
-                                                            <option selected value="Tanpa Tanggungan">Tanpa Tanggungan</option>
-                                                            <option value="Dengan Tanggungan">Dengan Tanggungan</option>
-                                                        @endif
-                                                    </select>
-                                                    @error('tanggungan')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Tanggungan lansia wajib dipilih
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control @error('jumlah_cucu') is-invalid @enderror" name="jumlah_cucu" value="{{ old('jumlah_cucu', $anggota->lansia->jumlah_cucu) }}" placeholder="Jumlah cucu kandung" required>
+                                                <label for="jumlah_cucu">Jumlah Cucu</label>
+                                                @error('jumlah_cucu')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Jumlah cucu wajib diisi
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-                                                    <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
-                                                        @if ($anggota->golongan_darah == NULL)
-                                                            <option selected disabled>Pilih golongan darah ...</option>
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="AB">AB</option>
-                                                            <option value="O">O</option>
-                                                        @endif
-                                                        @if ($anggota->golongan_darah == 'A')
-                                                            <option selected value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="AB">AB</option>
-                                                            <option value="O">O</option>
-                                                        @endif
-                                                        @if ($anggota->golongan_darah == 'B')
-                                                            <option selected value="B">B</option>
-                                                            <option value="A">A</option>
-                                                            <option value="AB">AB</option>
-                                                            <option value="O">O</option>
-                                                        @endif
-                                                        @if ($anggota->golongan_darah == 'AB')
-                                                            <option selected value="AB">AB</option>
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="O">O</option>
-                                                        @endif
-                                                        @if ($anggota->golongan_darah == 'O')
-                                                            <option selected value="O">O</option>
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="AB">AB</option>
-                                                        @endif
-                                                    </select>
-                                                    @error('goldar')
-                                                        <div class="invalid-feedback text-start">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @else
-                                                        <div class="invalid-feedback">
-                                                            Golongan darah lansia wajib diisi
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control @error('jumlah_cicit') is-invalid @enderror" name="jumlah_cicit" value="{{ old('jumlah_cicit', $anggota->lansia->jumlah_cicit) }}" placeholder="Jumlah cicit kandung" required>
+                                                <label for="jumlah_cicit">Jumlah Cicit</label>
+                                                @error('jumlah_cicit')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Jumlah cicit wajib diisi
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <select name="tanggungan" class="form-select @error('tanggungan') is-invalid @enderror" id="tanggungan" required>
+                                                    @if ( $anggota->tanggungan == NULL )
+                                                        <option selected disabled>Pilih tanggungan ...</option>
+                                                        <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                        <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                    @endif
+                                                    @if ( $anggota->tanggungan == 'Dengan Tanggungan' )
+                                                        <option selected value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                        <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                    @endif
+                                                    @if ( $anggota->tanggungan == 'Tanpa Tanggungan' )
+                                                        <option selected value="Tanpa Tanggungan">Tanpa Tanggungan</option>
+                                                        <option value="Dengan Tanggungan">Dengan Tanggungan</option>
+                                                    @endif
+                                                </select>
+                                                <label for="tanggungan">Tanggungan</label>
+                                                @error('tanggungan')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Tanggungan lansia wajib dipilih
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <select name="goldar" class="form-select @error('goldar') is-invalid @enderror" id="goldar">
+                                                    @if ($anggota->golongan_darah == NULL)
+                                                        <option selected disabled>Pilih golongan darah ...</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="AB">AB</option>
+                                                        <option value="O">O</option>
+                                                    @endif
+                                                    @if ($anggota->golongan_darah == 'A')
+                                                        <option selected value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="AB">AB</option>
+                                                        <option value="O">O</option>
+                                                    @endif
+                                                    @if ($anggota->golongan_darah == 'B')
+                                                        <option selected value="B">B</option>
+                                                        <option value="A">A</option>
+                                                        <option value="AB">AB</option>
+                                                        <option value="O">O</option>
+                                                    @endif
+                                                    @if ($anggota->golongan_darah == 'AB')
+                                                        <option selected value="AB">AB</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="O">O</option>
+                                                    @endif
+                                                    @if ($anggota->golongan_darah == 'O')
+                                                        <option selected value="O">O</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="AB">AB</option>
+                                                    @endif
+                                                </select>
+                                                <label for="goldar">Golongan Darah</label>
+                                                @error('goldar')
+                                                    <div class="invalid-feedback text-start">
+                                                        {{ $message }}
+                                                    </div>
+                                                @else
+                                                    <div class="invalid-feedback">
+                                                        Golongan darah lansia wajib diisi
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -663,36 +652,6 @@
                                             @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select class="form-control select2 kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
-                                                <option value="{{ $dataKabupaten->id_kabupaten }}" selected>{{ $dataKabupaten->nama_kabupaten }}</option>
-                                                @foreach ($kabupaten as $k)
-                                                    <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="kabupaten">Pilih Kabupaten<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <select id="kecamatan" class="form-control select2 kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example" required>
-                                                <option value="{{ $dataKecamatan->id_kecamatan }}" selected>{{ $dataKecamatan->nama_kecamatan }}</option>
-                                            </select>
-                                            <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <select id="desa" name="desa" class="form-control select2 @error('desa') is-invalid @enderror" aria-label="Floating label select example" required>
-                                                <option value="{{ $pj->id_desa }}" selected>{{ $pj->desa->nama_desa }}</option>
-                                            </select>
-                                            @error('desa')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @else
-                                                <div class="invalid-feedback">
-                                                    Desa tempat tinggal penanggung jawab lansia wajib diisi
-                                                </div>
-                                            @enderror
-                                            <label for="desa">Pilih Desa<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="form-floating mb-3">
                                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" aria-label="Floating label select example">
                                                 <option value="{{ $pj->hubungan_keluarga }}" selected>{{ $pj->hubungan_keluarga }}</option>
                                                 <option value="Anak">Anak</option>
@@ -726,7 +685,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal">{{ old('alamat', $pj->alamat) }}</textarea>
+                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal" style="height: 100px">{{ old('alamat', $pj->alamat) }}</textarea>
                                             <label for="alamat">Alamat<span class="text-danger">*</span></label>
                                             @error('alamat')
                                                 <div class="invalid-feedback text-start">
@@ -768,41 +727,6 @@
                                             @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select class="form-select kabupaten @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" aria-label="Floating label select example">
-                                                <option disabled selected>Silakan pilih Kabupaten</option>
-                                                @foreach ($kabupaten as $k)
-                                                    <option value="{{$k->id}}">{{ucfirst($k->nama_kabupaten)}}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="floatingSelect">Pilih Kabupaten</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <select id="kecamatan" class="form-select kecamatan @error('kecamatan') is-invalid @enderror" name="kecamatan" aria-label="Floating label select example">
-                                                <option disabled selected>Pilih Kabupaten terlebih dahulu</option>
-                                            </select>
-                                            @error('kecamatan')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                            <label for="kecamatan">Pilih Kecamatan<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <select id="desa" name="desa" class="form-select @error('desa') is-invalid @enderror" aria-label="Floating label select example">
-                                                <option disabled selected>Pilih Kecamatan terlebih dahulu</option>
-                                            </select>
-                                            @error('desa')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @else
-                                                <div class="invalid-feedback">
-                                                    Desa tempat tinggal penanggung jawab lansia wajib diisi
-                                                </div>
-                                            @enderror
-                                            <label for="desa">Pilih Desa<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="form-floating mb-3">
                                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" aria-label="Floating label select example">
                                                 <option selected disabled>Pilih hubungan keluarga</option>
                                                 <option value="Anak">Anak</option>
@@ -836,7 +760,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal">{{ old('alamat') }}</textarea>
+                                            <textarea type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Alamat tempat tinggal" style="height: 100px">{{ old('alamat') }}</textarea>
                                             <label for="alamat">Alamat<span class="text-danger">*</span></label>
                                             @error('alamat')
                                                 <div class="invalid-feedback text-start">
@@ -871,8 +795,6 @@
     
 @push('js')    
     <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
     <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
     <script>
@@ -888,46 +810,6 @@
             })
             $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
             $('[data-mask]').inputmask()
-
-            // Kabupaten to Kecamatan AJAX //
-            $('#kabupaten').on('change', function () {
-                let id = $(this).val();
-                $('#kecamatan').empty().append(`<option disabled selected>Silakan pilih Kabupaten</option>`);
-                $('#kecamatan').append(`<option value="0" disabled selected>Silakan tunggu ...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '/kecamatan/' + id,
-                    success: function (response) {
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#kecamatan').empty();
-                        $('#kecamatan').append(`<option value="0" disabled selected>Silakan pilih Kecamatan</option>`);
-                        response.forEach(element => {
-                            $('#kecamatan').append(`<option value="${element['id']}">${element['nama_kecamatan']}</option>`);
-                        });
-                    }
-                });
-            });
-
-            // Kecamatan to Desa AJAX //
-            $('#kecamatan').on('change', function () {
-                let idDesa = $(this).val();
-                $('#desa').empty();
-                $('#desa').append(`<option value="0" disabled selected>Silahkan tunggu ...</option>`);
-                $.ajax({
-                    type: 'GET',
-                    url: '/desa/' + idDesa,
-                    success: function (response) {
-                        var response = JSON.parse(response);
-                        console.log(response);
-                        $('#desa').empty();
-                        $('#desa').append(`<option value="0" disabled selected>Silakan pilih Desa/Kelurahan</option>`);
-                        response.forEach(element => {
-                            $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
-                        });
-                    }
-                });
-            });
         });
     </script>
     

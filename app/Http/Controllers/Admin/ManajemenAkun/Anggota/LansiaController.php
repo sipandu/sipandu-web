@@ -223,19 +223,10 @@ class LansiaController extends Controller
     {
         $umur = Carbon::parse($lansia->tanggal_lahir)->age;
         $anggota = User::where('id', $lansia->id_user)->first();
-        $kabupaten = Kabupaten::get();
 
         $pj = PjLansia::where('id_lansia', $lansia->id)->get()->first();
 
-        if ($pj != NULL) {
-            $dataDesa = Desa::where('id', $pj->id_desa)->first();
-            $dataKecamatan = Kecamatan::where('id', $dataDesa->id_kecamatan)->first();
-            $dataKabupaten = Kabupaten::where('id', $dataKecamatan->id_kabupaten)->first();
-    
-            return view('admin.manajemen-akun.anggota.detail-lansia', compact('anggota', 'umur', 'kabupaten', 'pj', 'dataKecamatan', 'dataKabupaten'));
-        } else {
-            return view('admin.manajemen-akun.anggota.detail-lansia', compact('anggota', 'umur', 'kabupaten', 'pj'));
-        }
+        return view('admin.manajemen-akun.anggota.detail-lansia', compact('anggota', 'umur', 'pj'));
     }
 
     public function updateLansia(Request $request, Lansia $lansia)
