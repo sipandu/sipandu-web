@@ -70,14 +70,34 @@
                                                     @else
                                                         <td class="align-middle">Non Aktif</td>
                                                     @endif
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{route('Detail Anggota Bumil', $data->id)}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
-                                                            <i class="fas fa-user-times"></i>
-                                                        </button>
-                                                    </td>
+                                                    @permission('Ubah Anggota')
+                                                        <td class="text-center align-middle">
+                                                            <a href="{{route('Detail Anggota Bumil', $data->id)}}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            @if ($data->user->status == '1')
+                                                                @permission('Nonaktifkan Anggota')
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                @endpermission
+                                                            @endif
+                                                        </td>
+                                                    @else
+                                                        @if ($data->user->status == '0')
+                                                            @permission('Nonaktifkan Anggota')
+                                                                <td class="text-center align-middle">
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                </td>
+                                                            @else
+                                                                <td class="text-center align-middle">
+                                                                    -
+                                                                </td>
+                                                            @endpermission
+                                                        @endif
+                                                    @endpermission
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -111,14 +131,34 @@
                                                     @else
                                                         <td class="align-middle">Non Aktif</td>
                                                     @endif
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{route('Detail Anggota Anak', $data->id)}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
-                                                            <i class="fas fa-user-times"></i>
-                                                        </button>
-                                                    </td>
+                                                    @permission('Ubah Anggota')
+                                                        <td class="text-center align-middle">
+                                                            <a href="{{route('Detail Anggota Anak', $data->id)}}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            @if ($data->user->status == '1')
+                                                                @permission('Nonaktifkan Anggota')
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                @endpermission
+                                                            @endif
+                                                        </td>
+                                                    @else
+                                                        @if ($data->user->status == '1')
+                                                            @permission('Nonaktifkan Anggota')
+                                                                <td class="text-center align-middle">
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                </td>
+                                                            @else
+                                                                <td class="text-center align-middle">
+                                                                    -
+                                                                </td>
+                                                            @endpermission
+                                                        @endif
+                                                    @endpermission
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -150,14 +190,34 @@
                                                     @else
                                                         <td class="align-middle">Non Aktif</td>
                                                     @endif
-                                                    <td class="text-center align-middle">
-                                                        <a href="{{route('Detail Anggota Lansia', $data->id)}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
-                                                            <i class="fas fa-user-times"></i>
-                                                        </button>
-                                                    </td>
+                                                    @permission('Ubah Anggota')
+                                                        <td class="text-center align-middle">
+                                                            <a href="{{route('Detail Anggota Lansia', $data->id)}}" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            @if ($data->user->status == '1')
+                                                                @permission('Nonaktifkan Anggota')
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                @endpermission
+                                                            @endif
+                                                        </td>
+                                                    @else
+                                                        @if ($data->user->status == '1')
+                                                            @permission('Nonaktifkan Anggota')
+                                                                <td class="text-center align-middle">
+                                                                    <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                                        <i class="fas fa-user-times"></i>
+                                                                    </button>
+                                                                </td>
+                                                            @else
+                                                                <td class="text-center align-middle">
+                                                                    -
+                                                                </td>
+                                                            @endpermission
+                                                        @endif
+                                                    @endpermission
                                                 </tr>
                                             @endforeach
                                         @endif
