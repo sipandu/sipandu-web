@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PengaturanAkun;
+namespace App\Http\Controllers\Admin\PengaturanAkun\KonfirmasiAnggota;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;

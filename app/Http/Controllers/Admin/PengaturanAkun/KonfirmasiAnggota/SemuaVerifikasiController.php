@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PengaturanAkun;
+namespace App\Http\Controllers\Admin\PengaturanAkun\KonfirmasiAnggota;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -91,6 +91,6 @@ class SemuaVerifikasiController extends Controller
             }
         }
 
-        return view('admin.pengaturan-akun.semua-verifikasi', compact('anak', 'ibu', 'lansia'));
+        return view('admin.pengaturan-akun.konfirmasi-anggota.semua-verifikasi', compact('anak', 'ibu', 'lansia'));
     }
 }

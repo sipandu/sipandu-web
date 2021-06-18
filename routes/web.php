@@ -137,8 +137,8 @@ Route::prefix('account')->namespace('Admin\Auth')->group(function(){
     // Route::post('/verify/tolak', 'AccountController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
 
     //Change Role
-    Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
-    Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
+    // Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
+    // Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
 });
 
 
@@ -366,17 +366,23 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 // Start Route Menu Pengaturan Akun
 
     // Data Verifikasi Anggota
-    Route::get('pengaturan-akun/verifikasi-anggota', 'Admin\PengaturanAkun\SemuaVerifikasiController@verifikasiAnggota')->name('Verifikasi Anggota')->middleware("permission:Konfirmasi Anggota");
-    Route::get('pengaturan-akun/getKk/{id}', 'Admin\PengaturanAkun\GetKkAnggotaController@getKk')->name('Get KK')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-anggota', 'Admin\PengaturanAkun\KonfirmasiAnggota\SemuaVerifikasiController@verifikasiAnggota')->name('Verifikasi Anggota')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/getKk/{id}', 'Admin\PengaturanAkun\KonfirmasiAnggota\GetKkAnggotaController@getKk')->name('Get KK')->middleware("permission:Konfirmasi Anggota");
 
     // Detail Verifikasi Anggota
-    Route::get('pengaturan-akun/verifikasi-bumil/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiBumil')->name('Detail Verifikasi Bumil')->middleware("permission:Konfirmasi Anggota");
-    Route::get('pengaturan-akun/verifikasi-anak/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiAnak')->name('Detail Verifikasi Anak')->middleware("permission:Konfirmasi Anggota");
-    Route::get('pengaturan-akun/verifikasi-lansia/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiLansia')->name('Detail Verifikasi Lansia')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-bumil/detail/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\VerifikasiAnggotaController@detailVerifikasiBumil')->name('Detail Verifikasi Bumil')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-anak/detail/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\VerifikasiAnggotaController@detailVerifikasiAnak')->name('Detail Verifikasi Anak')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-lansia/detail/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\VerifikasiAnggotaController@detailVerifikasiLansia')->name('Detail Verifikasi Lansia')->middleware("permission:Konfirmasi Anggota");
 
     //Konfirmasi User
-    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-terima/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@terimaAnggota')->name('Terima Anggota')->middleware("permission:Konfirmasi Anggota");
-    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-tolak/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@tolakAnggota')->name('Tolak Anggota')->middleware("permission:Konfirmasi Anggota");
+    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-terima/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\KonfirmasiAnggotaController@terimaAnggota')->name('Terima Anggota')->middleware("permission:Konfirmasi Anggota");
+    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-tolak/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\KonfirmasiAnggotaController@tolakAnggota')->name('Tolak Anggota')->middleware("permission:Konfirmasi Anggota");
+
+    // Ganti jabatan
+    Route::get('pengaturan-akun/ganti-jabatan', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@gantiJabatan')->name('Ganti Jabatan');
+    Route::post('pengaturan-akun/ganti-jabatan/update', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@updateJabatan')->name('Update Jabatan');
+    // Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
+    // Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
 
 // End Route Menu Pengaturan Akun
 

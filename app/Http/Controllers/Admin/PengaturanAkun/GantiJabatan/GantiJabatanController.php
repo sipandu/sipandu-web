@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Admin\PengaturanAkun\GantiJabatan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,13 +22,13 @@ use App\Lansia;
 use App\KK;
 use App\Mover;
 
-class AccountController extends Controller
+class GantiJabatanController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
-    
+
     public function gantiJabatan()
     {
         $pegawai = Pegawai::orderBy('nama_pegawai', 'DESC')->where('jabatan', '!=', 'disactive')->get();

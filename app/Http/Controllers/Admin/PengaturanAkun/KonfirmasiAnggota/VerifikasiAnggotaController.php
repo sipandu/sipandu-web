@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PengaturanAkun;
+namespace App\Http\Controllers\Admin\PengaturanAkun\KonfirmasiAnggota;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,16 +15,16 @@ class VerifikasiAnggotaController extends Controller
 
     public function detailVerifikasiBumil(Request $request, User $user)
     {
-        return view('admin.pengaturan-akun.verifikasi-bumil', compact('user'));
+        return view('admin.pengaturan-akun.konfirmasi-anggota.verifikasi-bumil', compact('user'));
     }
 
     public function detailVerifikasiAnak(Request $request, User $user)
     {
-        return view('admin.pengaturan-akun.verifikasi-anak', compact('user'));
+        return view('admin.pengaturan-akun.konfirmasi-anggota.verifikasi-anak', compact('user'));
     }
 
     public function detailVerifikasiLansia(Request $request, User $user)
     {
-        return view('admin.pengaturan-akun.verifikasi-lansia', compact('user'));
+        return view('admin.pengaturan-akun.konfirmasi-anggota.verifikasi-lansia', compact('user'));
     }
 }
