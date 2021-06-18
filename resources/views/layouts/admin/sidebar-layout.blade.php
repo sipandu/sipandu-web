@@ -135,22 +135,36 @@
                                 </a>
                             </li>
                         @endpermission
-                        <li class="nav-item" id="list-data-user-verify">
-                            <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
-                                <i class="nav-icon fas fa-user-check"></i>
-                                <p>Konfirmasi Anggota</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
-                                <i class="nav-icon fas fa-people-arrows"></i>
-                                <p>Ganti Jabatan</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </li>
         @endmenu
+
+        <li class="nav nav-treeview">
+            <li class="nav-item" id="account-setting">
+                <a href="#" class="nav-link" id="setting">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <p>
+                        Pengaturan Akun
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ms-3">
+                    <li class="nav-item" id="list-data-user-verify">
+                        <a href="{{route('Verifikasi Anggota')}}" id="verify-anggota" class="nav-link">
+                            <i class="nav-icon fas fa-user-check"></i>
+                            <p>Konfirmasi Anggota</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Ganti Jabatan') }}" id="ganti-jabatan" class="nav-link">
+                            <i class="nav-icon fas fa-people-arrows"></i>
+                            <p>Ganti Jabatan</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </li>
 
         @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
             <li class="nav nav-treeview">
