@@ -75,10 +75,10 @@
                 <div class="card card-primary card-outline">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills justify-content-center">
-                            <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Informasi</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#ubahData" data-toggle="tab">Ubah Data</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#pj" data-toggle="tab">Penanggung Jawab</a></li>
+                            <li class="nav-item"><a class="nav-link active" id="tabProfile" href="#profile" data-toggle="tab">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabInfo" href="#info" data-toggle="tab">Informasi</a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabUbahProfile" href="#ubahProfile" data-toggle="tab">Ubah Data</a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabPj" href="#pj" data-toggle="tab">Penanggung Jawab</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -225,13 +225,13 @@
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="ubahData">
+                            <div class="tab-pane" id="ubahProfile">
                                 <form action="{{ route('Update Anggota Lansia', $anggota->lansia->id) }}" method="POST" class="form-horizontal needs-validation my-auto" novalidate>
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama_lansia" value="{{ old('nama', $anggota->lansia->nama_lansia) }}" placeholder="Nama lengkap lansia" required autocomplete="off">
+                                        <input type="text" name="nama_lansia" class="form-control @error('nama_lansia') is-invalid @enderror" id="nama_lansia" value="{{ old('nama_lansia', $anggota->lansia->nama_lansia) }}" placeholder="Nama lengkap lansia" required autocomplete="off">
                                         <label for="nama_lansia">Nama Lengkap<span class="text-danger">*</span></label>
-                                        @error('nama')
+                                        @error('nama_lansia')
                                             <div class="invalid-feedback text-start">
                                                 {{ $message }}
                                             </div>
@@ -812,6 +812,28 @@
             $('[data-mask]').inputmask()
         });
     </script>
+
+    @if ($errors->has('nama_lansia') || $errors->has('nik') || $errors->has('tempat_lahir') || $errors->has('tgl_lahir') || $errors->has('pedidikan_terakhir') || $errors->has('pekerjaan') || $errors->has('status_perkawinan') || $errors->has('jumlah_anak') || $errors->has('sumber_biaya_hidup') || $errors->has('jumlah_keluarga_serumah') || $errors->has('jumlah_cucu') || $errors->has('jumlah_cicit') || $errors->has('tanggungan') || $errors->has('goldar') || $errors->has('no_jkn') || $errors->has('masa_berlaku') || $errors->has('faskes_rujukan'))
+        <script>
+            $(document).ready(function(){
+                $('#tabProfile').removeClass('active');
+                $('#profile').removeClass('active');
+                $('#tabUbahProfile').addClass('active');
+                $('#ubahProfile').addClass('active');
+            });
+        </script>
+    @endif
+
+    @if ($errors->has('nama') || $errors->has('status') || $errors->has('no_telp') || $errors->has('alamat'))
+        <script>
+            $(document).ready(function(){
+                $('#tabProfile').removeClass('active');
+                $('#profile').removeClass('active');
+                $('#tabPj').addClass('active');
+                $('#pj').addClass('active');
+            });
+        </script>
+    @endif
     
     @if($message = Session::get('failed'))
         <script>

@@ -67,9 +67,9 @@
                 <div class="card card-primary card-outline">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills justify-content-center">
-                            <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Informasi</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#ubahData" data-toggle="tab">Ubah Data</a></li>
+                            <li class="nav-item"><a class="nav-link active" id="tabProfile" href="#profile" data-toggle="tab">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabInfo" href="#info" data-toggle="tab">Informasi</a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabUbahProfile" href="#ubahProfile" data-toggle="tab">Ubah Data</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -188,7 +188,7 @@
                                     <label for="floatingInput">Faskes Rujukan</label>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="ubahData">
+                            <div class="tab-pane" id="ubahProfile">
                                 <form action="{{ route('Update Anggota Bumil', $anggota->ibu->id) }}" method="POST" class="form-horizontal needs-validation my-auto" novalidate>
                                     @csrf
                                     <div class="form-floating mb-3">
@@ -429,6 +429,17 @@
             $('[data-mask]').inputmask()
         });
     </script>
+
+    @if ($errors->any())
+        <script>
+            $(document).ready(function(){
+                $('#tabProfile').removeClass('active');
+                $('#profile').removeClass('active');
+                $('#tabUbahProfile').addClass('active');
+                $('#ubahProfile').addClass('active');
+            });
+        </script>
+    @endif
 
     @if($message = Session::get('failed'))
         <script>

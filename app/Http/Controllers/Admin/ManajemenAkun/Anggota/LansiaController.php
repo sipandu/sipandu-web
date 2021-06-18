@@ -235,7 +235,7 @@ class LansiaController extends Controller
     {
         if ($lansia->NIK == $request->nik) {
             $request->validate([
-                'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+                'nama_lansia' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
                 'nik' => "required|numeric|digits:16",
                 'tempat_lahir' => "required|min:3|max:50",
                 'tgl_lahir' => "required|date",
@@ -252,10 +252,10 @@ class LansiaController extends Controller
                 'faskes_rujukan' => "required|min:3",
             ],
             [
-                'nama.required' => "Nama lansia wajib diisi",
-                'nama.regex' => "Format penulisan nama lansia tidak sesuai",
-                'nama.min' => "Nama lansia minimal berjumlah 3 huruf",
-                'nama.max' => "Nama lansia maksimal berjumlah 50 huruf",
+                'nama_lansia.required' => "Nama lansia wajib diisi",
+                'nama_lansia.regex' => "Format penulisan nama lansia tidak sesuai",
+                'nama_lansia.min' => "Nama lansia minimal berjumlah 3 huruf",
+                'nama_lansia.max' => "Nama lansia maksimal berjumlah 50 huruf",
                 'nik.required' => "NIK lansia wajib diisi",
                 'nik.regex' => "NIK harus berupa angka",
                 'nik.digits' => "NIK harus berjumlah 16 huruf",
@@ -289,7 +289,7 @@ class LansiaController extends Controller
             ]);  
         } else {
             $request->validate([
-                'nama' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
+                'nama_lansia' => "required|regex:/^[a-z ,.'-]+$/i|min:2|max:50",
                 'nik' => "required|numeric|digits:16|unique:tb_lansia,NIK",
                 'tempat_lahir' => "required|min:3|max:50",
                 'tgl_lahir' => "required|date",
@@ -310,10 +310,10 @@ class LansiaController extends Controller
                 'faskes_rujukan' => "required|min:3",
             ],
             [
-                'nama.required' => "Nama ibu wajib diisi",
-                'nama.regex' => "Format penulisan nama ibu tidak sesuai",
-                'nama.min' => "Nama ibu minimal berjumlah 3 huruf",
-                'nama.max' => "Nama ibu maksimal berjumlah 50 huruf",
+                'nama_lansia.required' => "Nama ibu wajib diisi",
+                'nama_lansia.regex' => "Format penulisan nama ibu tidak sesuai",
+                'nama_lansia.min' => "Nama ibu minimal berjumlah 3 huruf",
+                'nama_lansia.max' => "Nama ibu maksimal berjumlah 50 huruf",
                 'nik.required' => "NIK ibu wajib diisi",
                 'nik.regex' => "NIK harus berupa angka",
                 'nik.digits' => "NIK harus berjumlah 16 huruf",
@@ -393,7 +393,7 @@ class LansiaController extends Controller
                 $tgl_lahir = $tahun.$bulan.$tgl;
                 
                 $updateLansia = Lansia::where('id', $lansia->id)->update([
-                    'nama_lansia' => $request->nama,
+                    'nama_lansia' => $request->nama_lansia,
                     'NIK' => $request->nik,
                     'tempat_lahir' => $request->tempat_lahir,
                     'tanggal_lahir' => $tgl_lahir,
@@ -444,7 +444,7 @@ class LansiaController extends Controller
                 $tgl_lahir = $tahun.$bulan.$tgl;
                 
                 $updateLansia = Lansia::where('id', $lansia->id)->update([
-                    'nama_lansia' => $request->nama,
+                    'nama_lansia' => $request->nama_lansia,
                     'NIK' => $request->nik,
                     'tempat_lahir' => $request->tempat_lahir,
                     'tanggal_lahir' => $tgl_lahir,
