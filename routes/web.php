@@ -366,17 +366,17 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 // Start Route Menu Pengaturan Akun
 
     // Data Verifikasi Anggota
-    Route::get('pengaturan-akun/verifikasi-anggota', 'Admin\PengaturanAkun\SemuaVerifikasiController@verifikasiAnggota')->name('Verifikasi Anggota');
-    Route::get('pengaturan-akun/getKk/{id}', 'Admin\PengaturanAkun\GetKkAnggotaController@getKk')->name('Get KK');
+    Route::get('pengaturan-akun/verifikasi-anggota', 'Admin\PengaturanAkun\SemuaVerifikasiController@verifikasiAnggota')->name('Verifikasi Anggota')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/getKk/{id}', 'Admin\PengaturanAkun\GetKkAnggotaController@getKk')->name('Get KK')->middleware("permission:Konfirmasi Anggota");
 
     // Detail Verifikasi Anggota
-    Route::get('pengaturan-akun/verifikasi-bumil/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiBumil')->name('Detail Verifikasi Bumil');
-    Route::get('pengaturan-akun/verifikasi-anak/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiAnak')->name('Detail Verifikasi Anak');
-    Route::get('pengaturan-akun/verifikasi-lansia/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiLansia')->name('Detail Verifikasi Lansia');
+    Route::get('pengaturan-akun/verifikasi-bumil/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiBumil')->name('Detail Verifikasi Bumil')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-anak/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiAnak')->name('Detail Verifikasi Anak')->middleware("permission:Konfirmasi Anggota");
+    Route::get('pengaturan-akun/verifikasi-lansia/detail/{user}', 'Admin\PengaturanAkun\VerifikasiAnggotaController@detailVerifikasiLansia')->name('Detail Verifikasi Lansia')->middleware("permission:Konfirmasi Anggota");
 
-    // Konfirmasi User
-    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-terima/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@terimaAnggota')->name('Terima Anggota');
-    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-tolak/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@tolakAnggota')->name('Tolak Anggota');
+    //Konfirmasi User
+    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-terima/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@terimaAnggota')->name('Terima Anggota')->middleware("permission:Konfirmasi Anggota");
+    Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-tolak/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggotaController@tolakAnggota')->name('Tolak Anggota')->middleware("permission:Konfirmasi Anggota");
 
 // End Route Menu Pengaturan Akun
 
