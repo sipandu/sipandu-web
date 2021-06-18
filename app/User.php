@@ -29,6 +29,7 @@ class User extends Authenticatable
         'masa_berlaku',
         'faskes_rujukan',
         'is_verified',
+        'status',
         'keterangan',
         'otp_token',
     ];

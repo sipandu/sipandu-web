@@ -127,12 +127,14 @@
                                 </a>
                             </li>
                         @endpermission
-                        <li class="nav-item">
-                            <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Anggota Posyandu</p>
-                            </a>
-                        </li>
+                        @permission('Lihat Anggota')
+                            <li class="nav-item">
+                                <a href="{{ route('Data Anggota') }}" class="nav-link" id="data-anggota">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Anggota Posyandu</p>
+                                </a>
+                            </li>
+                        @endpermission
                         <li class="nav-item" id="list-data-user-verify">
                             <a href="{{route('show.verify')}}" id="konfirmasi-anggota" class="nav-link">
                                 <i class="nav-icon fas fa-user-check"></i>

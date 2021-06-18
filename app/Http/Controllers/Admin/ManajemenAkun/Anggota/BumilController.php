@@ -101,11 +101,11 @@ class BumilController extends Controller
                 'jkn_bumil' => "required|numeric|digits:16",
                 'masa_berlaku_bumil' => "required|date",
             ],[
-            'jkn_bumil.required' => "Nomor JKN wajib diisi",
-            'jkn_bumil.numeric' => "Nomor JKN harus berupa angka",
-            'jkn_bumil.digits' => "Nomor JKN harus berjumlan 16 angka",
-            'masa_berlaku_bumil.required' => "Masa berlaku JKN wajib diisi",
-            'masa_berlaku_bumil.date' => "Masa berlaku JKN harus berupa tanggal",
+                'jkn_bumil.required' => "Nomor JKN wajib diisi",
+                'jkn_bumil.numeric' => "Nomor JKN harus berupa angka",
+                'jkn_bumil.digits' => "Nomor JKN harus berjumlan 16 angka",
+                'masa_berlaku_bumil.required' => "Masa berlaku JKN wajib diisi",
+                'masa_berlaku_bumil.date' => "Masa berlaku JKN harus berupa tanggal",
             ]);
 
             // Ubah format tanggal masa berlaku //
@@ -139,6 +139,7 @@ class BumilController extends Controller
                     'password' => Hash::make($request->passwordBumil),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
     
                 $ibu = Ibu::create([
@@ -189,6 +190,7 @@ class BumilController extends Controller
                     'password' => Hash::make($request->passwordBumil),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
     
                 $ibu = Ibu::create([

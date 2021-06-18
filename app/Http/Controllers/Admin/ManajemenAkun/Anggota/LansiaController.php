@@ -96,11 +96,11 @@ class LansiaController extends Controller
                 'jkn_lansia' => "required|numeric|digits:16",
                 'masa_berlaku_lansia' => "required|date",
             ],[
-            'jkn_lansia.required' => "Nomor JKN wajib diisi",
-            'jkn_lansia.numeric' => "Nomor JKN harus berupa angka",
-            'jkn_lansia.digits' => "Nomor JKN harus berjumlan 16 angka",
-            'masa_berlaku_lansia.required' => "Masa berlaku JKN wajib diisi",
-            'masa_berlaku_lansia.date' => "Masa berlaku JKN harus berupa tanggal",
+                'jkn_lansia.required' => "Nomor JKN wajib diisi",
+                'jkn_lansia.numeric' => "Nomor JKN harus berupa angka",
+                'jkn_lansia.digits' => "Nomor JKN harus berjumlan 16 angka",
+                'masa_berlaku_lansia.required' => "Masa berlaku JKN wajib diisi",
+                'masa_berlaku_lansia.date' => "Masa berlaku JKN harus berupa tanggal",
             ]);
 
             // Ubah format tanggal masa berlaku //
@@ -141,6 +141,7 @@ class LansiaController extends Controller
                     'password' => Hash::make($request->passwordLansia),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
 
                 $lansia = Lansia::create([
@@ -194,6 +195,7 @@ class LansiaController extends Controller
                     'password' => Hash::make($request->passwordLansia),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
 
                 $lansia = Lansia::create([

@@ -337,7 +337,8 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 // Start Route Menu Manajemen Akun
 
 //Global Route Manajemen Akun
-    Route::post('manajemen-akun/disable/{admin}', 'Admin\ManajemenAkun\Admin\DisableAccountController@disableAccount')->name("Disable Account");
+    Route::post('manajemen-akun/admin/disable/{admin}', 'Admin\ManajemenAkun\Admin\DisableAccountController@disableAccount')->name("Disable Admin Account");
+    Route::post('manajemen-akun/anggota/disable/{user}', 'Admin\ManajemenAkun\Anggota\DisableAccountController@disableAccount')->name("Disable Anggota Account");
     Route::get('manajemen-akun/admin/profile-image/{admin}', 'Admin\ManajemenAkun\Admin\GetImageController@getProfileImage')->name('Get Profile Image Admin');
     Route::get('manajemen-akun/anggota/kk-image/{kk}', 'Admin\ManajemenAkun\Anggota\GetImageController@getKkAnggota')->name('Get KK Anggota');
     Route::get('manajemen-akun/anggota/profile-image/{user}', 'Admin\ManajemenAkun\Anggota\GetImageController@getProfileImage')->name('Get Profile Image Anggota');
@@ -383,29 +384,25 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::post('manajemen-akun/kader/update/{pegawai}', 'Admin\ManajemenAkun\Admin\KaderController@updateKader')->name("Update Kader")->middleware("permission:Ubah Kader");
 
     // Data Anggota
-    Route::get('manajemen-akun/anggota', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@semuaAnggota')->name("Data Anggota");
-    Route::get('manajemen-akun/anggota/tambah', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@tambahAnggota')->name("Tambah Anggota");
+    Route::get('manajemen-akun/anggota', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@semuaAnggota')->name("Data Anggota")->middleware("permission:Lihat Anggota");
+    Route::get('manajemen-akun/anggota/tambah', 'Admin\ManajemenAkun\Anggota\SemuaAnggotaController@tambahAnggota')->name("Tambah Anggota")->middleware("permission:Tambah Anggota");
 
     // Ibu Hamil
-    Route::post('manajemen-akun/bumil/simpan', 'Admin\ManajemenAkun\Anggota\BumilController@simpanBumil')->name("Simpan Anggota Bumil");
-    Route::get('manajemen-akun/bumil/detail/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@detailBumil')->name("Detail Anggota Bumil");
-    Route::post('manajemen-akun/bumil/update/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@updateBumil')->name("Update Anggota Bumil");
+    Route::post('manajemen-akun/bumil/simpan', 'Admin\ManajemenAkun\Anggota\BumilController@simpanBumil')->name("Simpan Anggota Bumil")->middleware("permission:Tambah Anggota");
+    Route::get('manajemen-akun/bumil/detail/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@detailBumil')->name("Detail Anggota Bumil")->middleware("permission:Ubah Anggota");
+    Route::post('manajemen-akun/bumil/update/{ibu}', 'Admin\ManajemenAkun\Anggota\BumilController@updateBumil')->name("Update Anggota Bumil")->middleware("permission:Ubah Anggota");
 
     // Anak
-    Route::post('manajemen-akun/anak/simpan', 'Admin\ManajemenAkun\Anggota\AnakController@simpanAnak')->name("Simpan Anggota Anak");
-    Route::get('manajemen-akun/anak/detail/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@detailAnak')->name("Detail Anggota Anak");
-    Route::post('manajemen-akun/anak/update/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@updateAnak')->name("Update Anggota Anak");
+    Route::post('manajemen-akun/anak/simpan', 'Admin\ManajemenAkun\Anggota\AnakController@simpanAnak')->name("Simpan Anggota Anak")->middleware("permission:Tambah Anggota");
+    Route::get('manajemen-akun/anak/detail/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@detailAnak')->name("Detail Anggota Anak")->middleware("permission:Ubah Anggota");
+    Route::post('manajemen-akun/anak/update/{anak}', 'Admin\ManajemenAkun\Anggota\AnakController@updateAnak')->name("Update Anggota Anak")->middleware("permission:Ubah Anggota");
     
     // Lansia
-    Route::post('manajemen-akun/lansia/simpan', 'Admin\ManajemenAkun\Anggota\LansiaController@simpanLansia')->name("Simpan Anggota Lansia");
-    Route::get('manajemen-akun/lansia/detail/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@detailLansia')->name("Detail Anggota Lansia");
-    Route::post('manajemen-akun/lansia/update/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updateLansia')->name("Update Anggota Lansia");
-    Route::post('manajemen-akun/lansia/pj/tambah/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@tambahPjLansia')->name("Tambah PJ Lansia");
-    Route::post('manajemen-akun/lansia/pj/update/{pjLansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updatePjLansia')->name("Update PJ Lansia");
-
-    // Route::post('/admin/data-anggota/pj/tambah/{lansia}', 'Admin\MasterData\DataAnggotaController@tambahPjLansia')->name("Tambah Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-    // Route::post('/admin/data-anggota/pj/update/{pjLansia}', 'Admin\MasterData\DataAnggotaController@updatePjLansia')->name("Update Pj Lansia")->middleware("cek:head admin,admin,kader,tenaga kesehatan,param5");
-
+    Route::post('manajemen-akun/lansia/simpan', 'Admin\ManajemenAkun\Anggota\LansiaController@simpanLansia')->name("Simpan Anggota Lansia")->middleware("permission:Tambah Anggota");
+    Route::get('manajemen-akun/lansia/detail/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@detailLansia')->name("Detail Anggota Lansia")->middleware("permission:Ubah Anggota");
+    Route::post('manajemen-akun/lansia/update/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updateLansia')->name("Update Anggota Lansia")->middleware("permission:Ubah Anggota");
+    Route::post('manajemen-akun/lansia/pj/tambah/{lansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@tambahPjLansia')->name("Tambah PJ Lansia")->middleware("permission:Ubah Anggota");
+    Route::post('manajemen-akun/lansia/pj/update/{pjLansia}', 'Admin\ManajemenAkun\Anggota\LansiaController@updatePjLansia')->name("Update PJ Lansia")->middleware("permission:Ubah Anggota");
     
 // End Route Menu Manajemen Akun
 

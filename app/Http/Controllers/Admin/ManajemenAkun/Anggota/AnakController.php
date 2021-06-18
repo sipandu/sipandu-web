@@ -112,11 +112,11 @@ class AnakController extends Controller
                 'jkn_anak' => "required|numeric|digits:16",
                 'masa_berlaku_anak' => "required|date",
             ],[
-            'jkn_anak.required' => "Nomor JKN wajib diisi",
-            'jkn_anak.numeric' => "Nomor JKN harus berupa angka",
-            'jkn_anak.digits' => "Nomor JKN harus berjumlan 16 angka",
-            'masa_berlaku_anak.required' => "Masa berlaku JKN wajib diisi",
-            'masa_berlaku_anak.date' => "Masa berlaku JKN harus berupa tanggal",
+                'jkn_anak.required' => "Nomor JKN wajib diisi",
+                'jkn_anak.numeric' => "Nomor JKN harus berupa angka",
+                'jkn_anak.digits' => "Nomor JKN harus berjumlan 16 angka",
+                'masa_berlaku_anak.required' => "Masa berlaku JKN wajib diisi",
+                'masa_berlaku_anak.date' => "Masa berlaku JKN harus berupa tanggal",
             ]);
 
             // Ubah format tanggal masa berlaku //
@@ -151,6 +151,7 @@ class AnakController extends Controller
                     'password' => Hash::make($request->passwordAnak),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
 
                 $anak = Anak::create([
@@ -206,6 +207,7 @@ class AnakController extends Controller
                     'password' => Hash::make($request->password_anak),
                     'profile_image' => "/images/upload/Profile/default.jpg",
                     'is_verified' => 1,
+                    'status' => 1,
                 ]);
 
                 $anak = Anak::create([

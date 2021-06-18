@@ -10,7 +10,6 @@ class PjLansia extends Model
 
     protected $fillable = [
         'id_lansia',
-        'id_desa',
         'nama',
         'hubungan_keluarga',
         'nomor_telepon',

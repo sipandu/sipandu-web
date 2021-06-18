@@ -35,7 +35,8 @@
                             </div>
                             <div class="col-md-6 col-sm-12 text-center text-md-end my-1">
                                 <a href="{{ route("Tambah Anggota") }}" class="btn btn-success">
-                                    <i class="fa fa-plus"></i> Tambah
+                                    <i class="fa fa-plus"></i> 
+                                    Tambah
                                 </a>
                             </div>
                         </div>
@@ -51,8 +52,8 @@
                                             <th>Nomor Telp</th>
                                             <th>Username Telegram</th>
                                             <th>Lokasi Posyandu</th>
-                                            <th class="d-md-none">Tindakan</th>
-                                            <th class="d-none d-md-table-cell">Tindakan</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,16 +65,18 @@
                                                     <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
                                                     <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
                                                     <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
-                                                    <td class="text-center align-middle d-md-none">
+                                                    @if ($data->user->status == '1')
+                                                        <td class="align-middle">Aktif</td>
+                                                    @else
+                                                        <td class="align-middle">Non Aktif</td>
+                                                    @endif
+                                                    <td class="text-center align-middle">
                                                         <a href="{{route('Detail Anggota Bumil', $data->id)}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                    </td>
-                                                    <td class="text-center align-middle d-none d-md-table-cell">
-                                                        <a href="{{route('Detail Anggota Bumil', $data->id)}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Detail
-                                                        </a>
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                            <i class="fas fa-user-times"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -90,38 +93,32 @@
                                             <th>Nomor Telp</th>
                                             <th>Username</th>
                                             <th>Lokasi Posyandu</th>
-                                            <th class="d-md-none">Tindakan</th>
-                                            <th class="d-none d-md-table-cell">Tindakan</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if ( $anak != NULL)
                                             @foreach ($anak as $data)
                                                 <tr class="text-center align-middle my-auto">
-                                                <td class="align-middle">{{ $loop->iteration }}</td>
-                                                <td class="align-middle text-start">{{ $data->nama_anak }}</td>
-                                                @empty($data->nomor_telepon)
-                                                    <td class="align-middle"> - </td>
-                                                @else
-                                                    <td class="align-middle">{{ $data->nomor_telepon }}</td>
-                                                @endempty
-                                                @empty($data->username_telegram)
-                                                    <td class="align-middle"> - </td>
-                                                @else
-                                                    <td class="align-middle">{{ $data->username_telegram }}</td>
-                                                @endempty
-                                                <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
-                                                <td class="text-center align-middle d-md-none">
-                                                    <a href="{{route('Detail Anggota Anak', $data->id)}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-center align-middle d-none d-md-table-cell">
-                                                    <a href="{{route('Detail Anggota Anak', $data->id)}}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                    Detail
-                                                    </a>
-                                                </td>
+                                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                                    <td class="align-middle text-start">{{ $data->nama_anak }}</td>
+                                                    <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
+                                                    <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
+                                                    <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
+                                                    @if ($data->user->status == '1')
+                                                        <td class="align-middle">Aktif</td>
+                                                    @else
+                                                        <td class="align-middle">Non Aktif</td>
+                                                    @endif
+                                                    <td class="text-center align-middle">
+                                                        <a href="{{route('Detail Anggota Anak', $data->id)}}" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                            <i class="fas fa-user-times"></i>
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -136,8 +133,8 @@
                                             <th>Nama Lansia</th>
                                             <th>Golongan</th>
                                             <th>Lokasi Posyandu</th>
-                                            <th class="d-md-none">Tindakan</th>
-                                            <th class="d-none d-md-table-cell">Tindakan</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -148,16 +145,18 @@
                                                     <td class="align-middle">{{ $data->nama_lansia }}</td>
                                                     <td class="align-middle">{{ $data->status }}</td>
                                                     <td class="align-middle">{{ $data->posyandu->nama_posyandu }}</td>
-                                                    <td class="text-center align-middle d-md-none">
-                                                        <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
+                                                    @if ($data->user->status == '1')
+                                                        <td class="align-middle">Aktif</td>
+                                                    @else
+                                                        <td class="align-middle">Non Aktif</td>
+                                                    @endif
+                                                    <td class="text-center align-middle">
+                                                        <a href="{{route('Detail Anggota Lansia', $data->id)}}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                    </td>
-                                                    <td class="text-center align-middle d-none d-md-table-cell">
-                                                        <a href="{{route('Detail Anggota Lansia', [$data->id])}}" class="btn btn-warning btn-sm">
-                                                            <i class="fas fa-eye"></i>
-                                                            Detail
-                                                        </a>
+                                                        <button class="btn btn-danger btn-sm my-1" onclick="disableAccount('{{ $data->user->id }}')">
+                                                            <i class="fas fa-user-times"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -171,6 +170,9 @@
             </div>
         </div>
     </div>
+    <form id="disable-account" action="" method="POST">
+        @csrf
+    </form>
 @endsection
 
 @push('js')
@@ -178,6 +180,7 @@
     <script src="{{ asset('base-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('base-template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('base-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
         $(document).ready(function(){
@@ -242,5 +245,47 @@
                 },
             });
         });
+
+        function disableAccount(id) {
+            Swal.fire({
+            title: 'Peringatan',
+            text: 'Apakah anda yakin akan menonaktifkan akun ? Akun yang telah dinonaktifkan tidak dapat dikembalikan kembali',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Ya, nonaktifkan",
+            cancelButtonText: 'Tidak, batalkan',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#disable-account').attr('action', "{{ route('Disable Anggota Account', '') }}"+"/"+id);
+                    $('#disable-account').submit();
+                }
+            })
+        }
     </script>
+
+    @if($message = Session::get('failed'))
+        <script>
+            $(document).ready(function(){
+                Swal.fire(
+                    'Gagal',
+                    '{{$message}}',
+                    'error'
+                )
+            });
+        </script>
+    @endif
+
+    @if($message = Session::get('success'))
+        <script>
+            $(document).ready(function(){
+                Swal.fire(
+                    'Berhasil',
+                    '{{$message}}',
+                    'success'
+                )
+            });
+        </script>
+    @endif
 @endpush
