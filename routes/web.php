@@ -240,11 +240,19 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::get('/posyandu' , 'LaporanController@ajaxposyandu');
       Route::get('/filter/{type}' , 'LaporanController@ajaxfilter');
       Route::get('/filter/l/{type}' , 'LaporanController@filter');
-      Route::get('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
+      Route::post('/default/kegiatan' , 'LaporanController@loadchartkegiatan');
       Route::post('/default/bulanan' , 'LaporanController@loadchartbulanan');
       Route::post('/default/tahunan' , 'LaporanController@loadcharttahunan');
+      Route::post('/table/kegiatan' , 'LaporanController@tabelfilterkegiatan');
+      Route::post('/default/table/kegiatan' , 'LaporanController@loadtablekegiatan');
+      Route::post('/table/bulanan' , 'LaporanController@tabelfilterbulanan');
+      Route::post('/default/table/bulanan' , 'LaporanController@loadtablebulanan');
+      Route::post('/table/tahunan' , 'LaporanController@tabelfiltertahunan');
+      Route::post('/default/table/tahunan' , 'LaporanController@loadtabletahunan');
     });
+
   });
+
 
   // File Update ----
   //Riwayat Kesehatan Anggota Keluarga User
