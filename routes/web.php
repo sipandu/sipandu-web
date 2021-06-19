@@ -109,36 +109,9 @@ Route::prefix('admin')->namespace('Admin\Auth')->group(function(){
 
 //Management Account
 Route::prefix('account')->namespace('Admin\Auth')->group(function(){
-    //Add Account
-    // Route::get('/new-super-admin/show', 'RegisController@formAddSuperAdmin')->name('Add Super Admin')->middleware('cek:super admin,param2,param3,param4,param5');
-    // Route::get('/new-nakes/show', 'RegisController@formAddNakes')->name('Add Nakes')->middleware('cek:super admin,kader,admin,head admin,param5');
-    // Route::get('/new-admin/show', 'RegisController@formAddAdmin')->name('Add Admin')->middleware('cek:head admin,super admin,param3,param4,param5');
-    // Route::get('/new-user/show', 'RegisController@formAddUser')->name('Add User')->middleware('cek:kader,admin,head admin,tenaga kesehatan,param5');
-
-    //Store Account
-    // Route::post('/new-superadmin/store', 'RegisController@storeSuperAdmin')->name('create.add.superadmin');
-    // Route::post('/new-nakes/store', 'RegisController@storeNakes')->name('create.add.nakes');
-    // Route::post('/new-admin/store', 'RegisController@storeAdmin')->name('create.add.admin');
     Route::post('/new-user-ibu/store', 'RegisController@storeUserIbu')->name('create.account.ibu');
     Route::post('/new-user-anak/store', 'RegisController@storeUserAnak')->name('create.account.anak');
     Route::post('/new-user-lansia/store', 'RegisController@storeUserLansia')->name('create.account.lansia');
-
-    //Image Verify Users
-    // Route::get('/verify', 'AccountController@showVerifyUser')->name('show.verify')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    // Route::get('/get-img/verify/{id}', 'AccountController@getKKImage')->name('verify.get_img')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-
-    //Detail Verify Users
-    // Route::get('/verify/detail/anak/{id}', 'AccountController@detailVerifyAnak')->name('detail.verify.anak');
-    Route::get('/verify/detail/lansia/{id}', 'AccountController@detailVerifyLansia')->name('detail.verify.lansia');
-    // Route::get('/verify/detail/ibu/{id}', 'AccountController@detailVerifyIbu')->name('detail.verify.ibu');
-
-    //Verify Users
-    // Route::post('/verify/terima', 'AccountController@terimaUser')->name('terima.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-    // Route::post('/verify/tolak', 'AccountController@tolakUser')->name('tolak.user')->middleware('cek:head admin,admin,kader,tenaga kesehatan,param5');
-
-    //Change Role
-    // Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
-    // Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
 });
 
 
@@ -205,10 +178,10 @@ Route::get('nakes/konsultasi-lansia/{lansia}', 'Admin\KesehatanKeluarga\Konsulta
 
 
 //Pemeriksaan
-Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
-Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
-Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
-Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+// Route::get('nakes/pemeriksaan', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaan')->name("Tambah Pemeriksaan")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+// Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+// Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+// Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
 
 //Tambah Data Kesehatan User Tambahan
 Route::post('nakes/tambah-alergi/{user}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahAlergi')->name("Tambah Alergi")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
@@ -223,7 +196,7 @@ Route::post('nakes/pemeriksaan-lansia/riwayat_penyakit/{lansia}', 'Admin\Kesehat
 //Tambah Pemeriksaan
 Route::get('/get-img/data-anggota/pemeriksaan/{id}', 'Admin\KesehatanKeluarga\PemeriksaanController@getImage')->name('Get Image Anggota Pemeriksaan')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 Route::post('nakes/pemeriksaan-lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanLansia')->name("Tambah Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+// Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 Route::post('nakes/pemeriksaan-ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanIbu')->name("Tambah Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Pemberian Imunisasi
@@ -383,6 +356,27 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::post('pengaturan-akun/ganti-jabatan/update', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@updateJabatan')->name('Update Jabatan')->middleware("permission:Ganti Jabatan");
 
 // End Route Menu Pengaturan Akun
+
+
+
+// Start Route Menu Kesehatan Keluarga
+
+    // Semua Data Pemeriksaan Kesehatan Anggota
+    Route::get('kesehatan-keluarga/pemeriksaan', 'Admin\KesehatanKeluarga\Pemeriksaan\SemuaPemeriksaanController@semuaPemeriksaanAnggota')->name("Semua Pemeriksaan Anggota");
+
+    // Pemeriksaan Anggota
+    Route::get('kesehatan-keluarga/pemeriksaan/bumil/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@pemeriksaanBumil')->name("Pemeriksaan Bumil");
+    Route::get('kesehatan-keluarga/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@pemeriksaanAnak')->name("Pemeriksaan Anak");
+    Route::get('kesehatan-keluarga/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@pemeriksaanLansia')->name("Pemeriksaan Lansia");
+
+
+    Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+
+    // Route::get('nakes/pemeriksaan/ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanIbu')->name("Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+    // Route::get('nakes/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanAnak')->name("Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+    // Route::get('nakes/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@pemeriksaanLansia')->name("Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,kader,param3,param4,param5");
+
+// End Route Menu Kesehatan Keluarga
 
 
 

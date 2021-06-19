@@ -24,7 +24,7 @@
     <div class="col-auto ml-auto text-right mt-n1">
       <nav aria-label="breadcrumb text-center">
         <ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-          <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Tambah Pemeriksaan') }}">Pemeriksaan Keluarga</a></li>
+          <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('Semua Pemeriksaan Anggota') }}">Pemeriksaan Keluarga</a></li>
           <li class="breadcrumb-item active" aria-current="page">Ibu Hamil</li>
         </ol>
       </nav>
@@ -874,7 +874,7 @@
                     </div>
                   </li>
                 </ul>
-                <a href="{{ route('Detail Anggota Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Bumil</a>
+                <a href="{{ route('Detail Anggota Bumil', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3" target="_blank">Detail Bumil</a>
                 <a href="{{ route('Data Kesehatan Ibu', $dataIbu->id) }}" class="btn btn-sm btn-outline-info btn-block mt-3">Detail Kesehatan Bumil</a>
               </div>
             </div>

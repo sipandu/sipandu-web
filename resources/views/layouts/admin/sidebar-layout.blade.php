@@ -172,39 +172,37 @@
             </li>
         @endmenu
 
-        @if (Auth::guard('admin')->user()->role == 'tenaga kesehatan')
-            <li class="nav nav-treeview">
-                <li class="nav-item" id="list-kesehatan">
-                    <a href="#" class="nav-link" id="kesehatan">
-                        <i class="nav-icon fas fa-hand-holding-medical"></i>
-                        <p>
-                            Kesehatan Keluarga
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ms-3">
-                        <li class="nav-item" >
-                            <a href="{{ route('Tambah Pemeriksaan') }}" class="nav-link" id="pemeriksaan-keluarga">
-                                <i class="fas fa-stethoscope nav-icon"></i>
-                                <p>Pemeriksaan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
-                                <i class="fas fa-file-medical-alt nav-icon"></i>
-                                <p>Data Kesehatan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" >
-                            <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
-                                <i class="nav-icon fas fa-user-md"></i>
-                                <p>Konsultasi Bot</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+        <li class="nav nav-treeview">
+            <li class="nav-item" id="list-kesehatan">
+                <a href="#" class="nav-link" id="kesehatan">
+                    <i class="nav-icon fas fa-hand-holding-medical"></i>
+                    <p>
+                        Kesehatan Keluarga
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ms-3">
+                    <li class="nav-item" >
+                        <a href="{{ route('Semua Pemeriksaan Anggota') }}" class="nav-link" id="pemeriksaan-keluarga">
+                            <i class="fas fa-stethoscope nav-icon"></i>
+                            <p>Pemeriksaan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
+                            <i class="fas fa-file-medical-alt nav-icon"></i>
+                            <p>Data Kesehatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
+                            <i class="nav-icon fas fa-user-md"></i>
+                            <p>Konsultasi Bot</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-        @endif
+        </li>
 
         {{-- Start Menu Imunisasi --}}
         @menu(["Tambah Imunisasi", "Lihat Imunisasi"])

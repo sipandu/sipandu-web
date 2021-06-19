@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\KesehatanKeluarga;
+namespace App\Http\Controllers\Admin\KesehatanKeluarga\Pemeriksaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -29,72 +29,85 @@ use App\PenyakitBawaan;
 use App\RiwayatPenyakit;
 use App\PjLansia;
 
-class PemeriksaanController extends Controller
+class SemuaPemeriksaanController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
     
-    public function tambahPemeriksaan()
+    public function semuaPemeriksaanAnggota()
     {
-        $id_posyandu = [];
-        $login_user = [];
-        $ibu = [];
-        $anak = [];
-        $lansia = [];
+        if ( auth()->guard('admin')->user()->role == 'super admin' ) {
+            if ( auth()->guard('admin')->user()->superAdmin->area_tugas == 'Provinsi' ) {
+                $anggota_id = User::where('is_verified', '1')->where('status', 1)->select('id')->get();
+                if ( count($anggota_id) > 0 ) {
+                    $ibu = Ibu::whereIn('id_user', $anggota_id->toArray())->get();
+                    $anak = Anak::whereIn('id_user', $anggota_id->toArray())->get();
+                    $lansia = Lansia::whereIn('id_user', $anggota_id->toArray())->get();
+                } else {
+                    $ibu = NULL;
+                    $anak = NULL;
+                    $lansia = NULL;
+                }
+            } elseif ( auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kabupaten' ) {
+                $id_kecamatan = Kecamatan::where('id_kabupaten', auth()->guard('admin')->user()->superAdmin->id_kabupaten)->select('id')->get();
+                $id_desa = Desa::whereIn('id_kecamatan', $id_kecamatan->toArray())->select('id')->get();
 
-        $data_ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
-            ->select('tb_ibu_hamil.*')
-            ->where('tb_user.is_verified', 1)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_ibu_hamil.created_at', 'desc')
-        ->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+                $anggota_id = User::where('is_verified', '1')->where('status', 1)->select('id')->get();
 
-        $data_anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
-            ->select('tb_anak.*')
-            ->where('tb_user.is_verified', 1)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_anak.created_at', 'desc')
-        ->get();
+                if ( count($id_posyandu) > 0 && count($anggota_id) > 0 ) {
+                    $ibu = Ibu::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $anak = Anak::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $lansia = Lansia::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                } else {
+                    $ibu = NULL;
+                    $anak = NULL;
+                    $lansia = NULL;
+                }
+            } elseif ( auth()->guard('admin')->user()->superAdmin->area_tugas == 'Kecamatan' ) {
+                $id_desa = Desa::where('id_kecamatan', auth()->guard('admin')->user()->superAdmin->id_kecamatan)->select('id')->get();
+                $id_posyandu = Posyandu::whereIn('id_desa', $id_desa->toArray())->select('id')->get();
+                $anggota_id = User::where('is_verified', '1')->where('status', 1)->select('id')->get();
 
-        $data_lansia = Lansia::join('tb_user', 'tb_user.id', 'tb_lansia.id_user')
-            ->select('tb_lansia.*')
-            ->where('tb_user.is_verified', 1)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_lansia.created_at', 'desc')
-        ->get();
+                if ( count($id_posyandu) > 0 && count($anggota_id) > 0 ) {
+                    $ibu = Ibu::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $anak = Anak::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $lansia = Lansia::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                } else {
+                    $ibu = NULL;
+                    $anak = NULL;
+                    $lansia = NULL;
+                }
+            }
+        } elseif ( auth()->guard('admin')->user()->role == 'tenaga kesehatan' ) {
+            $anggota_id = User::where('is_verified', '1')->where('status', 1)->select('id')->get();
+            $id_posyandu = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
 
-        if (auth()->guard('admin')->user()->role == 'tenaga kesehatan') {
-            $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
-            $login_user = $nakes;
-        }
-        if (auth()->guard('admin')->user()->role == 'pegawai') {
-            $admin = auth()->guard('admin')->user()->pegawai;
-            $login_user = $admin;
-        }
-
-        foreach ($login_user as $data) {
-            $id_posyandu[] = $data->id_posyandu;
-        }
-        
-        foreach ($id_posyandu as $item) {
-            foreach ($data_ibu->where('id_posyandu', $item) as $data) {
-                $ibu[] = $data;
+            if ( count($id_posyandu) > 0 && count($anggota_id) ) {
+                $ibu = Ibu::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                $anak = Anak::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                $lansia = Lansia::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+            } else {
+                $ibu = NULL;
+                $anak = NULL;
+                $lansia = NULL;
+            }
+        } elseif ( auth()->guard('admin')->user()->role == 'pegawai' ) {
+            $anggota_id = User::where('is_verified', '1')->where('status', 1)->select('id')->get();
+            if ( count($anggota_id) > 0 ) {
+                $ibu = Ibu::whereIn('id_user', $anggota_id->toArray())->where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+                $anak = Anak::whereIn('id_user', $anggota_id->toArray())->where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+                $lansia = Lansia::whereIn('id_user', $anggota_id->toArray())->where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
+            } else {
+                $ibu = NULL;
+                $anak = NULL;
+                $lansia = NULL;
             }
         }
-        foreach ($id_posyandu as $item) {
-            foreach ($data_anak->where('id_posyandu', $item) as $data) {
-                $anak[] = $data;
-            }
-        }
-        foreach ($id_posyandu as $item) {
-            foreach ($data_lansia->where('id_posyandu', $item) as $data) {
-                $lansia[] = $data;
-            }
-        }
 
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/tambah-pemeriksaan', compact('ibu', 'anak', 'lansia') );
+        return view('admin.kesehatan-keluarga.pemeriksaan.semua-pemeriksaan-anggota', compact('ibu', 'anak', 'lansia') );
     }
 
     public function getImage($id)
@@ -112,91 +125,6 @@ class PemeriksaanController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function pemeriksaanIbu(Ibu $ibu)
-    {
-        $umur = Carbon::parse($ibu->tanggal_lahir)->age;
-        
-        $pemeriksaanIbu = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->first();
-        if ($pemeriksaanIbu != NULL) {
-            $usia_kandungan = $pemeriksaanIbu->usia_kandungan;
-        } else {
-            $usia_kandungan = '0';
-        }
-        
-        $dataIbu = $ibu;
-        $jenisImunisasi = Imunisasi::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Ibu Hamil')->where('deleted_at', NULL)->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $ibu->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $ibu->id_user)->get();
-        $persalinan = Persalinan::where('id_ibu_hamil', $ibu->id)->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $ibu->id_user)->get();
-        $pemeriksaan = PemeriksaanIbu::where('id_ibu_hamil', $ibu->id)->orderBy('id', 'desc')->limit(5)->get();
-
-        $anak = Anak::join('tb_user', 'tb_user.id', 'tb_anak.id_user')
-            ->select('tb_anak.*')
-            ->where('tb_user.is_verified', 1)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_anak.nama_anak', 'asc')
-        ->get();
-
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-ibu', compact('dataIbu', 'umur', 'usia_kandungan', 'pemeriksaan', 'imunisasi', 'vitamin', 'alergi', 'penyakitBawaan', 'jenisImunisasi', 'jenisVitamin', 'anak', 'persalinan'));
-    }
-
-    public function pemeriksaanAnak(Anak $anak)
-    {
-        $today = Carbon::now()->setTimezone('GMT+8');        
-        $umur = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%y');
-        $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%m');
-        $umurLahirBayi = Carbon::parse($anak->tanggal_lahir)->diff($today)->format('%d');
-        
-        $dataAnak = $anak;
-        $jenisImunisasi = Imunisasi::where('penerima', 'Anak')->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Anak')->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $anak->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $anak->id_user)->get();
-        $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
-        $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
-        $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
-        
-        if ($umur > 0) {
-            $usia = $umur.' Tahun';
-        } else {
-            if ($umur < 1) {
-                $usia= $umurLahirBayi.' Hari';
-            } else {
-                $usia = $umurBayi.' Bulan';
-            }
-        }
-
-        $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
-            ->select('tb_ibu_hamil.*')
-            ->where('tb_user.is_verified', 1)
-            ->where('tb_user.keterangan', NULL)
-            ->orderBy('tb_ibu_hamil.nama_ibu_hamil', 'asc')
-        ->get();
-
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi'));
-    }
-
-    public function pemeriksaanLansia(Lansia $lansia)
-    {
-        $dataLansia = $lansia;
-        $umur = Carbon::parse($lansia->tanggal_lahir)->age;
-        $pj = PjLansia::where('id_lansia', $lansia->id)->first();
-        $jenisImunisasi = Imunisasi::where('penerima', 'Lansia')->get();
-        $jenisVitamin = Vitamin::where('penerima', 'Lansia')->get();
-        $imunisasi = PemberianImunisasi::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $vitamin = PemberianVitamin::where('id_user', $lansia->id_user)->orderBy('id', 'desc')->limit(5)->get();
-        $alergi = Alergi::where('id_user', $lansia->id_user)->get();
-        $penyakitBawaan = PenyakitBawaan::where('id_user', $lansia->id_user)->get();
-        $riwayatPenyakit = RiwayatPenyakit::where('id_lansia', $lansia->id)->get();
-        $pemeriksaan = PemeriksaanLansia::where('id_lansia', $lansia->id)->orderBy('id', 'desc')->limit(5)->get();
-
-        return view('pages/admin/kesehatan-keluarga/pemeriksaan/pemeriksaan-lansia', compact('dataLansia', 'imunisasi', 'vitamin', 'umur', 'alergi', 'penyakitBawaan', 'riwayatPenyakit', 'pj', 'pemeriksaan', 'jenisImunisasi', 'jenisVitamin'));
     }
 
     public function tambahPemeriksaanIbu(Ibu $ibu, Request $request)
@@ -287,100 +215,6 @@ class PemeriksaanController extends Controller
             ]);
             
             if ($pemeriksaanIbu) {
-                return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
-            } else {
-                return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
-            }
-        }
-    }
-
-    public function tambahPemeriksaanAnak(Anak $anak, Request $request)
-    {
-        Carbon::setLocale('id');
-
-        $this->validate($request,[
-            'lingkar_kepala' => "required|numeric|min:2",
-            'berat_badan' => "required|numeric|min:2",
-            'tinggi_badan' => 'required|numeric|min:2',
-            'tgl_kembali' => 'required|date',
-            'status_gizi' => 'required',
-            'lokasiPemeriksaan' => 'required|min:5',
-            'diagnosa' => 'required|min:5',
-            'pengobatan' => 'nullable',
-            'keterangan' => 'nullable',
-        ],
-        [
-            'lingkar_kepala.required' => "Lingkar kepala anak wajib diisi",
-            'lingkar_kepala.numeric' => "Lingkar kepala anak harus berupa angka",
-            'lingkar_kepala.min' => "Lingkar kepala anak kurang dari nilai minimum",
-            'berat_badan.required' => "berat badan anak wajib diisi",
-            'berat_badan.numeric' => "berat badan anak harus berupa angka",
-            'berat_badan.min' => "Berat badan anak kurang dari nilai minimum",
-            'tinggi_badan.required' => "Tinggi badan anak wajib diisi",
-            'tinggi_badan.numeric' => "Tinggi badan anak harus berupa angka",
-            'tinggi_badan.min' => "Tinggi badan anak kurang dari nilai minimum",
-            'tgl_kembali.required' => "Tanggal pemeriksaan kembali wajib diisi",
-            'tgl_kembali.date' => "Tanggal pemeriksaan kembali harus berformat tanggal",
-            'status_gizi.required' => "Status gizi anak wajib dipilih",
-            'lokasiPemeriksaan.required' => "Tempat pemeriksaan anak wajib diisi",
-            'lokasiPemeriksaan.min' => "Nama tempat pemeriksaan anak terlalu singkat",
-            'diagnosa.required' => "Diagnosa pemeriksaan anak wajib diisi",
-            'diagnosa.min' => "Diagnosa pemeriksaan anak terlalu singkat",
-        ]);
-
-        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
-        $umur = Carbon::parse($anak->tanggal_lahir)->age;
-        $nakes = Auth::guard('admin')->user()->nakes;
-
-        // Ubah format tanggal //
-        $tgl_kotor = $request->tgl_kembali;
-        $tgl_bersih = explode("-", $tgl_kotor);
-        $tahun = $tgl_bersih[2];
-        $bulan = $tgl_bersih[1];
-        $tgl = $tgl_bersih[0];
-        $tgl_kembali = $tahun.$bulan.$tgl;
-
-        $tanggal_kembali = Carbon::parse($tgl_kembali)->toDateString();
-
-        if ($tanggal_kembali <= $today) {
-            return redirect()->back()->with(['error' => 'Tanggal periksa kembali untuk anak tidak sesuai']);
-        } else {
-            $day = Carbon::now()->setTimezone('GMT+8');
-            $persalinan = Persalinan::where('id_anak', $anak->id)->get()->first();
-            $umurBayi = Carbon::parse($anak->tanggal_lahir)->diff($day)->format('%m');
-
-            if ($umurBayi <= 6) {
-                $imtAnak = $persalinan->berat_lahir + ($umurBayi*600);
-            } elseif ($umurBayi>6 && $umurBayi<=12) {
-                $imtAnak = $persalinan->berat_lahir + ($umurBayi*500);
-            } elseif ($umurBayi > 12) {
-                $usiaBayi = $umurBayi/12;
-                $imtAnak = ( 2*($usiaBayi) ) + 8;
-            }
-
-            $pemeriksaanAnak = PemeriksaanAnak::create([
-                'id_posyandu' => $anak->id_posyandu,
-                'id_nakes' => $nakes->id,
-                'id_anak' => $anak->id,
-                'nama_posyandu' => $anak->posyandu->nama_posyandu,
-                'nama_pemeriksa' => $nakes->nama_nakes,
-                'nama_anak' => $anak->nama_anak,
-                'usia_anak' => $umur,
-                'lingkar_kepala' => $request->lingkar_kepala,
-                'berat_badan' => $request->berat_badan,
-                'tinggi_badan' => $request->tinggi_badan,
-                'diagnosa' => $request->diagnosa,
-                'pengobatan' => $request->pengobatan,
-                'keterangan' => $request->keterangan,
-                'IMT' => $imtAnak,
-                'status_gizi' => $request->status_gizi,
-                'jenis_pemeriksaan' => 'Pemeriksaan',
-                'tempat_pemeriksaan' => $request->lokasiPemeriksaan,
-                'tanggal_pemeriksaan' => $today,
-                'tanggal_kembali' => $tgl_kembali,
-            ]);
-            
-            if ($pemeriksaanAnak) {
                 return redirect()->back()->with(['success' => 'Data Pemeriksaan Berhasil di Simpan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
