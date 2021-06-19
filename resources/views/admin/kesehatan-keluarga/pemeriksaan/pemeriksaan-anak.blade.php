@@ -120,7 +120,7 @@
                                                     </div>
                                                     <div class="col-12 my-2">
                                                         <div class="form-floating">
-                                                            <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan"></textarea>
+                                                            <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan">{{ $dataAnak->posyandu->nama_posyandu }}</textarea>
                                                             <label for="lokasiPemeriksaan">
                                                                 Lokasi Pemeriksaan
                                                                 <span class="text-danger">*</span>
@@ -180,7 +180,7 @@
                                             <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahKelahiran" role="button" aria-expanded="false" aria-controls="tambahKelahiran"><i class="fas fa-plus-circle"></i></a></div>
                                         </div>
                                         <div class="collapse my-3" id="tambahKelahiran">
-                                            <form action="{{ route('Simpan Data Kelahiran Anak', [$dataAnak->id]) }}" method="POST">
+                                            <form action="{{ route('Simpan Data Kelahiran Anak', $dataAnak->id) }}" method="POST">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 my-2">

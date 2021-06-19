@@ -361,38 +361,43 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
 
 // Start Route Menu Kesehatan Keluarga
 
-    // Semua Data Pemeriksaan Kesehatan Anggota
-    Route::get('kesehatan-keluarga/pemeriksaan', 'Admin\KesehatanKeluarga\Pemeriksaan\SemuaPemeriksaanController@semuaPemeriksaanAnggota')->name("Semua Pemeriksaan Anggota");
-    Route::get('kesehatan-keluarg/anggota/get-img/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\GetImageAnggotaController@getProfileImage')->name('Get Image Anggota Pemeriksaan');
+    Route::middleware("cek:tenaga kesehatan,param2,param3,param4,param5")->group( function(){
 
-    // Pemeriksaan Anggota
-    Route::get('kesehatan-keluarga/pemeriksaan/bumil/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@pemeriksaanBumil')->name("Pemeriksaan Bumil");
-    Route::get('kesehatan-keluarga/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@pemeriksaanAnak')->name("Pemeriksaan Anak");
-    Route::get('kesehatan-keluarga/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@pemeriksaanLansia')->name("Pemeriksaan Lansia");
+        // Semua Data Pemeriksaan Kesehatan Anggota
+        Route::get('kesehatan-keluarga/pemeriksaan', 'Admin\KesehatanKeluarga\Pemeriksaan\SemuaPemeriksaanController@semuaPemeriksaanAnggota')->name("Semua Pemeriksaan Anggota");
+        Route::get('kesehatan-keluarg/anggota/get-img/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\GetImageAnggotaController@getProfileImage')->name('Get Image Anggota Pemeriksaan');
+    
+        // Pemeriksaan Anggota
+        Route::get('kesehatan-keluarga/pemeriksaan/bumil/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@pemeriksaanBumil')->name("Pemeriksaan Bumil");
+        Route::get('kesehatan-keluarga/pemeriksaan/anak/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@pemeriksaanAnak')->name("Pemeriksaan Anak");
+        Route::get('kesehatan-keluarga/pemeriksaan/lansia/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@pemeriksaanLansia')->name("Pemeriksaan Lansia");
+    
+        // Alergi Anggota
+        Route::post('kesehatan-keluarga/alergi/simpan/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\AlergiController@simpanAlergi')->name("Simpan Alergi");
+    
+        // Penyakit Bawaan Anggota
+        Route::post('kesehatan-keluarga/penyakit-bawaan/simpan/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\PenyakitBawaanController@simpanPenyakitBawaan')->name("Simpan Penyakit Bawaan");
+    
+        // Pemeriksaan Bumil
+        Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-persalinan/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanDataPersalinan')->name("Simpan Persalinan Bumil");
+        Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-pemeriksaan/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanDataPemeriksaanBumil')->name("Simpan Pemeriksaan Bumil");
+        Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanImunisasiBumil')->name('Simpan Imunisasi Bumil');
+        Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-vitamin/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanVitaminBumil')->name('Simpan Vitamin Bumil');
+    
+        // Pemeriksaan Anak
+        Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-data-kelahiran/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanDataKelahiranAnak')->name("Simpan Data Kelahiran Anak");
+        Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-pemeriksaan/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanPemeriksaanAnak')->name("Simpan Pemeriksaan Anak");
+        Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-imunisasi/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanImunisasiAnak')->name('Simpan Imunisasi Anak');
+        Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-vitamin/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanVitaminAnak')->name('Simpan Vitamin Anak');
+    
+        // Lansia
+        Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-pemeriksaan/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanPemeriksaanLansia')->name("Simpan Pemeriksaan Lansia");
+        Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanImunisasiLansia')->name('Simpan Imunisasi Lansia');
+        Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-vitamin/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanVitaminLansia')->name('Simpan Vitamin Lansia');
+        Route::post('pemeriksaan-keluarga/pemeriksaan-lansia/simpan-riwayat-penyakit/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanRiwayatPenyakit')->name("Simpan Riwayat Penyakit");
+        
+    });
 
-    // Alergi Anggota
-    Route::post('kesehatan-keluarga/alergi/simpan/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\AlergiController@simpanAlergi')->name("Simpan Alergi");
-
-    // Penyakit Bawaan Anggota
-    Route::post('kesehatan-keluarga/penyakit-bawaan/simpan/{user}', 'Admin\KesehatanKeluarga\Pemeriksaan\PenyakitBawaanController@simpanPenyakitBawaan')->name("Simpan Penyakit Bawaan");
-
-    // Pemeriksaan Bumil
-    Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-persalinan/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanDataPersalinan')->name("Simpan Persalinan Bumil");
-    Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-pemeriksaan/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanDataPemeriksaanBumil')->name("Simpan Pemeriksaan Bumil");
-    Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanImunisasiBumil')->name('Simpan Imunisasi Bumil');
-    Route::post('kesehatan-keluarga/pemeriksaan-ibu/simpan-vitamin/{ibu}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanBumilController@simpanVitaminBumil')->name('Simpan Vitamin Bumil');
-
-    // Pemeriksaan Anak
-    Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-data-kelahiran/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanDataKelahiranAnak')->name("Simpan Data Kelahiran Anak");
-    Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-pemeriksaan/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanPemeriksaanAnak')->name("Simpan Pemeriksaan Anak");
-    Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-imunisasi/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanImunisasiAnak')->name('Simpan Imunisasi Anak');
-    Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-vitamin/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanVitaminAnak')->name('Simpan Vitamin Anak');
-
-    // Lansia
-    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-pemeriksaan/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanPemeriksaanLansia')->name("Simpan Pemeriksaan Lansia");
-    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanImunisasiLansia')->name('Simpan Imunisasi Lansia');
-    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-vitamin/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanVitaminLansia')->name('Simpan Vitamin Lansia');
-    Route::post('pemeriksaan-keluarga/pemeriksaan-lansia/simpan-riwayat-penyakit/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanRiwayatPenyakit')->name("Simpan Riwayat Penyakit");
 
 // End Route Menu Kesehatan Keluarga
 

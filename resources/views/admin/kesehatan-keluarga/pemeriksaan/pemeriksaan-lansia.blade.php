@@ -153,7 +153,7 @@
                                                 </div>
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating">
-                                                        <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil pemeriksaan"></textarea>
+                                                        <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil pemeriksaan">{{ $dataLansia->posyandu->nama_posyandu }}</textarea>
                                                         <label for="diagnosa">Hasil Pemeriksaan<span class="text-danger">*</span></label>
                                                         @error('diagnosa')
                                                             <div class="invalid-feedback text-start">

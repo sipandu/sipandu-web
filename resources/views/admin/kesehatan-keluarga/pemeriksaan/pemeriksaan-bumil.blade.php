@@ -259,7 +259,7 @@
                                                 </div>
                                                 <div class="col-12 my-2">
                                                     <div class="form-floating">
-                                                        <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan"></textarea>
+                                                        <textarea name="lokasiPemeriksaan" class="form-control @error('lokasiPemeriksaan') is-invalid @enderror" id="lokasiPemeriksaan" placeholder="Masukan lokasi pemeriksaan">{{ $dataIbu->posyandu->nama_posyandu }}</textarea>
                                                         <label for="lokasiPemeriksaan">Lokasi Pemeriksaan<span class="text-danger">*</span></label>
                                                         @error('lokasiPemeriksaan')
                                                             <div class="invalid-feedback text-start">

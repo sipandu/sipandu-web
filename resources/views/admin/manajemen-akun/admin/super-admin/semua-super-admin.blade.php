@@ -163,7 +163,7 @@
             cancelButtonText: 'Tidak, batalkan',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $('#disable-account').attr('action', "{{ route('Disable Account', '') }}"+"/"+id);
+                    $('#disable-account').attr('action', "{{ route('Disable Admin Account', '') }}"+"/"+id);
                     $('#disable-account').submit();
                 }
             })

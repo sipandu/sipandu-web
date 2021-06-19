@@ -172,37 +172,39 @@
             </li>
         @endmenu
 
-        <li class="nav nav-treeview">
-            <li class="nav-item" id="list-kesehatan">
-                <a href="#" class="nav-link" id="kesehatan">
-                    <i class="nav-icon fas fa-hand-holding-medical"></i>
-                    <p>
-                        Kesehatan Keluarga
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item" >
-                        <a href="{{ route('Semua Pemeriksaan Anggota') }}" class="nav-link" id="pemeriksaan-keluarga">
-                            <i class="fas fa-stethoscope nav-icon"></i>
-                            <p>Pemeriksaan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
-                            <i class="fas fa-file-medical-alt nav-icon"></i>
-                            <p>Data Kesehatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item" >
-                        <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
-                            <i class="nav-icon fas fa-user-md"></i>
-                            <p>Konsultasi Bot</p>
-                        </a>
-                    </li>
-                </ul>
+        @if (auth()->guard('admin')->user()->role == 'tenaga kesehatan')
+            <li class="nav nav-treeview">
+                <li class="nav-item" id="list-kesehatan">
+                    <a href="#" class="nav-link" id="kesehatan">
+                        <i class="nav-icon fas fa-hand-holding-medical"></i>
+                        <p>
+                            Kesehatan Keluarga
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-3">
+                        <li class="nav-item" >
+                            <a href="{{ route('Semua Pemeriksaan Anggota') }}" class="nav-link" id="pemeriksaan-keluarga">
+                                <i class="fas fa-stethoscope nav-icon"></i>
+                                <p>Pemeriksaan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Data Kesehatan') }}" class="nav-link" id="data-kesehatan-keluarga">
+                                <i class="fas fa-file-medical-alt nav-icon"></i>
+                                <p>Data Kesehatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" >
+                            <a href="{{ route("konsultasi-bot.home") }}" class="nav-link" id="konsultasi-bot">
+                                <i class="nav-icon fas fa-user-md"></i>
+                                <p>Konsultasi Bot</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </li>
-        </li>
+        @endif
 
         {{-- Start Menu Imunisasi --}}
         @menu(["Tambah Imunisasi", "Lihat Imunisasi"])
@@ -356,32 +358,7 @@
             </li>
         @endpermission
         {{-- End Menu Hak Akses --}}
-
-        {{-- <li class="nav nav-treeview">
-            <li class="nav-item" id="manajemen-permission">
-                <a href="#" class="nav-link" id="permission">
-                    <i class="nav-icon fas fa-key"></i>
-                    <p>
-                        Hak Akses
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview ms-3">
-                    <li class="nav-item">
-                        <a href="{{ route('Semua Permission') }}" class="nav-link" id="data-permission">
-                            <i class="fas fa-unlock-alt nav-icon"></i>
-                            <p>Data Hak Akses</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" id="initial-permission">
-                            <i class="fas fa-user-lock nav-icon"></i>
-                            <p>Inisiasi Hak Akses</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </li> --}}
+        
         <li class="nav nav-treeview">
             <li class="nav-item">
                 <a href="#" class="nav-link">
