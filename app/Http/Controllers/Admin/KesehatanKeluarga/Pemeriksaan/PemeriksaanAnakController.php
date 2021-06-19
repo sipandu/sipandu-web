@@ -73,7 +73,73 @@ class PemeriksaanAnakController extends Controller
         return view('admin.kesehatan-keluarga.pemeriksaan.pemeriksaan-anak', compact('dataAnak', 'pemeriksaan', 'imunisasi', 'vitamin', 'usia', 'alergi', 'persalinan', 'jenisVitamin', 'jenisImunisasi', 'ibu', 'gizi'));
     }
 
-    public function tambahPemeriksaanAnak(Anak $anak, Request $request)
+    public function simpanDataKelahiranAnak(Anak $anak, Request $request)
+    {
+        $this->validate($request,[
+            'nama_ibu' => "required|min:2|max:50",
+            'berat_lahir' => "required|numeric|min:2",
+            'persalinan' => 'required',
+            'penolong_persalinan' => 'required',
+        ],
+        [
+            'nama_ibu.required' => "Nama ibu wajib diisi",
+            'nama_ibu.min' => "Nama ibu minimal berjumlah 2 huruf",
+            'nama_ibu.max' => "Nama ibu maksimal berjumlah 50 huruf",
+            'berat_lahir.required' => "Berat lahir anak wajib diisi",
+            'berat_lahir.numeric' => "Berat lahir anak harus berupa angka",
+            'berat_lahir.min' => "Berat lahir anak kurang dari nilai minimum",
+            'persalinan.required' => "Jenis persalinan wajib diisi",
+            'penolong_persalinan.required' => "Penolong persalinan wajib diisi",
+        ]);
+
+        // Exploded Nama Ibu
+        $namaIbu = $request->nama_ibu;
+        $nama_ibu = explode(",", $namaIbu);
+
+        if (count($nama_ibu) > 1) {
+            $nama = $nama_ibu[0];
+            $nik = $nama_ibu[1];
+
+            $dataBumil = Ibu::where('NIK', $nik)->get()->first();
+
+            $persalinan = Persalinan::create([
+                'id_anak' => $anak->id,
+                'id_ibu_hamil' => $dataBumil->id,
+                'nama_ibu' => $dataBumil->nama_ibu_hamil,
+                'nama_anak' => $anak->nama_anak,
+                'berat_lahir' => $request->berat_lahir,
+                'persalinan' => $request->persalinan,
+                'penolong_persalinan' => $request->penolong_persalinan,
+                'komplikasi' => $request->komplikasi,
+            ]);
+    
+            if ($persalinan) {
+                return redirect()->back()->with(['success' => 'Data Kelahiran Anak Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
+            }
+        } else {
+            $nama = $nama_ibu[0];
+
+            $persalinan = Persalinan::create([
+                'id_anak' => $anak->id,
+                'nama_ibu' => $nama,
+                'nama_anak' => $anak->nama_anak,
+                'berat_lahir' => $request->berat_lahir,
+                'persalinan' => $request->persalinan,
+                'penolong_persalinan' => $request->penolong_persalinan,
+                'komplikasi' => $request->komplikasi,
+            ]);
+    
+            if ($persalinan) {
+                return redirect()->back()->with(['success' => 'Data Kelahiran Anak Berhasil di Simpan']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
+            }
+        }
+    }
+
+    public function simpanPemeriksaanAnak(Anak $anak, Request $request)
     {
         Carbon::setLocale('id');
 
@@ -164,6 +230,146 @@ class PemeriksaanAnakController extends Controller
             } else {
                 return redirect()->back()->with(['failed' => 'Data Pemeriksaan Gagal di Simpan']);
             }
+        }
+    }
+
+    public function simpanImunisasiAnak(Anak $anak, Request $request)
+    {
+        Carbon::setLocale('id');
+
+        $this->validate($request,[
+            'imunisasi' => "required|exists:tb_jenis_imunisasi,id",
+            'tgl_kembali_imunisasi' => 'nullable|date',
+            'lokasiImunisasi' => 'required|regex:/^[a-z., 0-9]+$/i|min:5|max:100',
+            'keteranganImunisasi' => 'nullable',
+        ],
+        [
+            'imunisasi.required' => "Nama Imunisasi wajib diisi",
+            'imunisasi.exists' => "Jenis Imunisasi tidak terdaftar",
+            'tgl_kembali_imunisasi.date' => "Format tanggal Imunisasi kembali tidak sesuai",
+            'lokasiImunisasi.required' => "Lokasi Imunisasi wajib diisi",
+            'lokasiImunisasi.regex' => "Format penulisan lokasi Imunisasi tidak sesuai",
+            'lokasiImunisasi.min' => "Penulisan lokasi Imunisasi minimal berjumlah 5 karakter",
+            'lokasiImunisasi.max' => "Penulisan lokasi Imunisasi minimal berjumlah 100 karakter",
+        ]);
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $nakes = Auth::guard('admin')->user()->nakes;
+        $user = User::where('id', $anak->id_user)->get()->first();
+        
+        if ($request->tgl_kembali_imunisasi) {
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_kembali_imunisasi;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_kembali = $tahun.$bulan.$tgl;
+
+            $imunisasiAnak = PemberianImunisasi::create([
+                'id_jenis_imunisasi' => $request->imunisasi,
+                'id_posyandu' => $anak->id,
+                'id_user' => $user->id,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
+                'usia' => $umur,
+                'tanggal_imunisasi' => $today,
+                'tanggal_kembali' => $tgl_kembali,
+                'keterangan' => $request->keteranganImunisasi,
+                'lokasi' => $request->lokasiImunisasi,
+            ]);
+        } else {
+            $imunisasiAnak = PemberianImunisasi::create([
+                'id_jenis_imunisasi' => $request->imunisasi,
+                'id_posyandu' => $anak->id_posyandu,
+                'id_user' => $user->id,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
+                'usia' => $umur,
+                'tanggal_imunisasi' => $today,
+                'tanggal_kembali' => NULL,
+                'keterangan' => $request->keteranganImunisasi,
+                'lokasi' => $request->lokasiImunisasi,
+            ]);
+        }
+
+        if ($imunisasiAnak) {
+            return redirect()->back()->with(['success' => 'Data Pemberian Imunisasi Anak Berhasil Ditambahkan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Pemberian Imunisasi Anak Gagal Ditambahkan']);
+        }
+    }
+
+    public function simpanVitaminAnak(Anak $anak, Request $request)
+    {
+        Carbon::setLocale('id');
+
+        $this->validate($request,[
+            'vitamin' => "required|exists:tb_jenis_vitamin,id",
+            'tgl_kembali_vitamin' => 'nullable|date',
+            'lokasiVitamin' => 'required|regex:/^[a-z., 0-9]+$/i|min:5|max:100',
+            'keteranganVitamin' => 'nullable',
+        ],
+        [
+            'vitamin.required' => "Nama Vitamin wajib diisi",
+            'vitamin.exists' => "Jenis Vitamin tidak terdaftar",
+            'tgl_kembali_vitamin.date' => "Format tanggal Vitamin kembali tidak sesuai",
+            'lokasiVitamin.required' => "Lokasi Vitamin wajib diisi",
+            'lokasiVitamin.regex' => "Format penulisan lokasi Vitamin tidak sesuai",
+            'lokasiVitamin.min' => "Penulisan lokasi Vitamin minimal berjumlah 5 karakter",
+            'lokasiVitamin.max' => "Penulisan lokasi Vitamin minimal berjumlah 100 karakter",
+        ]);
+
+        $today = Carbon::now()->setTimezone('GMT+8')->toDateString();
+        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $nakes = Auth::guard('admin')->user()->nakes;
+        $user = User::where('id', $anak->id_user)->get()->first();
+
+        if ($request->tgl_kembali_vitamin) {
+            // Ubah format tanggal //
+            $tgl_lahir_indo = $request->tgl_kembali_vitamin;
+            $tgl_lahir_eng = explode("-", $tgl_lahir_indo);
+            $tahun = $tgl_lahir_eng[2];
+            $bulan = $tgl_lahir_eng[1];
+            $tgl = $tgl_lahir_eng[0];
+            $tgl_kembali = $tahun.$bulan.$tgl;
+
+            $vitaminAnak = PemberianVitamin::create([
+                'id_jenis_vitamin' => $request->vitamin,
+                'id_posyandu' => $anak->id_posyandu,
+                'id_user' => $user->id,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
+                'usia' => $umur,
+                'tanggal_pemberian' => $today,
+                'tanggal_kembali' => $tgl_kembali,
+                'keterangan' => $request->keteranganVitamin,
+                'lokasi' => $request->lokasiVitamin,
+            ]);
+        } else {
+            $vitaminAnak = PemberianVitamin::create([
+                'id_jenis_vitamin' => $request->vitamin,
+                'id_posyandu' => $anak->id_posyandu,
+                'id_user' => $user->id,
+                'id_nakes' => $nakes->id,
+                'nama_posyandu' => $anak->posyandu->nama_posyandu,
+                'nama_pemeriksa' => $nakes->nama_nakes,
+                'usia' => $umur,
+                'tanggal_pemberian' => $today,
+                'tanggal_kembali' => NULL,
+                'keterangan' => $request->keteranganVitamin,
+                'lokasi' => $request->lokasiVitamin,
+            ]);
+        }
+
+        if ($vitaminAnak) {
+            return redirect()->back()->with(['success' => 'Data Pemberian Vitamin Anak Berhasil Ditambahkan']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Data Pemberian Vitamin Anak Gagal Ditambahkan']);
         }
     }
 }

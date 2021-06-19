@@ -203,73 +203,7 @@ class SemuaPemeriksaanController extends Controller
             }
         }
     }
-
-    public function tambahKelahiranAnak(Anak $anak, Request $request)
-    {
-        $this->validate($request,[
-            'nama_ibu' => "required|min:2|max:50",
-            'berat_lahir' => "required|numeric|min:2",
-            'persalinan' => 'required',
-            'penolong_persalinan' => 'required',
-        ],
-        [
-            'nama_ibu.required' => "Nama ibu wajib diisi",
-            'nama_ibu.min' => "Nama ibu minimal berjumlah 2 huruf",
-            'nama_ibu.max' => "Nama ibu maksimal berjumlah 50 huruf",
-            'berat_lahir.required' => "Berat lahir anak wajib diisi",
-            'berat_lahir.numeric' => "Berat lahir anak harus berupa angka",
-            'berat_lahir.min' => "Berat lahir anak kurang dari nilai minimum",
-            'persalinan.required' => "Jenis persalinan wajib diisi",
-            'penolong_persalinan.required' => "Penolong persalinan wajib diisi",
-        ]);
-
-        // Exploded Nama Ibu
-        $namaIbu = $request->nama_ibu;
-        $nama_ibu = explode(",", $namaIbu);
-
-        if (count($nama_ibu) > 1) {
-            $nama = $nama_ibu[0];
-            $nik = $nama_ibu[1];
-
-            $dataBumil = Ibu::where('NIK', $nik)->get()->first();
-
-            $persalinan = Persalinan::create([
-                'id_anak' => $anak->id,
-                'id_ibu_hamil' => $dataBumil->id,
-                'nama_ibu' => $dataBumil->nama_ibu_hamil,
-                'nama_anak' => $anak->nama_anak,
-                'berat_lahir' => $request->berat_lahir,
-                'persalinan' => $request->persalinan,
-                'penolong_persalinan' => $request->penolong_persalinan,
-                'komplikasi' => $request->komplikasi,
-            ]);
     
-            if ($persalinan) {
-                return redirect()->back()->with(['success' => 'Data Kelahiran Anak Berhasil di Simpan']);
-            } else {
-                return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
-            }
-        } else {
-            $nama = $nama_ibu[0];
-
-            $persalinan = Persalinan::create([
-                'id_anak' => $anak->id,
-                'nama_ibu' => $nama,
-                'nama_anak' => $anak->nama_anak,
-                'berat_lahir' => $request->berat_lahir,
-                'persalinan' => $request->persalinan,
-                'penolong_persalinan' => $request->penolong_persalinan,
-                'komplikasi' => $request->komplikasi,
-            ]);
-    
-            if ($persalinan) {
-                return redirect()->back()->with(['success' => 'Data Kelahiran Anak Berhasil di Simpan']);
-            } else {
-                return redirect()->back()->with(['failed' => 'Data Kelahiran Anak Gagal di Simpan']);
-            }
-        }
-    }
-
     public function tambahRiwayatPenyakit(Lansia $lansia, Request $request)
     {
         $this->validate($request,[

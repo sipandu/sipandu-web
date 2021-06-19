@@ -49,7 +49,7 @@
                                             <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPemeriksaan" role="button" aria-expanded="false" aria-controls="tambahPemeriksaan"><i class="fas fa-plus-circle"></i></a></div>
                                         </div>
                                         <div class="collapse my-3" id="tambahPemeriksaan">
-                                            <form action="{{ route('Tambah Pemeriksaan Anak', [$dataAnak->id]) }}" method="POST">
+                                            <form action="{{ route('Simpan Pemeriksaan Anak', $dataAnak->id) }}" method="POST">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 my-2">
@@ -180,7 +180,7 @@
                                             <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahKelahiran" role="button" aria-expanded="false" aria-controls="tambahKelahiran"><i class="fas fa-plus-circle"></i></a></div>
                                         </div>
                                         <div class="collapse my-3" id="tambahKelahiran">
-                                            <form action="{{ route('Tambah Data Kelahiran Anak', [$dataAnak->id]) }}" method="POST">
+                                            <form action="{{ route('Simpan Data Kelahiran Anak', [$dataAnak->id]) }}" method="POST">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 my-2">
@@ -268,7 +268,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahImunisasi">
-                                        <form action="{{ route('Imunisasi Anak', [$dataAnak->id]) }}" method="POST">
+                                        <form action="{{ route('Simpan Imunisasi Anak', $dataAnak->id) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 my-2">
@@ -348,7 +348,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahVitamin" role="button" aria-expanded="false" aria-controls="tambahVitamin"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahVitamin">
-                                        <form action="{{ route('Vitamin Anak', [$dataAnak->id]) }}" method="POST">
+                                        <form action="{{ route('Simpan Vitamin Anak', $dataAnak->id) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 my-2">
@@ -428,7 +428,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahAlergi" role="button" aria-expanded="false" aria-controls="tambahAlergi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahAlergi">
-                                        <form action="{{ route('Tambah Alergi', [$dataAnak->id_user]) }}" method="POST">
+                                        <form action="{{ route('Simpan Alergi', $dataAnak->id_user) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 my-2">
@@ -502,23 +502,15 @@
                                                         <span class="fw-bold">Hasil Pemeriksaan :</span>
                                                         <p>{{ $data->diagnosa }}</p>
                                                         <span class="fw-bold">Pengobatan :</span>
-                                                        @if ($data->pengobatan != NULL)
-                                                            <p>{{ $data->pengobatan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->pengobatan ?? '-' }}</p>
                                                         <span class="fw-bold">Keterangan Tambahan :</span>
-                                                        @if ($data->keterangan != NULL)
-                                                            <p>{{ $data->keterangan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->keterangan ?? '-' }}</p>
                                                         <div class="row text-center">
                                                             <div class="col-6">
                                                                 <span class="fw-bold">Lingkar Kelapa :</span>
                                                                 <p>{{ $data->lingkar_kepala }} Sentimeter</p>
                                                             </div>
-                                                            @if ( $usia < 2)
+                                                            @if ( $usia < 1)
                                                                 <div class="col-6">
                                                                     <span class="fw-bold">Panjang Bayi :</span>
                                                                     <p>{{ $data->tinggi_badan }} Sentimeter</p>
@@ -541,11 +533,7 @@
                                                                 <p><span class="rounded bg-success py-1 px-3">Sehat</span></p>
                                                             </div>
                                                         </div>
-                                                        @if ($data->tanggal_kembali != NULL)
-                                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</span></span>
-                                                        @else
-                                                            <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">-</span></span>
-                                                        @endif
+                                                        <span class="fw-bold text-end mt-2 small">Tanggal Kembali: <span class="fw-normal">{{ date('d M Y', strtotime($data->tanggal_kembali)) ?? '-' }}</span></span>
                                                     </div>
                                                 </div>
                                             @endif
@@ -578,27 +566,19 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                                        @if ($data->tanggal_kembali != NULL)
-                                                            <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) ?? '-' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
                                                     <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
+                                                    <p>{{ $data->keterangan ?? '-' }}</p>
                                                 </div>
                                             </div>
                                         </li>
                                     @endforeach
                                 @else
                                     <li class="list-group-item my-auto">
-                                        <p class="text-center my-auto">Belum Pernah Melakukan Imuniasi</p>
+                                        <p class="text-center my-auto">Belum Pernah Melakukan Imunisasi</p>
                                     </li>
                                 @endif
                             </ul>
@@ -623,20 +603,12 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                                        @if ($data->tanggal_kembali != NULL)
-                                                            <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) ?? '-' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
                                                     <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>    
-                                                    @endif
+                                                    <p>{{ $data->keterangan ?? '-' }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -654,7 +626,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <div class="image mx-auto d-block rounded">
-                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Pemeriksaan', $dataAnak->user->id ) }}" alt="..." width="150" height="150">
+                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Pemeriksaan', $dataAnak->user->id ) }}" alt="Profile Anak" width="150" height="150">
                                     </div>
                                 </div>
                                 <h3 class="profile-username text-center mt-3">{{ $dataAnak->nama_anak}}</h3>
@@ -708,11 +680,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-6 my-auto"><span class="fw-bold">Kelahiran</span></div>
-                                            @if ($persalinan != NULL)
-                                                <div class="col-6 text-end my-auto"><span>{{ $persalinan->persalinan }}</span></div>
-                                            @else
-                                                <div class="col-6 text-end my-auto"><span>Belum ditambahkan</span></div>
-                                            @endif
+                                            <div class="col-6 text-end my-auto"><span>{{ $persalinan->persalinan ?? 'Belum Ditambahkan' }}</span></div>
                                         </div>
                                     </li>
                                     @if ($alergi->where('kategori', 'Alergi Makanan')->count() > 0)
@@ -754,21 +722,13 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
-                                            @if ($dataAnak->user->golongan_darah != NULL)
-                                                <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->golongan_darah }}</span></div>
-                                            @else
-                                                <div class="col-5 text-end my-auto"><span>-</span></div>
-                                            @endif
+                                            <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->golongan_darah ?? '-' }}</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Faskes Rujukan</span></div>
-                                            @if ($dataAnak->user->faskes_rujukan != NULL)
-                                                <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->faskes_rujukan }}</span></div>
-                                            @else
-                                                <div class="col-5 text-end my-auto"><span>Belum ditambahkan</span></div>
-                                            @endif
+                                            <div class="col-5 text-end my-auto"><span>{{ $dataAnak->user->faskes_rujukan ?? 'Belum Ditambahkan' }}</span></div>
                                         </div>
                                     </li>
                                 </ul>
@@ -794,10 +754,7 @@
             $('#list-kesehatan').addClass('menu-is-opening menu-open');
             $('#kesehatan').addClass('active');
             $('#pemeriksaan-keluarga').addClass('active');
-        });
 
-        // Custom Input Date
-        $(function () {
             bsCustomFileInput.init();
             $('.select2').select2()
             $('.select2bs4').select2({
@@ -805,17 +762,8 @@
             })
             $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
             $('[data-mask]').inputmask()
-        })
+        });
     </script>
-
-    @if ($errors->has('foto'))
-        <script type="text/javascript">
-            $( document ).ready(function() {
-                $('#detailFoto').modal('show');
-                $('#img_preview').hide();
-            });
-        </script>
-    @endif
 
     @if($message = Session::get('failed'))
         <script>
