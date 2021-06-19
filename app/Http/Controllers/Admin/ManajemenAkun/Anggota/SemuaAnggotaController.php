@@ -46,9 +46,9 @@ class SemuaAnggotaController extends Controller
                 $anggota_id = User::where('is_verified', '1')->select('id')->get();
 
                 if ( count($id_posyandu) > 0 && count($anggota_id) > 0 ) {
-                    $ibu = Ibu::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
-                    $anak = Anak::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
-                    $lansia = Lansia::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $ibu = Ibu::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $anak = Anak::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                    $lansia = Lansia::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
                 } else {
                     $ibu = NULL;
                     $anak = NULL;
@@ -74,9 +74,9 @@ class SemuaAnggotaController extends Controller
             $id_posyandu = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
 
             if ( count($id_posyandu) > 0 && count($anggota_id) ) {
-                $ibu = Ibu::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
-                $anak = Anak::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
-                $lansia = Lansia::whereIn('id_user', $anggota->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                $ibu = Ibu::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                $anak = Anak::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
+                $lansia = Lansia::whereIn('id_user', $anggota_id->toArray())->whereIn('id_posyandu', $id_posyandu)->get();
             } else {
                 $ibu = NULL;
                 $anak = NULL;

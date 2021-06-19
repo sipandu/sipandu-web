@@ -5,12 +5,8 @@ namespace App\Http\Controllers\Admin\ManajemenAkun\Anggota;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Mover;
 use App\User;
-use App\Ibu;
-use App\Anak;
-use App\Lansia;
 use App\KK;
 
 
