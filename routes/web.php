@@ -379,10 +379,8 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::post('pengaturan-akun/verifikasi-anggota/konfirmasi-tolak/{user}', 'Admin\PengaturanAkun\KonfirmasiAnggota\KonfirmasiAnggotaController@tolakAnggota')->name('Tolak Anggota')->middleware("permission:Konfirmasi Anggota");
 
     // Ganti jabatan
-    Route::get('pengaturan-akun/ganti-jabatan', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@gantiJabatan')->name('Ganti Jabatan');
-    Route::post('pengaturan-akun/ganti-jabatan/update', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@updateJabatan')->name('Update Jabatan');
-    // Route::get('/role/change', 'AccountController@gantiJabatan')->name('Ganti Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
-    // Route::post('/role/change/update', 'AccountController@updateJabatan')->name('Update Jabatan')->middleware('cek:super admin,param2,param3,param4,param5');
+    Route::get('pengaturan-akun/ganti-jabatan', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@gantiJabatan')->name('Ganti Jabatan')->middleware("permission:Ganti Jabatan");
+    Route::post('pengaturan-akun/ganti-jabatan/update', 'Admin\PengaturanAkun\GantiJabatan\GantiJabatanController@updateJabatan')->name('Update Jabatan')->middleware("permission:Ganti Jabatan");
 
 // End Route Menu Pengaturan Akun
 
