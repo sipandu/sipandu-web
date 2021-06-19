@@ -191,23 +191,23 @@ Route::get('nakes/konsultasi-lansia/{lansia}', 'Admin\KesehatanKeluarga\Konsulta
 
 // Route::post('nakes/pemeriksaan-ibu/data-kelahiran/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPersalinanIbu')->name("Tambah Data Persalinan")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
-Route::post('nakes/pemeriksaan-lansia/riwayat_penyakit/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahRiwayatPenyakit')->name("Tambah Riwayat Penyakit")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+// Route::post('nakes/pemeriksaan-lansia/riwayat_penyakit/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahRiwayatPenyakit')->name("Tambah Riwayat Penyakit")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Tambah Pemeriksaan
 // Route::get('/get-img/data-anggota/pemeriksaan/{id}', 'Admin\KesehatanKeluarga\PemeriksaanController@getImage')->name('Get Image Anggota Pemeriksaan')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-Route::post('nakes/pemeriksaan-lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanLansia')->name("Tambah Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+// Route::post('nakes/pemeriksaan-lansia/{lansia}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanLansia')->name("Tambah Pemeriksaan Lansia")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 // Route::post('nakes/pemeriksaan-anak/{anak}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanAnak')->name("Tambah Pemeriksaan Anak")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 // Route::post('nakes/pemeriksaan-ibu/{ibu}', 'Admin\KesehatanKeluarga\PemeriksaanController@tambahPemeriksaanIbu')->name("Tambah Pemeriksaan Ibu")->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Pemberian Imunisasi
 // Route::post('nakes/pemeriksaan-anak/tambah-imunisasi/{anak}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiAnak')->name('Imunisasi Anak')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 // Route::post('nakes/pemeriksaan-ibu/tambah-imunisasi/{ibu}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiIbu')->name('Imunisasi Ibu')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiLansia')->name('Imunisasi Lansia')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+// Route::post('nakes/pemeriksaan-lansia/tambah-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\PemberianImunisasiController@imunisasiLansia')->name('Imunisasi Lansia')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 //Pemberian Vitamin
 // Route::post('nakes/pemeriksaan-anak/tambah-vitamin/{anak}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminAnak')->name('Vitamin Anak')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 // Route::post('nakes/pemeriksaan-ibu/tambah-vitamin/{ibu}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminIbu')->name('Vitamin Ibu')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
-Route::post('nakes/pemeriksaan-lansia/tambah-vitamin/{lansia}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminLansia')->name('Vitamin Lansia')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
+// Route::post('nakes/pemeriksaan-lansia/tambah-vitamin/{lansia}', 'Admin\KesehatanKeluarga\PemberianVitaminController@vitaminLansia')->name('Vitamin Lansia')->middleware("cek:tenaga kesehatan,param2,param3,param4,param5");
 
 
 
@@ -387,6 +387,12 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
     Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-pemeriksaan/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanPemeriksaanAnak')->name("Simpan Pemeriksaan Anak");
     Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-imunisasi/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanImunisasiAnak')->name('Simpan Imunisasi Anak');
     Route::post('kesehatan-keluarga/pemeriksaan-anak/simpan-vitamin/{anak}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanAnakController@simpanVitaminAnak')->name('Simpan Vitamin Anak');
+
+    // Lansia
+    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-pemeriksaan/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanPemeriksaanLansia')->name("Simpan Pemeriksaan Lansia");
+    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-imunisasi/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanImunisasiLansia')->name('Simpan Imunisasi Lansia');
+    Route::post('kesehatan-keluarga/pemeriksaan-lansia/simpan-vitamin/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanVitaminLansia')->name('Simpan Vitamin Lansia');
+    Route::post('pemeriksaan-keluarga/pemeriksaan-lansia/simpan-riwayat-penyakit/{lansia}', 'Admin\KesehatanKeluarga\Pemeriksaan\PemeriksaanLansiaController@simpanRiwayatPenyakit')->name("Simpan Riwayat Penyakit");
 
 // End Route Menu Kesehatan Keluarga
 

@@ -38,169 +38,167 @@
                     <div class="col-sm-12 col-md-8 order-2 order-md-1 mb-3">
                         <div class="card card-primary card-outline">
                             <ul class="list-group list-group-flush">
-                                @if (auth()->guard('admin')->user()->role == "tenaga kesehatan")
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemeriksaan Lansia</p></div>
-                                            <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPemeriksaan" role="button" aria-expanded="false" aria-controls="tambahPemeriksaan"><i class="fas fa-plus-circle"></i></a></div>
-                                        </div>
-                                        <div class="collapse my-3" id="tambahPemeriksaan">
-                                            <form action="{{ route('Tambah Pemeriksaan Lansia', [$dataLansia->id]) }}" method="POST">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
-                                                            <span class="input-group-text" id="basic-addon2">kg</span>
-                                                            @error('berat_badan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="suhu_tubuh">Suhu Tubuh<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="suhu_tubuh" autocomplete="off" class="form-control @error('suhu_tubuh') is-invalid @enderror" id="suhu_tubuh" value="{{ old('suhu_tubuh') }}" placeholder="Suhu tubuh">
-                                                            <span class="input-group-text" id="basic-addon2">C&deg</span>
-                                                            @error('suhu_tubuh')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tinggi_lutut">Tinggi Lutut<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="tinggi_lutut" autocomplete="off" class="form-control @error('tinggi_lutut') is-invalid @enderror" id="tinggi_lutut" value="{{ old('tinggi_lutut') }}" placeholder="Tinggi lutut">
-                                                            <span class="input-group-text" id="basic-addon2">cm</span>
-                                                            @error('tinggi_lutut')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tinggi_badan">Tinggi Badan<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi badan">
-                                                            <span class="input-group-text" id="basic-addon2">cm</span>
-                                                            @error('tinggi_badan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="tekanan_darah" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
-                                                            <span class="input-group-text" id="basic-addon2">mmHG</span>
-                                                            @error('tekanan_darah')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="denyut_nadi" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi">
-                                                            <span class="input-group-text" id="basic-addon2">BPM</span>
-                                                            @error('denyut_nadi')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="lokasi_pemeriksaan">Lokasi Pemeriksaan<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="lokasi_pemeriksaan" autocomplete="off" class="form-control @error('lokasi_pemeriksaan') is-invalid @enderror" id="lokasi_pemeriksaan" value="{{ old('lokasi_pemeriksaan') }}" placeholder="Masukan lokasi pemeriksaan">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <span class="fas fa-map-marker-alt"></span>
-                                                                </div>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemeriksaan Lansia</p></div>
+                                        <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPemeriksaan" role="button" aria-expanded="false" aria-controls="tambahPemeriksaan"><i class="fas fa-plus-circle"></i></a></div>
+                                    </div>
+                                    <div class="collapse my-3" id="tambahPemeriksaan">
+                                        <form action="{{ route('Simpan Pemeriksaan Lansia', $dataLansia->id) }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="berat_badan">Berat Badan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="berat_badan" autocomplete="off" class="form-control @error('berat_badan') is-invalid @enderror" id="berat_badan" value="{{ old('berat_badan') }}" placeholder="Berat badan">
+                                                        <span class="input-group-text" id="basic-addon2">kg</span>
+                                                        @error('berat_badan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
                                                             </div>
-                                                            @error('lokasi_pemeriksaan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 my-2">
-                                                        <label for="tgl_kembali">Tanggal Pemberian Kembali<span class="text-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    <i class="fas fa-calendar-check"></i>
-                                                                </span>
-                                                            </div>
-                                                            @error('tgl_kembali')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-2">
-                                                        <div class="form-floating">
-                                                            <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil pemeriksaan"></textarea>
-                                                            <label for="diagnosa">Hasil Pemeriksaan<span class="text-danger">*</span></label>
-                                                            @error('diagnosa')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-2">
-                                                        <div class="form-floating">
-                                                            <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
-                                                            <label for="pengobatan">Pengobatan</label>
-                                                            @error('pengobatan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-2">
-                                                        <div class="form-floating">
-                                                            <textarea name="keteranganPemeriksaan" class="form-control @error('keteranganPemeriksaan') is-invalid @enderror" id="keteranganPemeriksaan" placeholder="Masukan keterangan tambahan"></textarea>
-                                                            <label for="keterangan">Keterangan Tambahan</label>
-                                                            @error('keteranganPemeriksaan')
-                                                                <div class="invalid-feedback text-start">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-2">
-                                                        <p class="text-danger text-end">* Data Wajib Diisi</p>
-                                                        <button class="btn btn-block btn-success">Simpan Pemeriksaan Kesehatan</button>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endif
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="suhu_tubuh">Suhu Tubuh<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="suhu_tubuh" autocomplete="off" class="form-control @error('suhu_tubuh') is-invalid @enderror" id="suhu_tubuh" value="{{ old('suhu_tubuh') }}" placeholder="Suhu tubuh">
+                                                        <span class="input-group-text" id="basic-addon2">C&deg</span>
+                                                        @error('suhu_tubuh')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tinggi_lutut">Tinggi Lutut<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tinggi_lutut" autocomplete="off" class="form-control @error('tinggi_lutut') is-invalid @enderror" id="tinggi_lutut" value="{{ old('tinggi_lutut') }}" placeholder="Tinggi lutut">
+                                                        <span class="input-group-text" id="basic-addon2">cm</span>
+                                                        @error('tinggi_lutut')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tinggi_badan">Tinggi Badan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tinggi_badan" autocomplete="off" class="form-control @error('tinggi_badan') is-invalid @enderror" id="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Tinggi badan">
+                                                        <span class="input-group-text" id="basic-addon2">cm</span>
+                                                        @error('tinggi_badan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tekanan_darah">Tekanan Darah<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tekanan_darah" autocomplete="off" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" value="{{ old('tekanan_darah') }}" placeholder="Tekanan darah">
+                                                        <span class="input-group-text" id="basic-addon2">mmHG</span>
+                                                        @error('tekanan_darah')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="denyut_nadi">Denyut Nadi<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="denyut_nadi" autocomplete="off" class="form-control @error('denyut_nadi') is-invalid @enderror" id="denyut_nadi" value="{{ old('denyut_nadi') }}" placeholder="Denyut nadi">
+                                                        <span class="input-group-text" id="basic-addon2">BPM</span>
+                                                        @error('denyut_nadi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="lokasi_pemeriksaan">Lokasi Pemeriksaan<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="lokasi_pemeriksaan" autocomplete="off" class="form-control @error('lokasi_pemeriksaan') is-invalid @enderror" id="lokasi_pemeriksaan" value="{{ old('lokasi_pemeriksaan') }}" placeholder="Masukan lokasi pemeriksaan">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fas fa-map-marker-alt"></span>
+                                                            </div>
+                                                        </div>
+                                                        @error('lokasi_pemeriksaan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 my-2">
+                                                    <label for="tgl_kembali">Tanggal Pemberian Kembali<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="tgl_kembali" autocomplete="off" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" value="{{ old('tgl_kembali') }}"  placeholder="Tanggal periksa kembali" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-calendar-check"></i>
+                                                            </span>
+                                                        </div>
+                                                        @error('tgl_kembali')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="diagnosa" class="form-control @error('diagnosa') is-invalid @enderror" id="diagnosa" placeholder="Masukan hasil pemeriksaan"></textarea>
+                                                        <label for="diagnosa">Hasil Pemeriksaan<span class="text-danger">*</span></label>
+                                                        @error('diagnosa')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="pengobatan" class="form-control @error('pengobatan') is-invalid @enderror" id="pengobatan" placeholder="Masukan obat atau resep"></textarea>
+                                                        <label for="pengobatan">Pengobatan</label>
+                                                        @error('pengobatan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <div class="form-floating">
+                                                        <textarea name="keteranganPemeriksaan" class="form-control @error('keteranganPemeriksaan') is-invalid @enderror" id="keteranganPemeriksaan" placeholder="Masukan keterangan tambahan"></textarea>
+                                                        <label for="keterangan">Keterangan Tambahan</label>
+                                                        @error('keteranganPemeriksaan')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 my-2">
+                                                    <p class="text-danger text-end">* Data Wajib Diisi</p>
+                                                    <button class="btn btn-block btn-success">Simpan Pemeriksaan Kesehatan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class="col-10 my-auto"><p class="my-auto fw-bold fs-5 text-start">Tambah Pemberian Imunisasi</p></div>
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahImunisasi" role="button" aria-expanded="false" aria-controls="tambahImunisasi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahImunisasi">
-                                        <form action="{{ route('Imunisasi Lansia', $dataLansia->id) }}" method="POST">
+                                        <form action="{{ route('Simpan Imunisasi Lansia', $dataLansia->id) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 my-2">
@@ -280,7 +278,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahVitamin" role="button" aria-expanded="false" aria-controls="tambahVitamin"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahVitamin">
-                                        <form action="{{ route('Vitamin Lansia', $dataLansia->id) }}" method="POST">
+                                        <form action="{{ route('Simpan Vitamin Lansia', $dataLansia->id) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 my-2">
@@ -360,7 +358,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahRiwayatPenyakit" role="button" aria-expanded="false" aria-controls="tambahRiwayatPenyakit"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahRiwayatPenyakit">
-                                        <form action="{{ route('Tambah Alergi', $dataLansia->id_user) }}" method="POST">
+                                        <form action="{{ route('Simpan Alergi', $dataLansia->id_user) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 my-2">
@@ -404,7 +402,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahPenyakitBawaan" role="button" aria-expanded="false" aria-controls="tambahPenyakitBawaan"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahPenyakitBawaan">
-                                        <form action="{{ route('Tambah Penyakit Bawaan', $dataLansia->id_user) }}" method="POST">
+                                        <form action="{{ route('Simpan Penyakit Bawaan', $dataLansia->id_user) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 my-2">
@@ -432,7 +430,7 @@
                                         <div class="col-2 d-flex align-items-center justify-content-end"><a class="btn btn-primary" data-bs-toggle="collapse" href="#tambahAlergi" role="button" aria-expanded="false" aria-controls="tambahAlergi"><i class="fas fa-plus-circle"></i></a></div>
                                     </div>
                                     <div class="collapse my-3" id="tambahAlergi">
-                                        <form action="{{ route('Tambah Riwayat Penyakit', $dataLansia->id) }}" method="POST">
+                                        <form action="{{ route('Simpan Riwayat Penyakit', $dataLansia->id) }}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 my-2">
@@ -491,17 +489,9 @@
                                                         <span class="fw-bold">Hasil Pemeriksaan :</span>
                                                         <p>{{ $data->diagnosa }}</p>
                                                         <span class="fw-bold">Pengobatan :</span>
-                                                        @if ($data->pengobatan != NULL)
-                                                            <p>{{ $data->pengobatan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->pengobatan ?? '-' }}</p>
                                                         <span class="fw-bold">Keterangan Tambahan :</span>
-                                                        @if ($data->keterangan != NULL)
-                                                            <p>{{ $data->keterangan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->keterangan ?? '-' }}</p>
                                                     </div>
                                                 </div>
                                             @endif
@@ -511,17 +501,9 @@
                                                         <span class="fw-bold">Hasil Pemeriksaan :</span>
                                                         <p>{{ $data->diagnosa }}</p>
                                                         <span class="fw-bold">Pengobatan :</span>
-                                                        @if ($data->pengobatan != NULL)
-                                                            <p>{{ $data->pengobatan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->pengobatan ?? '-' }}</p>
                                                         <span class="fw-bold">Keterangan Tambahan :</span>
-                                                        @if ($data->keterangan != NULL)
-                                                            <p>{{ $data->keterangan }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ $data->keterangan ?? '-' }}</p>
                                                         <div class="row text-center">
                                                             <div class="col-6">
                                                                 <span class="fw-bold">Usia :</span>
@@ -595,20 +577,12 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                                        @if ($data->tanggal_kembali != NULL)
-                                                            <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) ?? '-' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
                                                     <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>
-                                                    @endif
+                                                    <p>{{ $data->keterangan ?? '-' }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -640,20 +614,12 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <span class="fw-bold">Pemberian Selanjutnya :</span>
-                                                        @if ($data->tanggal_kembali != NULL)
-                                                            <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) }}</p>
-                                                        @else
-                                                            <p>-</p>
-                                                        @endif
+                                                        <p>{{ date('d M Y', strtotime($data->tanggal_kembali)) ?? '-' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="card card-body">
                                                     <span class="fw-bold">Keterangan Tambahan :</span>
-                                                    @if ($data->keterangan != NULL)
-                                                        <p>{{ $data->keterangan }}</p>
-                                                    @else
-                                                        <p>-</p>    
-                                                    @endif
+                                                    <p>{{ $data->keterangan ?? '-' }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -671,7 +637,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <div class="image mx-auto d-block rounded">
-                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Pemeriksaan', $dataLansia->user->id ) }}" alt="..." width="150" height="150">
+                                        <img class="profile-user-img img-fluid img-circle mx-auto d-block" src="{{ route('Get Image Anggota Pemeriksaan', $dataLansia->user->id ) }}" alt="Profile Lansia" width="150" height="150">
                                     </div>
                                 </div>
                                 <h3 class="profile-username text-center mt-3">{{ $dataLansia->nama_lansia }}</h3>
@@ -686,11 +652,7 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Keluarga Dekat</span></div>
-                                            @if ($pj != NULL)
-                                                <div class="col-5 text-end my-auto"><span>{{ $pj->nama }}</span></div>
-                                            @else
-                                                <div class="col-5 text-end my-auto"><span>Belum ditambahkan</span></div>
-                                            @endif
+                                            <div class="col-5 text-end my-auto"><span>{{ $pj->nama ?? 'Belum Ditambahkan' }}</span></div>
                                         </div>
                                     </li>
                                     @if ($alergi->where('kategori', 'Alergi Makanan')->count() > 0)
@@ -744,21 +706,13 @@
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Golongan Darah</span></div>
-                                            @if ($dataLansia->user->golongan_darah != NULL)
-                                                <div class="col-5 text-end my-auto"><span>{{ $dataLansia->user->golongan_darah }}</span></div>
-                                            @else
-                                                <div class="col-5 text-end my-auto"><span>-</span></div>
-                                            @endif
+                                            <div class="col-5 text-end my-auto"><span>{{ $dataLansia->user->golongan_darah ?? 'Belum Ditambahkan' }}</span></div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-7 my-auto"><span class="fw-bold">Faskes Rujukan</span></div>
-                                            @if ($dataLansia->user->faskes_rujukan != NULL)
-                                                <div class="col-5 text-end my-auto"><span>{{ $dataLansia->user->faskes_rujukan }}</span></div>
-                                            @else
-                                                <div class="col-5 text-end my-auto"><span>Belum ditambahkan</span></div>
-                                            @endif
+                                            <div class="col-5 text-end my-auto"><span>{{ $dataLansia->user->faskes_rujukan ?? 'Belum Ditambahkan' }}</span></div>
                                         </div>
                                     </li>
                                 </ul>
@@ -803,7 +757,6 @@
 @endsection
 
 @push('js')
-    <!-- Custom Input Date -->
     <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
@@ -811,25 +764,21 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#list-admin-dashboard').removeClass('menu-open');
             $('#list-kesehatan').addClass('menu-is-opening menu-open');
             $('#kesehatan').addClass('active');
             $('#pemeriksaan-keluarga').addClass('active');
+
+            bsCustomFileInput.init();
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+            $('[data-mask]').inputmask()
         });
 
         // Custom Input Date
         $(function () {
-            bsCustomFileInput.init();
-
-            $('.select2').select2()
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-
-            $('[data-mask]').inputmask()
         })
     </script>
 
