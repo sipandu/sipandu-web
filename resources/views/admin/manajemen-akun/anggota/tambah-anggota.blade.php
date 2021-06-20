@@ -1573,50 +1573,50 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection
 
-    @push('js')	
-        <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
-        <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
-        <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
-        <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-        <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+@push('js')	
+    <script src="{{url('base-template/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{url('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
+    <script>
+        $(document).ready(function(){
+            $('#account-management').addClass('menu-is-opening menu-open');
+            $('#account').addClass('active');
+            $('#data-anggota').addClass('active');
+
+            bsCustomFileInput.init();
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+            $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+            $('[data-mask]').inputmask()
+        });
+
+        // Custom Step Page
+        document.addEventListener('DOMContentLoaded', function () {
+            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+        });
+    </script>
+
+
+    @if($message = Session::get('failed'))
         <script>
             $(document).ready(function(){
-                $('#account-management').addClass('menu-is-opening menu-open');
-                $('#account').addClass('active');
-                $('#data-anggota').addClass('active');
-
-                bsCustomFileInput.init();
-                $('.select2').select2()
-                $('.select2bs4').select2({
-                    theme: 'bootstrap4'
-                })
-                $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
-                $('[data-mask]').inputmask()
-            });
-
-            // Custom Step Page
-            document.addEventListener('DOMContentLoaded', function () {
-                window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+                alertError('{{$message}}');
             });
         </script>
+    @endif
 
-
-        @if($message = Session::get('failed'))
-            <script>
-                $(document).ready(function(){
-                    alertError('{{$message}}');
-                });
-            </script>
-        @endif
-
-        @if($message = Session::get('success'))
-            <script>
-                $(document).ready(function(){
-                    alertSuccess('{{$message}}');
-                });
-            </script>
-        @endif
-    @endpush
+    @if($message = Session::get('success'))
+        <script>
+            $(document).ready(function(){
+                alertSuccess('{{$message}}');
+            });
+        </script>
+    @endif
+@endpush
