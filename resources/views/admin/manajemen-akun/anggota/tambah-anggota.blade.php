@@ -229,6 +229,7 @@
                                                             <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
+                                                            <option selected disabled>Pilih agama ...</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
@@ -261,6 +262,7 @@
                                                             <option value="AB">AB</option>
                                                             <option value="O">O</option>
                                                         @else
+                                                        <option selected disabled>Pilih golongan darah ...</option>
                                                             <option value="A">A</option>
                                                             <option value="B">B</option>
                                                             <option value="AB">AB</option>
@@ -291,7 +293,7 @@
                                                             <option value="Dengan Tanggungan">Dengan Tanggungan</option>
                                                             <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
                                                         @else
-                                                            <option selected disabled>Tanggungan ibu....</option>
+                                                            <option selected disabled>Tanggungan ibu ...</option>
                                                             <option value="Dengan Tanggungan">Dengan Tanggungan</option>
                                                             <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
                                                         @endif
@@ -413,7 +415,7 @@
                                                 <label for="lokasi_posyandu_bumil">Lokasi Posyandu<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="lokasi_posyandu_bumil" class="form-control select2 @error('lokasi_posyandu_bumil') is-invalid @enderror" value="{{ old('lokasi_posyandu_bumil') }}" id="lokasi_posyandu_bumil" required>
-                                                        <option selected disabled>Pilih Posyandu ...</option>
+                                                        <option selected disabled>Pilih posyandu ...</option>
                                                         @foreach ($posyandu as $data)
                                                             <option value="{{ $data->id }}">{{ $data->nama_posyandu }}</option>
                                                         @endforeach
@@ -670,7 +672,7 @@
                                                             <option value="laki-laki">Laki-laki</option>
                                                             <option value="perempuan">Perempuan</option>
                                                         @else
-                                                            <option selected disabled>Pilih jenis kelamin....</option>
+                                                            <option selected disabled>Pilih jenis kelamin ...</option>
                                                             <option value="laki-laki">Laki-laki</option>
                                                             <option value="perempuan">Perempuan</option>
                                                         @endif
@@ -723,7 +725,7 @@
                                                             <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
-                                                            <option selected disabled>Pilih agama....</option>
+                                                            <option selected disabled>Pilih agama ...</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
@@ -829,7 +831,7 @@
                                                             <option value="Dengan Tanggungan">Dengan Tanggungan</option>
                                                             <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
                                                         @else
-                                                            <option selected disabled>Tanggungan anak....</option>
+                                                            <option selected disabled>Tanggungan anak ...</option>
                                                             <option value="Dengan Tanggungan">Dengan Tanggungan</option>
                                                             <option value="Tanpa Tanggungan">Tanpa Tanggungan</option>
                                                         @endif
@@ -951,7 +953,7 @@
                                                 <label for="lokasi_posyandu_anak">Lokasi Posyandu<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <select name="lokasi_posyandu_anak" class="select2 form-control @error('lokasi_posyandu_anak') is-invalid @enderror" value="{{ old('lokasi_posyandu_anak') }}" style="width: 100%" id="lokasi_posyandu_anak" required>
-                                                            <option selected disabled>Pilih Posyandu ...</option>
+                                                            <option selected disabled>Pilih posyandu ...</option>
                                                             @foreach ($posyandu as $data)
                                                                 <option value="{{ $data->id }}">{{ $data->nama_posyandu }}</option>
                                                             @endforeach
@@ -1213,7 +1215,7 @@
                                                             <option value="laki-laki">Laki-laki</option>
                                                             <option value="perempuan">Perempuan</option>
                                                         @else
-                                                            <option selected disabled>Pilih jenis kelamin....</option>
+                                                            <option selected disabled>Pilih jenis kelamin ...</option>
                                                             <option value="laki-laki">Laki-laki</option>
                                                             <option value="perempuan">Perempuan</option>
                                                         @endif
@@ -1241,7 +1243,7 @@
                                                             <option value="Lansia">Lansia</option>
                                                             <option value="Lansia Beresiko">Lansia Beresiko</option>
                                                         @else
-                                                            <option selected disabled>Pilih status lansia....</option>
+                                                            <option selected disabled>Pilih status lansia ...</option>
                                                             <option value="Pra Lansia">Pra Lansia</option>
                                                             <option value="Lansia">Lansia</option>
                                                             <option value="Lansia Beresiko">Lansia Beresiko</option>
@@ -1273,7 +1275,7 @@
                                                             <option value="Protestan">Protestan</option>
                                                             <option value="Konghucu">Konghucu</option>
                                                         @else
-                                                            <option selected disabled>Pilih agama....</option>
+                                                            <option selected disabled>Pilih agama ...</option>
                                                             <option value="Hindu">Hindu</option>
                                                             <option value="Budha">Budha</option>
                                                             <option value="Islam">Islam</option>
