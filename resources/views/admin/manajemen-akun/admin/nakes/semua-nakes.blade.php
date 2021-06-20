@@ -64,7 +64,7 @@
                                             <td class="align-middle">{{ $data->nomor_telepon ?? '-' }}</td>
                                             <td class="align-middle">{{ $data->username_telegram ?? '-' }}</td>
                                             <td class="align-middle text-start">
-                                                @foreach ($nakesPosyandu as $item)
+                                                @foreach ($nakesPosyandu->where('id_nakes', $data->id) as $item)
                                                     {{ $item->posyandu->nama_posyandu }}. 
                                                 @endforeach
                                             </td>

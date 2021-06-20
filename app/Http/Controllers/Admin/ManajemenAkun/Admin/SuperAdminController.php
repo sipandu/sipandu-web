@@ -14,6 +14,8 @@ use App\Kecamatan;
 use App\Desa;
 use App\SuperAdmin;
 use App\Admin;
+use App\Permission;
+use App\AdminPermission;
 
 class SuperAdminController extends Controller
 {
@@ -95,8 +97,6 @@ class SuperAdminController extends Controller
             'password.min' => "Password minimal berjumlah 8 karakter",
         ]);
 
-        // $default_role = ['Lihat Super Admin', 'Lihat Tenaga Kesehatan', 'Lihat Head Admin', 'Lihat Admin', 'Lihat Kader', 'Lihat Anggota', 'Lihat Imunisasi', 'Tambah Imunisasi', 'Ubah Imunisasi', 'Hapus Imunisasi', 'Lihat Vitamin', 'Tambah Vitamin', 'Ubah Vitamin', 'Hapus Vitamin', 'Lihat Tag Berita', 'Tambah Tag Berita', 'Hapus Tag Berita', 'Lihat Hak Akses'];
-
         $umur = Carbon::parse($request->tgl_lahir)->age;
         if ($umur < 19) {
             return redirect()->back()->with(['error' => 'Tidak Dapat Menambahkan Akun. Usia Tidak Mencukupi']);
@@ -145,14 +145,20 @@ class SuperAdminController extends Controller
                 return redirect()->back()->with(['failed' => 'Akun Gagal Ditambahkan']);
             }
 
-            // foreach ($default_role as $data => $value) {
-            //     $admin_permission = AdminPermission::create([
-            //         'id_admin' => $admin->id,
-            //         'id_admin' => $admin->id,
-            //     ]);
-            // }
+            $permission = Permission::get('id');
 
-            if ($filename && $admin && $super_admin) {
+            foreach ($permission as $data) {
+                $id_permission[] = $data->id;
+            }
+
+            foreach ($id_permission as $data => $value) {
+                $admin_permission = AdminPermission::create([
+                    'id_admin' => $admin->id,
+                    'id_permission' => $id_permission[$data],
+                ]);
+            }
+            
+            if ($filename && $admin && $super_admin && $admin_permission) {
                 return redirect()->back()->with(['success' => 'Akun Super Admin Berhasil Ditambahkan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Akun Gagal Ditambahkan']);

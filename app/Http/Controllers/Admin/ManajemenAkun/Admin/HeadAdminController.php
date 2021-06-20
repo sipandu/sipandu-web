@@ -17,6 +17,8 @@ use App\Posyandu;
 use App\Kabupaten;
 use App\Kecamatan;
 use App\Desa;
+use App\Permission;
+use App\AdminPermission;
 
 class HeadAdminController extends Controller
 {
@@ -188,7 +190,22 @@ class HeadAdminController extends Controller
                 return redirect()->back()->with(['failed' => 'Akun Gagal Ditambahkan']);
             }
 
-            if ($filename && $admin && $pegawai) {
+            $nama_permission = ['Lihat Super Admin, Lihat Tenaga Kesehatan', 'Lihat Head Admin', 'Lihat Admin', 'Tambah Admin', 'Ubah Admin', 'Nonaktifkan Admin', 'Lihat Kader', 'Tambah Kader', 'Ubah Kader', 'Nonaktifkan Kader', 'Konfirmasi Anggota', 'Lihat Anggota', 'Nonaktifkan Anggota', 'Tambah Anggota', 'Ubah Anggota', 'Lihat Imunisasi', 'Lihat Vitamin', 'Batalkan Kegiatan', 'Broadcast Kegiatan', 'Hapus Dokumentasi Kegiatan', 'Lihat Kegiatan', 'Lihat Riwayat Kegiatan', 'Tambah Dokumentasi Kegiatan', 'Tambah Kegiatan', 'Ubah Dokumentasi Kegaitan', 'Ubah Kegiatan', 'Lihat Dokumentasi Kegiatan', 'Hapus Berita', 'Lihat Berita', 'Lihat Tag Berita', 'Tambah Berita', 'Ubah Berita', 'Ubah Status Publikasi Berita'];
+
+            $permission = Permission::whereIn('nama_permission', $nama_permission)->get();
+
+            foreach ($permission as $data) {
+                $id_permission[] = $data->id;
+            }
+
+            foreach ($id_permission as $data => $value) {
+                $admin_permission = AdminPermission::create([
+                    'id_admin' => $admin->id,
+                    'id_permission' => $id_permission[$data],
+                ]);
+            }
+
+            if ($filename && $admin && $pegawai && $admin_permission) {
                 return redirect()->back()->with(['success' => 'Akun Head Admin Berhasil Ditambahkan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Akun Head Admin Gagal Ditambahkan']);

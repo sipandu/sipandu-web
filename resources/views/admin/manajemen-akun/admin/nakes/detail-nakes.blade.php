@@ -174,7 +174,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-floating">
-                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-Y', strtotime('tgl_lahir')), date('d-m-Y', strtotime($superAdmin->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Nakes" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask required>
+                                                    <input  type="text" name="tgl_lahir" autocomplete="off" class="form-control @error('tgl_lahir') is-invalid @enderror" value="{{ old( date('d-m-Y', strtotime('tgl_lahir')), date('d-m-Y', strtotime($nakes->tanggal_lahir))) }}" id="floatingInput" placeholder="Tanggal Lahir Nakes" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask required>
                                                     <label for="floatingInput">Tanggal Lahir<span class="text-danger">*</span></label>
                                                     @error('tgl_lahir')
                                                         <div class="invalid-feedback text-start">

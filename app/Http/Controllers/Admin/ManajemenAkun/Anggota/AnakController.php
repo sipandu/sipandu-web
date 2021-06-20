@@ -236,7 +236,8 @@ class AnakController extends Controller
 
     public function detailAnak(Anak $anak)
     {
-        $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        // $umur = Carbon::parse($anak->tanggal_lahir)->age;
+        $umur = Carbon::parse($anak->tanggal_lahir)->diff(Carbon::now()->setTimezone('GMT+8'))->format('%y Tahun, %m Bulan');;
         $anggota = User::where('id', $anak->id_user)->first();
 
         return view('admin.manajemen-akun.anggota.detail-anak', compact('anggota', 'umur'));

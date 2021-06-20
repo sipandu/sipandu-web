@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use File;
 use App\Kegiatan;
 use App\DokumentasiKegiatan;
+use Carbon\Carbon;
 
 class GalleryController extends Controller
 {
@@ -27,7 +28,7 @@ class GalleryController extends Controller
 
     public function semuaGaleri()
     {
-        $kegiatan = Kegiatan::where('status', 'Tampil')->where('end_at', '<', date('Y-m-d'))->paginate(6);
+        $kegiatan = Kegiatan::where('status', 'Tampil')->where('end_at', '<', Carbon::now()->setTimezone('GMT+8')->toDateString())->paginate(6);
         $dokumentasi_kegiatan = DokumentasiKegiatan::get();
         // $foto_dokumentasi = [];
         // $id_kegiatan = [];

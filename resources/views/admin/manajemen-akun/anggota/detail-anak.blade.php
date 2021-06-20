@@ -67,7 +67,7 @@
                             @endif
                             <li class="list-group-item">
                                 <b class="fw-bold">Usia</b>
-                                <a class="float-right text-decoration-none link-dark">{{ $umur }} Tahun</a>
+                                <a class="float-right text-decoration-none link-dark">{{ $umur }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b class="fw-bold">Terdaftar Sejak</b>

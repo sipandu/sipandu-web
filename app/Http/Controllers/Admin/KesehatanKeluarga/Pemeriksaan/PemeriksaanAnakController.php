@@ -53,15 +53,16 @@ class PemeriksaanAnakController extends Controller
         $pemeriksaan = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->limit(5)->get();
         $gizi = PemeriksaanAnak::where('id_anak', $anak->id)->orderBy('id', 'desc')->first();
         
-        if ($umur > 0) {
-            $usia = $umur.' Tahun';
-        } else {
-            if ($umur < 1) {
-                $usia= $umurLahirBayi.' Hari';
-            } else {
-                $usia = $umurBayi.' Bulan';
-            }
-        }
+        // if ($umur > 0) {
+        //     $usia = $umur.' Tahun';
+        // } else {
+        //     if ($umur < 1) {
+        //         $usia= $umurLahirBayi.' Hari';
+        //     } else {
+        //         $usia = $umurBayi.' Bulan';
+        //     }
+        // }
+        $usia = $umur.' Tahun'.' '.$umurBayi.' Bulan';
 
         $ibu = Ibu::join('tb_user', 'tb_user.id', 'tb_ibu_hamil.id_user')
             ->select('tb_ibu_hamil.*')

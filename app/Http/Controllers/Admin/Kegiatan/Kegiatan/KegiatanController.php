@@ -46,7 +46,7 @@ class KegiatanController extends Controller
             $nakes = NakesPosyandu::where('id_nakes', auth()->guard('admin')->user()->nakes->id)->select('id_posyandu')->get();
             $posyandu = Posyandu::whereIn('id', $nakes->toArray())->get();
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
-            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu);
+            $posyandu = Posyandu::where('id', auth()->guard('admin')->user()->pegawai->id_posyandu)->get();
         }
 
         return view('admin.kegiatan.kegiatan.create', compact('posyandu'));

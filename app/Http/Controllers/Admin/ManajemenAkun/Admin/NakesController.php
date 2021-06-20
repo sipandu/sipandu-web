@@ -16,6 +16,8 @@ use App\Posyandu;
 use App\Kabupaten;
 use App\Kecamatan;
 use App\Desa;
+use App\Permission;
+use App\AdminPermission;
 
 class NakesController extends Controller
 {
@@ -32,7 +34,7 @@ class NakesController extends Controller
                 $nakes = Nakes::get();
                 if ( count($nakes) > 0 ) {
                     $nakes_id = Nakes::select('id')->get();
-                    $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                    $nakesPosyandu = NakesPosyandu::get();
                 } else {
                     $nakes = NULL;
                     $nakesPosyandu = NULL;
@@ -50,7 +52,7 @@ class NakesController extends Controller
                         $nakes = Nakes::whereIn('id', $id_all_nakes)->get();
                         $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
                         if ( count($nakes_id) > 0 ) {
-                            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                            $nakesPosyandu = NakesPosyandu::get();
                         } else {
                             $nakes = NULL;
                             $nakesPosyandu = NULL;
@@ -76,7 +78,7 @@ class NakesController extends Controller
                         $nakes = Nakes::whereIn('id', $id_all_nakes)->get();
                         $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
                         if ( count($nakes_id) > 0 ) {
-                            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+                            $nakesPosyandu = NakesPosyandu::get();
                         } else {
                             $nakes = NULL;
                             $nakesPosyandu = NULL;
@@ -97,12 +99,12 @@ class NakesController extends Controller
             
             $nakes = Nakes::whereIn('id', $id_all_nakes->toArray())->get();
             $nakes_id = Nakes::whereIn('id', $id_all_nakes)->select('id')->get();
-            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+            $nakesPosyandu = NakesPosyandu::get();
             
         } elseif (auth()->guard('admin')->user()->role == 'pegawai') {
             $nakes_id = NakesPosyandu::where('id_posyandu', auth()->guard('admin')->user()->pegawai->id_posyandu)->select('id_nakes')->get();
             $nakes = Nakes::whereIn('id', $nakes_id->toArray())->get();
-            $nakesPosyandu = NakesPosyandu::whereIn('id_nakes', $nakes_id->toArray())->get();
+            $nakesPosyandu = NakesPosyandu::get();
         }
 
         return view('admin.manajemen-akun.admin.nakes.semua-nakes', compact('nakes', 'nakesPosyandu'));
@@ -241,7 +243,22 @@ class NakesController extends Controller
                 return redirect()->back()->with(['failed' => 'Akun Gagal Ditambahkan']);
             }
             
-            if ($filename && $admin && $nakes && $nakesPosyandu) {
+            $nama_permission = ['Lihat Super Admin, Lihat Tenaga Kesehatan', 'Lihat Head Admin', 'Lihat Admin', 'Lihat Kader', 'Tambah Kader', 'Ubah Kader', 'Nonaktifkan Kader', 'Konfirmasi Anggota', 'Lihat Anggota', 'Nonaktifkan Anggota', 'Tambah Anggota', 'Ubah Anggota', 'Lihat Imunisasi', 'Lihat Vitamin', 'Lihat Kegiatan', 'Lihat Riwayat Kegiatan', 'Lihat Dokumentasi Kegiatan'];
+
+            $permission = Permission::whereIn('nama_permission', $nama_permission)->get();
+
+            foreach ($permission as $data) {
+                $id_permission[] = $data->id;
+            }
+
+            foreach ($id_permission as $data => $value) {
+                $admin_permission = AdminPermission::create([
+                    'id_admin' => $admin->id,
+                    'id_permission' => $id_permission[$data],
+                ]);
+            }
+
+            if ($filename && $admin && $nakes && $nakesPosyandu && $permission) {
                 return redirect()->back()->with(['success' => 'Akun Tenaga Kesehatan Berhasil Ditambahkan']);
             } else {
                 return redirect()->back()->with(['failed' => 'Data Akun Gagal Ditambahkan']);
