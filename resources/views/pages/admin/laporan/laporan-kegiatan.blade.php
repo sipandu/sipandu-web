@@ -38,6 +38,34 @@
         </div>
       </center>
       <canvas id="myChart"></canvas>
+      <hr />
+      <h2> Tabel Kegiatan </h2>
+      <center>
+        <div id="wait" style="font-weight: bold; padding : 10px">
+          <img src="{{url('/images/loader.gif')}}" id="loader-tabel" />
+        </div>
+      </center>
+      <table class="table table-responsive-sm table-bordered table-hover" style="display : none" id="tabel-kegiatan">
+        
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2" class="align-middle">No</th>
+            <th rowspan="2" class="align-middle">Posyandu</th>
+            <th rowspan="2" class="align-middle">Kecamatan</th>
+            <th colspan="4" class="align-middle">Kegiatan</th>
+          </tr>
+          <tr>
+            <th>Terlaksana</th>
+            <th>Belum Terlaksana</th>
+            <th>Batal</th>
+            <th>Sedang Terlaksana</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+
+      </table>
     </div>
 
     <div class="modal fade" id="modalFilter" tabindex="-1" aria-labelledby="ModalFilter" aria-hidden="true">
@@ -97,8 +125,12 @@
   })
 
   $.ajax({
-    method : 'GET',
+    method : 'POST',
     url : '/admin/ajax/default/kegiatan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
+    data : {
+      "_token" : "{{ csrf_token() }}",
+      posyandu : "{{$id_posyandu}}"
+    },
     success : (res) => {
       if(window.bar != undefined) window.bar.destroy();
       window.bar = new Chart( ctx , {
@@ -196,6 +228,7 @@
       valueFilter.removeAttr('disabled')
       $('#generate_laporan_kegiatan').text('Buat Laporan')
       $('#generate_laporan_kegiatan').removeAttr('disabled')
+      $('#loader-laporan').css({ display : 'none' })
     } )
 
   })
@@ -210,6 +243,8 @@
     $('#generate_laporan_kegiatan').attr('disabled' , true)
     $('#generate_laporan_kegiatan').text('Memuat ...')
     $('#filter_type_laporan_kegiatan').attr('disabled' , true)
+    $('#loader-tabel').css({ display : 'block' })
+    $('#tabel-kegiatan').attr('style' , 'display : none')
 
     const posyandu = $('#posyandu_laporan_filter_super_admin').val()
     const filter = $('#filter_type_laporan_kegiatan').val()
@@ -256,8 +291,95 @@
       $('#filter_type_laporan_kegiatan').removeAttr('disabled')
       $('#loader-laporan').css({ display : 'none' })
     })
+
+    $.ajax({
+      method : 'POST',
+      url : '/admin/ajax/table/kegiatan',
+      data : {
+        "_token" : "{{ csrf_token() }}",
+        posyandu : posyandu ?? "{{ $id_posyandu }}",
+        filter : filter,
+        tahun : tahun,
+        bulan : bulan,
+      },
+      success : (res) => {
+        let htmlTabel = ''
+        let i = 1
+
+        if( Object.keys(res).length === 0 ){
+          htmlTabel = `
+            <tr>
+              <td colspan="7"><center>Tidak Ada Kegiatan</center></td>
+            </tr>
+          `
+        }else{
+          Object.values(res).map( res => {
+            htmlTabel += `
+              <tr>
+                <td><center>${i++}</center></td>
+                <td>${res.posyandu}</td>
+                <td>${res.kecamatan}</td>
+                <td><center>${res.lewat}</center></td>
+                <td><center>${res.belum}</center></td>
+                <td><center>${res.batal}</center></td>
+                <td><center>${res.terlaksana}</center></td>
+              </tr>
+            `
+          } )
+
+        }
+        $('#tabel-kegiatan tbody').html(htmlTabel)
+      }
+    }).done(() => {
+      $('#loader-tabel').css({ display : 'none' })
+      $('#tabel-kegiatan').removeAttr('style')
+    })
+
   })
 
+  // Tabel Laporan 
+
+  $.ajax({
+    method : 'POST',
+    url : '/admin/ajax/default/table/kegiatan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
+    data : {
+      "_token" : "{{ csrf_token() }}",
+      posyandu : "{{$id_posyandu}}"
+    },
+    success : (res) => {
+
+      let htmlTabel = ''
+      let i = 1
+      if( Object.keys(res).length === 0 ){
+        htmlTabel = `
+          <tr>
+            <td colspan="7"><center>Tidak Ada Kegiatan</center></td>
+          </tr>
+        `
+      }else{
+        Object.values(res).map( res => {
+          htmlTabel += `
+            <tr>
+              <td><center>${i++}</center></td>
+              <td>${res.posyandu}</td>
+              <td>${res.kecamatan}</td>
+              <td><center>${res.lewat}</center></td>
+              <td><center>${res.belum}</center></td>
+              <td><center>${res.batal}</center></td>
+              <td><center>${res.terlaksana}</center></td>
+            </tr>
+          `
+        } )
+
+      }
+
+      $('#tabel-kegiatan tbody').html(htmlTabel)
+    }
+  }).done(() => {
+    $('#loader-tabel').css({ display : 'none' })
+    $('#tabel-kegiatan').removeAttr('style')
+  })
+  
 </script>
 @endpush
 

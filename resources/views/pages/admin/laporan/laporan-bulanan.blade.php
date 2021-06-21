@@ -56,6 +56,39 @@
         </div>
       </center>
       <canvas id="myChart"></canvas>
+
+      <hr />
+      <h2> Tabel Bulanan </h2>
+      <center>
+        <div id="wait" style="font-weight: bold; padding : 10px">
+          <img src="{{url('/images/loader.gif')}}" id="loader-tabel" />
+        </div>
+      </center>
+      <table class="table table-responsive-sm table-bordered table-hover" style="display : none" id="tabel-bulanan">
+        
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2" class="align-middle">No</th>
+            <th rowspan="2" class="align-middle">Posyandu</th>
+            <th rowspan="2" class="align-middle">Kecamatan</th>
+            <th colspan="3" class="align-middle">Pemeriksaan</th>
+            <th colspan="2" class="align-middle">J.K</th>
+            <th rowspan="2" class="align-middle">Total</th>
+          </tr>
+          <tr>
+            <th>Ibu</th>
+            <th>Anak</th>
+            <th>Lansia</th>
+            <th>P</th>
+            <th>L</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+
+      </table>
+
     </div>
 
     <div class="modal fade" id="modalFilter" tabindex="-1" aria-labelledby="ModalFilter" aria-hidden="true">
@@ -127,7 +160,8 @@
     url : '/admin/ajax/default/bulanan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
     data : {
       "_token" : "{{ csrf_token() }}",
-      model : modelDefault
+      model : modelDefault,
+      posyandu : "{{$id_posyandu}}"
     },
     success : (res) => {
       if(window.bar != undefined) window.bar.destroy();
@@ -186,6 +220,8 @@
     $('#generate_laporan_bulanan').text('Tunggu ...')
     $('#__default_text').text('')
     $('#loader-laporan').css({ display : 'block' })
+    $('#loader-tabel').css({ display : 'block' })
+    $('#tabel-bulanan').attr('style' , 'display : none')
 
     const posyandu = $('#posyandu_laporan_filter_super_admin').val() ?? "{{$id_posyandu}}"
     const tahun = $('#_year_selection_').val()
@@ -233,6 +269,51 @@
       $('#filter_type_laporan_kegiatan').removeAttr('disabled')
       $('#loader-laporan').css({ display : 'none' })
     })
+
+    $.ajax({
+      method : 'POST',
+      url : '/admin/ajax/table/bulanan',
+      data : {
+        "_token" : "{{ csrf_token() }}",
+        posyandu : posyandu,
+        startbulan : start_bulan,
+        endbulan : end_bulan,
+        tahun : tahun,
+        model : model
+      },
+      success : (res) => {
+        let htmlTabel = ''
+        let i = 1
+        if( Object.keys(res).length === 0 ){
+          htmlTabel = `
+            <tr>
+              <td colspan="9"><center>Tidak Ada Laporan Bulanan</center></td>
+            </tr>
+          `
+        }else{
+          Object.values(res).map( res => {
+            htmlTabel += `
+              <tr>
+                <td><center>${i++}</center></td>
+                <td>${res.posyandu}</td>
+                <td>${res.kecamatan}</td>
+                <td><center>${res.ibu}</center></td>
+                <td><center>${res.anak}</center></td>
+                <td><center>${res.lansia}</center></td>
+                <td><center>${res.perempuan}</center></td>
+                <td><center>${res.laki}</center></td>
+                <td><center>${res.total}</center></td>
+              </tr>
+            `
+          } )
+        }
+        $('#tabel-bulanan tbody').html(htmlTabel)
+      }
+    }).done(() => {
+      $('#loader-tabel').css({ display : 'none' })
+      $('#tabel-bulanan').removeAttr('style')
+    })
+
   })
 
   $('#_month_selection_first_').on('change' , () => {
@@ -248,7 +329,51 @@
 
     $('#_month_selection_last_').html(opt)
 
-    })
+  })
+
+  $.ajax({
+    method : 'POST',
+    url : '/admin/ajax/default/table/bulanan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
+    data : {
+      "_token" : "{{ csrf_token() }}",
+      posyandu : "{{$id_posyandu}}",
+      model    : modelDefault
+    },
+    success : (res) => {
+
+      let htmlTabel = ''
+      let i = 1
+      if( Object.keys(res).length === 0 ){
+        htmlTabel = `
+          <tr>
+            <td colspan="9"><center>Tidak Ada Laporan Bulanan</center></td>
+          </tr>
+        `
+      }else{
+        Object.values(res).map( res => {
+          htmlTabel += `
+            <tr>
+              <td><center>${i++}</center></td>
+              <td>${res.posyandu}</td>
+              <td>${res.kecamatan}</td>
+              <td><center>${res.ibu}</center></td>
+              <td><center>${res.anak}</center></td>
+              <td><center>${res.lansia}</center></td>
+              <td><center>${res.perempuan}</center></td>
+              <td><center>${res.laki}</center></td>
+              <td><center>${res.total}</center></td>
+            </tr>
+          `
+        } )
+
+      }
+
+      $('#tabel-bulanan tbody').html(htmlTabel)
+    }
+  }).done(() => {
+    $('#loader-tabel').css({ display : 'none' })
+    $('#tabel-bulanan').removeAttr('style')
+  })
 
 </script>
 @endpush
