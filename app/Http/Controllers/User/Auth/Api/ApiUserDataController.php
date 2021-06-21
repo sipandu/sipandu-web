@@ -13,6 +13,7 @@ use App\Lansia;
 use App\Kabupaten;
 use App\Posyandu;
 use App\Kegiatan;
+use Carbon\Carbon;
 
 class ApiUserDataController extends Controller
 {
@@ -28,13 +29,15 @@ class ApiUserDataController extends Controller
         $lansiaJml = User::where('id_kk', $idUser->id_kk)->where('role', '2')->with('lansia')->count();
         $totalKeluarga = $anakJml + $bumilJml + $lansiaJml;
         $KK = KK::where('id', $idUser->id_kk)->first();
+        $umur = Carbon::parse($anak->tanggal_lahir)->diff(Carbon::now()->setTimezone('GMT+8'))->format('%y Tahun, %m Bulan');;
         return response()->json([
             'status_code' => 200,
             'user' => $user,
             'anak' => $anak,
             'profile_img' => $profileImg,
             'total_keluarga' => $totalKeluarga,
-            'kartu_keluarga' => $KK
+            'kartu_keluarga' => $KK,
+            'umur' => $umur
         ]);
     }
 
