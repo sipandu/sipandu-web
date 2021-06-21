@@ -26,10 +26,10 @@ class ApiLoginController extends Controller
 
             $credentials = request(['email', 'password']);
             if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'status_code' => 500,
-                'message' => 'Unauthorized'
-            ]);
+                return response()->json([
+                    'status_code' => 500,
+                    'message' => 'Unauthorized'
+                ]);
             }
 
                 /*
@@ -70,21 +70,21 @@ class ApiLoginController extends Controller
             $tokenResult = $user->createToken('authToke')->plainTextToken;
 
             return response()->json([
-            'status_code' => 200,
-            'access_token' => $tokenResult,
-            'token_type' => 'Bearer',
-            'message' => 'sucess',
-            'user' => $user,
-            'flag_complete' => $flagComplete,
-            'posyandu' => $posyandu,
-            'nama' => $nama
+                'status_code' => 200,
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'message' => 'sucess',
+                'user' => $user,
+                'flag_complete' => $flagComplete,
+                'posyandu' => $posyandu,
+                'nama' => $nama
             ]);
 
         } catch (Exception $error) {
             return response()->json([
-            'status_code' => 500,
-            'message' => 'Error in Login',
-            'error' => $error,
+                'status_code' => 500,
+                'message' => 'Error in Login',
+                'error' => $error,
             ]);
         }
     }
@@ -101,7 +101,7 @@ class ApiLoginController extends Controller
                 return response()->json([
                     'status_code' => 500,
                     'message' => 'Login First !',
-                    ]);
+                ]);
             }
             // $user = User::where('id', $id)->get();
     }
