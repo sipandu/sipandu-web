@@ -40,6 +40,21 @@
       <canvas id="myChart"></canvas>
       <hr />
       <h2> Tabel Kegiatan </h2>
+
+      @if($user_role === 'super admin' || $user_role === 'tenaga kesehatan')
+        <form class="d-flex flex-row justify-content-between">
+          <div>
+          </div>
+          <div>
+            <button type="button" class="btn btn-outline-primary" id="filter_button_tabel" disabled data-bs-toggle="modal" data-bs-target="#modalFilterTable">
+              <span class="fa fa-filter"></span> <span id="_btn_txt_filter_tabel">Tunggu ...</span>
+            </button>
+            <button class="btn btn-outline-success" disabled id="simpan_filter_tabel"> Tunggu ... </button>
+          </div>
+
+        </form>
+      @endif
+      
       <center>
         <div id="wait" style="font-weight: bold; padding : 10px">
           <img src="{{url('/images/loader.gif')}}" id="loader-tabel" />
@@ -101,6 +116,32 @@
       </div>
     </div>
 
+    <div class="modal fade" id="modalFilterTable" tabindex="-1" aria-labelledby="ModalFilterTabel" aria-hidden="true">
+      <div class="modal-dialog col-3">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filter Tabel</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Pilih Filter :</label>
+                <select  class="form-control full-width" id="filter_type_tabel">
+                  <option value="kecamatan" selected>Kecamatan</option>
+                  <option value="kabupaten" >Kabupaten</option>
+                </select>
+              </div>
+              <div id="filter_value_container_tabel">
+                <select id="options-filter" class="form-control full-width"></select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 @endsection
 
@@ -155,6 +196,44 @@
     }
   }).done(() => {
     $('#loader-laporan').css({ display : 'none' })
+  })
+
+  $.ajax({
+    url : '/admin/ajax/tabel/filter?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}&type=kecamatan',
+    method : 'GET',
+    success : ( res ) => {
+      let optSelect = ''
+      Object.values(res).map( v => {
+        $('#options-filter').append(`<option value=${v.id}>${v.nama}</option>`)
+      })
+    }
+  }).done(() => {
+    $('#filter_button_tabel').removeAttr('disabled')
+    $('#_btn_txt_filter_tabel').text('Filter')
+  })
+
+  $('#filter_type_tabel').on('change' , () => {
+
+    const valueType = $('#filter_type_tabel').val()
+
+    $('#options-filter').attr('disabled' , true);
+    
+    $.ajax({
+      url : '/admin/ajax/tabel/filter?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}&type='+valueType,
+      method : 'GET',
+      success : ( res ) => {
+        
+        $('#options-filter').html('')
+        let optSelect = ''
+        Object.values(res).map( v => {
+          $('#options-filter').append(`<option value=${v.id}>${v.nama}</option>`)
+        })
+
+      } 
+    }).done(() => {
+      $('#options-filter').removeAttr('disabled');
+    })
+
   })
 
   $('#filter_type_laporan_kegiatan').on('change' , () => {
@@ -228,7 +307,6 @@
       valueFilter.removeAttr('disabled')
       $('#generate_laporan_kegiatan').text('Buat Laporan')
       $('#generate_laporan_kegiatan').removeAttr('disabled')
-      $('#loader-laporan').css({ display : 'none' })
     } )
 
   })
@@ -337,6 +415,64 @@
 
   })
 
+  $('#simpan_filter_tabel').on('click' , (e) => {
+    e.preventDefault();
+
+    const type = $('#filter_type_tabel').val()
+    const value = $('#options-filter').val()
+
+    $('#loader-tabel').css({ display : 'block' })
+    $('#tabel-kegiatan').attr('style' , 'display : none')
+    $('#simpan_filter_tabel').text('Tunggu ...')
+    $('#simpan_filter_tabel').attr( 'disabled' , true )
+    
+    $.ajax({
+      url : '/admin/ajax/default/table/kegiatan?tk={{ $user_role === "tenaga kesehatan" ? 1 : 0 }}',
+      method : 'POST',
+      data : {
+        "_token" : "{{ csrf_token() }}",
+        type : type,
+        value : value,
+        posyandu : "{{$id_posyandu}}"
+      },
+      success : ( res ) => {
+        let htmlTabel = ''
+        let i = 1
+        if( Object.keys(res).length === 0 ){
+          htmlTabel = `
+            <tr>
+              <td colspan="7"><center>Tidak Ada Kegiatan</center></td>
+            </tr>
+          `
+        }else{
+          Object.values(res).map( res => {
+            htmlTabel += `
+              <tr>
+                <td><center>${i++}</center></td>
+                <td>${res.posyandu}</td>
+                <td>${res.kecamatan}</td>
+                <td><center>${res.lewat}</center></td>
+                <td><center>${res.belum}</center></td>
+                <td><center>${res.batal}</center></td>
+                <td><center>${res.terlaksana}</center></td>
+              </tr>
+            `
+          } )
+
+        }
+
+        $('#tabel-kegiatan tbody').html(htmlTabel)
+      }
+    }).done(() => {
+      $('#simpan_filter_tabel').text('Filter')
+      $('#simpan_filter_tabel').removeAttr( 'disabled' , true )
+      $('#tabel-kegiatan').removeAttr('style')
+      $('#loader-tabel').css({ display : 'none' })
+    })
+
+
+  })
+
   // Tabel Laporan 
 
   $.ajax({
@@ -378,6 +514,8 @@
   }).done(() => {
     $('#loader-tabel').css({ display : 'none' })
     $('#tabel-kegiatan').removeAttr('style')
+    $('#simpan_filter_tabel').text('Simpan')
+    $('#simpan_filter_tabel').removeAttr('disabled')
   })
   
 </script>
