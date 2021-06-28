@@ -209,8 +209,9 @@ Route::prefix('admin')->middleware("cek:super admin,head admin,admin,kader,tenag
       Route::post('/default/table/bulanan' , 'LaporanController@loadtablebulanan');
       Route::post('/table/tahunan' , 'LaporanController@tabelfiltertahunan');
       Route::post('/default/table/tahunan' , 'LaporanController@loadtabletahunan');
+      Route::get('/tabel/filter' , 'LaporanController@filtertabel');
+      Route::post('/tabel/filter/generate' , 'LaporanController@filtertabelgenerate');
     });
-
   });
 
 
