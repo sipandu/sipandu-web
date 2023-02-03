@@ -42,6 +42,7 @@ class ApiLoginController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user->role == "0") {
                 $role = Anak::where('id_user', $user->id)->get()->first();
+
                 $nama = $role->nama_anak;
                 $posyandu = $role->id_posyandu;
             }
